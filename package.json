@@ -1,0 +1,22 @@
+{
+  "name": "widget2",
+  "version": "0.0.0",
+  "description": "",
+  "main": "context.html",
+  "dependencies": {
+    "browser-sync": "^1.5.1",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-load-plugins": "^0.6.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-ruby-sass": "^0.7.1"
+  },
+  "devDependencies": {
+    "gulp-plumber": "^0.6.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

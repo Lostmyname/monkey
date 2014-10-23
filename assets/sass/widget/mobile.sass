@@ -1,0 +1,67 @@
+.widget
+  overflow: scroll
+  -webkit-overflow-scrolling: touch
+
+.heidelberg-tapToOpen
+  position: absolute
+  z-index: 2
+
+.landscape .lmn-book
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 100
+
+  padding-top: 0
+
+  background-color: #F6F5F1
+
+.landscape-images
+  display: table
+
+.landscape-images-inner
+  display: table-row
+  vertical-align: top
+  clear: both
+
+.page
+  display: table-cell
+  min-width: 990px
+
+  &:last-child
+    min-width: 970px
+
+  img
+    width: 970px
+    max-height: 320px
+
+.portrait .page
+  min-width: 510px
+
+  img
+    width: 500px
+
+.portrait
+  margin-top: -5px
+  margin-bottom: -5px
+
+.buy-now
+  position: fixed
+  right: 7px
+  bottom: 7px
+
+  padding: 4px 8px
+
+  font-size: 1.1em
+
+  background: rgba(0, 0, 0, 0.5)
+  color: white
+  border: 1px white solid
+  border-radius: 5px
+
+.portrait .buy-now
+  display: none
+
+
