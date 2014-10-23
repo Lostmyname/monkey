@@ -1,15 +1,19 @@
 var widget = (function () {
   'use strict';
-
-  var imageUrl = '//lostmycdn.imgix.net/widget/{{ gender }}/{{ url }}?w=970&amp;dpr=2&amp;q=60';
-  var spreadUrl = '//lostmynameproduction.s3.amazonaws.com/assets/name_spreads/' +
-    '{{ locale }}/{{ gender }}/{{ name }}/spread.jpg?w=970';
+  
+  var urls = {
+    images: '//lostmycdn.imgix.net/widget/{{ gender }}/{{ url }}?w=970&amp;dpr=2&amp;q=60',
+    spread: '//lostmynameproduction.s3.amazonaws.com/assets/name_spreads/' +
+      '{{ locale }}/{{ gender }}/{{ name }}/spread.jpg?w=970',
+    bookTip: 'assets/images/book_tip.png'
+  };
 
   var widget = {};
 
   widget.init = function () {
     return getData()
-      .then(generateUrls);
+      .then(generateUrls)
+      .then(generateHtml);
   };
 
   return widget;
@@ -68,16 +72,17 @@ var widget = (function () {
   }
 
   /**
-   * Takes data and turns letters into URLs
-   * @param data
-   * @returns {*}
+   * Takes data and turns letters into URLs.
+   *
+   * @param {object} data
+   * @returns {object} data Original object with a new urls property.
    */
   function generateUrls(data) {
     data.urls = $.map(data.letters, function (letterData) {
       var url = {
-        special: imageUrl,
-        story: imageUrl,
-        spread: spreadUrl
+        special: urls.images,
+        story: urls.images,
+        spread: urls.spread
       }[letterData.type];
 
       return handleReplace(url, {
@@ -86,6 +91,35 @@ var widget = (function () {
         name: data.name,
         url: letterData.url
       });
+    });
+
+    return data;
+  }
+
+  /**
+   * Generate HTML for pages from list of URLs.
+   *
+   * @todo: Templating?
+   * @param {object} data
+   * @returns {object} data Original object with a new html property.
+   */
+  function generateHtml(data) {
+    data.html = $('<div />').addClass('widget');
+    var $images = $('<div />').appendTo(data.html)
+      .addClass('landscape-images');
+    var $inner = $('<div />').appendTo($images)
+      .addClass('landscape-images-inner');
+    
+    $.each(data.urls, function (i, url) {
+      var $page = $('<div />').appendTo($inner).addClass('page');
+
+      if (i === 0) {
+        $('<div />').appendTo($page)
+          .addClass('heidelberg-tapToOpen')
+          .append($('<img />').attr('img', urls.bookTip));
+      }
+
+      $('<img />').appendTo($page).attr('src', url);
     });
 
     return data;
