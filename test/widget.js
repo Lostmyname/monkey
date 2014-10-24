@@ -21,20 +21,18 @@ describe('Tests', function () {
 describe('Widget Setup', function () {
   var promise;
 
-  it('should get data', function (done) {
+  it('should get data', function () {
     widget.should.have.property('_getData');
 
     promise = widget._getData();
     promise.should.be.jqPromise;
 
-    promise.then(function (data) {
+    return promise.then(function (data) {
       data.should.have.property('name');
       data.should.have.property('gender');
       data.should.have.property('locale');
       data.letters.should.be.an.Array;
       data.letters.length.should.be.above(10);
-
-      done();
-    })
+    });
   });
 });
