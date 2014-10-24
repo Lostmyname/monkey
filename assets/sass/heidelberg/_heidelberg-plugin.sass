@@ -1,0 +1,121 @@
+$_left: even
+$_right: odd
+
+@mixin Heidelberg($perspective, $duration: 1s, $timing: ease)
+  &
+    perspective: $perspective
+
+  & .Heidelberg-Page
+    transition: transform $duration $timing
+
+// Instantiate default Heidelberg
+.Heidelberg-Book
+  +Heidelberg($Heidelberg-perspective, $Heidelberg-duration, $Heidelberg-timing)
+
+// Disable transitions if plugin has not initialised
+.Heidelberg-Book:not(.is-ready) *
+  transition: none !important
+
+.Heidelberg-Book
+  transform-style: preserve-3d
+
+  &:after
+    content: ''
+    display: table
+    clear: both
+
+.Heidelberg-Book img
+  vertical-align: middle
+
+.Heidelberg-Page
+  position: absolute
+  width: 50%
+  min-height: 100%
+  max-height: 100% // IE 10/11
+  background: black
+  overflow: hidden
+  backface-visibility: hidden
+
+  // left pages before active spread
+  // active left page
+  transform: rotateY(0)
+
+.Heidelberg-Page:nth-child(2)
+  float: left
+  position: relative
+
+// left
+.Heidelberg-Page:nth-child(#{$_left})
+  transform-origin: 100%
+  left: 0
+
+// right pages
+.Heidelberg-Page:nth-child(#{$_right})
+  transform-origin: 0
+  right: 0
+
+  // right pages before active spread
+  transform: rotateY(-180deg)
+
+// active spread
+.Heidelberg-Page.is-active
+  z-index: 2
+
+
+// active right page
+.Heidelberg-Page.is-active:nth-child(#{$_right})
+  transform: rotateY(0)
+
+  // left pages after active spread
+.Heidelberg-Page.is-active:nth-child(#{$_right}) ~ .Heidelberg-Page:nth-child(#{$_left})
+  transform: rotateY(180deg)
+
+// right pages after active spread
+.Heidelberg-Page.is-active:nth-child(#{$_right}) ~ .Heidelberg-Page:nth-child(#{$_right})
+  transform: rotateY(0)
+
+// page transistioning out
+.Heidelberg-Page.was-active
+  z-index: 1
+
+// Stacking order of concurrent animating pages
+.Heidelberg-Page.is-animating:nth-child(#{$_right})
+  z-index: 4
+
+.Heidelberg-Page.is-animating:nth-child(#{$_right}) ~ .Heidelberg-Page.is-animating
+  z-index: 3
+
+.Heidelberg-Page.is-animating + .Heidelberg-Page:not(.is-animating):nth-child(#{$_right})
+  z-index: 1
+
+
+// If JS fails show first spread
+.Heidelberg-Book > .Heidelberg-Spread
+  display: none
+
+.Heidelberg-Book > .Heidelberg-Spread:first-child
+  display: block
+  width: 100%
+  overflow: hidden
+
+// Basic functionality for devices that don't support 3d
+.no-csstransforms3d .Heidelberg-Page
+  display: none
+
+.no-csstransforms3d .Heidelberg-Page.is-active
+  display: block
+  position: relative
+  float: left
+
+// Spreads to pages
+.Heidelberg-Spread
+  position: relative
+  width: 200%
+
+.Heidelberg-Page.with-Spread:nth-child(#{$_right}) .Heidelberg-Spread
+  left: -100%
+
+// Older browsers (<IE9 don't have nth-child selectors)
+// Needs to be on own line to work in IE8
+.no-csstransforms3d .Heidelberg-Page.with-Spread.is-active + .Heidelberg-Page.with-Spread.is-active .Heidelberg-Spread
+  left: -100%
