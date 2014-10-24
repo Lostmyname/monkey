@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Widget2: tests</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="node_modules/mocha/mocha.css">
+</head>
+<body>
+
+  <div id="mocha"></div>
+
+  <div data-key="lmn-book" data-name="Callum" data-gender="boy" data-locale="en-GB" class="lmn-book"></div>
+
+  <script src="assets/js/lib/jquery.js"></script>
+  <script src="assets/js/lib/hammer.js"></script>
+  <script src="assets/js/lib/jquery.hammer.js"></script>
+
+  <script src="assets/js/heidelberg/heidelberg.js"></script>
+
+  <script src="assets/js/demo/mobile.js"></script>
+  <script src="assets/js/widget.js"></script>
+
+
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script src="node_modules/should/should.js"></script>
+
+  <script>
+    mocha.setup('bdd');
+  </script>
+
+  <!-- test files -->
+  <script src="test/widget.js"></script>
+
+  <!-- run tests -->
+  <script>
+    mocha.checkLeaks();
+    mocha.globals('jQuery');
+    mocha.run();
+  </script>
+
+</body>
+</html>

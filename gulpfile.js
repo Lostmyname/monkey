@@ -15,9 +15,8 @@ gulp.task('sass', function () {
 
 gulp.task('browser-sync', function () {
   browserSync.init([
-    'assets/css/*.css',
-    'assets/**/*.css',
-    'assets/**/*.js',
+    '**/*.css',
+    '**/*.js',
     'assets/imgs/**/*.jpg',
     'assets/imgs/**/*.png',
     '**/*.html'
