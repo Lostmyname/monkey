@@ -11,13 +11,10 @@ var widget = (function () {
   var widget = {};
 
   widget.init = function () {
-    return getData()
-      .then(generateUrls)
-      .then(generateHtml);
+    return widget._getData()
+      .then(widget._generateUrls)
+      .then(widget._generateHtml);
   };
-
-  return widget;
-
 
   /**
    * Gets the data from the server (or fakes it, for now).
@@ -29,7 +26,7 @@ var widget = (function () {
    *                   name and gender, and then a letters property containing
    *                   information on the pages. Seriously, just use a debugger.
    */
-  function getData() {
+  widget._getData = function () {
     var defer = $.Deferred();
 
     setTimeout(function () {
@@ -69,7 +66,7 @@ var widget = (function () {
     }, 10);
 
     return defer.promise();
-  }
+  };
 
   /**
    * Takes data and turns letters into URLs.
@@ -77,7 +74,7 @@ var widget = (function () {
    * @param {object} data
    * @returns {object} data Original object with a new urls property.
    */
-  function generateUrls(data) {
+  widget._generateUrls = function (data) {
     data.urls = $.map(data.letters, function (letterData) {
       var url = {
         special: urls.images,
@@ -94,7 +91,7 @@ var widget = (function () {
     });
 
     return data;
-  }
+  };
 
   /**
    * Generate HTML for pages from list of URLs.
@@ -103,7 +100,7 @@ var widget = (function () {
    * @param {object} data
    * @returns {object} data Original object with a new html property.
    */
-  function generateHtml(data) {
+  widget._generateHtml = function (data) {
     data.html = $('<div />').addClass('widget');
     var $images = $('<div />').appendTo(data.html)
       .addClass('landscape-images');
@@ -139,4 +136,6 @@ var widget = (function () {
       return replacements[item] || full;
     });
   }
+
+  return widget;
 })();
