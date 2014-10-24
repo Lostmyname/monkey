@@ -33,6 +33,30 @@ describe('Widget Setup', function () {
       data.should.have.property('locale');
       data.letters.should.be.an.Array;
       data.letters.length.should.be.above(10);
+
+      data.should.not.have.property('urls');
+      data.should.not.have.property('html');
+    });
+  });
+
+  it('should generate URLs', function () {
+    promise = promise.then(widget._generateUrls);
+
+    return promise.then(function (data) {
+      data.should.have.property('urls');
+      data.urls.should.have.length(data.letters.length);
+
+      console.log(data.urls);
+
+      for (var i = 0; i < data.urls.length; i++) {
+        var url = data.urls[i];
+
+        url.should.be.a.String;
+        url.should.startWith('//');
+
+        url.length.should.be.above(50);
+        url.should.containEql('?w=');
+      }
     });
   });
 });

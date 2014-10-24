@@ -120,7 +120,7 @@ var widget = (function () {
     });
 
     return data;
-  }
+  };
 
   /**
    * Templating sort of? Takes a string and an object and makes replacements.
