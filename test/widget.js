@@ -8,9 +8,9 @@ describe('Tests', function () {
   });
 
   it('should have jqPromise test', function () {
-//    var promise = $.Deferred().promise();
-//    promise.should.be.a.jqPromise;
-//    $.should.not.be.a.jqPromise;
+    var promise = $.Deferred().promise();
+    promise.should.be.a.jqPromise;
+    $.should.not.be.a.jqPromise;
   });
 
   it('should have everything they need', function () {
@@ -25,8 +25,7 @@ describe('Widget Setup', function () {
     widget.should.have.property('_getData');
 
     promise = widget._getData();
-
-//    promise.should.be.jqPromise();
+    promise.should.be.jqPromise;
 
     promise.then(function (data) {
       data.should.have.property('name');
