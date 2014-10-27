@@ -10,10 +10,11 @@ var widget = (function () {
 
   var widget = {};
 
-  widget.init = function () {
+  widget.init = function (widgetContainer) {
     return widget._getData()
       .then(widget._generateUrls)
-      .then(widget._generateHtml);
+      .then(widget._generateHtml)
+      .then(widget._insertHtml(widgetContainer));
   };
 
   /**
@@ -113,13 +114,25 @@ var widget = (function () {
       if (i === 0) {
         $('<div />').appendTo($page)
           .addClass('heidelberg-tapToOpen')
-          .append($('<img />').attr('img', urls.bookTip));
+          .append($('<img />').attr('src', urls.bookTip));
       }
 
       $('<img />').appendTo($page).attr('src', url);
     });
 
     return data;
+  };
+
+  widget._insertHtml = function (widgetContainer) {
+    var $container = $(widgetContainer);
+
+    return function (data) {
+      $container.append(data.html);
+
+      data.container = $container;
+
+      return data;
+    };
   };
 
   /**
