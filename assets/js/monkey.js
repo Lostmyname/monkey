@@ -32,7 +32,6 @@ var monkey = (function () {
    * @returns {object} (via promise) Object with a number of properties such as
    *                   name and gender, and then a letters property containing
    *                   information on the pages. Seriously, just use a debugger.
-   * @private
    */
   monkey._getData = function () {
     var defer = $.Deferred();
@@ -78,8 +77,6 @@ var monkey = (function () {
 
   /**
    * Takes data and turns letters into URLs.
-   *
-   * @private
    */
   monkey._generateUrls = function () {
     return function (data) {
@@ -105,38 +102,45 @@ var monkey = (function () {
   /**
    * Generate HTML for pages from list of URLs.
    *
+   * Varies depending on the browser.
+   *
    * @todo: Templating?
-   * @private
    */
   monkey._generateHtml = function () {
-    return function (data) {
-      data.html = $('<div />').addClass('monkey');
-      var $images = $('<div />').appendTo(data.html)
-        .addClass('landscape-images');
-      var $inner = $('<div />').appendTo($images)
-        .addClass('landscape-images-inner');
+    var mobile = '(max-width: 800px)';
+    if (window.matchMedia && window.matchMedia(mobile).matches) {
+      return monkey._generateHtml.mobile;
+    } else {
+      return monkey._generateHtml.mobile; // @todo: should be desktop
+    }
+  };
 
-      $.each(data.urls, function (i, url) {
-        var $page = $('<div />').appendTo($inner).addClass('page');
+  monkey._generateHtml.mobile = function (data) {
+    data.html = $('<div />').addClass('monkey');
+    var $images = $('<div />').appendTo(data.html)
+      .addClass('landscape-images');
+    var $inner = $('<div />').appendTo($images)
+      .addClass('landscape-images-inner');
 
-        if (i === 0) {
-          $('<div />').appendTo($page)
-            .addClass('heidelberg-tapToOpen')
-            .append($('<img />').attr('src', urls.bookTip));
-        }
+    $.each(data.urls, function (i, url) {
+      var $page = $('<div />').appendTo($inner).addClass('page');
 
-        $('<img />').appendTo($page).attr('src', url);
-      });
+      if (i === 0) {
+        $('<div />').appendTo($page)
+          .addClass('heidelberg-tapToOpen')
+          .append($('<img />').attr('src', urls.bookTip));
+      }
 
-      return data;
-    };
+      $('<img />').appendTo($page).attr('src', url);
+    });
+
+    return data;
   };
 
   /**
    * Inserts HTML into specified container.
    *
    * @param {string|HTMLElement|jQuery} monkeyContainer The container.
-   * @private
    */
   monkey._insertHtml = function (monkeyContainer) {
     var $container = $(monkeyContainer);
