@@ -87,7 +87,7 @@ var monkey = (function () {
           spread: urls.spread
         }[letterData.type];
 
-        return handleReplace(url, {
+        return monkey.helpers.handleReplace(url, {
           gender: data.gender,
           locale: data.locale,
           name: data.name,
@@ -107,7 +107,7 @@ var monkey = (function () {
    * @todo: Templating?
    */
   monkey._generateHtml = function () {
-    if (isMobile()) {
+    if (monkey.helpers.isMobile()) {
       return monkey._generateHtml.mobile;
     } else {
       return monkey._generateHtml.mobile; // @todo: should be desktop
@@ -153,6 +153,8 @@ var monkey = (function () {
     };
   };
 
+  monkey.helpers = {};
+
   /**
    * Templating sort of? Takes a string and an object and makes replacements.
    *
@@ -162,11 +164,11 @@ var monkey = (function () {
    * @param {object} replacements
    * @returns {string} The string with replacements made.
    */
-  function handleReplace(string, replacements) {
+  monkey.helpers.handleReplace = function (string, replacements) {
     return string.replace(/\{\{\s*([a-z]+)\s*\}\}/g, function (full, item) {
       return replacements.hasOwnProperty(item) ? replacements[item] : full;
     });
-  }
+  };
 
   /**
    * Returns whether browser is a mobile or not. Tests for touch support and
@@ -174,7 +176,7 @@ var monkey = (function () {
    *
    * @returns {boolean} True if mobile.
    */
-  function isMobile() {
+  monkey.helpers.isMobile = function () {
     // If doesn't support touch
     if (!('ontouchstart' in window) && !navigator.msMaxTouchPoints) {
       return false;
@@ -185,11 +187,7 @@ var monkey = (function () {
     }
 
     return window.matchMedia('(max-width: 800px)').matches;
-  }
-
-  monkey.helpers = {};
-  monkey.helpers.handleReplace = handleReplace;
-  monkey.helpers.isMobile = isMobile;
+  };
 
   return monkey;
 })();
