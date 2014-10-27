@@ -1,6 +1,6 @@
 var monkey = (function () {
   'use strict';
-  
+
   var urls = {
     images: '//lostmycdn.imgix.net/widget/{{ gender }}/{{ url }}?w=970&amp;dpr=2&amp;q=60',
     spread: '//lostmynameproduction.s3.amazonaws.com/assets/name_spreads/' +
@@ -9,6 +9,9 @@ var monkey = (function () {
   };
 
   var monkey = {};
+  monkey.config = {
+    mobileMedia: '(max-width: 800px)'
+  };
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
@@ -107,8 +110,7 @@ var monkey = (function () {
    * @todo: Templating?
    */
   monkey._generateHtml = function () {
-    var mobile = '(max-width: 800px)';
-    if (window.matchMedia && window.matchMedia(mobile).matches) {
+    if (window.matchMedia && matchMedia(monkey.config.mobileMedia).matches) {
       return monkey._generateHtml.mobile;
     } else {
       return monkey._generateHtml.mobile; // @todo: should be desktop

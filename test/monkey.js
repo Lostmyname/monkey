@@ -85,5 +85,10 @@ describe('Loading Monkey', function () {
 //      data.should.have.property('html');
 //      data.html.should.be.instanceOf(jQuery);
     });
-  })
+  });
+
+  it('should get correct HTML function for mobile');
+  it('should get correct HTML function for desktop');
+
+  it('should insert HTML correctly');
 });
