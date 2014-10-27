@@ -15,11 +15,12 @@ gulp.task('sass', function () {
 
 gulp.task('browser-sync', function () {
   browserSync.init([
-    '**/*.css',
-    '**/*.js',
+    'assets/**/*.css',
+    'assets/**/*.js',
     'assets/imgs/**/*.jpg',
     'assets/imgs/**/*.png',
-    '**/*.html'
+    '**/*.html',
+    'test/**/*.js'
   ], {
     server: {
       baseDir: '.'
