@@ -36,6 +36,8 @@ describe('Monkey helpers', function () {
       handleReplace(input, replacements).should.equal(output);
     });
   });
+
+  it('should correctly detect mobile');
 });
 
 describe('Loading Monkey', function () {
