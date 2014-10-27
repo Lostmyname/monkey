@@ -15,11 +15,13 @@ if (supportsTouch) {
     $('.monkey, body').removeClass('landscape portrait')
       .addClass(portrait ? 'portrait' : 'landscape');
 
-    $('.monkey').scrollLeft($('.monkey img').width() * windowLeft);
+    var $monkey = $('.monkey');
+    $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   });
   $(window).triggerHandler('resize');
-}
 
-$('.monkey').on('scroll', function () {
-  windowLeft = $('.monkey').scrollLeft() / $('.monkey img').width();
-});
+  $('.monkey').on('scroll', function () {
+    var $monkey = $('.monkey');
+    windowLeft = $monkey.scrollLeft() / $monkey.find('img').width();
+  });
+}
