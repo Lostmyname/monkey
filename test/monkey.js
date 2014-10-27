@@ -38,7 +38,7 @@ describe('Monkey helpers', function () {
   });
 });
 
-describe('Monkey Steps', function () {
+describe('Loading Monkey', function () {
   var promise;
 
   it('should get data', function () {
