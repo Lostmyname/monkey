@@ -46,8 +46,6 @@ describe('Widget Setup', function () {
       data.should.have.property('urls');
       data.urls.should.have.length(data.letters.length);
 
-      console.log(data.urls);
-
       for (var i = 0; i < data.urls.length; i++) {
         var url = data.urls[i];
 
@@ -59,4 +57,13 @@ describe('Widget Setup', function () {
       }
     });
   });
+
+  it('should generate HTML', function () {
+    promise = promise.then(widget._generateHtml);
+
+    return promise.then(function (data) {
+      data.should.have.property('html');
+      data.html.should.be.instanceOf(jQuery);
+    });
+  })
 });
