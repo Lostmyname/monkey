@@ -9,9 +9,6 @@ var monkey = (function () {
   };
 
   var monkey = {};
-  monkey.config = {
-    mobileMedia: '(max-width: 800px)'
-  };
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
@@ -110,7 +107,7 @@ var monkey = (function () {
    * @todo: Templating?
    */
   monkey._generateHtml = function () {
-    if (window.matchMedia && matchMedia(monkey.config.mobileMedia).matches) {
+    if (isMobile()) {
       return monkey._generateHtml.mobile;
     } else {
       return monkey._generateHtml.mobile; // @todo: should be desktop
@@ -171,8 +168,28 @@ var monkey = (function () {
     });
   }
 
+  /**
+   * Returns whether browser is a mobile or not. Tests for touch support and
+   * screen width.
+   *
+   * @returns {boolean} True if mobile.
+   */
+  function isMobile() {
+    // If doesn't support touch
+    if (!('ontouchstart' in window) && !navigator.msMaxTouchPoints) {
+      return false;
+    }
+
+    if (!window.matchMedia) {
+      return false;
+    }
+
+    return window.matchMedia('(max-width: 800px)').matches;
+  }
+
   monkey.helpers = {};
   monkey.helpers.handleReplace = handleReplace;
+  monkey.helpers.isMobile = isMobile;
 
   return monkey;
 })();
