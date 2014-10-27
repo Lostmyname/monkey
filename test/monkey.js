@@ -1,4 +1,4 @@
-/* global describe, it, widget */
+/* global describe, it, monkey */
 
 'use strict';
 
@@ -8,7 +8,7 @@ describe('Tests', function () {
   });
 
   it('should have everything they need', function () {
-    widget.should.be.type('object');
+    monkey.should.be.type('object');
     $.should.be.type('function');
   });
 
@@ -19,9 +19,9 @@ describe('Tests', function () {
   });
 });
 
-describe('Widget helpers', function () {
+describe('Monkey helpers', function () {
   it('should support string replacements', function () {
-    var handleReplace = widget.helpers.handleReplace;
+    var handleReplace = monkey.helpers.handleReplace;
     var replacements = { foo: 'bar', hello: 'world', empty: '' };
 
     var replaces = {
@@ -38,13 +38,13 @@ describe('Widget helpers', function () {
   });
 });
 
-describe('Widget Steps', function () {
+describe('Monkey Steps', function () {
   var promise;
 
   it('should get data', function () {
-    widget.should.have.property('_getData');
+    monkey.should.have.property('_getData');
 
-    promise = widget._getData();
+    promise = monkey._getData();
     promise.should.be.jqPromise;
 
     return promise.then(function (data) {
@@ -60,7 +60,7 @@ describe('Widget Steps', function () {
   });
 
   it('should generate URLs', function () {
-    promise = promise.then(widget._generateUrls);
+    promise = promise.then(monkey._generateUrls);
 
     return promise.then(function (data) {
       data.should.have.property('urls');
@@ -79,7 +79,7 @@ describe('Widget Steps', function () {
   });
 
   it('should generate HTML', function () {
-    promise = promise.then(widget._generateHtml);
+    promise = promise.then(monkey._generateHtml);
 
     return promise.then(function (data) {
 //      data.should.have.property('html');

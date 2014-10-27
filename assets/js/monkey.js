@@ -1,4 +1,4 @@
-var widget = (function () {
+var monkey = (function () {
   'use strict';
   
   var urls = {
@@ -8,19 +8,19 @@ var widget = (function () {
     bookTip: 'assets/images/book_tip.png'
   };
 
-  var widget = {};
+  var monkey = {};
 
   /**
-   * Initiate the widget; generate it, and then insert it into the page.
+   * Initiate monkey; generate it, and then insert it into the page.
    *
-   * @param {string|HTMLElement|jQuery} widgetContainer Container for widget.
-   * @returns A promise that will be resolved when the widget is done.
+   * @param {string|HTMLElement|jQuery} monkeyContainer Container for monkey.
+   * @returns A promise that will be resolved when monkey is ready.
    */
-  widget.init = function (widgetContainer) {
-    return widget._getData()
-      .then(widget._generateUrls())
-      .then(widget._generateHtml())
-      .then(widget._insertHtml(widgetContainer));
+  monkey.init = function (monkeyContainer) {
+    return monkey._getData()
+      .then(monkey._generateUrls())
+      .then(monkey._generateHtml())
+      .then(monkey._insertHtml(monkeyContainer));
   };
 
   /**
@@ -34,7 +34,7 @@ var widget = (function () {
    *                   information on the pages. Seriously, just use a debugger.
    * @private
    */
-  widget._getData = function () {
+  monkey._getData = function () {
     var defer = $.Deferred();
 
     setTimeout(function () {
@@ -81,7 +81,7 @@ var widget = (function () {
    *
    * @private
    */
-  widget._generateUrls = function () {
+  monkey._generateUrls = function () {
     return function (data) {
       data.urls = $.map(data.letters, function (letterData) {
         var url = {
@@ -108,9 +108,9 @@ var widget = (function () {
    * @todo: Templating?
    * @private
    */
-  widget._generateHtml = function () {
+  monkey._generateHtml = function () {
     return function (data) {
-      data.html = $('<div />').addClass('widget');
+      data.html = $('<div />').addClass('monkey');
       var $images = $('<div />').appendTo(data.html)
         .addClass('landscape-images');
       var $inner = $('<div />').appendTo($images)
@@ -135,11 +135,11 @@ var widget = (function () {
   /**
    * Inserts HTML into specified container.
    *
-   * @param {string|HTMLElement|jQuery} widgetContainer The container.
+   * @param {string|HTMLElement|jQuery} monkeyContainer The container.
    * @private
    */
-  widget._insertHtml = function (widgetContainer) {
-    var $container = $(widgetContainer);
+  monkey._insertHtml = function (monkeyContainer) {
+    var $container = $(monkeyContainer);
 
     return function (data) {
       $container.append(data.html);
@@ -165,8 +165,8 @@ var widget = (function () {
     });
   }
 
-  widget.helpers = {};
-  widget.helpers.handleReplace = handleReplace;
+  monkey.helpers = {};
+  monkey.helpers.handleReplace = handleReplace;
 
-  return widget;
+  return monkey;
 })();
