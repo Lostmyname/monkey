@@ -11,11 +11,15 @@
     "gulp-minify-css": "^0.3.10",
     "gulp-plumber": "^0.6.5",
     "gulp-ruby-sass": "^0.7.1",
+    "karma": "^0.12.24",
+    "karma-chrome-launcher": "^0.1.5",
+    "karma-mocha": "^0.1.9",
+    "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "^2.0.1",
     "should": "^4.1.0"
   },
   "scripts": {
-    "test": "open 'http://localhost:3000/tests.html'"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "author": "Callum Macrae"
 }
