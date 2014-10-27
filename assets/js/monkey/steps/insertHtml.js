@@ -1,20 +1,18 @@
 'use strict';
 
-module.exports = function () {
-  /**
-   * Inserts HTML into specified container.
-   *
-   * @param {string|HTMLElement|jQuery} monkeyContainer The container.
-   */
-  return function (monkeyContainer) {
-    var $container = $(monkeyContainer);
+/**
+ * Inserts HTML into specified container.
+ *
+ * @param {string|HTMLElement|jQuery} monkeyContainer The container.
+ */
+module.exports = function (monkeyContainer) {
+  var $container = $(monkeyContainer);
 
-    return function (data) {
-      $container.append(data.html);
+  return function (data) {
+    $container.append(data.html);
 
-      data.container = $container;
+    data.container = $container;
 
-      return data;
-    };
+    return data;
   };
 };

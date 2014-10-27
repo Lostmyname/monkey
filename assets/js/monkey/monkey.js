@@ -17,10 +17,10 @@ window.monkey = module.exports = (function () {
       .then(monkey._insertHtml(monkeyContainer));
   };
 
-  monkey._getData = require('./steps/getData')(monkey);
-  monkey._generateUrls = require('./steps/generateUrls')(monkey);
-  monkey._generateHtml = require('./steps/generateHtml')(monkey);
-  monkey._insertHtml = require('./steps/insertHtml')(monkey);
+  monkey._getData = require('./steps/getData');
+  monkey._generateUrls = require('./steps/generateUrls');
+  monkey._generateHtml = require('./steps/generateHtml');
+  monkey._insertHtml = require('./steps/insertHtml');
 
   monkey.helpers = {};
   monkey.helpers.handleReplace = require('./helpers/handleReplace');
