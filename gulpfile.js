@@ -7,7 +7,7 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 
 gulp.task('js', function () {
-  var bundler = browserify('./assets/js/monkey.js');
+  var bundler = browserify('./assets/js/monkey/monkey.js');
 
   return bundler.bundle()
     .on('error', console.log.bind(console, 'Browserify Error'))
