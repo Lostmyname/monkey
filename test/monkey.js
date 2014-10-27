@@ -60,7 +60,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate URLs', function () {
-    promise = promise.then(monkey._generateUrls);
+    promise = promise.then(monkey._generateUrls());
 
     return promise.then(function (data) {
       data.should.have.property('urls');
@@ -79,7 +79,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate HTML', function () {
-    promise = promise.then(monkey._generateHtml);
+    promise = promise.then(monkey._generateHtml());
 
     return promise.then(function (data) {
 //      data.should.have.property('html');
