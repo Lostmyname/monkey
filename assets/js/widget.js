@@ -10,10 +10,16 @@ var widget = (function () {
 
   var widget = {};
 
+  /**
+   * Initiate the widget; generate it, and then insert it into the page.
+   *
+   * @param {string|HTMLElement|jQuery} widgetContainer Container for widget.
+   * @returns A promise that will be resolved when the widget is done.
+   */
   widget.init = function (widgetContainer) {
     return widget._getData()
-      .then(widget._generateUrls)
-      .then(widget._generateHtml)
+      .then(widget._generateUrls())
+      .then(widget._generateHtml())
       .then(widget._insertHtml(widgetContainer));
   };
 
@@ -26,6 +32,7 @@ var widget = (function () {
    * @returns {object} (via promise) Object with a number of properties such as
    *                   name and gender, and then a letters property containing
    *                   information on the pages. Seriously, just use a debugger.
+   * @private
    */
   widget._getData = function () {
     var defer = $.Deferred();
@@ -72,57 +79,65 @@ var widget = (function () {
   /**
    * Takes data and turns letters into URLs.
    *
-   * @param {object} data
-   * @returns {object} data Original object with a new urls property.
+   * @private
    */
-  widget._generateUrls = function (data) {
-    data.urls = $.map(data.letters, function (letterData) {
-      var url = {
-        special: urls.images,
-        story: urls.images,
-        spread: urls.spread
-      }[letterData.type];
+  widget._generateUrls = function () {
+    return function (data) {
+      data.urls = $.map(data.letters, function (letterData) {
+        var url = {
+          special: urls.images,
+          story: urls.images,
+          spread: urls.spread
+        }[letterData.type];
 
-      return handleReplace(url, {
-        gender: data.gender,
-        locale: data.locale,
-        name: data.name,
-        url: letterData.url
+        return handleReplace(url, {
+          gender: data.gender,
+          locale: data.locale,
+          name: data.name,
+          url: letterData.url
+        });
       });
-    });
 
-    return data;
+      return data;
+    };
   };
 
   /**
    * Generate HTML for pages from list of URLs.
    *
    * @todo: Templating?
-   * @param {object} data
-   * @returns {object} data Original object with a new html property.
+   * @private
    */
-  widget._generateHtml = function (data) {
-    data.html = $('<div />').addClass('widget');
-    var $images = $('<div />').appendTo(data.html)
-      .addClass('landscape-images');
-    var $inner = $('<div />').appendTo($images)
-      .addClass('landscape-images-inner');
-    
-    $.each(data.urls, function (i, url) {
-      var $page = $('<div />').appendTo($inner).addClass('page');
+  widget._generateHtml = function () {
+    return function (data) {
+      data.html = $('<div />').addClass('widget');
+      var $images = $('<div />').appendTo(data.html)
+        .addClass('landscape-images');
+      var $inner = $('<div />').appendTo($images)
+        .addClass('landscape-images-inner');
 
-      if (i === 0) {
-        $('<div />').appendTo($page)
-          .addClass('heidelberg-tapToOpen')
-          .append($('<img />').attr('src', urls.bookTip));
-      }
+      $.each(data.urls, function (i, url) {
+        var $page = $('<div />').appendTo($inner).addClass('page');
 
-      $('<img />').appendTo($page).attr('src', url);
-    });
+        if (i === 0) {
+          $('<div />').appendTo($page)
+            .addClass('heidelberg-tapToOpen')
+            .append($('<img />').attr('src', urls.bookTip));
+        }
 
-    return data;
+        $('<img />').appendTo($page).attr('src', url);
+      });
+
+      return data;
+    };
   };
 
+  /**
+   * Inserts HTML into specified container.
+   *
+   * @param {string|HTMLElement|jQuery} widgetContainer The container.
+   * @private
+   */
   widget._insertHtml = function (widgetContainer) {
     var $container = $(widgetContainer);
 
