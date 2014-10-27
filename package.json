@@ -5,6 +5,7 @@
   "main": "index.html",
   "devDependencies": {
     "browser-sync": "^1.5.1",
+    "browserify": "^6.2.0",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-load-plugins": "^0.6.0",
@@ -16,7 +17,8 @@
     "karma-mocha": "^0.1.9",
     "karma-phantomjs-launcher": "^0.1.4",
     "mocha": "^2.0.1",
-    "should": "^4.1.0"
+    "should": "^4.1.0",
+    "vinyl-source-stream": "^1.0.0"
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start"

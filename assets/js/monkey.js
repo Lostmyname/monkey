@@ -1,4 +1,4 @@
-var monkey = (function () {
+window.monkey = module.exports = (function () {
   'use strict';
 
   var urls = {
