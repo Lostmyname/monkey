@@ -133,9 +133,12 @@ var widget = (function () {
    */
   function handleReplace(string, replacements) {
     return string.replace(/\{\{\s*([a-z]+)\s*\}\}/g, function (full, item) {
-      return replacements[item] || full;
+      return replacements.hasOwnProperty(item) ? replacements[item] : full;
     });
   }
+
+  widget.helpers = {};
+  widget.helpers.handleReplace = handleReplace;
 
   return widget;
 })();
