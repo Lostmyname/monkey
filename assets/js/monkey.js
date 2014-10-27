@@ -186,6 +186,7 @@ var monkey = (function () {
       return false;
     }
 
+    // @todo: Work out an actual good width
     return window.matchMedia('(max-width: 800px)').matches;
   };
 
