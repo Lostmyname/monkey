@@ -2,7 +2,7 @@
 
 module.exports = function (monkey) {
   // @todo: Use heidelberg
-  return function (data) {
+  return function desktop (data) {
     var $monkey = data.html = $('<div />').addClass('monkey');
     var $images = $('<div />').appendTo($monkey)
       .addClass('landscape-images');

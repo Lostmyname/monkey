@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (monkey) {
-  return function (data) {
+  return function mobile (data) {
     var $monkey = data.html = $('<div />').addClass('monkey');
     var $images = $('<div />').appendTo($monkey)
       .addClass('landscape-images');

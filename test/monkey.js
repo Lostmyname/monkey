@@ -37,7 +37,9 @@ describe('Monkey helpers', function () {
     });
   });
 
-  it('should correctly detect mobile');
+  it('should correctly detect mobile', function () {
+    monkey.helpers.isMobile().should.be.Boolean;
+  });
 });
 
 describe('Loading Monkey', function () {
@@ -86,11 +88,38 @@ describe('Loading Monkey', function () {
     return promise.then(function (data) {
 //      data.should.have.property('html');
 //      data.html.should.be.instanceOf(jQuery);
+//      data.html.should.containEql(data.urls[2])
     });
   });
 
-  it('should get correct HTML function for mobile');
-  it('should get correct HTML function for desktop');
+  it('should get correct HTML function for mobile', function () {
+    var oldIsMobile = monkey.helpers.isMobile;
+    monkey.helpers.isMobile = function () { return true; }
 
-  it('should insert HTML correctly');
+    monkey._generateHtml().name.should.equal('mobile');
+
+    monkey.helpers.isMobile = oldIsMobile;
+  });
+
+  it('should get correct HTML function for desktop', function () {
+    var oldIsMobile = monkey.helpers.isMobile;
+    monkey.helpers.isMobile = function () { return false; }
+
+    monkey._generateHtml().name.should.equal('desktop');
+
+    monkey.helpers.isMobile = oldIsMobile;
+  });
+
+  it('should insert HTML correctly', function () {
+    var $book = $('.lmn-book');
+    $book.children().length.should.equal(0);
+
+    promise = promise.then(monkey._insertHtml($book));
+
+    return promise.then(function (data) {
+      $book.children().length.should.not.equal(0);
+
+      $book.find('img').length.should.equal(data.urls.length + 1);
+    });
+  });
 });
