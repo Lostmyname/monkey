@@ -37,9 +37,9 @@ gulp.task('browser-sync', function () {
       baseDir: '.'
     },
     ghostMode: {
-      scroll: true,
-      links: true,
-      forms: true
+      scroll: false,
+      links: false,
+      forms: false
     }
   });
 });
