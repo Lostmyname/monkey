@@ -1,8 +1,9 @@
 'use strict';
 
-// @todo: Use heidelberg
-module.exports = function desktop (monkey, data) {
-  var $monkey = data.html = $('<div />').addClass('monkey');
+var desktop = module.exports = {};
+
+desktop.generateHtml = function mobile (monkey, data) {
+  var $monkey = $('<div />').addClass('monkey');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
@@ -19,4 +20,6 @@ module.exports = function desktop (monkey, data) {
 
     $('<img />').appendTo($page).attr('src', url);
   });
+
+  return $monkey;
 };

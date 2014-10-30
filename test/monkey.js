@@ -83,6 +83,15 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should set monkeyType', function () {
+    promise = promise.then(monkey._calculateMonkey());
+
+    return promise.then(function (data) {
+      data.should.have.property('monkeyType')
+      data.monkeyType.should.match(/[desktop|mobile]/);
+    });
+  });
+
   it('should generate HTML', function () {
     promise = promise.then(monkey._generateHtml());
 
@@ -93,23 +102,7 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should get correct HTML function for mobile', function () {
-    var oldIsMobile = monkey.helpers.isMobile;
-    monkey.helpers.isMobile = function () { return true; }
-
-    monkey._generateHtml().name.should.equal('mobile');
-
-    monkey.helpers.isMobile = oldIsMobile;
-  });
-
-  it('should get correct HTML function for desktop', function () {
-    var oldIsMobile = monkey.helpers.isMobile;
-    monkey.helpers.isMobile = function () { return false; }
-
-    monkey._generateHtml().name.should.equal('desktop');
-
-    monkey.helpers.isMobile = oldIsMobile;
-  });
+  it('should init mobile');
 
   it('should insert HTML correctly', function () {
     var $book = $('.lmn-book');
@@ -121,6 +114,8 @@ describe('Loading Monkey', function () {
       $book.children().length.should.not.equal(0);
 
       $book.find('img').length.should.equal(data.urls.length + 1);
+
+//      data.should.have.property('container');
     });
   });
 });

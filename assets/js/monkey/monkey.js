@@ -30,5 +30,9 @@ window.monkey = module.exports = (function () {
   monkey.helpers.handleReplace = require('./helpers/handleReplace');
   monkey.helpers.isMobile = require('./helpers/isMobile');
 
+  monkey.monkeys = {};
+  monkey.monkeys.mobile = require('./monkeys/mobile');
+  monkey.monkeys.desktop = require('./monkeys/desktop');
+
   return monkey;
 })();

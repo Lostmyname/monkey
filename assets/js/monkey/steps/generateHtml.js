@@ -10,11 +10,11 @@
 module.exports = function () {
   return function (data) {
     if (data.monkeyType === 'mobile') {
-      require('./generateHtml-mobile')(this, data);
+      data.html = this.monkeys.mobile.generateHtml(this, data);
     } else {
-      require('./generateHtml-desktop')(this, data);
+      data.html = this.monkeys.desktop.generateHtml(this, data);
     }
 
     return data;
-  };
+  }.bind(this);
 };
