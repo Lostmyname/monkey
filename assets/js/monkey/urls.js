@@ -3,5 +3,5 @@ module.exports = {
   spread: '//lostmynameproduction.s3.amazonaws.com/assets/name_spreads/' +
     '{{ locale }}/{{ gender }}/{{ name }}/spread.jpg?h={{ height }}&amp;dpr={{ dpr }}',
   bookTipSwipe: 'assets/images/book_tip.png',
-  bookTipTap: 'assets/images/book_tip.png'
+  bookTipTap: 'assets/images/book_tip-1.png'
 };

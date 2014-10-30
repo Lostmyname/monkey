@@ -9,11 +9,7 @@
  */
 module.exports = function () {
   return function (data) {
-    if (data.monkeyType === 'mobile') {
-      data.html = this.monkeys.mobile.generateHtml(this, data);
-    } else {
-      data.html = this.monkeys.desktop.generateHtml(this, data);
-    }
+    data.html = this.monkeys[data.monkeyType].generateHtml(this, data);
 
     return data;
   }.bind(this);
