@@ -2,6 +2,10 @@
   overflow: scroll
   -webkit-overflow-scrolling: touch
 
+  &.portrait
+    margin-top: -5px
+    margin-bottom: -5px
+
 .heidelberg-tapToOpen
   position: absolute
   z-index: 2
@@ -21,10 +25,10 @@
 .landscape-images
   display: table
 
-.landscape-images-inner
-  display: table-row
-  vertical-align: top
-  clear: both
+  .landscape-images-inner
+    display: table-row
+    vertical-align: top
+    clear: both
 
 .page
   display: table-cell
@@ -33,12 +37,8 @@
   &:last-child
     min-width: 970px
 
-.portrait .page
-  padding-right: 10px
-
-.portrait
-  margin-top: -5px
-  margin-bottom: -5px
+  .portrait &
+    padding-right: 10px
 
 .buy-now
   position: fixed
@@ -49,12 +49,10 @@
 
   font-size: 1.1em
 
-  background: rgba(0, 0, 0, 0.5)
-  color: white
+  background: rgba(black, 0.5)
   border: 1px white solid
   border-radius: 5px
+  color: white
 
-.portrait .buy-now
-  display: none
-
-
+  .portrait &
+    display: none
