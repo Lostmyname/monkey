@@ -24,23 +24,31 @@ mobile.generateHtml = function mobile (monkey, data) {
   return $monkey;
 };
 
-mobile.init = function ($monkey) {
+mobile.init = function (monkey, data) {
   var portrait;
   var windowLeft = 0;
 
-  $(window).on('orientationchange resize', function () {
+  var $monkey = data.html;
+
+  $(window).on('orientationchange resize', flip);
+  setTimeout(flip);
+
+  function flip() {
     portrait = (window.innerHeight > window.innerWidth);
 
-    // Make images 100% high. Temporary hack, should use CSS.
-    var height = portrait ? 'auto' : $(window).height();
-    $('.landscape-images .page img').css('height', height);
+    var ratio = monkey.IMAGE_RATIO;
+    var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * ratio;
+
+    $('.page img').css({
+      height: width / monkey.IMAGE_RATIO,
+      width: width
+    });
 
     $('.monkey, body').removeClass('landscape portrait')
       .addClass(portrait ? 'portrait' : 'landscape');
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
-  });
-  $(window).triggerHandler('resize');
+  }
 
   $monkey.on('scroll', function () {
     windowLeft = $monkey.scrollLeft() / $monkey.find('img').width();

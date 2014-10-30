@@ -3,6 +3,7 @@ window.monkey = module.exports = (function () {
 
   var monkey = {};
   monkey._urls = require('./urls');
+  monkey.IMAGE_RATIO = 2048 / 738;
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
