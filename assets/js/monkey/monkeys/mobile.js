@@ -2,7 +2,7 @@
 
 var mobile = module.exports = {};
 
-mobile.generateHtml = function mobile (monkey, data) {
+mobile.generateHtml = function (monkey, data) {
   var $monkey = $('<div />').addClass('monkey');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
@@ -15,7 +15,7 @@ mobile.generateHtml = function mobile (monkey, data) {
     if (i === 0) {
       $('<div />').appendTo($page)
         .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', monkey._urls.bookTip));
+        .append($('<img />').attr('src', monkey._urls.bookTipSwipe));
     }
 
     $('<img />').appendTo($page).attr('src', url);
