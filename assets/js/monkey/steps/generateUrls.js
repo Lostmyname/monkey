@@ -13,6 +13,14 @@ module.exports = function () {
    * Takes data and turns letters into URLs.
    */
   return function (data) {
+    var $window = $(window);
+    var height = Math.min($window.width(), $window.height());
+
+    // iPad three
+    if (height > 768) {
+      height = 768;
+    }
+
     data.urls = $.map(data.letters, function (letterData) {
       var url = typeUrls[letterData.type];
 
@@ -20,7 +28,9 @@ module.exports = function () {
         gender: data.gender,
         locale: data.locale,
         name: data.name,
-        url: letterData.url
+        url: letterData.url,
+        height: height,
+        dpr: window.devicePixelRatio || 1
       });
     });
 

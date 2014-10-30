@@ -77,7 +77,8 @@ describe('Loading Monkey', function () {
         url.should.startWith('//');
 
         url.length.should.be.above(50);
-        url.should.containEql('?w=');
+        url.should.match(/(\?|&amp;)h=\d+/);
+        url.should.match(/(\?|&amp;)dpr=\d+/);
       }
     });
   });

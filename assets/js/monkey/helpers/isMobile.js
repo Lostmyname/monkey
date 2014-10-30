@@ -16,6 +16,5 @@ module.exports = function () {
     return false;
   }
 
-  // @todo: Work out an actual good width
-  return window.matchMedia('(max-width: 800px)').matches;
+  return window.matchMedia('(max-width: 770px)').matches;
 };
