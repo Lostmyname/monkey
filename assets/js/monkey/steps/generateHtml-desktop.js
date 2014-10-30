@@ -1,26 +1,22 @@
 'use strict';
 
-module.exports = function (monkey) {
-  // @todo: Use heidelberg
-  return function desktop (data) {
-    var $monkey = data.html = $('<div />').addClass('monkey');
-    var $images = $('<div />').appendTo($monkey)
-      .addClass('landscape-images');
-    var $inner = $('<div />').appendTo($images)
-      .addClass('landscape-images-inner');
+// @todo: Use heidelberg
+module.exports = function desktop (monkey, data) {
+  var $monkey = data.html = $('<div />').addClass('monkey');
+  var $images = $('<div />').appendTo($monkey)
+    .addClass('landscape-images');
+  var $inner = $('<div />').appendTo($images)
+    .addClass('landscape-images-inner');
 
-    $.each(data.urls, function (i, url) {
-      var $page = $('<div />').appendTo($inner).addClass('page');
+  $.each(data.urls, function (i, url) {
+    var $page = $('<div />').appendTo($inner).addClass('page');
 
-      if (i === 0) {
-        $('<div />').appendTo($page)
-          .addClass('heidelberg-tapToOpen')
-          .append($('<img />').attr('src', monkey._urls.bookTip));
-      }
+    if (i === 0) {
+      $('<div />').appendTo($page)
+        .addClass('heidelberg-tapToOpen')
+        .append($('<img />').attr('src', monkey._urls.bookTip));
+    }
 
-      $('<img />').appendTo($page).attr('src', url);
-    });
-
-    return data;
-  };
+    $('<img />').appendTo($page).attr('src', url);
+  });
 };

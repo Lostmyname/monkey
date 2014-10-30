@@ -8,9 +8,13 @@
  * @todo: Templating?
  */
 module.exports = function () {
-  if (this.helpers.isMobile()) {
-    return require('./generateHtml-mobile')(this);
-  } else {
-    return require('./generateHtml-desktop')(this);
-  }
+  return function (data) {
+    if (data.monkeyType === 'mobile') {
+      require('./generateHtml-mobile')(this, data);
+    } else {
+      require('./generateHtml-desktop')(this, data);
+    }
+
+    return data;
+  };
 };
