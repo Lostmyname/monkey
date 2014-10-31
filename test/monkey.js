@@ -43,7 +43,7 @@ describe('Monkey helpers', function () {
 });
 
 describe('Loading Monkey', function () {
-  var promise;
+  var promise, promiseBeforeHtml;
 
   it('should get data', function () {
     monkey.should.have.property('_getData');
@@ -85,6 +85,7 @@ describe('Loading Monkey', function () {
 
   it('should set monkeyType', function () {
     promise = promise.then(monkey._calculateMonkey());
+    promiseBeforeHtml = promise;
 
     return promise.then(function (data) {
       data.should.have.property('monkeyType')
@@ -92,17 +93,28 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should generate HTML', function () {
-    promise = promise.then(monkey._generateHtml());
+  it('should generate HTML for desktop', function () {
+    promise = promise.then(changeMonkeyType('desktop'))
+      .then(monkey._generateHtml());
 
     return promise.then(function (data) {
 //      data.should.have.property('html');
 //      data.html.should.be.instanceOf(jQuery);
+//      data.html.className.should.containEql('desktop');
 //      data.html.should.containEql(data.urls[2])
     });
   });
 
-  it('should init mobile');
+  it('should generate HTML for mobile', function () {
+    return promise.then(changeMonkeyType('mobile'))
+      .then(monkey._generateHtml())
+      .then(function (data) {
+//        data.should.have.property('html');
+//        data.html.should.be.instanceOf(jQuery);
+//        data.html.className.should.containEql('mobile');
+//        data.html.should.containEql(data.urls[2])
+      });
+  });
 
   it('should insert HTML correctly', function () {
     var $book = $('.lmn-book');

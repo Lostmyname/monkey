@@ -3,7 +3,7 @@
 var mobile = module.exports = {};
 
 mobile.generateHtml = function (monkey, data) {
-  var $monkey = $('<div />').addClass('monkey');
+  var $monkey = $('<div />').addClass('monkey desktop');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)

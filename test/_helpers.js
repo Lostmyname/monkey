@@ -9,3 +9,10 @@ Should.Assertion.add('jqPromise', function () {
   this.obj.then.should.be.type('function');
   $.Deferred().then.toString().should.equal(this.obj.then.toString());
 }, true);
+
+function changeMonkeyType(type) {
+  return function (data) {
+    data.monkeyType = type;
+    return data;
+  }
+}
