@@ -5,7 +5,7 @@
 var desktop = module.exports = {};
 
 desktop.generateHtml = function (monkey, data) {
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads mobile');
+  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($monkey).addClass('Heidelberg-Spread');
