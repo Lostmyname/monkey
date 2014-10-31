@@ -45,6 +45,8 @@ describe('Monkey helpers', function () {
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml;
 
+it('should have an init function that accept options');
+
   it('should get data', function () {
     monkey.should.have.property('_getData');
 
@@ -88,9 +90,25 @@ describe('Loading Monkey', function () {
     promiseBeforeHtml = promise;
 
     return promise.then(function (data) {
-      data.should.have.property('monkeyType')
+      data.should.have.property('monkeyType');
       data.monkeyType.should.match(/[desktop|mobile]/);
     });
+  });
+
+  it('should set monkeyType with option desktop', function () {
+    return promise.then(monkey._calculateMonkey('desktop'))
+      .then(function (data) {
+        data.should.have.property('monkeyType');
+        data.monkeyType.should.equal('desktop');
+      });
+  });
+
+  it('should set monkeyType with option auto', function () {
+    return promise.then(monkey._calculateMonkey('auto'))
+      .then(function (data) {
+        data.should.have.property('monkeyType');
+        data.monkeyType.should.match(/[desktop|mobile]/);
+      });
   });
 
   it('should generate HTML for desktop', function () {
