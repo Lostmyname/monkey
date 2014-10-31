@@ -22,7 +22,8 @@
 
   <div id="mocha"></div>
 
-  <div data-key="lmn-book" data-name="Callum" data-gender="boy" data-locale="en-GB" class="lmn-book"></div>
+  <div data-key="lmn-book" data-name="Callum" data-gender="boy" data-locale="en-GB" class="lmn-book-desktop"></div>
+  <div data-key="lmn-book" data-name="Callum" data-gender="boy" data-locale="en-GB" class="lmn-book-mobile"></div>
 
   <script src="assets/js/lib/jquery.js"></script>
   <script src="assets/js/lib/hammer.js"></script>
@@ -40,7 +41,7 @@
   <script>
     mocha.setup({
       ui: 'bdd',
-      globals: ['___browserSync___', '$scopeId', 'ngInspector']
+      globals: ['___browserSync___', '$scopeId', 'ngInspector', 'jQuery*']
     });
   </script>
 

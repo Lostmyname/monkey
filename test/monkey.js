@@ -94,10 +94,9 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate HTML for desktop', function () {
-    promise = promise.then(changeMonkeyType('desktop'))
-      .then(monkey._generateHtml());
-
-    return promise.then(function (data) {
+    return promise.then(changeMonkeyType('desktop'))
+      .then(monkey._generateHtml())
+      .then(function (data) {
 //      data.should.have.property('html');
 //      data.html.should.be.instanceOf(jQuery);
 //      data.html.className.should.containEql('desktop');
@@ -116,18 +115,37 @@ describe('Loading Monkey', function () {
       });
   });
 
-  it('should insert HTML correctly', function () {
-    var $book = $('.lmn-book');
+  it('should insert HTML correctly on desktop', function () {
+    var $book = $('.lmn-book-desktop');
     $book.children().length.should.equal(0);
 
-    promise = promise.then(monkey._insertHtml($book));
+    return promise.then(changeMonkeyType('desktop'))
+      .then(monkey._generateHtml())
+      .then(monkey._initMonkey())
+      .then(monkey._insertHtml($book))
+      .then(function (data) {
+        $book.children().length.should.not.equal(0);
 
-    return promise.then(function (data) {
-      $book.children().length.should.not.equal(0);
+        $book.find('img').length.should.equal(data.urls.length * 2 + 2);
 
-      $book.find('img').length.should.equal(data.urls.length + 1);
+//        data.should.have.property('container');
+      });
+  });
 
-//      data.should.have.property('container');
-    });
+  it('should insert HTML correctly on mobile', function () {
+    var $book = $('.lmn-book-mobile');
+    $book.children().length.should.equal(0);
+
+    return promise.then(changeMonkeyType('mobile'))
+      .then(monkey._generateHtml())
+      .then(monkey._initMonkey())
+      .then(monkey._insertHtml($book))
+      .then(function (data) {
+        $book.children().length.should.not.equal(0);
+
+        $book.find('img').length.should.equal(data.urls.length + 1);
+
+//        data.should.have.property('container');
+      });
   });
 });
