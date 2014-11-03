@@ -27,7 +27,7 @@ window.monkey = module.exports = (function () {
       .then(monkey._insertHtml(monkeyContainer));
 
     if (options.letters) {
-      promise = promise.then(monkey.letters._generateHtml())
+      promise = promise.then(monkey.letters._generateHtml(options.letters))
         .then(monkey.letters._init());
     }
 

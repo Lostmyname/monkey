@@ -1,6 +1,11 @@
 'use strict';
 
-module.exports = function () {
+/**
+ * Generate HTML for letters.
+ *
+ * @param {string} [selector] Selector or element to insert letters into.
+ */
+module.exports = function (selector) {
   return function (data) {
     var $lettersContainer = $('<div />');
 
@@ -27,7 +32,15 @@ module.exports = function () {
       .after(' ')
       .clone().appendTo($letters);
 
-    var $book = data.html.parents('[data-key="lmn-book"]');
+    var $book = false;
+    if (typeof selector !== 'undefined' && typeof selector !== 'boolean') {
+      $book = $(selector);
+    }
+
+    if (!$book || !$book.length) {
+      $book = data.html.parents('[data-key="lmn-book"]');
+    }
+
     data.letters = $lettersContainer.prependTo($book);
 
     return data;

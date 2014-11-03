@@ -168,6 +168,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML correctly');
+  it('should generate letters HTML in a selector correctly');
   it('should initiate letters correctly');
 });
 
