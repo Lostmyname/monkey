@@ -15,8 +15,6 @@
   <link href="https://d12fm4vsc5tls2.cloudfront.net/assets/apple-touch-icon-152x152-831c2f0f28649e0a7b5ee99d5b646a6e.png" rel="apple-touch-icon" sizes="152x152" type="image/png">
   <link href="https://d12fm4vsc5tls2.cloudfront.net/assets/apple-touch-icon-180x180-f31d0d80d00e1237c852336f5e8818d1.png" rel="apple-touch-icon" sizes="180x180" type="image/png">
 
-  <link rel="stylesheet" href="assets/css/styles.css">
-
   <!--[if gt IE 8]><!-->
   <link href="https://d12fm4vsc5tls2.cloudfront.net/assets/eagle/stylesheets/main/main-42827a64b229d0af5fff0a6391c4cf66.css" media="screen" rel="stylesheet">
   <!--<![endif]-->
@@ -29,6 +27,7 @@
   <link href="//d12fm4vsc5tls2.cloudfront.net/assets/eagle/stylesheets/main/main-ie7-b4c1ae5bca94980e40934f0bb0c38fc3.css" media="screen" rel="stylesheet" />
   <![endif]-->
 
+  <link rel="stylesheet" href="assets/css/styles.css">
 
   <meta content="authenticity_token" name="csrf-param">
   <meta content="ei7Gv9ULftcnap6noiApvCyayM7y34MFQ8On6i4N5A0=" name="csrf-token">
@@ -642,7 +641,14 @@
 <script src="assets/js/heidelberg/heidelberg.js"></script>
 
 <script src="assets/build/bundle.js"></script>
-<script>monkey.init('.lmn-book')</script>
+<script>
+  monkey.init('.lmn-book')
+    .then(function (data) {
+      if (data.monkeyType === 'desktop') {
+        data.html.closest('.lmn-book').addClass('container');
+      }
+    });
+</script>
 
 
 
