@@ -45,7 +45,7 @@ describe('Monkey helpers', function () {
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml;
 
-it('should have an init function that accept options');
+  it('should have an init function that accept options');
 
   it('should get data', function () {
     monkey.should.have.property('_getData');
@@ -166,4 +166,19 @@ it('should have an init function that accept options');
 //        data.should.have.property('container');
       });
   });
+
+  it('should generate letters HTML correctly');
+  it('should initiate letters correctly');
+});
+
+describe('Using monkey on desktop', function () {
+  it('should be initiated');
+  it('should change page when clicked');
+  it('should change letters when page is changed');
+});
+
+describe('Using monkey on mobile', function () {
+  it('should be initiated');
+  it('should scroll');
+  it('should change letters when page is changed');
 });
