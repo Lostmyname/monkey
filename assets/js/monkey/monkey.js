@@ -14,6 +14,7 @@ window.monkey = module.exports = (function () {
    */
   monkey.init = function (monkeyContainer, options) {
     options = $.extend({
+      buyNow: true, // Inserts a buy now button on landscape mobile monkey
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto' // auto, desktop, mobile
     }, options);
@@ -30,6 +31,10 @@ window.monkey = module.exports = (function () {
         .then(monkey.letters._init());
     }
 
+    if (options.buyNow) {
+      promise = promise.then(monkey._addBuyNow());
+    }
+
     return promise;
   };
 
@@ -39,6 +44,8 @@ window.monkey = module.exports = (function () {
   monkey._generateHtml = require('./steps/generateHtml');
   monkey._initMonkey = require('./steps/initMonkey');
   monkey._insertHtml = require('./steps/insertHtml');
+
+  monkey._addBuyNow = require('./steps/addBuyNow');
 
   monkey.letters = {};
   monkey.letters._generateHtml = require('./steps/letters/generateHtml');

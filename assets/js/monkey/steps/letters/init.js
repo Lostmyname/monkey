@@ -11,5 +11,7 @@ module.exports = function () {
       $spans.filter('.letter-active').removeClass('letter-active').end()
         .eq(page).addClass('letter-active');
     });
+
+    return data;
   };
 };
