@@ -199,7 +199,7 @@
     }.bind(document));
 
     options.onPageTurn(el, els);
-    $(this).trigger('pageTurn.heidelberg', el, els);
+    $(this).trigger('pageTurn.heidelberg', [el, els]);
 
   };
 
