@@ -27,3 +27,19 @@ desktop.init = function (monkey, data) {
     hasSpreads: true
   });
 };
+
+desktop.letterHandler = function (monkey, data) {
+  var handler = {};
+
+  $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
+    var index = (els.pagesTarget.index() - 1) / 2;
+    $(handler).trigger('letterChange', index);
+  });
+
+  // Do it on the next free cycle to ensure the event has been added
+  setTimeout(function () {
+    $(handler).trigger('letterChange', 0);
+  });
+
+  return handler;
+};

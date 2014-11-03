@@ -62,20 +62,11 @@ mobile.letterHandler = function (monkey, data) {
   var page = -1;
 
   $monkey.on('scroll', function () {
-    var $pages = $monkey.find('.page');
-    var pages = $pages.length / 2 - 2;
     var currentPage = 0;
 
-    $pages.each(function (i) {
-      var $this = $(this);
-
-      if ($this.offset().left >= -$(window).width()) {
-        currentPage = Math.floor((i - 1) / 2);
-        if (currentPage < 0) {
-          currentPage = 0;
-        } else if (currentPage > pages) {
-          currentPage = pages;
-        }
+    $monkey.find('.page').each(function (i) {
+      if ($(this).offset().left >= -$(window).width()) {
+        currentPage = i;
 
         return false;
       }

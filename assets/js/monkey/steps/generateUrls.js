@@ -11,6 +11,8 @@ module.exports = function () {
 
   /**
    * Takes data and turns letters into URLs.
+   *
+   * @todo: Request correct size on desktop
    */
   return function (data) {
     var $window = $(window);
