@@ -39,9 +39,14 @@ mobile.init = function (monkey, data) {
     var ratio = monkey.IMAGE_RATIO;
     var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * ratio;
 
-    $('.page img').css({
+    $('.page > img').css({
       height: width / monkey.IMAGE_RATIO,
       width: width
+    });
+
+    $('.page .heidelberg-tapToOpen img').css({
+      height: width / monkey.IMAGE_RATIO,
+      width: width / monkey.IMAGE_RATIO
     });
 
     $('.monkey, body').removeClass('landscape portrait')
