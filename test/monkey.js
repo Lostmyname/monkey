@@ -181,4 +181,6 @@ describe('Using monkey on mobile', function () {
   it('should be initiated');
   it('should scroll');
   it('should change letters when page is changed');
+  it('should display buy now button when landscape');
+  it('should not display buy now button when portrait');
 });
