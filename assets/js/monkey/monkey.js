@@ -14,15 +14,23 @@ window.monkey = module.exports = (function () {
    */
   monkey.init = function (monkeyContainer, options) {
     options = $.extend({
+      letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto' // auto, desktop, mobile
     }, options);
 
-    return monkey._getData()
+    var promise = monkey._getData()
       .then(monkey._generateUrls())
       .then(monkey._calculateMonkey(options.monkeyType))
       .then(monkey._generateHtml())
       .then(monkey._initMonkey())
       .then(monkey._insertHtml(monkeyContainer));
+
+    if (options.letters) {
+      promise = promise.then(monkey.letters._generateHtml())
+        .then(monkey.letters._init());
+    }
+
+    return promise;
   };
 
   monkey._getData = require('./steps/getData');
@@ -31,6 +39,10 @@ window.monkey = module.exports = (function () {
   monkey._generateHtml = require('./steps/generateHtml');
   monkey._initMonkey = require('./steps/initMonkey');
   monkey._insertHtml = require('./steps/insertHtml');
+
+  monkey.letters = {};
+  monkey.letters._generateHtml = require('./steps/letters/generateHtml');
+  monkey.letters._init = require('./steps/letters/init');
 
   monkey.helpers = {};
   monkey.helpers.handleReplace = require('./helpers/handleReplace');

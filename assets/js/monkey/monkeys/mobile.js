@@ -54,3 +54,43 @@ mobile.init = function (monkey, data) {
     windowLeft = $monkey.scrollLeft() / $monkey.find('img').width();
   });
 };
+
+mobile.letterHandler = function (monkey, data) {
+  var handler = {};
+  var $monkey = data.html;
+
+  var page = -1;
+
+  $monkey.on('scroll', function () {
+    var $pages = $monkey.find('.page');
+    var pages = $pages.length / 2 - 2;
+    var currentPage = 0;
+
+    $pages.each(function (i) {
+      var $this = $(this);
+
+      if ($this.offset().left >= -$(window).width()) {
+        currentPage = Math.floor((i - 1) / 2);
+        if (currentPage < 0) {
+          currentPage = 0;
+        } else if (currentPage > pages) {
+          currentPage = pages;
+        }
+
+        return false;
+      }
+    });
+
+    if (currentPage !== page) {
+      page = currentPage;
+      $(handler).trigger('letterChange', page);
+    }
+  });
+
+  // Do it on the next free cycle to ensure the event has been added
+  setTimeout(function () {
+    $monkey.triggerHandler('scroll');
+  });
+
+  return handler;
+};
