@@ -18,7 +18,7 @@
 
     // Check for Modernizr, if not available assume modern browser
     this._Modernizr = window.Modernizr || {csstransforms3d: true};
-    if (typeof this._Modernizr.hasOwnProperty('preserve3d')) {
+    if (typeof this._Modernizr.preserve3d !== 'boolean') {
       this._Modernizr.preserve3d = true;
     }
 
@@ -199,6 +199,7 @@
     }.bind(document));
 
     options.onPageTurn(el, els);
+    $(this).trigger('pageTurn.heidelberg', el, els);
 
   };
 
@@ -215,6 +216,7 @@
     });
 
     options.onSpreadSetup(el);
+    $(this).trigger('spreadSetup.heidelberg', el);
   };
 
   // expose Heidelberg
