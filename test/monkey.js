@@ -37,6 +37,8 @@ describe('Monkey helpers', function () {
     });
   });
 
+  it('should remember previous replacements object');
+
   it('should correctly detect mobile', function () {
     monkey.helpers.isMobile().should.be.Boolean;
   });

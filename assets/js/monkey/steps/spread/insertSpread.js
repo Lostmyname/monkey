@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function () {
-  return function ($monkey, monkeyData) {
-    $monkey.find('.page-spreadMissing')
+  return function (monkey, monkeyData) {
+    monkeyData.html.find('.page-spreadMissing')
       .removeClass('page-spreadMissing')
       .addClass('page-spread')
       .find('img')
-        .attr('src', monkeyData.actualSpreadUrl);
+        .attr('src', monkey.helpers.handleReplace(monkey._urls.spread));
   };
 };

@@ -25,17 +25,12 @@ module.exports = function () {
       dpr: window.devicePixelRatio || 1
     };
 
-    // @todo: Make a helper and do this somewhere else
-    data.tipUrl = handleReplace(monkey._urls.bookTipTap, replacements);
-
     data.urls = $.map(data.letters, function (letterData) {
       replacements.url = letterData.url;
 
       if (letterData.type === 'spread' && !letterData.ready) {
         letterData.type = 'spreadMissing';
         data.needsSpread = true;
-
-        data.actualSpreadUrl = handleReplace(typeUrls.spread, replacements);
       }
 
       return handleReplace(typeUrls[letterData.type], replacements);

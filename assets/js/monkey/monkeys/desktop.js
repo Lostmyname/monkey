@@ -16,9 +16,11 @@ desktop.generateHtml = function (monkey, data) {
       .addClass('Heidelberg-Spread page-' + data.letters[i].type);
 
     if (i === 0) {
+      var tipUrl = monkey.helpers.handleReplace(monkey._urls.bookTipTap);
+
       $('<div />').appendTo($page)
         .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', data.tipUrl));
+        .append($('<img />').attr('src', tipUrl));
     }
 
     $('<img />').appendTo($page).attr('src', url);

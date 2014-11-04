@@ -27,7 +27,7 @@ window.monkey = module.exports = (function () {
       .then(monkey._insertHtml(monkeyContainer))
       .then(function (data) {
         if (data.needsSpread) {
-          monkey.spread._getData(data.html, data)
+          monkey.spread._getData(monkey, data)
             .then(monkey.spread._insertSpread());
         }
 
