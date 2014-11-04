@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (monkey, monkeyData) {
+module.exports = function (monkeyData) {
   var $monkey = monkeyData.html;
   var defer = $.Deferred();
   var resolved = false;
@@ -47,7 +47,7 @@ module.exports = function (monkey, monkeyData) {
 //      .then(function (data) {
 //        if (data.displayable) {
           resolved = true;
-          defer.resolve(monkey, monkeyData);
+          defer.resolve(monkeyData);
 //        }
 //      });
   }

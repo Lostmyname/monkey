@@ -10,12 +10,14 @@ mobile.calculateHeight = function () {
   return Math.min(768, Math.ceil(height));
 };
 
-mobile.generateHtml = function (monkey, data) {
+mobile.generateHtml = function (data) {
   var $monkey = $('<div />').addClass('monkey mobile');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
+
+  var monkey = this.monkey;
 
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
@@ -33,11 +35,12 @@ mobile.generateHtml = function (monkey, data) {
   return $monkey;
 };
 
-mobile.init = function (monkey, data) {
+mobile.init = function (data) {
   var portrait;
   var windowLeft = 0;
 
   var $monkey = data.html;
+  var monkey = this.monkey;
 
   $(window).on('orientationchange resize', flip);
   setTimeout(flip);
@@ -70,7 +73,7 @@ mobile.init = function (monkey, data) {
   });
 };
 
-mobile.letterHandler = function (monkey, data) {
+mobile.letterHandler = function (data) {
   var handler = {};
   var $monkey = data.html;
 

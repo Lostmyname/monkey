@@ -13,10 +13,15 @@ window.monkey = module.exports = (function () {
    * @returns A promise that will be resolved when monkey is ready.
    */
   monkey.init = function (monkeyContainer, options) {
-    options = $.extend({
+    monkey.options = options = $.extend({
       buyNow: true, // Inserts a buy now button on landscape mobile monkey
       letters: true, // Display letters? true, false, or selector
-      monkeyType: 'auto' // auto, desktop, mobile
+      monkeyType: 'auto', // auto, desktop, mobile
+
+      lang: {
+        buyNow: 'Buy now',
+        bookFor: 'A personalised book made for'
+      }
     }, options);
 
     var promise = monkey._getData()
@@ -27,7 +32,7 @@ window.monkey = module.exports = (function () {
       .then(monkey._insertHtml(monkeyContainer))
       .then(function (data) {
         if (data.needsSpread) {
-          monkey.spread._getData(monkey, data)
+          monkey.spread._getData(data)
             .then(monkey.spread._insertSpread());
         }
 
@@ -56,20 +61,25 @@ window.monkey = module.exports = (function () {
   monkey._addBuyNow = require('./steps/addBuyNow');
 
   monkey.spread = {};
+  monkey.spread.monkey = monkey;
   monkey.spread._getData = require('./steps/spread/getData');
   monkey.spread._insertSpread = require('./steps/spread/insertSpread');
 
   monkey.letters = {};
+  monkey.letters.monkey = monkey;
   monkey.letters._generateHtml = require('./steps/letters/generateHtml');
   monkey.letters._init = require('./steps/letters/init');
 
   monkey.helpers = {};
+  monkey.helpers.monkey = monkey;
   monkey.helpers.handleReplace = require('./helpers/handleReplace');
   monkey.helpers.isMobile = require('./helpers/isMobile');
 
   monkey.monkeys = {};
   monkey.monkeys.mobile = require('./monkeys/mobile');
+  monkey.monkeys.mobile.monkey = monkey;
   monkey.monkeys.desktop = require('./monkeys/desktop');
+  monkey.monkeys.desktop.monkey = monkey;
 
   return monkey;
 })();

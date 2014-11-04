@@ -9,7 +9,7 @@
  */
 module.exports = function () {
   return function (data) {
-    data.html = this.monkeys[data.monkeyType].generateHtml(this, data);
+    data.html = this.monkeys[data.monkeyType].generateHtml(data);
 
     return data;
   }.bind(this);

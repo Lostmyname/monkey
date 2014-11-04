@@ -2,7 +2,7 @@
 
 module.exports = function () {
   return function (data) {
-    this.monkeys[data.monkeyType].init(this, data);
+    this.monkeys[data.monkeyType].init(data);
 
     return data;
   }.bind(this);

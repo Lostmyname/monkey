@@ -4,12 +4,14 @@
 
 var desktop = module.exports = {};
 
-desktop.calculateHeight = function (monkey) {
-  return Math.min(Math.ceil($(window).width() / monkey.IMAGE_RATIO), 1280);
+desktop.calculateHeight = function () {
+  var height = Math.ceil($(window).width() / this.monkey.IMAGE_RATIO);
+  return Math.min(height, 1280);
 };
 
-desktop.generateHtml = function (monkey, data) {
+desktop.generateHtml = function (data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  var monkey = this.monkey;
 
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($monkey)
@@ -29,13 +31,13 @@ desktop.generateHtml = function (monkey, data) {
   return $monkey;
 };
 
-desktop.init = function (monkey, data) {
+desktop.init = function (data) {
   data.heidelberg = new Heidelberg(data.html, {
     hasSpreads: true
   });
 };
 
-desktop.letterHandler = function (monkey, data) {
+desktop.letterHandler = function (data) {
   var handler = {};
 
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {

@@ -6,6 +6,8 @@
  * @param {string} [selector] Selector or element to insert letters into.
  */
 module.exports = function (selector) {
+  var monkey = this.monkey;
+
   return function (data) {
     var $lettersContainer = $('<div />');
 
@@ -17,7 +19,7 @@ module.exports = function (selector) {
 
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded')
-      .text('A personalised book made for'); // @todo: Localise
+      .text(monkey.options.lang.bookFor);
 
     var $letters = $('<span />').appendTo($lettersContainer)
       .addClass('strong')

@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = function () {
-  return function (monkey, monkeyData) {
+  var monkey = this.monkey;
+
+  return function (monkeyData) {
     monkeyData.html.find('.page-spreadMissing')
       .removeClass('page-spreadMissing')
       .addClass('page-spread')

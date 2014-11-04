@@ -15,7 +15,7 @@ module.exports = function () {
    */
   return function (data) {
     var handleReplace = monkey.helpers.handleReplace;
-    var height = monkey.monkeys[data.monkeyType].calculateHeight(monkey, data);
+    var height = monkey.monkeys[data.monkeyType].calculateHeight(data);
 
     var replacements = {
       gender: data.gender,

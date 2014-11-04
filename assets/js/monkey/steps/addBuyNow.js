@@ -4,6 +4,8 @@
  * Adds a buy now button to landscape mobile monkey.
  */
 module.exports = function () {
+  var monkey = this;
+
   return function (data) {
     if (data.monkeyType !== 'mobile') {
       return data;
@@ -12,7 +14,7 @@ module.exports = function () {
     data.buyNow = $('<a />')
       .addClass('buy-now')
       .attr('href', '#0') // @todo: add proper href
-      .html('Buy now &rarr;') // @todo: Localise
+      .html(monkey.options.lang.buyNow + ' &rarr;')
       .appendTo(data.html.parents('[data-key="lmn-book"]'));
 
     return data;
