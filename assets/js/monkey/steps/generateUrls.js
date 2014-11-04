@@ -6,7 +6,8 @@ module.exports = function () {
   var typeUrls = {
     special: monkey._urls.images,
     story: monkey._urls.images,
-    spread: monkey._urls.spread
+    spread: monkey._urls.spread,
+    spreadMissing: monkey._urls.spreadMissing
   };
 
   /**
@@ -17,6 +18,7 @@ module.exports = function () {
   return function (data) {
     var $window = $(window);
     var height = Math.min($window.width(), $window.height());
+    var handleReplace = monkey.helpers.handleReplace;
 
     // iPad three
     if (height > 768) {
@@ -24,16 +26,23 @@ module.exports = function () {
     }
 
     data.urls = $.map(data.letters, function (letterData) {
-      var url = typeUrls[letterData.type];
-
-      return monkey.helpers.handleReplace(url, {
+      var replacements = {
         gender: data.gender,
         locale: data.locale,
         name: data.name,
         url: letterData.url,
         height: height,
         dpr: window.devicePixelRatio || 1
-      });
+      };
+
+      if (letterData.type === 'spread' && !letterData.ready) {
+        letterData.type = 'spreadMissing';
+        data.needsSpread = true;
+
+        data.actualSpreadUrl = handleReplace(typeUrls.spread, replacements);
+      }
+
+      return handleReplace(typeUrls[letterData.type], replacements);
     });
 
     return data;

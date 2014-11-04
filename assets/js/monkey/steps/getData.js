@@ -45,7 +45,7 @@ module.exports = function () {
         { type: 'story', letter: 'G', part: 1, url: 'primary/Giant_01.jpg' },
         { type: 'story', letter: 'G', part: 2, url: 'primary/Giant_02.jpg' },
         { type: 'special', url: 'Outro_01.jpg' },
-        { type: 'spread' },
+        { type: 'spread', ready: false },
         { type: 'special', url: 'Back.jpg' }
       ]
     });

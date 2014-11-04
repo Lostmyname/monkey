@@ -24,7 +24,15 @@ window.monkey = module.exports = (function () {
       .then(monkey._calculateMonkey(options.monkeyType))
       .then(monkey._generateHtml())
       .then(monkey._initMonkey())
-      .then(monkey._insertHtml(monkeyContainer));
+      .then(monkey._insertHtml(monkeyContainer))
+      .then(function (data) {
+        if (data.needsSpread) {
+          monkey.spread._getData(data.html, data)
+            .then(monkey.spread._insertSpread());
+        }
+
+        return data;
+      });
 
     if (options.letters) {
       promise = promise.then(monkey.letters._generateHtml(options.letters))
@@ -46,6 +54,10 @@ window.monkey = module.exports = (function () {
   monkey._insertHtml = require('./steps/insertHtml');
 
   monkey._addBuyNow = require('./steps/addBuyNow');
+
+  monkey.spread = {};
+  monkey.spread._getData = require('./steps/spread/getData');
+  monkey.spread._insertSpread = require('./steps/spread/insertSpread');
 
   monkey.letters = {};
   monkey.letters._generateHtml = require('./steps/letters/generateHtml');

@@ -10,7 +10,8 @@ mobile.generateHtml = function (monkey, data) {
     .addClass('landscape-images-inner');
 
   $.each(data.urls, function (i, url) {
-    var $page = $('<div />').appendTo($inner).addClass('page');
+    var $page = $('<div />').appendTo($inner)
+      .addClass('page page-' + data.letters[i].type);
 
     if (i === 0) {
       $('<div />').appendTo($page)

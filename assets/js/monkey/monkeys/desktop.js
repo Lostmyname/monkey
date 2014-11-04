@@ -8,7 +8,8 @@ desktop.generateHtml = function (monkey, data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
   $.each(data.urls, function (i, url) {
-    var $page = $('<div />').appendTo($monkey).addClass('Heidelberg-Spread');
+    var $page = $('<div />').appendTo($monkey)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type);
 
     if (i === 0) {
       $('<div />').appendTo($page)
