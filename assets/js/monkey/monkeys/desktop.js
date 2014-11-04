@@ -4,6 +4,10 @@
 
 var desktop = module.exports = {};
 
+desktop.calculateHeight = function (monkey) {
+  return Math.min(Math.ceil($(window).width() / monkey.IMAGE_RATIO), 1280);
+};
+
 desktop.generateHtml = function (monkey, data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 

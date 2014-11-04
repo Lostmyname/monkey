@@ -20,8 +20,8 @@ window.monkey = module.exports = (function () {
     }, options);
 
     var promise = monkey._getData()
-      .then(monkey._generateUrls())
       .then(monkey._calculateMonkey(options.monkeyType))
+      .then(monkey._generateUrls())
       .then(monkey._generateHtml())
       .then(monkey._initMonkey())
       .then(monkey._insertHtml(monkeyContainer))
@@ -47,8 +47,8 @@ window.monkey = module.exports = (function () {
   };
 
   monkey._getData = require('./steps/getData');
-  monkey._generateUrls = require('./steps/generateUrls');
   monkey._calculateMonkey = require('./steps/calculateMonkey');
+  monkey._generateUrls = require('./steps/generateUrls');
   monkey._generateHtml = require('./steps/generateHtml');
   monkey._initMonkey = require('./steps/initMonkey');
   monkey._insertHtml = require('./steps/insertHtml');

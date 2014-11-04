@@ -12,18 +12,10 @@ module.exports = function () {
 
   /**
    * Takes data and turns letters into URLs.
-   *
-   * @todo: Request correct size on desktop
    */
   return function (data) {
-    var $window = $(window);
-    var height = Math.min($window.width(), $window.height());
     var handleReplace = monkey.helpers.handleReplace;
-
-    // iPad three
-    if (height > 768) {
-      height = 768;
-    }
+    var height = monkey.monkeys[data.monkeyType].calculateHeight(monkey, data);
 
     var replacements = {
       gender: data.gender,
@@ -35,7 +27,6 @@ module.exports = function () {
 
     // @todo: Make a helper and do this somewhere else
     data.tipUrl = handleReplace(monkey._urls.bookTipTap, replacements);
-    console.log(data.tipUrl);
 
     data.urls = $.map(data.letters, function (letterData) {
       replacements.url = letterData.url;

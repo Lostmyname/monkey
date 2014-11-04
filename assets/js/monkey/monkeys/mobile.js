@@ -2,6 +2,14 @@
 
 var mobile = module.exports = {};
 
+mobile.calculateHeight = function () {
+  var $window = $(window);
+  var height = Math.min($window.width(), $window.height());
+
+  // Max height = iPad three
+  return Math.min(768, Math.ceil(height));
+};
+
 mobile.generateHtml = function (monkey, data) {
   var $monkey = $('<div />').addClass('monkey mobile');
   var $images = $('<div />').appendTo($monkey)
@@ -39,15 +47,16 @@ mobile.init = function (monkey, data) {
 
     var ratio = monkey.IMAGE_RATIO;
     var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * ratio;
+    var height = Math.ceil(width / monkey.IMAGE_RATIO);
 
     $('.page > img').css({
-      height: width / monkey.IMAGE_RATIO,
-      width: width
+      height: height,
+      width: Math.ceil(width)
     });
 
     $('.page .heidelberg-tapToOpen img').css({
-      height: width / monkey.IMAGE_RATIO,
-      width: width / monkey.IMAGE_RATIO
+      height: height,
+      width: (height) // Brackets to avoid code inspection warnings lol
     });
 
     $('.monkey, body').removeClass('landscape portrait')
