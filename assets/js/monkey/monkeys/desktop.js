@@ -14,7 +14,7 @@ desktop.generateHtml = function (monkey, data) {
     if (i === 0) {
       $('<div />').appendTo($page)
         .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', monkey._urls.bookTipTap));
+        .append($('<img />').attr('src', data.tipUrl));
     }
 
     $('<img />').appendTo($page).attr('src', url);

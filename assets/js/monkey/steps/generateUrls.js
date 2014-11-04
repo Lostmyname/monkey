@@ -25,15 +25,20 @@ module.exports = function () {
       height = 768;
     }
 
+    var replacements = {
+      gender: data.gender,
+      locale: data.locale,
+      name: data.name,
+      height: height,
+      dpr: window.devicePixelRatio || 1
+    };
+
+    // @todo: Make a helper and do this somewhere else
+    data.tipUrl = handleReplace(monkey._urls.bookTipTap, replacements);
+    console.log(data.tipUrl);
+
     data.urls = $.map(data.letters, function (letterData) {
-      var replacements = {
-        gender: data.gender,
-        locale: data.locale,
-        name: data.name,
-        url: letterData.url,
-        height: height,
-        dpr: window.devicePixelRatio || 1
-      };
+      replacements.url = letterData.url;
 
       if (letterData.type === 'spread' && !letterData.ready) {
         letterData.type = 'spreadMissing';
