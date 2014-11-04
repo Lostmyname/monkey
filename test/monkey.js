@@ -67,26 +67,6 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should generate URLs', function () {
-    promise = promise.then(monkey._generateUrls());
-
-    return promise.then(function (data) {
-      data.should.have.property('urls');
-      data.urls.should.have.length(data.letters.length);
-
-      for (var i = 0; i < data.urls.length; i++) {
-        var url = data.urls[i];
-
-        url.should.be.a.String;
-        url.should.startWith('//');
-
-        url.length.should.be.above(50);
-        url.should.match(/(\?|&amp;)h=\d+/);
-        url.should.match(/(\?|&amp;)dpr=\d+/);
-      }
-    });
-  });
-
   it('should set monkeyType', function () {
     promise = promise.then(monkey._calculateMonkey());
     promiseBeforeHtml = promise;
@@ -111,6 +91,26 @@ describe('Loading Monkey', function () {
         data.should.have.property('monkeyType');
         data.monkeyType.should.match(/[desktop|mobile]/);
       });
+  });
+
+  it('should generate URLs', function () {
+    promise = promise.then(monkey._generateUrls());
+
+    return promise.then(function (data) {
+      data.should.have.property('urls');
+      data.urls.should.have.length(data.letters.length);
+
+      for (var i = 0; i < data.urls.length; i++) {
+        var url = data.urls[i];
+
+        url.should.be.a.String;
+        url.should.startWith('//');
+
+        url.length.should.be.above(50);
+        url.should.match(/[?&]h=\d+/);
+        url.should.match(/[?&]dpr=\d+/);
+      }
+    });
   });
 
   it('should generate HTML for desktop', function () {
