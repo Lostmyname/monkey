@@ -14,7 +14,7 @@ window.monkey = module.exports = (function () {
    */
   monkey.init = function (monkeyContainer, options) {
     monkey.options = options = $.extend({
-      buyNow: true, // Inserts a buy now button on landscape mobile monkey
+      buyNow: '#0', // Buy now link, or false for no link
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
 
@@ -45,7 +45,7 @@ window.monkey = module.exports = (function () {
     }
 
     if (options.buyNow) {
-      promise = promise.then(monkey._addBuyNow());
+      promise = promise.then(monkey._addBuyNow(options.buyNow));
     }
 
     return promise;
