@@ -12,14 +12,12 @@
  */
 module.exports = function () {
   var defer = $.Deferred();
-  var monkey = this;
 
   setTimeout(function () {
     defer.resolve({
       name: 'HEIDELBERG',
       gender: 'girl',
       locale: 'en-GB',
-      monkey: monkey, // not from the server
       letters: [
         { type: 'special', url: 'Front.jpg' },
         { type: 'special', url: 'Intro_01.jpg' },
