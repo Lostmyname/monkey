@@ -1,4 +1,12 @@
-window.monkey = module.exports = (function () {
+(function (root, factory) {
+  'use strict';
+
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.monkey = factory();
+  }
+})(this, function () {
   'use strict';
 
   var monkey = {};
@@ -82,4 +90,4 @@ window.monkey = module.exports = (function () {
   monkey.monkeys.desktop.monkey = monkey;
 
   return monkey;
-})();
+});
