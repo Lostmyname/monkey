@@ -14,7 +14,7 @@ function changeMonkeyType(type) {
   return function (data) {
     data.monkeyType = type;
     return data;
-  }
+  };
 }
 
 // Hacky fix: see shouldjs/should.js#20
