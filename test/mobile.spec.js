@@ -4,7 +4,7 @@
 
 describe('Using monkey on mobile', function () {
   var promise;
-  var $container = window.a = $('<div />').attr('data-key', 'lmn-book');
+  var $container = $('<div />').attr('data-key', 'lmn-book');
   var $monkey;
 
   before(function () {
