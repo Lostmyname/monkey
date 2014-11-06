@@ -16,3 +16,13 @@ function changeMonkeyType(type) {
     return data;
   }
 }
+
+// Hacky fix: see shouldjs/should.js#20
+Element.prototype.inspect = function () {
+  return this.outerHTML;
+};
+
+// Idek: shouldjs/should.js#22
+XMLHttpRequest.prototype.inspect = function () {
+  return '[XMLHttpRequest]';
+}
