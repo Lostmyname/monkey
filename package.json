@@ -2,7 +2,7 @@
   "name": "monkey",
   "version": "0.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "assets/js/monkey/monkey.js",
   "devDependencies": {
     "browser-sync": "^1.5.1",
     "browserify": "^6.2.0",
