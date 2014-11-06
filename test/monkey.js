@@ -193,6 +193,10 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should generate spread HTML');
+
+  it('should insert spread');
+
   it('should generate letters HTML in a selector correctly', function () {
     var $insertHere = $('<div />');
 
@@ -215,6 +219,29 @@ describe('Loading Monkey', function () {
     return promise.then(function (data) {
       $(handler).trigger('letterChange', 7);
       data.letters.find('.letter-active').index().should.equal(3);
+    });
+  });
+
+  it('should not insert buy now button when not mobile', function () {
+    promise = promise.then(monkey._addBuyNow());
+
+    return promise.then(function (data) {
+      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
+
+      $buyNow.length.should.equal(0);
+    });
+  });
+
+  it('should insert buy now button', function () {
+    promise = promise.then(changeMonkeyType('mobile'))
+      .then(monkey._addBuyNow('http://google.com/'));
+
+    return promise.then(function (data) {
+      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
+
+      $buyNow.length.should.equal(1);
+
+      data.buyNow[0].should.equal($buyNow[0]);
     });
   });
 });
