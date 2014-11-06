@@ -152,7 +152,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should insert HTML correctly on desktop', function () {
-    var $book = $('.lmn-book-desktop');
+    var $book = $('<div />').attr('data-key', 'lmn-book');
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('desktop'))
@@ -169,7 +169,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should insert HTML correctly on mobile', function () {
-    var $book = $('.lmn-book-mobile');
+    var $book = $('<div />').attr('data-key', 'lmn-book');
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('mobile'))
