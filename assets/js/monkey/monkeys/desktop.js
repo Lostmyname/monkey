@@ -1,6 +1,6 @@
-/* global Heidelberg */
-
 'use strict';
+
+var Heidelberg = require('heidelberg');
 
 var desktop = module.exports = {};
 

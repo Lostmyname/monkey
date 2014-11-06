@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "description": "",
   "main": "assets/js/monkey/monkey.js",
+  "dependencies": {
+    "browserify": "^6.2.0",
+    "heidelberg": "^1.0.0"
+  },
   "devDependencies": {
     "browser-sync": "^1.5.1",
-    "browserify": "^6.2.0",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-load-plugins": "^0.7.1",
