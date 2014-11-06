@@ -1,12 +1,4 @@
-(function (root, factory) {
-  'use strict';
-
-  if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.monkey = factory();
-  }
-})(this, function () {
+window.monkey = module.exports = (function () {
   'use strict';
 
   var monkey = {};
@@ -90,4 +82,4 @@
   monkey.monkeys.desktop.monkey = monkey;
 
   return monkey;
-});
+})();
