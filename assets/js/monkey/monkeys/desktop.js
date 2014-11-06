@@ -1,5 +1,7 @@
 'use strict';
 
+require('browsernizr/test/css/transformstylepreserve3d');
+window.Modernizr = require('browsernizr');
 var Heidelberg = require('heidelberg');
 
 var desktop = module.exports = {};

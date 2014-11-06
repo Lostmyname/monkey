@@ -5,6 +5,7 @@
   "main": "assets/js/monkey/monkey.js",
   "dependencies": {
     "browserify": "^6.2.0",
+    "browsernizr": "^1.0.2",
     "heidelberg": "^1.0.0"
   },
   "devDependencies": {
