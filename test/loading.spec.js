@@ -2,51 +2,6 @@
 
 'use strict';
 
-describe('Tests', function () {
-  it('should function', function () {
-    (10).should.be.above(2);
-  });
-
-  it('should have everything they need', function () {
-    monkey.should.be.type('object');
-    $.should.be.type('function');
-  });
-
-  it('should have jqPromise test', function () {
-    var promise = $.Deferred().promise();
-    promise.should.be.a.jqPromise;
-    $.should.not.be.a.jqPromise;
-  });
-});
-
-describe('Monkey helpers', function () {
-  it('should support string replacements', function () {
-    var handleReplace = monkey.helpers.handleReplace;
-    var replacements = { foo: 'bar', hello: 'world', empty: '' };
-
-    var replaces = {
-      '{{ foo }}': 'bar',
-      ' {{hello}}': ' world',
-      '{{ nope }}': '{{ nope }}',
-      '{{ empty}}': '',
-      '{ {test} }': '{ {test} }'
-    };
-
-    $.each(replaces, function (input, output) {
-      handleReplace(input, replacements).should.equal(output);
-    });
-  });
-
-  it('should remember previous replacements object', function () {
-    var handleReplace = monkey.helpers.handleReplace;
-    handleReplace('{{ foo }}').should.equal('bar');
-  });
-
-  it('should correctly detect mobile', function () {
-    monkey.helpers.isMobile().should.be.Boolean;
-  });
-});
-
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml;
 
@@ -137,7 +92,7 @@ describe('Loading Monkey', function () {
         data.html.should.be.instanceOf(jQuery);
         data.html.hasClass('desktop').should.be.True;
         data.html.html().should.containEql(data.urls[2].split('?')[0])
-    });
+      });
   });
 
   it('should generate HTML for mobile', function () {
@@ -243,81 +198,5 @@ describe('Loading Monkey', function () {
 
       data.buyNow[0].should.equal($buyNow[0]);
     });
-  });
-});
-
-describe('Using monkey on desktop', function () {
-  var promise;
-  var $container = $('<div />').attr('data-key', 'lmn-book');
-
-  it('should be initiated', function () {
-    promise = monkey.init($container, { monkeyType: 'desktop' });
-
-    return promise.then(function () {
-      $container.children().length.should.equal(2);
-
-      $container.appendTo('body');
-    });
-  });
-
-  it('should change page when clicked', function () {
-    var $active = $container.find('.is-active').eq(1);
-
-    $active.click();
-
-    $container.find('.is-active').get(1).should.not.equal($active.get(0));
-  });
-
-  it('should change letters when page is changed', function () {
-    var letterActive = $container.find('.letter-active')[0];
-
-    for (var i = 0; i < 7; i++) {
-      $container.find('.is-active').eq(1).click();
-    }
-
-    var $newActive = $container.find('.letter-active');
-
-    $newActive.eq(0).index().should.equal(3);
-    $newActive[0].should.not.equal(letterActive);
-  });
-
-  after(function () {
-    $container.remove();
-  });
-});
-
-describe('Using monkey on mobile', function () {
-  var promise;
-  var $container = window.a = $('<div />').attr('data-key', 'lmn-book');
-  var $monkey;
-
-  it('should be initiated', function () {
-    promise = monkey.init($container, { monkeyType: 'mobile' });
-
-    return promise.then(function () {
-      $container.children().length.should.equal(3);
-      $monkey = $container.find('.monkey');
-
-      $container.appendTo('body');
-    });
-  });
-
-  it('should scroll', function () {
-    $monkey.scrollLeft(100);
-    $monkey.scrollLeft().should.equal(100);
-  });
-
-  it('should change letters when page is changed', function () {
-    $monkey.scrollLeft($monkey.find('div').width() / 2).trigger('scroll');
-    $container.find('.letter-active').index().should.be.within(4, 6);
-  });
-
-  it('should display buy now button correctly', function () {
-    var shouldBe = $monkey.hasClass('portrait') ? 'hidden' : 'visible';
-    $container.find('.buy-now').is(':' + shouldBe).should.be.True;
-  });
-
-  after(function () {
-    $container.remove();
   });
 });
