@@ -6,9 +6,11 @@ describe('Using monkey on desktop', function () {
   var promise;
   var $container = $('<div />').attr('data-key', 'lmn-book');
 
-  it('should be initiated', function () {
+  before(function () {
     promise = monkey.init($container, { monkeyType: 'desktop' });
+  });
 
+  it('should be initiated', function () {
     return promise.then(function () {
       $container.children().length.should.equal(2);
 

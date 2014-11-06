@@ -7,9 +7,11 @@ describe('Using monkey on mobile', function () {
   var $container = window.a = $('<div />').attr('data-key', 'lmn-book');
   var $monkey;
 
-  it('should be initiated', function () {
+  before(function () {
     promise = monkey.init($container, { monkeyType: 'mobile' });
+  });
 
+  it('should be initiated', function () {
     return promise.then(function () {
       $container.children().length.should.equal(3);
       $monkey = $container.find('.monkey');
