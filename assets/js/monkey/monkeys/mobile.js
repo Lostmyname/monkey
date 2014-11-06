@@ -17,8 +17,6 @@ mobile.generateHtml = function (data) {
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
 
-  var monkey = this.monkey;
-
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
       .addClass('page page-' + data.letters[i].type);
@@ -26,7 +24,7 @@ mobile.generateHtml = function (data) {
     if (i === 0) {
       $('<div />').appendTo($page)
         .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', monkey._urls.bookTipSwipe));
+        .append($('<img />').attr('src', data.bookTipSwipe));
     }
 
     $('<img />').appendTo($page).attr('src', url);

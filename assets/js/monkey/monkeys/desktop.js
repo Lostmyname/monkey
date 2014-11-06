@@ -11,18 +11,15 @@ desktop.calculateHeight = function () {
 
 desktop.generateHtml = function (data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
-  var monkey = this.monkey;
 
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($monkey)
       .addClass('Heidelberg-Spread page-' + data.letters[i].type);
 
     if (i === 0) {
-      var tipUrl = monkey.helpers.handleReplace(monkey._urls.bookTipTap);
-
       $('<div />').appendTo($page)
         .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', tipUrl));
+        .append($('<img />').attr('src', data.bookTipTap));
     }
 
     $('<img />').appendTo($page).attr('src', url);

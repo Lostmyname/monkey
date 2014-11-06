@@ -2,7 +2,6 @@ window.monkey = module.exports = (function () {
   'use strict';
 
   var monkey = {};
-  monkey._urls = require('./urls');
   monkey.IMAGE_RATIO = 2048 / 738;
 
   /**
