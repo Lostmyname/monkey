@@ -13,9 +13,18 @@ module.exports = function (buyNowLink) {
 
     data.buyNow = $('<a />')
       .addClass('buy-now')
-      .attr('href', buyNowLink)
       .html(monkey.options.lang.buyNow + ' &rarr;')
       .appendTo(data.html.parents('[data-key="lmn-book"]'));
+
+    if (typeof buyNowLink === 'string') {
+      data.buyNow.attr('href', buyNowLink);
+    } else if (buyNowLink instanceof jQuery) {
+      data.buyNow.on('click', function (e) {
+        e.preventDefault();
+
+        buyNowLink.trigger('click');
+      });
+    }
 
     return data;
   };
