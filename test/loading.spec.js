@@ -20,6 +20,8 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should set book options from data attributes');
+
   it('should get data', function () {
     monkey.should.have.property('_getData');
 

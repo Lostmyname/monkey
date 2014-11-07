@@ -12,10 +12,18 @@ window.monkey = module.exports = (function () {
    * @returns A promise that will be resolved when monkey is ready.
    */
   monkey.init = function (monkeyContainer, options) {
+    var $monkeyContainer = $(monkeyContainer);
+
     monkey.options = options = $.extend({
       buyNow: '#0', // Buy now link, or false for no link
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
+
+      book: {
+        name: $monkeyContainer.data('name'),
+        gender: $monkeyContainer.data('gender'),
+        locale: $monkeyContainer.data('locale')
+      },
 
       lang: {
         buyNow: 'Buy now',
