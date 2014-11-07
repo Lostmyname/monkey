@@ -18,6 +18,7 @@ module.exports = function () {
 
     data.urls = $.map(data.letters, function (letterData) {
       if (letterData.type === 'spread' && !letterData.ready) {
+        letterData.type = 'spreadMissing';
         data.needsSpread = true;
       }
 
