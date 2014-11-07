@@ -8,9 +8,11 @@
  *                   information on the pages. Seriously, just use a debugger.
  */
 module.exports = function () {
+  var locale = this.options.book.locale;
+
   return $.post(this.options.server, { widget: this.options.book })
     .then(function (data) {
-      data.book.bookTipTap = '//lmn-assets.imgix.net/widget/en-GB/v2/images/book_tip.png';
+      data.book.bookTipTap = '//lmn-assets.imgix.net/widget/' + locale + '/v2/images/book_tip.png';
       data.book.bookTipSwipe = '/assets/lostmyname/widget/book-swipe.png';
 
       return data.book;
