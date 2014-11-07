@@ -19,6 +19,8 @@ window.monkey = module.exports = (function () {
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
 
+      server: 'https://secure.lostmy.name/widgets',
+
       book: {
         name: $monkeyContainer.data('name'),
         gender: $monkeyContainer.data('gender'),
@@ -39,7 +41,7 @@ window.monkey = module.exports = (function () {
       .then(monkey._insertHtml(monkeyContainer))
       .then(function (data) {
         if (data.needsSpread) {
-          monkey.spread._getData(data)
+          monkey.spread._getData(data, monkey)
             .then(monkey.spread._insertSpread());
         }
 

@@ -8,8 +8,7 @@
  *                   information on the pages. Seriously, just use a debugger.
  */
 module.exports = function () {
-  var book = { widget: this.options.book };
-  return $.post('http://lostmyname-staging.herokuapp.com/widgets', book)
+  return $.post(this.options.server, { widget: this.options.book })
     .then(function (data) {
       data.book.bookTipTap = '//lmn-assets.imgix.net/widget/en-GB/v2/images/book_tip.png';
       data.book.bookTipSwipe = 'assets/images/book-swipe.png';

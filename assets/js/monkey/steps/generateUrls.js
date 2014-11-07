@@ -11,13 +11,14 @@ module.exports = function () {
     var dpr = window.devicePixelRatio || 1;
 
     var queryString = '?h=' + height + '&dpr=' + dpr + '&q=60';
+    data.queryString = queryString;
 
     data.bookTipTap += queryString;
     data.bookTipSwipe += queryString;
 
     data.urls = $.map(data.letters, function (letterData) {
       if (letterData.type === 'spread' && !letterData.ready) {
-        //data.needsSpread = true;
+        data.needsSpread = true;
       }
 
       return letterData.url + queryString;

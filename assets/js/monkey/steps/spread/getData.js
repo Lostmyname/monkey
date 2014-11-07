@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (monkeyData) {
+module.exports = function (monkeyData, monkey) {
   var $monkey = monkeyData.html;
   var defer = $.Deferred();
   var resolved = false;
@@ -41,14 +41,15 @@ module.exports = function (monkeyData) {
 
   return defer.promise();
 
-  // @todo: Make this work
   function makeRequest() {
-//    $.get('/bla')
-//      .then(function (data) {
-//        if (data.displayable) {
-          resolved = true;
-          defer.resolve(monkeyData);
-//        }
-//      });
+    $.post(monkey.options.server, { widget: monkey.options.book })
+      .then(function (data) {
+        $.each(data.book.letters, function (i, letter) {
+          if (letter.type === 'spread' && letter.ready) {
+            resolved = true;
+            defer.resolve(monkeyData, letter.url);
+          }
+        });
+      });
   }
 };
