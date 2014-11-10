@@ -9,8 +9,9 @@ module.exports = function () {
   return function (data) {
     var height = monkey.monkeys[data.monkeyType].calculateHeight(data);
     var dpr = window.devicePixelRatio || 1;
+    var quality = (data.monkeyType === 'desktop') ? 60 : 20;
 
-    var queryString = '?h=' + height + '&dpr=' + dpr + '&q=60';
+    var queryString = '?h=' + height + '&dpr=' + dpr + '&q=' + quality;
     data.queryString = queryString;
 
     data.bookTipTap += queryString;
