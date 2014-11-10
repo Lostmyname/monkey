@@ -25,8 +25,12 @@ module.exports = function (selector) {
       .addClass('strong')
       .attr('id', 'letters');
 
-    $.each(data.name.split(''), function (i, letter) {
-      $('<span />').appendTo($letters).text(letter).after(' ');
+    $(data.letters).filter(function (i, letter) {
+      return letter.part === 1;
+    }).each(function (i, letter) {
+      $('<span />').appendTo($letters)
+        .text(letter.letter || '')
+        .after(' ');
     });
 
     $('<span />').html('&bull;')
