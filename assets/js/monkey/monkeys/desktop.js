@@ -7,8 +7,8 @@ var Heidelberg = require('heidelberg');
 var desktop = module.exports = {};
 
 desktop.calculateHeight = function () {
-  var height = Math.ceil($(window).width() / this.monkey.IMAGE_RATIO);
-  return Math.min(height, 1280);
+  var width = Math.min($(window).width(), 1000);
+  return Math.ceil(width / this.monkey.IMAGE_RATIO);
 };
 
 desktop.generateHtml = function (data) {
