@@ -2,12 +2,12 @@
 
 var mobile = module.exports = {};
 
-mobile.calculateHeight = function () {
+mobile.calculateSize = function () {
   var $window = $(window);
   var height = Math.min($window.width(), $window.height());
 
   // Max height = iPad three
-  return Math.min(768, Math.ceil(height));
+  return 'h=' + Math.min(768, Math.ceil(height));
 };
 
 mobile.generateHtml = function (data) {
