@@ -46,5 +46,10 @@ gulp.task('browser-sync', function () {
 
 gulp.task('default', ['js', 'sass', 'browser-sync'], function () {
   gulp.watch('assets/**/*.{sass,scss}', ['sass']);
-  gulp.watch('assets/js/**/*.js', ['js']);
+
+  // Watching heidelberg file in case of npm link
+  gulp.watch([
+    'assets/js/**/*.js',
+    'node_modules/heidelberg/js/heidelberg/heidelberg.js'
+  ], ['js']);
 });
