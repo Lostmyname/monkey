@@ -13,7 +13,7 @@ module.exports = function () {
   return $.post(this.options.server, { widget: this.options.book })
     .then(function (data) {
       data.book.bookTipTap = '//lmn-assets.imgix.net/widget/' + locale + '/v2/images/book_tip.png';
-      data.book.bookTipSwipe = '/assets/lostmyname/widget/book-swipe.png';
+      data.book.bookTipSwipe = '//lmn-assets.imgix.net/widget/' + locale + '/v2/images/book-swipe.png';
 
       return data.book;
     });
