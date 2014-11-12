@@ -16,3 +16,9 @@ function changeMonkeyType(type) {
     return data;
   };
 }
+
+var bookData = {
+  name: 'Heidelberg',
+  gender: 'girl',
+  locale: 'en-GB'
+};

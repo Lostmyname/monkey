@@ -6,7 +6,7 @@ module.exports = function () {
   return function (data) {
     var handler = monkey.monkeys[data.monkeyType].letterHandler(data);
 
-    var $spans = data.letters.find('#letters span');
+    var $spans = data.lettersElement.find('#letters span');
 
     $(handler).on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);

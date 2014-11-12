@@ -8,7 +8,10 @@ describe('Using monkey on mobile', function () {
   var $monkey;
 
   before(function () {
-    promise = monkey.init($container, { monkeyType: 'mobile' });
+    promise = monkey.init($container, {
+      monkeyType: 'mobile',
+      book: bookData
+    });
   });
 
   it('should be initiated', function () {

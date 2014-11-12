@@ -10,7 +10,8 @@ describe('Loading Monkey', function () {
     return monkey.init($testObject, {
       buyNow: 'testTESTtest',
       letters: false,
-      monkeyType: 'mobile'
+      monkeyType: 'mobile',
+      book: bookData
     }).then(function (data) {
       $testObject.children().length.should.be.above(0);
       data.html[0].should.equal($testObject.children()[0]);
@@ -80,7 +81,7 @@ describe('Loading Monkey', function () {
         url.should.startWith('//');
 
         url.length.should.be.above(50);
-        url.should.match(/[?&]h=\d+/);
+        url.should.match(/[?&][hw]=\d+/);
         url.should.match(/[?&]dpr=\d+/);
       }
     });
@@ -119,7 +120,7 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length * 2 + 2);
+        $book.find('img').length.should.equal(data.urls.length * 2 + 4);
 
         data.should.have.property('container');
       });
@@ -136,7 +137,7 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length + 1);
+        $book.find('img').length.should.equal(data.urls.length + 2);
 
         data.should.have.property('container');
       });
@@ -146,7 +147,8 @@ describe('Loading Monkey', function () {
     promise = promise.then(monkey.letters._generateHtml());
 
     return promise.then(function (data) {
-      data.letters.find('span span').length.should.equal(data.name.length + 2);
+      var spans = data.lettersElement.find('span span');
+      spans.length.should.equal(data.name.length + 2);
     });
   });
 
@@ -159,6 +161,7 @@ describe('Loading Monkey', function () {
 
     promise.then(monkey.letters._generateHtml($insertHere))
       .then(function (data) {
+        data.lettersElement[0].should.equal($insertHere.children()[0]);
         $insertHere.find('span span').length.should.equal(data.name.length + 2);
       });
   });
@@ -175,7 +178,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(function (data) {
       $(handler).trigger('letterChange', 7);
-      data.letters.find('.letter-active').index().should.equal(3);
+      data.lettersElement.find('.letter-active').index().should.equal(3);
     });
   });
 

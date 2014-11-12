@@ -47,7 +47,7 @@ module.exports = function (selector) {
       $book = data.html.parents('[data-key="lmn-book"]');
     }
 
-    data.letters = $lettersContainer.prependTo($book);
+    data.lettersElement = $lettersContainer.prependTo($book);
 
     return data;
   };

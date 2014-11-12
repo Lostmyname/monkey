@@ -7,7 +7,10 @@ describe('Using monkey on desktop', function () {
   var $container = $('<div />').attr('data-key', 'lmn-book');
 
   before(function () {
-    promise = monkey.init($container, { monkeyType: 'desktop' });
+    promise = monkey.init($container, {
+      monkeyType: 'desktop',
+      book: bookData
+    });
   });
 
   it('should be initiated', function () {
