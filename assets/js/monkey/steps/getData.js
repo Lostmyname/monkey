@@ -12,8 +12,11 @@ module.exports = function () {
 
   return $.post(this.options.server, { widget: this.options.book })
     .then(function (data) {
-      data.book.bookTipTap = '//lmn-assets.imgix.net/widget/' + locale + '/v2/images/book_tip.png';
-      data.book.bookTipSwipe = '//lmn-assets.imgix.net/widget/' + locale + '/v2/images/book-swipe.png';
+      var base = '//lmn-assets.imgix.net/widget/' + locale + '/v2';
+
+      data.book.bookTipTap = base + '/images/book_tip.png';
+      data.book.bookTipSwipe = base + '/images/book-swipe.png';
+      data.book.lastPage = base + '/images/last_page.jpg';
 
       return data.book;
     });

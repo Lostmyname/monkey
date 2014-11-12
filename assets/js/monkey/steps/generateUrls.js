@@ -16,6 +16,7 @@ module.exports = function () {
 
     data.bookTipTap += queryString;
     data.bookTipSwipe += queryString;
+    data.lastPage += queryString;
 
     data.urls = $.map(data.letters, function (letterData) {
       if (letterData.type === 'spread' && !letterData.ready) {

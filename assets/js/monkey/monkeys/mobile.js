@@ -27,6 +27,12 @@ mobile.generateHtml = function (data) {
         .append($('<img />').attr('src', data.bookTipSwipe));
     }
 
+    if (i === data.urls.length - 1) {
+      $('<div />').appendTo($page)
+        .addClass('last-page')
+        .append($('<img />').attr('src', data.lastPage));
+    }
+
     $('<img />').appendTo($page).attr('src', url);
   });
 
