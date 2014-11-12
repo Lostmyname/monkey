@@ -61,14 +61,8 @@ mobile.init = function (data) {
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen').css({
-      width: Math.ceil(width / 2)
-    });
-
-    $('.page .heidelberg-tapToOpen img').css({
-      height: height,
-      width: (height) // Brackets to avoid code inspection warnings lol
-    });
+    $('.page .heidelberg-tapToOpen').css('width', Math.ceil(width / 2))
+      .find('img').css('height', height);
 
     $('.monkey, body').removeClass('landscape portrait')
       .addClass(portrait ? 'portrait' : 'landscape');
