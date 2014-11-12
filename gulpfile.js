@@ -27,7 +27,7 @@ gulp.task('sass', function () {
 gulp.task('browser-sync', function () {
   browserSync.init([
     'assets/**/*.css',
-    'assets/**/*.js',
+    'assets/build/**/*.js',
     'assets/imgs/**/*.jpg',
     'assets/imgs/**/*.png',
     '**/*.html',
