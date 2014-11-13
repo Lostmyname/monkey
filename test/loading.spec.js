@@ -182,7 +182,7 @@ describe('Loading Monkey', function () {
   });
 
   // Can't insert it because it already exists :(
-  it('should generate spread HTML', function () {
+  it('should generate spread HTML (slow)', function () {
     return promise.then(function (data) {
       data.should.not.have.property('needsSpread');
 
