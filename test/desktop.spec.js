@@ -3,22 +3,24 @@
 'use strict';
 
 describe('Using monkey on desktop', function () {
-  var promise;
+  var data, promise;
   var $container = $('<div />').attr('data-key', 'lmn-book');
 
   before(function () {
+    this.timeout(4000);
     promise = monkey.init($container, {
       monkeyType: 'desktop',
       book: bookData
     });
+
+    return promise.then(function (dataa) {
+      $container.appendTo('body');
+      data = dataa;
+    });
   });
 
   it('should be initiated', function () {
-    return promise.then(function () {
-      $container.children().length.should.equal(2);
-
-      $container.appendTo('body');
-    });
+    $container.children().length.should.equal(2);
   });
 
   it('should change page when clicked', function () {
@@ -29,7 +31,8 @@ describe('Using monkey on desktop', function () {
     $container.find('.is-active').get(1).should.not.equal($active.get(0));
   });
 
-  it('should change letters when page is changed', function () {
+  // @todo: fix in IE
+  it('should change letters when page is changed (noIE)', function () {
     var letterActive = $container.find('.letter-active')[0];
 
     for (var i = 0; i < 7; i++) {
@@ -43,6 +46,6 @@ describe('Using monkey on desktop', function () {
   });
 
   after(function () {
-    $container.remove();
+    //$container.remove();
   });
 });

@@ -12,15 +12,15 @@ describe('Using monkey on mobile', function () {
       monkeyType: 'mobile',
       book: bookData
     });
+
+    return promise.then(function () {
+      $monkey = $container.find('.monkey');
+      $container.appendTo('body');
+    });
   });
 
   it('should be initiated', function () {
-    return promise.then(function () {
-      $container.children().length.should.equal(3);
-      $monkey = $container.find('.monkey');
-
-      $container.appendTo('body');
-    });
+    $container.children().length.should.equal(3);
   });
 
   it('should scroll', function () {
