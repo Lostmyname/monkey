@@ -21,12 +21,27 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should set book options from data attributes');
+  it('should set book options from data attributes (slow)', function () {
+    var $testObject = $('<div />').attr({
+      'data-key': 'lmn-book',
+      'data-name': 'Test',
+      'data-gender': 'boy',
+      'data-locale': 'en-US'
+    });
+
+    return monkey.init($testObject)
+      .then(function (data) {
+        monkey.options.book.name.should.equal('Test');
+        monkey.options.book.gender.should.equal('boy');
+        monkey.options.book.locale.should.equal('en-US');
+      });
+  });
 
   it('should get data', function () {
     monkey.should.have.property('_getData');
 
-    promise = monkey._getData();
+    monkey.options.book = bookData;
+    promise = monkey._getData(monkey.options);
     promise.should.be.jqPromise;
 
     return promise.then(function (data) {
@@ -152,18 +167,36 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should generate spread HTML');
+  it('should generate letters HTML with short names correctly (slow)', function () {
+    return monkey.init($('<div />').attr('data-key', 'lmn-book'), {
+      letters: true,
+      book: {
+        name: 'Tal',
+        gender: 'boy',
+        locale: 'en-GB'
+      }
+    }).then(function (data) {
+      var spans = data.lettersElement.find('span span');
+      spans.length.should.equal(6);
+    })
+  });
 
-  it('should insert spread');
+  // Can't insert it because it already exists :(
+  it('should generate spread HTML', function () {
+    return promise.then(function (data) {
+      data.should.not.have.property('needsSpread');
 
-  it('should generate letters HTML in a selector correctly', function () {
-    var $insertHere = $('<div />');
+      var spreadPromise = monkey.spread._getData(data, monkey);
 
-    promise.then(monkey.letters._generateHtml($insertHere))
-      .then(function (data) {
-        data.lettersElement[0].should.equal($insertHere.children()[0]);
-        $insertHere.find('span span').length.should.equal(data.name.length + 2);
+      var $monkey = data.html;
+      $monkey.scrollLeft($monkey.children('div').width() / 2 + 1000);
+      $monkey.triggerHandler('scroll.monkeyPoll');
+
+      return spreadPromise.then(function (monkeyData, spreadUrl) {
+        monkeyData.should.equal(data);
+        spreadUrl.should.containEql('spread.jpg');
       });
+    });
   });
 
   it('should initiate letters correctly', function () {

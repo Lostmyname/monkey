@@ -7,10 +7,10 @@
  *                   name and gender, and then a letters property containing
  *                   information on the pages. Seriously, just use a debugger.
  */
-module.exports = function () {
-  var locale = this.options.book.locale;
+module.exports = function (options) {
+  var locale = options.book.locale;
 
-  return $.post(this.options.server, { widget: this.options.book })
+  return $.post(options.server, { widget: options.book })
     .then(function (data) {
       var base = '//lmn-assets.imgix.net/widget/' + locale + '/v2';
 

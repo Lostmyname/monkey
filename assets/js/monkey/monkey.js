@@ -33,7 +33,7 @@ window.monkey = module.exports = (function () {
       }
     }, options);
 
-    var promise = monkey._getData()
+    var promise = monkey._getData(options)
       .then(monkey._calculateMonkey(options.monkeyType))
       .then(monkey._generateUrls())
       .then(monkey._generateHtml())

@@ -20,24 +20,22 @@ module.exports = function (monkeyData, monkey) {
 
   var halfDone = false;
 
-  if (monkeyData.monkeyType === 'mobile') {
-    $monkey.on('scroll.monkeyPoll', function () {
-      if (resolved) {
-        $monkey.off('scroll.monkeyPoll');
-        return;
-      }
+  $monkey.on('scroll.monkeyPoll', function () {
+    if (resolved) {
+      $monkey.off('scroll.monkeyPoll');
+      return;
+    }
 
-      if (!halfDone && $monkey.scrollLeft() > $monkey.children('div').width() / 2) {
-        halfDone = true;
-        makeRequest();
-      }
+    if (!halfDone && $monkey.scrollLeft() > $monkey.children('div').width() / 2) {
+      halfDone = true;
+      makeRequest();
+    }
 
-      if ($monkey.scrollLeft() + 1500 > $monkey.children('div').width()) {
-        $monkey.off('scroll.monkeyPoll');
-        makeRequest();
-      }
-    });
-  }
+    if ($monkey.scrollLeft() + 1500 > $monkey.children('div').width()) {
+      $monkey.off('scroll.monkeyPoll');
+      makeRequest();
+    }
+  });
 
   return defer.promise();
 
