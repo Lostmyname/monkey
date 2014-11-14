@@ -46,6 +46,6 @@ describe('Using monkey on desktop', function () {
   });
 
   after(function () {
-    //$container.remove();
+    $container.remove();
   });
 });
