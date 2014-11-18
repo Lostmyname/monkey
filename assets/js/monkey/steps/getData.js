@@ -10,7 +10,7 @@
 module.exports = function (options) {
   var locale = options.book.locale;
 
-  return $.post(options.server, { widget: options.book })
+  return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
       var base = '//lmn-assets.imgix.net/widget/' + locale + '/v2';
 
