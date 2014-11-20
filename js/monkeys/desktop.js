@@ -38,6 +38,7 @@ desktop.generateHtml = function (data) {
 
 desktop.init = function (data) {
   data.heidelberg = new Heidelberg(data.html, {
+    arrowKeys: false,
     hasSpreads: true
   });
 };
