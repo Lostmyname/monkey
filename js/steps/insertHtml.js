@@ -9,7 +9,7 @@ module.exports = function (monkeyContainer) {
   var $container = $(monkeyContainer);
 
   return function (data) {
-    $container.append(data.html);
+    $container.empty().append(data.html);
 
     data.container = $container;
 
