@@ -39,7 +39,7 @@ mobile.generateHtml = function (data) {
   return $monkey;
 };
 
-mobile.init = function (data) {
+mobile.init = function (data, $events) {
   var portrait;
   var windowLeft = 0;
 
@@ -51,6 +51,11 @@ mobile.init = function (data) {
 
   function flip() {
     portrait = (window.innerHeight > window.innerWidth);
+
+    if ($monkey.hasClass('landscape') && portrait ||
+        $monkey.hasClass('portrait') && !portrait) {
+      $events.trigger('rotate');
+    }
 
     var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * RATIO;
     var height = Math.ceil(width / RATIO);
@@ -70,7 +75,17 @@ mobile.init = function (data) {
   }
 
   $monkey.on('scroll', function () {
-    windowLeft = $monkey.scrollLeft() / $monkey.find('img').width();
+    var scrollLeft = $monkey.scrollLeft();
+
+    windowLeft = scrollLeft / $monkey.find('img').width();
+
+    if (scrollLeft / $monkey.children().width() > 0.5) {
+      $events.trigger('halfway');
+    }
+
+    if (scrollLeft > $monkey.find('.last-page').parents().position().left) {
+      $events.trigger('finished');
+    }
   });
 };
 

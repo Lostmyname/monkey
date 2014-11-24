@@ -3,18 +3,18 @@
 'use strict';
 
 describe('Using monkey on desktop', function () {
-  var data, promise;
+  var data, monkey;
   var $container = $('<div />').attr('data-key', 'lmn-book');
 
   before(function () {
     this.timeout(4000);
 
-    promise = new Monkey($container, {
+    monkey = new Monkey($container, {
       monkeyType: 'desktop',
       book: options.book
-    }).promise;
+    });
 
-    return promise.then(function (dataa) {
+    return monkey.promise.then(function (dataa) {
       $container.appendTo('body');
       data = dataa;
     });
@@ -44,6 +44,11 @@ describe('Using monkey on desktop', function () {
 
     $newActive.eq(0).index().should.equal(3);
     $newActive[0].should.not.equal(letterActive);
+  });
+
+  it('should fire event when clicked', function (cb) {
+    monkey.$events.on('pageTurn', function () { cb(); });
+    $container.find('.is-active').eq(1).click();
   });
 
   after(function () {

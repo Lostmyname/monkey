@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($events) {
   return function (data) {
-    this.monkeys[data.monkeyType].init(data);
+    this.monkeys[data.monkeyType].init(data, $events);
 
     return data;
   }.bind(this);

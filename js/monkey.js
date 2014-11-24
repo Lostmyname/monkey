@@ -29,11 +29,13 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
+    this.$events = $({});
+
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateUrls())
       .then(Monkey._generateHtml())
-      .then(Monkey._initMonkey())
+      .then(Monkey._initMonkey(this.$events))
       .then(Monkey._insertHtml(monkeyContainer))
       .then(function (data) {
         if (data.needsSpread) {

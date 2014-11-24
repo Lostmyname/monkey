@@ -3,16 +3,16 @@
 'use strict';
 
 describe('Using monkey on mobile', function () {
-  var $monkey, promise;
+  var $monkey, monkey;
   var $container = $('<div />').attr('data-key', 'lmn-book');
 
   before(function () {
-    promise = new Monkey($container, {
+    monkey = new Monkey($container, {
       monkeyType: 'mobile',
       book: options.book
-    }).promise;
+    });
 
-    return promise.then(function () {
+    return monkey.promise.then(function () {
       $monkey = $container.find('.monkey');
       $container.appendTo('body');
     });
@@ -30,6 +30,13 @@ describe('Using monkey on mobile', function () {
   it('should change letters when page is changed', function () {
     $monkey.scrollLeft($monkey.find('div').width() / 2).trigger('scroll');
     $container.find('.letter-active').index().should.be.within(4, 6);
+  });
+
+  it('should fire event when scrolled', function (cb) {
+    this.timeout(500); // If it isn't fired in this time, it won't be
+
+    monkey.$events.on('halfway', function () { cb(); });
+    $monkey.scrollLeft($monkey.find('div').width() / 1.5).trigger('scroll');
   });
 
   it('should display buy now button correctly', function () {
