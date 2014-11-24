@@ -11,7 +11,7 @@ describe('Using monkey on desktop', function () {
 
     promise = new Monkey($container, {
       monkeyType: 'desktop',
-      book: bookData
+      book: options.book
     }).promise;
 
     return promise.then(function (dataa) {

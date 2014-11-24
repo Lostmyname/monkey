@@ -9,7 +9,7 @@ describe('Using monkey on mobile', function () {
   before(function () {
     promise = new Monkey($container, {
       monkeyType: 'mobile',
-      book: bookData
+      book: options.book
     }).promise;
 
     return promise.then(function () {

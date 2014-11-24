@@ -12,7 +12,7 @@ describe('Loading Monkey', function () {
       buyNow: 'testTESTtest',
       letters: false,
       monkeyType: 'mobile',
-      book: bookData
+      book: options.book
     });
 
     return monkey.promise.then(function (data) {
@@ -162,7 +162,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML correctly', function () {
-    promise = promise.then(Monkey.letters._generateHtml(true, fakeLang));
+    promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('span span');
@@ -221,7 +221,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should not insert buy now button when not mobile', function () {
-    promise = promise.then(Monkey._addBuyNow('#0', fakeLang));
+    promise = promise.then(Monkey._addBuyNow('#0', options.lang));
 
     return promise.then(function (data) {
       var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
@@ -232,7 +232,7 @@ describe('Loading Monkey', function () {
 
   it('should insert buy now button', function () {
     promise = promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._addBuyNow('http://google.com/', fakeLang));
+      .then(Monkey._addBuyNow('http://google.com/', options.lang));
 
     return promise.then(function (data) {
       var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
