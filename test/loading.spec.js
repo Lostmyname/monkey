@@ -224,7 +224,7 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should have an init function that accept options', function () {
+  it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
     var monkey = new Monkey($testObject, {
