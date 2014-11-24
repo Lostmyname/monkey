@@ -5,25 +5,6 @@
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml;
 
-  it('should have an init function that accept options', function () {
-    var $testObject = $('<div />').attr('data-key', 'lmn-book');
-
-    var monkey = new Monkey($testObject, {
-      buyNow: 'testTESTtest',
-      letters: false,
-      monkeyType: 'mobile',
-      book: options.book
-    });
-
-    return monkey.promise.then(function (data) {
-      $testObject.children().length.should.be.above(0);
-      data.html[0].should.equal($testObject.children()[0]);
-
-      var html = $testObject.html();
-      html.should.containEql('testTESTtest');
-    });
-  });
-
   it('should set book options from data attributes (slow)', function () {
     var $testObject = $('<div />').attr({
       'data-key': 'lmn-book',
@@ -240,6 +221,25 @@ describe('Loading Monkey', function () {
       $buyNow.length.should.equal(1);
 
       data.buyNow[0].should.equal($buyNow[0]);
+    });
+  });
+
+  it('should have an init function that accept options', function () {
+    var $testObject = $('<div />').attr('data-key', 'lmn-book');
+
+    var monkey = new Monkey($testObject, {
+      buyNow: 'testTESTtest',
+      letters: false,
+      monkeyType: 'mobile',
+      book: options.book
+    });
+
+    return monkey.promise.then(function (data) {
+      $testObject.children().length.should.be.above(0);
+      data.html[0].should.equal($testObject.children()[0]);
+
+      var html = $testObject.html();
+      html.should.containEql('testTESTtest');
     });
   });
 });
