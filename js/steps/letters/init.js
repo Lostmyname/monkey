@@ -1,15 +1,13 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($events) {
   var Monkey = this.Monkey;
 
   return function (data) {
-    var handler = Monkey.monkeys[data.monkeyType].letterHandler(data);
-
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('span');
 
-    $(handler).on('letterChange', function (e, page) {
+    $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
       if (currentPage < 0) {
         currentPage = 0;
@@ -22,7 +20,7 @@ module.exports = function () {
     });
 
     $letters.on('click', 'span', function () {
-      handler.turnToPage($(this).index());
+      Monkey.monkeys[data.monkeyType].turnToPage($(this).index());
     });
 
     return data;

@@ -48,7 +48,7 @@ window.Monkey = module.exports = (function () {
 
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options.letters, options.lang))
-        .then(Monkey.letters._init());
+        .then(Monkey.letters._init(this.$events));
     }
 
     if (options.buyNow) {

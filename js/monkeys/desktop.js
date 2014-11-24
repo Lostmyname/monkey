@@ -55,25 +55,23 @@ desktop.init = function (data, $events) {
       $events.trigger('finished');
     }
   });
+
+  this.letterHandler(data, $events);
 };
 
-desktop.letterHandler = function (data) {
-  var handler = {};
-
+desktop.letterHandler = function (data, $events) {
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
     var index = (els.pagesTarget.index() - 1) / 2;
-    $(handler).trigger('letterChange', index); // @todo use this.events
+    $events.trigger('letterChange', index);
   });
 
   // Do it on the next free cycle to ensure the event has been added
   setTimeout(function () {
-    $(handler).trigger('letterChange', 0);
+    $events.trigger('letterChange', 0);
   });
 
-  // index is the letter index
-  handler.turnToPage = function (index) {
+// index is the letter index
+  desktop.turnToPage = function (index) {
     data.heidelberg.turnPage(index * 4 + 3);
   };
-
-  return handler;
 };

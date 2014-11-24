@@ -87,10 +87,11 @@ mobile.init = function (data, $events) {
       $events.trigger('finished');
     }
   });
+
+  this.letterHandler(data, $events);
 };
 
-mobile.letterHandler = function (data) {
-  var handler = {};
+mobile.letterHandler = function (data, $events) {
   var $monkey = data.html;
   var $pages = $monkey.find('.page');
 
@@ -109,7 +110,7 @@ mobile.letterHandler = function (data) {
 
     if (currentPage !== page) {
       page = currentPage;
-      $(handler).trigger('letterChange', page);
+      $events.trigger('letterChange', page);
     }
   });
 
@@ -119,12 +120,10 @@ mobile.letterHandler = function (data) {
   });
 
   // index is the letter index
-  handler.turnToPage = function (index) {
+  mobile.turnToPage = function (index) {
     var pageIndex = index * 2 + 1;
     var offset = $pages.eq(pageIndex).position().left;
 
     $monkey.scrollLeft(offset);
   };
-
-  return handler;
 };
