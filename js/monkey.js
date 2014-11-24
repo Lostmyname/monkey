@@ -1,20 +1,16 @@
-window.monkey = module.exports = (function () {
+window.Monkey = module.exports = (function () {
   'use strict';
-
-  var monkey = {};
-  monkey.IMAGE_RATIO = 2048 / 738;
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
    *
    * @param {string|HTMLElement|jQuery} monkeyContainer Container for monkey.
    * @param {object} options Options! Read the code. Sorry.
-   * @returns A promise that will be resolved when monkey is ready.
    */
-  monkey.init = function (monkeyContainer, options) {
+  function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
 
-    monkey.options = options = $.extend({
+    this.options = options = $.extend({
       buyNow: '#0', // Buy now link, or false for no link
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
@@ -33,62 +29,64 @@ window.monkey = module.exports = (function () {
       }
     }, options);
 
-    var promise = monkey._getData(options)
-      .then(monkey._calculateMonkey(options.monkeyType))
-      .then(monkey._generateUrls())
-      .then(monkey._generateHtml())
-      .then(monkey._initMonkey())
-      .then(monkey._insertHtml(monkeyContainer))
+    var promise = Monkey._getData(options)
+      .then(Monkey._calculateMonkey(options.monkeyType))
+      .then(Monkey._generateUrls())
+      .then(Monkey._generateHtml())
+      .then(Monkey._initMonkey())
+      .then(Monkey._insertHtml(monkeyContainer))
       .then(function (data) {
         if (data.needsSpread) {
-          monkey.spread._getData(data, monkey)
-            .then(monkey.spread._insertSpread());
+          Monkey.spread._getData(data, options)
+            .then(Monkey.spread._insertSpread());
         }
 
         return data;
       });
 
     if (options.letters) {
-      promise = promise.then(monkey.letters._generateHtml(options.letters))
-        .then(monkey.letters._init());
+      promise = promise.then(Monkey.letters._generateHtml(options.letters, options.lang))
+        .then(Monkey.letters._init());
     }
 
     if (options.buyNow) {
-      promise = promise.then(monkey._addBuyNow(options.buyNow));
+      promise = promise.then(Monkey._addBuyNow(options.buyNow, options.lang));
     }
 
-    return promise;
-  };
+    this.promise = promise;
+  }
 
-  monkey._getData = require('./steps/getData');
-  monkey._calculateMonkey = require('./steps/calculateMonkey');
-  monkey._generateUrls = require('./steps/generateUrls');
-  monkey._generateHtml = require('./steps/generateHtml');
-  monkey._initMonkey = require('./steps/initMonkey');
-  monkey._insertHtml = require('./steps/insertHtml');
+  Monkey.IMAGE_RATIO = 2048 / 738;
 
-  monkey._addBuyNow = require('./steps/addBuyNow');
+  Monkey._getData = require('./steps/getData');
+  Monkey._calculateMonkey = require('./steps/calculateMonkey');
+  Monkey._generateUrls = require('./steps/generateUrls');
+  Monkey._generateHtml = require('./steps/generateHtml');
+  Monkey._initMonkey = require('./steps/initMonkey');
+  Monkey._insertHtml = require('./steps/insertHtml');
 
-  monkey.spread = {};
-  monkey.spread.monkey = monkey;
-  monkey.spread._getData = require('./steps/spread/getData');
-  monkey.spread._insertSpread = require('./steps/spread/insertSpread');
+  Monkey._addBuyNow = require('./steps/addBuyNow');
 
-  monkey.letters = {};
-  monkey.letters.monkey = monkey;
-  monkey.letters._generateHtml = require('./steps/letters/generateHtml');
-  monkey.letters._init = require('./steps/letters/init');
+  Monkey.spread = {};
+  Monkey.spread.Monkey = Monkey;
+  Monkey.spread._getData = require('./steps/spread/getData');
+  Monkey.spread._insertSpread = require('./steps/spread/insertSpread');
 
-  monkey.helpers = {};
-  monkey.helpers.monkey = monkey;
-  monkey.helpers.handleReplace = require('./helpers/handleReplace');
-  monkey.helpers.isMobile = require('./helpers/isMobile');
+  Monkey.letters = {};
+  Monkey.letters.Monkey = Monkey;
+  Monkey.letters._generateHtml = require('./steps/letters/generateHtml');
+  Monkey.letters._init = require('./steps/letters/init');
 
-  monkey.monkeys = {};
-  monkey.monkeys.mobile = require('./monkeys/mobile');
-  monkey.monkeys.mobile.monkey = monkey;
-  monkey.monkeys.desktop = require('./monkeys/desktop');
-  monkey.monkeys.desktop.monkey = monkey;
+  Monkey.helpers = {};
+  Monkey.helpers.Monkey = Monkey;
+  Monkey.helpers.handleReplace = require('./helpers/handleReplace');
+  Monkey.helpers.isMobile = require('./helpers/isMobile');
 
-  return monkey;
+  Monkey.monkeys = {};
+  Monkey.monkeys.mobile = require('./monkeys/mobile');
+  Monkey.monkeys.mobile.Monkey = Monkey;
+  Monkey.monkeys.desktop = require('./monkeys/desktop');
+  Monkey.monkeys.desktop.Monkey = Monkey;
+
+  return Monkey;
 })();

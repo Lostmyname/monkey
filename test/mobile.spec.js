@@ -3,15 +3,14 @@
 'use strict';
 
 describe('Using monkey on mobile', function () {
-  var promise;
+  var $monkey, promise;
   var $container = $('<div />').attr('data-key', 'lmn-book');
-  var $monkey;
 
   before(function () {
-    promise = monkey.init($container, {
+    promise = new Monkey($container, {
       monkeyType: 'mobile',
       book: bookData
-    });
+    }).promise;
 
     return promise.then(function () {
       $monkey = $container.find('.monkey');

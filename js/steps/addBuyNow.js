@@ -3,9 +3,7 @@
 /**
  * Adds a buy now button to landscape mobile monkey.
  */
-module.exports = function (buyNowLink) {
-  var monkey = this;
-
+module.exports = function (buyNowLink, lang) {
   return function (data) {
     if (data.monkeyType !== 'mobile') {
       return data;
@@ -13,7 +11,7 @@ module.exports = function (buyNowLink) {
 
     data.buyNow = $('<a />')
       .addClass('buy-now')
-      .html(monkey.options.lang.buyNow + ' &rarr;')
+      .html(lang.buyNow + ' &rarr;')
       .appendTo(data.html.parents('[data-key="lmn-book"]'));
 
     if (typeof buyNowLink === 'string') {

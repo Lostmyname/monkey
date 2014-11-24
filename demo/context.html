@@ -619,12 +619,13 @@
 
 <script src="build/bundle.js"></script>
 <script>
-  monkey.init('.lmn-book')
-    .then(function (data) {
-      if (data.monkeyType === 'desktop') {
-        data.html.closest('.lmn-book').addClass('container');
-      }
-    });
+  var monkey = new Monkey('.lmn-book');
+
+  monkey.promise.then(function (data) {
+    if (data.monkeyType === 'desktop') {
+      data.html.closest('.lmn-book').addClass('container');
+    }
+  });
 </script>
 
 

@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function () {
-  var monkey = this.monkey;
+  var Monkey = this.Monkey;
 
   return function (data) {
-    var handler = monkey.monkeys[data.monkeyType].letterHandler(data);
+    var handler = Monkey.monkeys[data.monkeyType].letterHandler(data);
 
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('span');

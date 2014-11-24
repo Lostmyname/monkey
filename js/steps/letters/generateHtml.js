@@ -3,10 +3,14 @@
 /**
  * Generate HTML for letters.
  *
- * @param {string} [selector] Selector or element to insert letters into.
+ * @param {string|boolean} [selector] Selector or element to insert letters into.
+ * @param {object} lang Object containing language stuff.
  */
-module.exports = function (selector) {
-  var monkey = this.monkey;
+module.exports = function (selector, lang) {
+  if (typeof lang === 'undefined' && typeof selector === 'object') {
+    lang = selector;
+    selector = true;
+  }
 
   return function (data) {
     var $lettersContainer = $('<div />');
@@ -19,7 +23,7 @@ module.exports = function (selector) {
 
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded')
-      .text(monkey.options.lang.bookFor);
+      .text(lang.bookFor);
 
     var $letters = $('<span />').appendTo($lettersContainer)
       .addClass('strong')
@@ -39,7 +43,7 @@ module.exports = function (selector) {
       .clone().appendTo($letters);
 
     var $book = false;
-    if (typeof selector !== 'undefined' && typeof selector !== 'boolean') {
+    if (typeof selector !== 'boolean') {
       $book = $(selector);
     }
 

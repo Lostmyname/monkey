@@ -8,10 +8,11 @@ describe('Using monkey on desktop', function () {
 
   before(function () {
     this.timeout(4000);
-    promise = monkey.init($container, {
+
+    promise = new Monkey($container, {
       monkeyType: 'desktop',
       book: bookData
-    });
+    }).promise;
 
     return promise.then(function (dataa) {
       $container.appendTo('body');

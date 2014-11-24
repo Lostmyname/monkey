@@ -3,8 +3,10 @@
 'use strict';
 
 describe('Monkey helpers', function () {
+  var helpers = Monkey.helpers;
+
   it('should support string replacements', function () {
-    var handleReplace = monkey.helpers.handleReplace;
+    var handleReplace = helpers.handleReplace;
     var replacements = { foo: 'bar', hello: 'world', empty: '' };
 
     var replaces = {
@@ -21,11 +23,11 @@ describe('Monkey helpers', function () {
   });
 
   it('should remember previous replacements object', function () {
-    var handleReplace = monkey.helpers.handleReplace;
+    var handleReplace = helpers.handleReplace;
     handleReplace('{{ foo }}').should.equal('bar');
   });
 
   it('should correctly detect mobile', function () {
-    monkey.helpers.isMobile().should.be.Boolean;
+    helpers.isMobile().should.be.Boolean;
   });
 });

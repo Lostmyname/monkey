@@ -17,8 +17,18 @@ function changeMonkeyType(type) {
   };
 }
 
+var fakeLang = {
+  buyNow: 'Buy now',
+  bookFor: 'A personalised book for'
+};
+
 var bookData = {
   name: 'Heidelberg',
   gender: 'girl',
   locale: 'en-GB'
+};
+
+var options = {
+  book: bookData,
+  server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?'
 };

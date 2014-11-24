@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (monkeyData, monkey) {
+module.exports = function (monkeyData, options) {
   var $monkey = monkeyData.html;
   var defer = $.Deferred();
   var resolved = false;
@@ -40,7 +40,7 @@ module.exports = function (monkeyData, monkey) {
   return defer.promise();
 
   function makeRequest() {
-    $.getJSON(monkey.options.server, { widget: monkey.options.book })
+    $.getJSON(options.server, { widget: options.book })
       .then(function (data) {
         $.each(data.book.letters, function (i, letter) {
           if (letter.type === 'spread' && letter.ready) {

@@ -7,12 +7,15 @@ describe('Loading Monkey', function () {
 
   it('should have an init function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
-    return monkey.init($testObject, {
+
+    var monkey = new Monkey($testObject, {
       buyNow: 'testTESTtest',
       letters: false,
       monkeyType: 'mobile',
       book: bookData
-    }).then(function (data) {
+    });
+
+    return monkey.promise.then(function (data) {
       $testObject.children().length.should.be.above(0);
       data.html[0].should.equal($testObject.children()[0]);
 
@@ -29,19 +32,19 @@ describe('Loading Monkey', function () {
       'data-locale': 'en-US'
     });
 
-    return monkey.init($testObject)
-      .then(function (data) {
-        monkey.options.book.name.should.equal('Test');
-        monkey.options.book.gender.should.equal('boy');
-        monkey.options.book.locale.should.equal('en-US');
-      });
+    var monkey = new Monkey($testObject);
+
+    return monkey.promise.then(function (data) {
+      monkey.options.book.name.should.equal('Test');
+      monkey.options.book.gender.should.equal('boy');
+      monkey.options.book.locale.should.equal('en-US');
+    });
   });
 
   it('should get data', function () {
-    monkey.should.have.property('_getData');
+    Monkey.should.have.property('_getData');
 
-    monkey.options.book = bookData;
-    promise = monkey._getData(monkey.options);
+    promise = Monkey._getData(options);
     promise.should.be.jqPromise;
 
     return promise.then(function (data) {
@@ -57,7 +60,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should set monkeyType', function () {
-    promise = promise.then(monkey._calculateMonkey());
+    promise = promise.then(Monkey._calculateMonkey());
     promiseBeforeHtml = promise;
 
     return promise.then(function (data) {
@@ -67,7 +70,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should set monkeyType with option desktop', function () {
-    return promise.then(monkey._calculateMonkey('desktop'))
+    return promise.then(Monkey._calculateMonkey('desktop'))
       .then(function (data) {
         data.should.have.property('monkeyType');
         data.monkeyType.should.equal('desktop');
@@ -75,7 +78,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should set monkeyType with option auto', function () {
-    return promise.then(monkey._calculateMonkey('auto'))
+    return promise.then(Monkey._calculateMonkey('auto'))
       .then(function (data) {
         data.should.have.property('monkeyType');
         data.monkeyType.should.match(/[desktop|mobile]/);
@@ -83,7 +86,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate URLs', function () {
-    promise = promise.then(monkey._generateUrls());
+    promise = promise.then(Monkey._generateUrls());
 
     return promise.then(function (data) {
       data.should.have.property('urls');
@@ -104,7 +107,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for desktop', function () {
     return promise.then(changeMonkeyType('desktop'))
-      .then(monkey._generateHtml())
+      .then(Monkey._generateHtml())
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.instanceOf(jQuery);
@@ -115,7 +118,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for mobile', function () {
     return promise.then(changeMonkeyType('mobile'))
-      .then(monkey._generateHtml())
+      .then(Monkey._generateHtml())
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.instanceOf(jQuery);
@@ -129,9 +132,9 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('desktop'))
-      .then(monkey._generateHtml())
-      .then(monkey._initMonkey())
-      .then(monkey._insertHtml($book))
+      .then(Monkey._generateHtml())
+      .then(Monkey._initMonkey())
+      .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
@@ -146,9 +149,9 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('mobile'))
-      .then(monkey._generateHtml())
-      .then(monkey._initMonkey())
-      .then(monkey._insertHtml($book))
+      .then(Monkey._generateHtml())
+      .then(Monkey._initMonkey())
+      .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
@@ -159,7 +162,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML correctly', function () {
-    promise = promise.then(monkey.letters._generateHtml());
+    promise = promise.then(Monkey.letters._generateHtml(true, fakeLang));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('span span');
@@ -168,14 +171,16 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML with short names correctly (slow)', function () {
-    return monkey.init($('<div />').attr('data-key', 'lmn-book'), {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
       letters: true,
       book: {
         name: 'Tal',
         gender: 'boy',
         locale: 'en-GB'
       }
-    }).then(function (data) {
+    });
+
+    return monkey.promise.then(function (data) {
       var spans = data.lettersElement.find('span span');
       spans.length.should.equal(6);
     })
@@ -186,7 +191,7 @@ describe('Loading Monkey', function () {
     return promise.then(function (data) {
       data.should.not.have.property('needsSpread');
 
-      var spreadPromise = monkey.spread._getData(data, monkey);
+      var spreadPromise = Monkey.spread._getData(data, options);
 
       var $monkey = data.html;
       $monkey.scrollLeft($monkey.children('div').width() / 2 + 1000);
@@ -202,12 +207,12 @@ describe('Loading Monkey', function () {
   it('should initiate letters correctly', function () {
     var handler = {};
 
-    monkey.monkeys.test = {
+    Monkey.monkeys.test = {
       letterHandler: function () { return handler }
     };
 
     promise = promise.then(changeMonkeyType('test'))
-      .then(monkey.letters._init())
+      .then(Monkey.letters._init())
 
     return promise.then(function (data) {
       $(handler).trigger('letterChange', 7);
@@ -216,7 +221,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should not insert buy now button when not mobile', function () {
-    promise = promise.then(monkey._addBuyNow());
+    promise = promise.then(Monkey._addBuyNow('#0', fakeLang));
 
     return promise.then(function (data) {
       var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
@@ -227,7 +232,7 @@ describe('Loading Monkey', function () {
 
   it('should insert buy now button', function () {
     promise = promise.then(changeMonkeyType('mobile'))
-      .then(monkey._addBuyNow('http://google.com/'));
+      .then(Monkey._addBuyNow('http://google.com/', fakeLang));
 
     return promise.then(function (data) {
       var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');

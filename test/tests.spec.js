@@ -8,7 +8,7 @@ describe('Tests', function () {
   });
 
   it('should have everything they need', function () {
-    monkey.should.be.type('object');
+    Monkey.should.be.type('function');
     $.should.be.type('function');
   });
 

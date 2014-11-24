@@ -44,7 +44,7 @@ mobile.init = function (data) {
   var windowLeft = 0;
 
   var $monkey = data.html;
-  var monkey = this.monkey;
+  var RATIO = this.Monkey.IMAGE_RATIO;
 
   $(window).on('orientationchange resize', flip);
   setTimeout(flip);
@@ -52,9 +52,8 @@ mobile.init = function (data) {
   function flip() {
     portrait = (window.innerHeight > window.innerWidth);
 
-    var ratio = monkey.IMAGE_RATIO;
-    var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * ratio;
-    var height = Math.ceil(width / monkey.IMAGE_RATIO);
+    var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * RATIO;
+    var height = Math.ceil(width / RATIO);
 
     $('.page > img').css({
       height: height,
