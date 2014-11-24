@@ -5,6 +5,8 @@
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml;
 
+  var $events = $({});
+
   it('should set book options from data attributes (slow)', function () {
     var $testObject = $('<div />').attr({
       'data-key': 'lmn-book',
@@ -114,7 +116,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(changeMonkeyType('desktop'))
       .then(Monkey._generateHtml())
-      .then(Monkey._initMonkey())
+      .then(Monkey._initMonkey($events))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
@@ -131,7 +133,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(changeMonkeyType('mobile'))
       .then(Monkey._generateHtml())
-      .then(Monkey._initMonkey())
+      .then(Monkey._initMonkey($({})))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
@@ -186,17 +188,15 @@ describe('Loading Monkey', function () {
   });
 
   it('should initiate letters correctly', function () {
-    var handler = {};
-
     Monkey.monkeys.test = {
       letterHandler: function () { return handler }
     };
 
     promise = promise.then(changeMonkeyType('test'))
-      .then(Monkey.letters._init())
+      .then(Monkey.letters._init($events))
 
     return promise.then(function (data) {
-      $(handler).trigger('letterChange', 7);
+      $events.trigger('letterChange', 7);
       data.lettersElement.find('.letter-active').index().should.equal(3);
     });
   });
