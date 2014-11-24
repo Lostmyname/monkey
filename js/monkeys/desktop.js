@@ -56,5 +56,10 @@ desktop.letterHandler = function (data) {
     $(handler).trigger('letterChange', 0);
   });
 
+  // index is the letter index
+  handler.turnToPage = function (index) {
+    data.heidelberg.turnPage(index * 4 + 3);
+  };
+
   return handler;
 };

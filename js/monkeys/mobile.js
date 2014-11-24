@@ -78,13 +78,14 @@ mobile.init = function (data) {
 mobile.letterHandler = function (data) {
   var handler = {};
   var $monkey = data.html;
+  var $pages = $monkey.find('.page');
 
   var page = -1;
 
   $monkey.on('scroll', function () {
     var currentPage = 0;
 
-    $monkey.find('.page').each(function (i) {
+    $pages.each(function (i) {
       if ($(this).offset().left >= -$(window).width()) {
         currentPage = i;
 
@@ -102,6 +103,14 @@ mobile.letterHandler = function (data) {
   setTimeout(function () {
     $monkey.triggerHandler('scroll');
   });
+
+  // index is the letter index
+  handler.turnToPage = function (index) {
+    var pageIndex = index * 2 + 1;
+    var offset = $pages.eq(pageIndex).position().left;
+
+    $monkey.scrollLeft(offset);
+  };
 
   return handler;
 };

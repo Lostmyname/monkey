@@ -6,7 +6,8 @@ module.exports = function () {
   return function (data) {
     var handler = monkey.monkeys[data.monkeyType].letterHandler(data);
 
-    var $spans = data.lettersElement.find('#letters span');
+    var $letters = data.lettersElement.find('#letters');
+    var $spans = $letters.find('span');
 
     $(handler).on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -18,6 +19,10 @@ module.exports = function () {
 
       $spans.filter('.letter-active').removeClass('letter-active').end()
         .eq(currentPage).addClass('letter-active');
+    });
+
+    $letters.on('click', 'span', function () {
+      handler.turnToPage($(this).index());
     });
 
     return data;
