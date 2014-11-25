@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lost My Name: Monkey iframe API</title>
+
+  <!--[if gt IE 8]><!-->
+  <link href="//d12fm4vsc5tls2.cloudfront.net/assets/eagle/stylesheets/main/main-bc179505b8603d54a9f4c5f378539d14.css" media="screen" rel="stylesheet" />
+  <!--<![endif]-->
+
+  <!--[if IE 8]>
+  <link href="//d12fm4vsc5tls2.cloudfront.net/assets/eagle/stylesheets/main/main-ie8-8e3ef0258ebb905d8a168f9448f96946.css" media="screen" rel="stylesheet" />
+  <![endif]-->
+
+  <link rel="stylesheet" href="build/styles.css">
+</head>
+<body>
+
+<div data-key="lmn-book" class="lmn-book-iframe"></div>
+
+<script src="assets/jquery.js"></script>
+
+<script src="build/bundle.js"></script>
+<script>
+  var options = {
+    letters: false,
+    locale: 'en-GB'
+  };
+
+  $.each(location.search.slice(1).split('&'), function (i, param) {
+    param = param.split('=');
+    options[param[0]] = param[1];
+  });
+
+  new Monkey('.lmn-book-iframe', {
+    book: {
+      name: options.name,
+      gender: options.gender,
+      locale: options.locale
+    },
+    letters: options.letters
+  });
+</script>
+
+</body>
+</html>
