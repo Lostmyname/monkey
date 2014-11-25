@@ -21,8 +21,7 @@ module.exports = function preload(images, callback) {
     var $image = $('<img />').attr('src', image);
 
     $image.on('load', function () {
-      toLoad--;
-      if (!toLoad) {
+      if (--toLoad === 0) {
         defer.resolve($images);
       }
     });
