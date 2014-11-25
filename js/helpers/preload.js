@@ -34,11 +34,9 @@ module.exports = function preload(images, callback) {
     return this.toArray();
   });
 
-  var promise = defer.promise();
-
   if (typeof callback === 'function') {
-    promise.then(callback);
+    defer.then(callback);
   }
 
-  return promise;
+  return defer.promise();
 };
