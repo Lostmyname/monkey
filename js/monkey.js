@@ -83,6 +83,7 @@ window.Monkey = module.exports = (function () {
   Monkey.helpers.Monkey = Monkey;
   Monkey.helpers.handleReplace = require('./helpers/handleReplace');
   Monkey.helpers.isMobile = require('./helpers/isMobile');
+  Monkey.helpers.preload = require('./helpers/preload');
 
   Monkey.monkeys = {};
   Monkey.monkeys.mobile = require('./monkeys/mobile');
