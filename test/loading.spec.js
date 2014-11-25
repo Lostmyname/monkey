@@ -144,6 +144,16 @@ describe('Loading Monkey', function () {
       });
   });
 
+  it('should remove existing HTML', function () {
+    var $book = $('<div />').attr('data-key', 'lmn-book').html('<br><br>');
+    $book.children().length.should.equal(2);
+
+    return promise.then(Monkey._insertHtml($book))
+      .then(function () {
+        $book.children('br').length.should.equal(0);
+      });
+  });
+
   it('should generate letters HTML correctly', function () {
     promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
 
