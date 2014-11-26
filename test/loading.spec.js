@@ -69,7 +69,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate URLs', function () {
-    promise = promise.then(Monkey._generateUrls());
+    promise = promise.then(Monkey._generateUrls(1));
 
     return promise.then(function (data) {
       data.should.have.property('urls');
@@ -85,6 +85,29 @@ describe('Loading Monkey', function () {
         url.should.match(/[?&][hw]=\d+/);
         url.should.match(/[?&]dpr=\d+/);
       }
+    });
+  });
+
+  it('should have preloaded the first image', function () {
+    this.timeout(10);
+
+    return promise.then(function (data) {
+      return Monkey.helpers.preload(data.urls[0]);
+    });
+  });
+
+  it('should not have preloaded the tenth image', function (cb) {
+    return promise.then(function (data) {
+      var finished = false;
+      Monkey.helpers.preload(data.urls[10])
+        .then(function () {
+          finished = true;
+        })
+
+      setTimeout(function () {
+        finished.should.be.False;
+        cb();
+      }, 30);
     });
   });
 
