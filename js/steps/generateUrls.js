@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function () {
-  var monkey = this;
+module.exports = function (preload) {
+  var Monkey = this;
 
   /**
    * Takes data and turns letters into URLs.
    */
   return function (data) {
-    var size = monkey.monkeys[data.monkeyType].calculateSize(data);
+    var size = Monkey.monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
     var quality = (data.monkeyType === 'desktop') ? 60 : 20;
 
@@ -27,6 +27,14 @@ module.exports = function () {
       return letterData.url + queryString;
     });
 
-    return data;
+    var urls = data.urls.slice(0, preload);
+
+    var image = (data.monkeyType === 'mobile') ? 'bookTipSwipe' : 'bookTipTap';
+    urls.unshift(data[image]);
+
+    return Monkey.helpers.preload(urls)
+      .then(function () {
+        return data;
+      });
   };
 };
