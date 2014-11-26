@@ -97,7 +97,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should not have preloaded the tenth image', function (cb) {
-    return promise.then(function (data) {
+    promise.then(function (data) {
       var finished = false;
       Monkey.helpers.preload(data.urls[10])
         .then(function () {
