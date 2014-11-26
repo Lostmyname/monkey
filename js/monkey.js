@@ -12,6 +12,7 @@ window.Monkey = module.exports = (function () {
 
     this.options = options = $.extend({
       buyNow: '#0', // Buy now link, or false for no link
+      preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
 
@@ -33,7 +34,7 @@ window.Monkey = module.exports = (function () {
 
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateUrls())
+      .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml())
       .then(Monkey._initMonkey(this.$events))
       .then(Monkey._insertHtml(monkeyContainer))
@@ -83,6 +84,7 @@ window.Monkey = module.exports = (function () {
   Monkey.helpers.Monkey = Monkey;
   Monkey.helpers.handleReplace = require('./helpers/handleReplace');
   Monkey.helpers.isMobile = require('./helpers/isMobile');
+  Monkey.helpers.preload = require('./helpers/preload');
 
   Monkey.monkeys = {};
   Monkey.monkeys.mobile = require('./monkeys/mobile');

@@ -3,7 +3,7 @@
 'use strict';
 
 describe('Loading Monkey', function () {
-  var promise, promiseBeforeHtml;
+  var promise, promiseBeforeHtml, monkeyData;
 
   var $events = $({});
 
@@ -31,6 +31,8 @@ describe('Loading Monkey', function () {
     promise.should.be.jqPromise;
 
     return promise.then(function (data) {
+      monkeyData = data;
+
       data.should.have.property('name');
       data.should.have.property('gender');
       data.should.have.property('locale');
@@ -69,7 +71,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate URLs', function () {
-    promise = promise.then(Monkey._generateUrls());
+    promise = promise.then(Monkey._generateUrls(1));
 
     return promise.then(function (data) {
       data.should.have.property('urls');
@@ -86,6 +88,25 @@ describe('Loading Monkey', function () {
         url.should.match(/[?&]dpr=\d+/);
       }
     });
+  });
+
+  it('should have preloaded the first image', function () {
+    this.timeout(10);
+
+    return Monkey.helpers.preload(monkeyData.urls[0]);
+  });
+
+  it('should not have preloaded the tenth image', function (cb) {
+    var finished = false;
+    Monkey.helpers.preload(monkeyData.urls[10])
+      .then(function () {
+        finished = true;
+      })
+
+    setTimeout(function () {
+      finished.should.be.False;
+      cb();
+    }, 30);
   });
 
   it('should generate HTML for desktop', function () {
