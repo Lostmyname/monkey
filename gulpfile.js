@@ -5,8 +5,16 @@ var plugins = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
+var stylish = require('jshint-stylish');
 
-gulp.task('js', function () {
+gulp.task('js-quality', function () {
+  return gulp.src('js/**/*.js')
+    .pipe(plugins.jscs())
+    .pipe(plugins.jshint.reporter(stylish))
+    .pipe(plugins.jshint.reporter('fail'));
+});
+
+gulp.task('js', ['js-quality'], function () {
   var bundler = browserify('./js/monkey.js');
 
   return bundler.bundle()

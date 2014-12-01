@@ -1,13 +1,14 @@
 'use strict';
 
 module.exports = function (preload) {
-  var Monkey = this;
+  var monkeys = this.monkeys;
+  var helpers = this.helpers;
 
   /**
    * Takes data and turns letters into URLs.
    */
   return function (data) {
-    var size = Monkey.monkeys[data.monkeyType].calculateSize(data);
+    var size = monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
     var quality = (data.monkeyType === 'desktop') ? 60 : 20;
 
@@ -32,7 +33,7 @@ module.exports = function (preload) {
     var image = (data.monkeyType === 'mobile') ? 'bookTipSwipe' : 'bookTipTap';
     urls.unshift(data[image]);
 
-    return Monkey.helpers.preload(urls)
+    return helpers.preload(urls)
       .then(function () {
         return data;
       });
