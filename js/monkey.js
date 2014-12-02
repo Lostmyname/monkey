@@ -15,6 +15,7 @@ window.Monkey = module.exports = (function () {
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
+      monkeyGif: 2000, // Delay for monkey gif (or false for no gif)
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -56,6 +57,10 @@ window.Monkey = module.exports = (function () {
       promise = promise.then(Monkey._addBuyNow(options.buyNow, options.lang));
     }
 
+    if (typeof options.monkeyGif === 'number' || options.monkeyGif) {
+      promise = promise.then(Monkey._addMonkeyGif(options.monkeyGif));
+    }
+
     this.promise = promise;
   }
 
@@ -69,6 +74,7 @@ window.Monkey = module.exports = (function () {
   Monkey._insertHtml = require('./steps/insertHtml');
 
   Monkey._addBuyNow = require('./steps/addBuyNow');
+  Monkey._addMonkeyGif = require('./steps/addMonkeyGif');
 
   Monkey.spread = {};
   Monkey.spread.Monkey = Monkey;
