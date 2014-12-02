@@ -42,6 +42,7 @@ gulp.task('browser-sync', function () {
     server: {
       baseDir: '.'
     },
+    startPath: '/demo/context.html',
     ghostMode: {
       scroll: false,
       links: false,
