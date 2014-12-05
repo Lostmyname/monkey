@@ -14,7 +14,6 @@ module.exports = function (options) {
     .then(function (data) {
       var base = '//lmn-assets.imgix.net/widget/' + locale + '/v2';
 
-      data.book.bookTipTap = base + '/images/book_tip.png';
       data.book.bookTipSwipe = base + '/images/first_page.jpg';
       data.book.lastPage = base + '/images/last_page.jpg';
 

@@ -1,5 +1,17 @@
+.Heidelberg-Book
+  left: 0
+
+  background-color: #f6f5f1
+  transition: left 0.7s
+
+  &.at-front-cover
+    left: -25%
+
+    .Heidelberg-Page:hover
+      transform: rotateY(-15deg)
+
 .Heidelberg-Page
-  background-color: #333
+  background-color: #f6f5f1
 
   .Heidelberg-HiddenCover + & .Heidelberg-Spread
     background-image: none !important

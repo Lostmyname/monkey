@@ -15,7 +15,6 @@ module.exports = function (preload) {
     var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality;
     data.queryString = queryString;
 
-    data.bookTipTap += queryString;
     data.bookTipSwipe += queryString;
     data.lastPage += queryString;
 
@@ -30,8 +29,9 @@ module.exports = function (preload) {
 
     var urls = data.urls.slice(0, preload);
 
-    var image = (data.monkeyType === 'mobile') ? 'bookTipSwipe' : 'bookTipTap';
-    urls.unshift(data[image]);
+    if (data.monkeyType === 'mobile') {
+      urls.unshift(data.bookTipSwipe);
+    }
 
     return helpers.preload(urls)
       .then(function () {

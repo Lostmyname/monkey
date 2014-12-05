@@ -18,12 +18,6 @@ desktop.generateHtml = function (data) {
     var $page = $('<div />').appendTo($monkey)
       .addClass('Heidelberg-Spread page-' + data.letters[i].type);
 
-    if (i === 0) {
-      $('<div />').appendTo($page)
-        .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', data.bookTipTap));
-    }
-
     if (i === data.urls.length - 1) {
       $('<div />').appendTo($page)
         .addClass('last-page')
@@ -42,10 +36,14 @@ desktop.init = function (data, $events) {
     hasSpreads: true
   });
 
-  $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
+  data.heidelberg.el.addClass('at-front-cover');
+
+  $(data.heidelberg).on('pageTurn.heidelberg', function (e, $el, els) {
     $events.trigger('pageTurn');
 
     var index = els.pages.index(els.pagesTarget);
+
+    $el.toggleClass('at-front-cover', !index);
 
     if (index / els.pages.length > 0.5) {
       $events.trigger('halfway');
