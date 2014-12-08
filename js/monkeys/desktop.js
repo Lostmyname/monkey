@@ -8,7 +8,7 @@ var Heidelberg = require('heidelberg');
 var desktop = module.exports = {};
 
 desktop.calculateSize = function () {
-  return 'w=' + Math.min($(window).width(), 1000);
+  return 'w=' + Math.min($(window).width(), 1280);
 };
 
 desktop.generateHtml = function (data) {
