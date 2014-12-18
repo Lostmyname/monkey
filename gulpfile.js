@@ -39,6 +39,10 @@ gulp.task('js', ['js-quality'], function () {
 gulp.task('sass', function () {
   return gulp.src(['sass/*.{sass,scss}', '!sass/_*.{sass,scss}'])
     .pipe(plugins.rubySass())
+    .on('error', function (err) {
+      browserSync.notify(err.message, 3000);
+      this.emit('end');
+    })
     .pipe(plugins.plumber())
     .pipe(plugins.autoprefixer())
 //    .pipe(plugins.minifyCss())
