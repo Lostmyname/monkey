@@ -255,6 +255,18 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should insert monkey gif', function () {
+    promise = promise.then(changeMonkeyType('mobile'))
+      .then(Monkey._addMonkeyGif(100));
+
+    var timeNow = Date.now();
+
+    return promise.then(function (data) {
+      (Date.now() - timeNow).should.be.above(100);
+      data.html.find('.monkey-gif img').length.should.equal(1);
+    });
+  });
+
   it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
