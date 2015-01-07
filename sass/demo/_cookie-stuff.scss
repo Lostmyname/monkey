@@ -1,0 +1,43 @@
+.text-left, .text-right {
+  position: absolute;
+
+  margin-top: 800px;
+
+  font-size: 0.7em;
+}
+
+.text-left {
+  left: 100px;
+}
+
+.text-right {
+  right: 50px;
+}
+
+
+.lmn-book {
+  position: fixed;
+  left: 50%;
+
+  margin-top: 130px;
+  margin-left: -12.5rem;
+}
+
+$top-margins: (
+  '#text1': 750,
+  '#text4': 1200,
+  '#text2': 1350,
+  '#text5': 1200,
+  '.biggerTrigger': 200
+);
+
+@each $element, $margin in $top-margins {
+  #{$element} {
+    margin-top: $margin * 1px;
+  }
+}
+
+.biggerTrigger {
+  display: block;
+  margin-bottom: 800px;
+}

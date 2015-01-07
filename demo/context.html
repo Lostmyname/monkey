@@ -129,7 +129,25 @@
 
 </div>
 
-  <div id="lmn-product-hero" class="hidden">
+  <div id="lmn-product-hero" class="hidden" style="height: 1000px;">
+    <div class="text-left">
+      <p id="text1" data-page="8">We add the first letter of your name,<br>no two books are ever the same,</p>
+
+      <p id="text2" data-page="16">If your name is short we'll add a bonus section,<br>this is to ensure the length of the story is perfection,</p>
+    </div>
+
+    <div class="text-right">
+      <p id="text3" data-page="4">Intro pages are fantastic,<br>Shaggy singing boombastic,</p>
+
+      <p id="text4" data-page="12">Each letter has two double pages,<br>don't worry, reading it won't take ages.</p>
+
+      <p id="text5" data-page="20">
+        Here's your finished book which you can now flick through,<br>
+        while sipping a coffee
+      </p>
+      <span class="biggerTrigger"></span>
+    </div>
+
     <div data-key="lmn-book" class="lmn-book">
       <div class="background-brown padded-big aligned-center">
         <img alt="Wiggle" class="padded-bottom" src="//d12fm4vsc5tls2.cloudfront.net/assets/lostmyname/widget/wiggle-6e5076995ef6431906f1d8f91114bb03.gif" width="100" />
@@ -138,39 +156,19 @@
     </div>
 
     <p class="text-softened italic aligned-center padded-top hidden-on-tablet-down">
-      Tap to preview your book
+      Scroll to preview your book
       <!-- <%= image_tag "lostmyname/widget/arrow-3-50x35.svg", class: 'monkey-arrow' %> -->
     </p>
   </div>
 
 
+
 <script src="assets/jquery.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/TweenMax.min.js"></script>
+<script src="https://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.js"></script>
+<script src="https://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.debug.js"></script>
 
 <script src="build/bundle.js"></script>
-<script>
-  $('#lmn-hero-form form').on('submit', function (e) {
-    e.preventDefault();
-
-    var monkey = new Monkey('.lmn-book', {
-      book: {
-        name: $(this.name).val(),
-        gender: $(this.gender).filter(':checked').val(),
-        locale: 'en-GB'
-      }
-    });
-
-    monkey.promise.then(function (data) {
-      if (data.monkeyType === 'desktop') {
-        data.html.closest('.lmn-book').addClass('desktop-monkey');
-      }
-    });
-
-    $('#lmn-hero-form').fadeOut(function () {
-      $('#lmn-product-hero').hide().removeClass('hidden').fadeIn();
-    });
-  });
-</script>
-
-
+<script src="assets/cookie-stuff.js"></script>
 
 </body></html>
