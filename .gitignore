@@ -1,3 +1,5 @@
 node_modules
 demo/build
-npm-debug.log
+demo/partials
+*.log
+.sass-cache

@@ -3,77 +3,22 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-var stylish = require('jshint-stylish');
 
-var dieOnError = true;
+global.dieOnError = true;
 
-gulp.task('js-quality', function () {
-  var stream = gulp.src('js/**/*.js');
+global.onError = function (err) {
+  browserSync.notify(err.message, 3000);
+  this.emit('end'); // jshint ignore: line
+};
 
-  if (!dieOnError) {
-    stream = stream.pipe(plugins.plumber());
-  }
+function getTask(name) {
+  return require('./gulp-tasks/' + name)(gulp, plugins);
+}
 
-  stream = stream.pipe(plugins.jscs())
-    .pipe(plugins.jshint())
-    .pipe(plugins.jshint.reporter(stylish));
+gulp.task('auto-reload', getTask('auto-reload'));
+gulp.task('html', getTask('html'));
+gulp.task('js', ['js-quality'], getTask('js'));
+gulp.task('js-quality', getTask('js-quality'));
+gulp.task('scss', getTask('scss'));
 
-  if (dieOnError) {
-    stream = stream.pipe(plugins.jshint.reporter('fail'));
-  }
-
-  return stream;
-});
-
-gulp.task('js', ['js-quality'], function () {
-  var bundler = browserify('./js/monkey.js');
-
-  return bundler.bundle()
-    .on('error', console.log.bind(console, 'Browserify Error'))
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./demo/build'));
-});
-
-gulp.task('sass', function () {
-  return gulp.src(['sass/*.{sass,scss}', '!sass/_*.{sass,scss}'])
-    .pipe(plugins.rubySass())
-    .on('error', function (err) {
-      browserSync.notify(err.message, 3000);
-      this.emit('end');
-    })
-    .pipe(plugins.plumber())
-    .pipe(plugins.autoprefixer())
-//    .pipe(plugins.minifyCss())
-    .pipe(gulp.dest('./demo/build'));
-});
-
-gulp.task('default', ['js', 'sass'], function () {
-  dieOnError = false;
-
-  browserSync.init([
-    'demo/**/*.css',
-    'demo/build/**/*.js',
-    'demo/*.html',
-    'test/**/*.js'
-  ], {
-    server: {
-      baseDir: '.'
-    },
-    startPath: '/demo/context.html',
-    ghostMode: {
-      scroll: false,
-      links: false,
-      forms: false
-    }
-  });
-
-  gulp.watch('sass/**/*.{sass,scss}', ['sass']);
-
-  // Watching heidelberg file in case of npm link
-  gulp.watch([
-    'js/**/*.js',
-    'node_modules/heidelberg/js/heidelberg/heidelberg.js'
-  ], ['js']);
-});
+gulp.task('default', ['html', 'js', 'scss'], getTask('default'));
