@@ -4,6 +4,7 @@ require('browsernizr/test/css/transformstylepreserve3d');
 require('browsernizr/test/css/transforms3d');
 window.Modernizr = require('browsernizr');
 var Heidelberg = require('heidelberg');
+var nums = require('nums');
 
 var desktop = module.exports = {};
 
@@ -58,9 +59,15 @@ desktop.init = function (data, $events) {
 };
 
 desktop.letterHandler = function (data, $events) {
+  var fireEvent = true;
+  var lastIndex = 0;
+
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
-    var index = (els.pagesTarget.index() - 1) / 2;
-    $events.trigger('letterChange', index);
+    if (fireEvent) {
+      var index = (els.pagesTarget.index() - 1) / 2;
+      $events.trigger('letterChange', index);
+      lastIndex = (els.pagesTarget.index() - 3) / 4;
+    }
   });
 
   // Do it on the next free cycle to ensure the event has been added
@@ -68,8 +75,26 @@ desktop.letterHandler = function (data, $events) {
     $events.trigger('letterChange', 0);
   });
 
-// index is the letter index
   desktop.turnToPage = function (index) {
-    data.heidelberg.turnPage(index * 4 + 3);
+    fireEvent = false;
+
+    var indexes = nums(lastIndex * 4 + 4, index * 4 + 4);
+    var doubleSpeed = (indexes.length > 10);
+    var time = (doubleSpeed ? 15 : 30);
+
+    setTimeout(function () {
+      fireEvent = true;
+    }, (indexes.length - 1) * time);
+
+    $.each(indexes, function (i, index) {
+      // Happen only every 2 or 4 times
+      if (index % (doubleSpeed ? 4 : 2)) {
+        return;
+      }
+
+      setTimeout(function () {
+        data.heidelberg.turnPage(index - 1);
+      }, i * time);
+    });
   };
 };
