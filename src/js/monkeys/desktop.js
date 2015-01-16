@@ -78,6 +78,11 @@ desktop.letterHandler = function (data, $events) {
   desktop.turnToPage = function (index) {
     fireEvent = false;
 
+    // If already on the page, flip to the other page in the pair
+    if (index === lastIndex) {
+      index += index % 1 ? -0.5 : 0.5;
+    }
+
     var indexes = nums(lastIndex * 4 + 4, index * 4 + 4);
     var doubleSpeed = (indexes.length > 10);
     var time = (doubleSpeed ? 15 : 30);
