@@ -82,6 +82,7 @@ desktop.letterHandler = function (data, $events) {
     var doubleSpeed = (indexes.length > 10);
     var time = (doubleSpeed ? 15 : 30);
 
+    // This ensures that the event is only fired for the last page turn
     setTimeout(function () {
       fireEvent = true;
     }, (indexes.length - 1) * time);
