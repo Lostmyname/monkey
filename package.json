@@ -2,7 +2,7 @@
   "name": "lmn-monkey",
   "version": "3.0.0",
   "description": "",
-  "main": "js/monkey.js",
+  "main": "src/js/monkey.js",
   "dependencies": {
     "browserify": "^8.1.1",
     "browsernizr": "^1.0.2",
