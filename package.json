@@ -4,7 +4,7 @@
   "description": "",
   "main": "js/monkey.js",
   "dependencies": {
-    "browserify": "^7.0.2",
+    "browserify": "^8.1.1",
     "browsernizr": "^1.0.2",
     "heidelberg": "^1.0.0",
     "nums": "^1.0.0"
