@@ -85,6 +85,13 @@ desktop.letterHandler = function (data, $events) {
 
     var indexes = nums(lastIndex * 4 + 4, index * 4 + 4);
     var doubleSpeed = (indexes.length > 10);
+
+    // If index ends .5, doubleSpeed doesn't work. Tbh I'm not sure why.
+    // @todo: Think of a proper fix
+    if (index % 1 !== 0) {
+      doubleSpeed = false;
+    }
+
     var time = (doubleSpeed ? 15 : 30);
 
     // This ensures that the event is only fired for the last page turn
