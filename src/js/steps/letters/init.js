@@ -20,7 +20,7 @@ module.exports = function ($events) {
     });
 
     $letters.on('click', 'span', function () {
-      Monkey.monkeys[data.monkeyType].turnToPage($(this).index());
+      data.turnToPage($(this).index());
     });
 
     return data;

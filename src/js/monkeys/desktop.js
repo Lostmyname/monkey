@@ -55,7 +55,7 @@ desktop.init = function (data, $events) {
     }
   });
 
-  this.letterHandler(data, $events);
+  return this.letterHandler(data, $events);
 };
 
 desktop.letterHandler = function (data, $events) {
@@ -75,7 +75,7 @@ desktop.letterHandler = function (data, $events) {
     $events.trigger('letterChange', 0);
   });
 
-  desktop.turnToPage = function (index) {
+  return function turnToPage(index) {
     fireEvent = false;
 
     // If already on the page, flip to the other page in the pair

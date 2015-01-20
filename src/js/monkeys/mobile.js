@@ -88,7 +88,7 @@ mobile.init = function (data, $events) {
     }
   });
 
-  this.letterHandler(data, $events);
+  return this.letterHandler(data, $events);
 };
 
 mobile.letterHandler = function (data, $events) {
@@ -120,7 +120,7 @@ mobile.letterHandler = function (data, $events) {
   });
 
   // index is the letter index
-  mobile.turnToPage = function (index) {
+  return function turnToPage(index) {
     var pageIndex = index * 2 + 1;
     var offset = $pages.eq(pageIndex).position().left;
 
