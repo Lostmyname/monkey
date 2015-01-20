@@ -15,6 +15,7 @@ module.exports = function () {
     base = base.replace('<%= partial %>', partial);
 
     var env = nunjucks.configure({
+      watch: false,
       tags: {
         variableStart: '<%=',
         variableEnd: '%>'
@@ -28,6 +29,7 @@ module.exports = function () {
       name: 'monkey',
       t: function translate(text) {
         return delve(lang.en['component.monkey'], text);
+
       },
       image_path: function (path) {
         return getImagePath(path);

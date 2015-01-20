@@ -32,6 +32,7 @@ module.exports = function (gulp) {
 
     gulp.watch('./src/scss/**/*.{sass,scss}', ['scss']);
     gulp.watch('./src/js/**/*.js', ['js']);
-    gulp.watch('./src/partials/partial.mustache.html', ['html']);
+    gulp.watch('./src/partials/partial.erb.html', ['html']);
+    gulp.watch('./demo/base.erb.html', ['html']);
   };
 };

@@ -21,4 +21,5 @@ gulp.task('js', ['js-quality'], getTask('js'));
 gulp.task('js-quality', getTask('js-quality'));
 gulp.task('scss', getTask('scss'));
 
-gulp.task('default', ['html', 'js', 'scss'], getTask('default'));
+gulp.task('build', ['html', 'js', 'scss']);
+gulp.task('default', ['build'], getTask('default'));
