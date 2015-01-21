@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function ($events) {
-  var Monkey = this.Monkey;
-
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('span');
