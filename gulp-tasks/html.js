@@ -3,8 +3,7 @@
 var fs = require('fs');
 
 var delve = require('delve');
-var nunjucks = require('nunjucks');
-var objToAttrs = require('obj-to-attrs');
+var erbParser = require('rubbish-erb-parser');
 var yaml = require('js-yaml');
 
 module.exports = function () {
@@ -14,56 +13,30 @@ module.exports = function () {
 
     base = base.replace('<%= partial %>', partial);
 
-    var env = nunjucks.configure({
-      watch: false,
-      tags: {
-        variableStart: '<%=',
-        variableEnd: '%>'
-      }
-    });
-
     var lang = yaml.safeLoad(fs.readFileSync('src/en.yml', 'utf8'));
 
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-    var context = {
-      name: 'monkey',
-      t: function translate(text) {
-        return delve(lang.en['component.monkey'], text);
+    erbParser.addHelper('t', function (options, text) {
+      return delve(lang.en['component.monkey'], text);
+    });
 
-      },
-      image_path: function (path) {
-        return getImagePath(path);
-      },
-      image_tag: function (path, options) {
-        path = getImagePath(path);
-        return '<img src="' + path + '" ' + objToAttrs(options) + '>';
-      }
-    };
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-
-    function getImagePath(path) {
-      return '../../src/imgs/' + path;
-    }
-
-    // HELL
-    env.renderString(base, context, function (err, res) {
-      if (err) {
-        return done(err);
-      }
-
-      fs.mkdir('demo/partials', function (err) {
-        if (err && err.code !== 'EEXIST') {
-          return done(err);
-        }
-
-        fs.writeFile('demo/partials/partial.html', res, function (err) {
-          if (err) {
+    erbParser.renderString(base, { imagePath: '../../src/imgs/' }, { name: 'monkey' })
+      .then(function (res) {
+        fs.mkdir('demo/partials', function (err) {
+          if (err && err.code !== 'EEXIST') {
             return done(err);
           }
 
-          done();
+          fs.writeFile('demo/partials/partial.html', res, function (err) {
+            if (err) {
+              return done(err);
+            }
+
+            done();
+          });
         });
+      })
+      .catch(function (err) {
+        done(err);
       });
-    });
   };
 };

@@ -32,6 +32,7 @@
     "mocha": "^2.0.1",
     "nunjucks": "^1.1.0",
     "obj-to-attrs": "^1.1.2",
+    "rubbish-erb-parser": "^1.0.0",
     "should": "^4.2.0",
     "vinyl-source-stream": "^1.0.0"
   },
