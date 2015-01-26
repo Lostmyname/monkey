@@ -19,7 +19,8 @@ gulp.task('html', getTask('html'));
 
 gulp.task('js', ['js-quality'], getTask('js', {
   src: './src/js/monkey.js',
-  dest: './demo/build/bundle.js'
+  dest: './demo/build/bundle.js',
+  onError: global.onError
 }));
 
 gulp.task('js-quality', getTask('js-quality', {
