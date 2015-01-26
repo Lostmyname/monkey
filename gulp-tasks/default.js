@@ -4,8 +4,6 @@ var browserSync = require('browser-sync');
 
 module.exports = function (gulp) {
   return function () {
-    global.dieOnError = false;
-
     var config = {
       server: {
         baseDir: '.'
