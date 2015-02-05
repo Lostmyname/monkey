@@ -11,15 +11,11 @@ getLmnTask.setErrorHandler(function (err) {
   this.emit('end'); // jshint ignore: line
 });
 
-function getTask(name) {
-  return require('./gulp-tasks/' + name)(gulp);
-}
-
 gulp.task('auto-reload', getLmnTask('auto-reload', {
   addArgs: ['--no-open']
 }));
 
-gulp.task('html', getTask('html'));
+gulp.task('html', getLmnTask('html'));
 
 gulp.task('js', ['js-quality'], getLmnTask('browserify', {
   src: './src/js/monkey.js',
@@ -37,4 +33,4 @@ gulp.task('scss', getLmnTask('scss', {
 }));
 
 gulp.task('build', ['html', 'js', 'scss']);
-gulp.task('default', ['build'], getTask('default'));
+gulp.task('default', ['build'], getLmnTask('component-default'));

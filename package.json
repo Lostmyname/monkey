@@ -9,18 +9,11 @@
     "nums": "^1.0.0"
   },
   "devDependencies": {
-    "browser-sync": "^1.8.0",
-    "delve": "^0.3.2",
     "gulp": "^3.8.8",
     "gulp-load-plugins": "^0.8.0",
-    "js-yaml": "^3.2.5",
     "lmn-gulp-tasks": "^1.0.0",
-    "rubbish-erb-parser": "^1.0.0",
-    "should": "^4.2.0",
-    "vinyl-source-stream": "^1.0.0"
-  },
-  "scripts": {
-    "test": "./node_modules/karma/bin/karma start"
+    "mocha": "^2.1.0",
+    "should": "^4.2.0"
   },
   "author": "Callum Macrae"
 }
