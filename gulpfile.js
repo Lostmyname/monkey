@@ -1,40 +1,28 @@
 'use strict';
 
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-var browserSync = require('browser-sync');
+var getLmnTask = require('lmn-gulp-tasks');
 
-global.onError = function (err) {
-  browserSync.notify(err.message, 3000);
-  plugins.util.log(err.toString());
-  this.emit('end'); // jshint ignore: line
-};
+gulp.task('auto-reload', getLmnTask('auto-reload', {
+  addArgs: ['--no-open']
+}));
 
-function getTask(name, options) {
-  return require('./gulp-tasks/' + name)(gulp, plugins, options);
-}
+gulp.task('html', getLmnTask('html'));
 
-gulp.task('auto-reload', getTask('auto-reload'));
-gulp.task('html', getTask('html'));
-
-gulp.task('js', ['js-quality'], getTask('js', {
+gulp.task('js', ['js-quality'], getLmnTask('browserify', {
   src: './src/js/monkey.js',
-  dest: './demo/build/bundle.js',
-  onError: global.onError
+  dest: './demo/build/bundle.js'
 }));
 
-gulp.task('js-quality', getTask('js-quality', {
-  src: './src/js/**/*.js',
-  dieOnError: false,
-  onError: global.onError
+gulp.task('js-quality', getLmnTask('js-quality', {
+  src: './src/js/**/*.js'
 }));
 
-gulp.task('scss', getTask('scss', {
+gulp.task('scss', getLmnTask('scss', {
   src: './src/scss/*.{sass,scss}',
   dest: './demo/build',
-  minify: false,
-  onError: global.onError
+  minify: false
 }));
 
 gulp.task('build', ['html', 'js', 'scss']);
-gulp.task('default', ['build'], getTask('default'));
+gulp.task('default', ['build'], getLmnTask('component-default'));
