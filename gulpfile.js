@@ -1,15 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
-
 var getLmnTask = require('lmn-gulp-tasks');
-
-getLmnTask.setErrorHandler(function (err) {
-  browserSync.notify(err.message, 3000);
-  plugins.util.log(err.toString());
-  this.emit('end'); // jshint ignore: line
-});
 
 gulp.task('auto-reload', getLmnTask('auto-reload', {
   addArgs: ['--no-open']
