@@ -7,7 +7,9 @@ gulp.task('auto-reload', getLmnTask('auto-reload', {
   addArgs: ['--no-open']
 }));
 
-gulp.task('html', getLmnTask('html'));
+gulp.task('html', getLmnTask('html', {
+  langBase: 'component.monkey'
+}));
 
 gulp.task('js', ['js-quality'], getLmnTask('browserify', {
   src: './src/js/monkey.js',
