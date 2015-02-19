@@ -1,6 +1,8 @@
 window.Monkey = module.exports = (function () {
   'use strict';
 
+  var $ = require('jquery');
+
   /**
    * Initiate monkey; generate it, and then insert it into the page.
    *

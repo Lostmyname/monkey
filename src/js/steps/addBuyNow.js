@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 /**
  * Adds a buy now button to landscape mobile monkey.
  */
@@ -16,7 +18,7 @@ module.exports = function (buyNowLink, lang) {
 
     if (typeof buyNowLink === 'string') {
       data.buyNow.attr('href', buyNowLink);
-    } else if (buyNowLink instanceof jQuery) {
+    } else if (buyNowLink instanceof $) {
       data.buyNow.on('click', function (e) {
         e.preventDefault();
 

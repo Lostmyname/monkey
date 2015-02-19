@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 /**
  * Gets the data from the server.
  *

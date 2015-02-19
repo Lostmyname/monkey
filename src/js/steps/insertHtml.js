@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 /**
  * Inserts HTML into specified container.
  *

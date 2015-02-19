@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 module.exports = function ($events) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');

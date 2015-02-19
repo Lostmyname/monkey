@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 /**
  * Preload images and fire a callback / promise when they're loaded.
  *

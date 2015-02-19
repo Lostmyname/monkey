@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 module.exports = function (preload) {
   var monkeys = this.monkeys;
   var helpers = this.helpers;

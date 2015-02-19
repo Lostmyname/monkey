@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 module.exports = function (monkeyData, options) {
   var $monkey = monkeyData.html;
   var defer = $.Deferred();

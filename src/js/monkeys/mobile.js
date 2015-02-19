@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 var mobile = module.exports = {};
 
 mobile.calculateSize = function () {

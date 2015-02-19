@@ -1,5 +1,7 @@
 'use strict';
 
+var $ = require('jquery');
+
 /**
  * Generate HTML for letters.
  *
