@@ -1,10 +1,6 @@
 'use strict';
 
 var $ = require('jquery');
-
-require('browsernizr/test/css/transformstylepreserve3d');
-require('browsernizr/test/css/transforms3d');
-window.Modernizr = require('browsernizr');
 var Heidelberg = require('heidelberg');
 var nums = require('nums');
 
