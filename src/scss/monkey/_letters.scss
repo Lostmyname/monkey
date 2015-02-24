@@ -1,29 +1,28 @@
-#letters
-  font-size: 1.6em
+#letters {
+  font-size: 1.6em;
+  .letter-active {
+    color: #00b69d;
+    border-bottom: 2px solid;
+  }
+  span {
+    cursor: pointer;
+  }
+}
 
-  .letter-active
-    color: #00B69D
-    border-bottom: 2px solid
-
-  span
-    cursor: pointer
-
-.landscape #letters-container
-  position: absolute
-
-  color: #F6F5F1
-
-  #letters
-    position: fixed
-    z-index: 100
-    left: 50%
-
-    padding: 5px 10px
-
-    background-color: rgba(#333, 0.6)
-    border-radius: 5px
-    color: white
-    transform: translate(-50%, 0)
-
-    .letter-active
-      color: #FF5227
+.landscape #letters-container {
+  position: absolute;
+  color: #f6f5f1;
+  #letters {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    padding: 5px 10px;
+    background-color: rgba(#333333, 0.6);
+    border-radius: 5px;
+    color: white;
+    transform: translate(-50%, 0);
+    .letter-active {
+      color: #ff5227;
+    }
+  }
+}
