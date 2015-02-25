@@ -1,6 +1,8 @@
 .Heidelberg-Book {
+  position: relative;
   left: 0;
   transition: left 0.7s;
+
   &.at-front-cover {
     left: -25%;
     .Heidelberg-Page.is-active:nth-child(odd):hover {
