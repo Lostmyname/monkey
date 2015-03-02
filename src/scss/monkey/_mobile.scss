@@ -29,13 +29,16 @@
 }
 
 .page {
+  position: relative;
   display: table-cell;
   min-width: 490px;
   padding-right: 10px;
   overflow: hidden;
+
   .landscape & {
     background: #333333;
   }
+
   img {
     max-width: none;
   }
