@@ -1,6 +1,6 @@
 {
   "name": "lmn-monkey",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
