@@ -23,6 +23,7 @@ gulp.task('js-quality', getLmnTask('js-quality', {
 gulp.task('scss', getLmnTask('scss', {
   src: './src/scss/*.{sass,scss}',
   dest: './demo/build',
+  ignoreSuckyAntipattern: true, // compatibility with eagle
   minify: false
 }));
 
