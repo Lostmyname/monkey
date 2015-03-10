@@ -62,6 +62,8 @@ mobile.init = function (data, $events) {
     var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * RATIO;
     var height = Math.ceil(width / RATIO);
 
+    $('.landscape-images-inner').width(width * ($('.page').length + 1));
+
     $('.page > img').css({
       height: height,
       width: Math.ceil(width)

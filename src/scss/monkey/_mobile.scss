@@ -20,9 +20,9 @@
 }
 
 .landscape-images {
-  display: table;
+  //display: table;
   .landscape-images-inner {
-    display: table-row;
+    //display: table-row;
     vertical-align: top;
     clear: both;
   }
@@ -30,7 +30,8 @@
 
 .page {
   position: relative;
-  display: table-cell;
+  float: left;
+  //display: table-cell;
   min-width: 490px;
   padding-right: 10px;
   overflow: hidden;
