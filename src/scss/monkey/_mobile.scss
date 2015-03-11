@@ -1,32 +1,37 @@
 .monkey.mobile {
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+
   &.portrait {
     margin-top: -5px;
     margin-bottom: -5px;
   }
 }
 
-.landscape .lmn-book {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 40;
-  padding-top: 0;
-  margin-top: 0;
-  background-color: #f6f5f1;
+.lmn-book {
+  position: relative;
 }
 
-.landscape-images {
-  //display: table;
-  .landscape-images-inner {
-    //display: table-row;
-    vertical-align: top;
-    clear: both;
-  }
-}
+// .landscape .lmn-book {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   z-index: 40;
+//   padding-top: 0;
+//   margin-top: 0;
+//   background-color: #f6f5f1;
+// }
+
+// .landscape-images {
+//   //display: table;
+//   .landscape-images-inner {
+//     //display: table-row;
+//     vertical-align: top;
+//     clear: both;
+//   }
+// }
 
 .page {
   position: relative;
@@ -46,7 +51,7 @@
 }
 
 .buy-now {
-  position: fixed;
+  position: absolute;
   right: 15px;
   bottom: 30px;
   padding: 4px 8px;
@@ -55,6 +60,7 @@
   border: 1px rgba(white, 0.5) solid;
   border-radius: 5px;
   color: white;
+
   .portrait & {
     display: none;
   }
