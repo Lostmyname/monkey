@@ -52,7 +52,7 @@ mobile.init = function (data, $events) {
   setTimeout(flip);
 
   function flip() {
-    portrait = (window.innerHeight > window.innerWidth);
+    portrait = true;
 
     if ($monkey.hasClass('landscape') && portrait ||
         $monkey.hasClass('portrait') && !portrait) {
