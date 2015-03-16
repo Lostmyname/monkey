@@ -6,15 +6,19 @@ module.exports = function (preload) {
   var monkeys = this.monkeys;
   var helpers = this.helpers;
 
+  var quality = {
+    desktop: 60,
+    mobile: 20
+  };
+
   /**
    * Takes data and turns letters into URLs.
    */
   return function (data) {
     var size = monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
-    var quality = (data.monkeyType === 'desktop') ? 60 : 20;
 
-    var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality;
+    var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
     data.queryString = queryString;
 
     data.bookTipSwipe += queryString;

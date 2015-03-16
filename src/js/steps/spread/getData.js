@@ -7,6 +7,11 @@ module.exports = function (monkeyData, options) {
   var defer = $.Deferred();
   var resolved = false;
 
+  var consts = {
+    INITIAL_DELAY: 3000,
+    INTERVAL: 5000
+  };
+
   setTimeout(function () {
     makeRequest();
 
@@ -17,8 +22,8 @@ module.exports = function (monkeyData, options) {
       }
 
       makeRequest();
-    }, 5000);
-  }, 3000);
+    }, consts.INTERVAL);
+  }, consts.INITIAL_DELAY);
 
   var halfDone = false;
 
@@ -33,7 +38,8 @@ module.exports = function (monkeyData, options) {
       makeRequest();
     }
 
-    if ($monkey.scrollLeft() + 1500 > $monkey.children('div').width()) {
+    var A_BIT = 1500; // pixels
+    if ($monkey.scrollLeft() > $monkey.children('div').width() - A_BIT) {
       $monkey.off('scroll.monkeyPoll');
       makeRequest();
     }

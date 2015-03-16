@@ -61,7 +61,7 @@ window.Monkey = module.exports = (function () {
     this.promise = promise;
   }
 
-  Monkey.IMAGE_RATIO = 2048 / 738;
+  Monkey.IMAGE_RATIO = 2048 / 738; // buddy ignore:line
 
   Monkey._getData = require('./steps/getData');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');

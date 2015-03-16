@@ -9,7 +9,8 @@ mobile.calculateSize = function () {
   var height = Math.min($window.width(), $window.height());
 
   // Max height = iPad three
-  return 'h=' + Math.min(768, Math.ceil(height));
+  var MAX_HEIGHT = 768;
+  return 'h=' + Math.min(MAX_HEIGHT, Math.ceil(height));
 };
 
 mobile.generateHtml = function (data) {

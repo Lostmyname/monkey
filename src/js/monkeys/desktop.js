@@ -7,7 +7,8 @@ var nums = require('nums');
 var desktop = module.exports = {};
 
 desktop.calculateSize = function () {
-  return 'w=' + Math.min($(window).width(), 1280);
+  var MAX_WIDTH = 1280;
+  return 'w=' + Math.min($(window).width(), MAX_WIDTH);
 };
 
 desktop.generateHtml = function (data) {
@@ -62,9 +63,11 @@ desktop.letterHandler = function (data, $events) {
 
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
     if (fireEvent) {
+      // buddy ignore:start
       var index = (els.pagesTarget.index() - 1) / 2;
       $events.trigger('letterChange', index);
       lastIndex = (els.pagesTarget.index() - 3) / 4;
+      // buddy ignore:end
     }
   });
 
@@ -81,7 +84,8 @@ desktop.letterHandler = function (data, $events) {
       index += index % 1 ? -0.5 : 0.5;
     }
 
-    var indexes = nums(lastIndex * 4 + 4, index * 4 + 4);
+    var PER_PAGE = 4;
+    var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
 
     // If index ends .5, doubleSpeed doesn't work. Tbh I'm not sure why.
@@ -90,7 +94,8 @@ desktop.letterHandler = function (data, $events) {
       doubleSpeed = false;
     }
 
-    var time = (doubleSpeed ? 15 : 30);
+    var DEFAULT_TIME = 30;
+    var time = DEFAULT_TIME / (doubleSpeed ? 2 : 1);
 
     // This ensures that the event is only fired for the last page turn
     setTimeout(function () {
@@ -99,7 +104,7 @@ desktop.letterHandler = function (data, $events) {
 
     $.each(indexes, function (i, index) {
       // Happen only every 2 or 4 times
-      if (index % (doubleSpeed ? 4 : 2)) {
+      if (index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
         return;
       }
 
