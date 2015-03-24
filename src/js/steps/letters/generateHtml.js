@@ -19,7 +19,7 @@ module.exports = function (selector, lang) {
 
     $lettersContainer.attr({
       id: 'letters-container',
-      'class': 'align-center  md-mar-b', // @todo: remove leaded
+      'class': 'align-center  md-mar-b',
       'data-key': 'monkey-letters'
     });
 
