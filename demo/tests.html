@@ -21,10 +21,7 @@
   <script src="../test/_helpers.js"></script>
 
   <script>
-    mocha.setup({
-      ui: 'bdd',
-      globals: ['___browserSync___', '$scopeId', 'ngInspector', 'jQuery*']
-    });
+    mocha.setup('bdd');
   </script>
 
   <!-- test files -->
@@ -36,8 +33,6 @@
 
   <!-- run tests -->
   <script>
-    mocha.checkLeaks();
-    mocha.globals('jQuery');
     mocha.run();
   </script>
 

@@ -1,4 +1,4 @@
-/* global describe, it, monkey */
+/* global $, options, changeMonkeyType, Monkey */
 
 'use strict';
 
@@ -17,7 +17,7 @@ describe('Loading Monkey', function () {
 
     var monkey = new Monkey($testObject);
 
-    return monkey.promise.then(function (data) {
+    return monkey.promise.then(function () {
       monkey.options.book.name.should.equal('Test');
       monkey.options.book.gender.should.equal('boy');
       monkey.options.book.locale.should.equal('en-US');
@@ -101,7 +101,7 @@ describe('Loading Monkey', function () {
     Monkey.helpers.preload(monkeyData.urls[10])
       .then(function () {
         finished = true;
-      })
+      });
 
     setTimeout(function () {
       finished.should.be.False;
@@ -114,9 +114,9 @@ describe('Loading Monkey', function () {
       .then(Monkey._generateHtml())
       .then(function (data) {
         data.should.have.property('html');
-        data.html.should.be.instanceOf(jQuery);
+        data.html.should.be.instanceOf($);
         data.html.hasClass('desktop').should.be.True;
-        data.html.html().should.containEql(data.urls[2].split('?')[0])
+        data.html.html().should.containEql(data.urls[2].split('?')[0]);
       });
   });
 
@@ -127,7 +127,7 @@ describe('Loading Monkey', function () {
         data.should.have.property('html');
         data.html.should.be.instanceOf(jQuery);
         data.html.hasClass('mobile').should.be.True;
-        data.html.html().should.containEql(data.urls[2].split('?')[0])
+        data.html.html().should.containEql(data.urls[2].split('?')[0]);
       });
   });
 
@@ -197,7 +197,7 @@ describe('Loading Monkey', function () {
     return monkey.promise.then(function (data) {
       var spans = data.lettersElement.find('span span');
       spans.length.should.equal(6);
-    })
+    });
   });
 
   // Can't insert it because it already exists :(
@@ -220,11 +220,11 @@ describe('Loading Monkey', function () {
 
   it('should initiate letters correctly', function () {
     Monkey.monkeys.test = {
-      letterHandler: function () { return handler }
+      letterHandler: function () {}
     };
 
     promise = promise.then(changeMonkeyType('test'))
-      .then(Monkey.letters._init($events))
+      .then(Monkey.letters._init($events));
 
     return promise.then(function (data) {
       $events.trigger('letterChange', 7);

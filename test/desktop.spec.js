@@ -1,4 +1,4 @@
-/* global describe, it, monkey */
+/* global $, Monkey, options */
 
 'use strict';
 

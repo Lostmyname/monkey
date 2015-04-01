@@ -1,4 +1,5 @@
-/* global Should */
+/* global $, Should */
+/* jshint unused: false */
 
 'use strict';
 
