@@ -11,18 +11,14 @@
 
   <div id="mocha"></div>
 
-  <script src="assets/jquery.js"></script>
-
   <script src="build/bundle.js"></script>
 
-
+  <script src="assets/jquery.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
   <script src="../node_modules/should/should.js"></script>
   <script src="../test/_helpers.js"></script>
 
-  <script>
-    mocha.setup('bdd');
-  </script>
+  <script> mocha.setup('bdd'); </script>
 
   <!-- test files -->
   <script src="../test/tests.spec.js"></script>
@@ -32,9 +28,7 @@
   <script src="../test/mobile.spec.js"></script>
 
   <!-- run tests -->
-  <script>
-    mocha.run();
-  </script>
+  <script> mocha.run(); </script>
 
 </body>
 </html>
