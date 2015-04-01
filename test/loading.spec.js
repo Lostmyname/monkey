@@ -114,7 +114,7 @@ describe('Loading Monkey', function () {
       .then(Monkey._generateHtml())
       .then(function (data) {
         data.should.have.property('html');
-        data.html.should.be.instanceOf($);
+        data.html.should.be.jQuery;
         data.html.hasClass('desktop').should.be.True;
         data.html.html().should.containEql(data.urls[2].split('?')[0]);
       });
@@ -125,7 +125,7 @@ describe('Loading Monkey', function () {
       .then(Monkey._generateHtml())
       .then(function (data) {
         data.should.have.property('html');
-        data.html.should.be.instanceOf(jQuery);
+        data.html.should.be.jQuery;
         data.html.hasClass('mobile').should.be.True;
         data.html.html().should.containEql(data.urls[2].split('?')[0]);
       });

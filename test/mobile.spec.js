@@ -27,9 +27,15 @@ describe('Using monkey on mobile', function () {
     $monkey.scrollLeft().should.equal(100);
   });
 
-  it('should change letters when page is changed', function () {
-    $monkey.scrollLeft($monkey.find('div').width() / 2).trigger('scroll');
-    $container.find('.letter-active').index().should.be.within(4, 6);
+  it('should change letters when page is changed', function (done) {
+    $monkey
+      .scrollLeft($monkey.find('.landscape-images-inner').width() / 2)
+      .trigger('scroll');
+
+    setTimeout(function () {
+      $container.find('.letter-active').index().should.be.within(4, 6);
+      done();
+    }, 100);
   });
 
   it('should fire event when scrolled', function (cb) {
