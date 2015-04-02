@@ -14,7 +14,12 @@
     "mocha": "^2.1.0",
     "mocha-phantomjs": "^3.5.3",
     "phantomjs": "^1.9.16",
+    "serve": "^1.4.0",
     "should": "^4.2.0"
   },
-  "author": "Callum Macrae"
+  "author": "Callum Macrae",
+  "scripts": {
+    "build": "gulp build",
+    "test": "./test/run-tests.sh"
+  }
 }

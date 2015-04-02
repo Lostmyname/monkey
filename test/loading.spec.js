@@ -7,6 +7,8 @@ describe('Loading Monkey', function () {
 
   var $events = $({});
 
+  this.timeout(5000); // Sometimes this just happens
+
   it('should set book options from data attributes (slow)', function () {
     var $testObject = $('<div />').attr({
       'data-key': 'lmn-book',
