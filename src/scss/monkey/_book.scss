@@ -15,6 +15,9 @@
     .Heidelberg-Page.is-active:nth-child(even):hover {
       transform: rotateY(15deg);
     }
+    .Heidelberg-Page.is-active:nth-child(odd) {
+      opacity: 0;
+    }
   }
 }
 
