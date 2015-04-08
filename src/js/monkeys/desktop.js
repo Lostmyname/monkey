@@ -15,10 +15,10 @@ desktop.generateHtml = function (data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
   $.each(data.urls, function (i, url) {
-    var $page = $('<div />').appendTo($monkey)
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type);
-
-    $('<img />').appendTo($page).attr('src', url);
+    $('<div />')
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .append($('<img />').attr('src', url))
+      .appendTo($monkey);
   });
 
   return $monkey;
