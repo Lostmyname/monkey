@@ -126,8 +126,8 @@ mobile.letterHandler = function (data, $events) {
 
   // index is the letter index
   return function turnToPage(index) {
-    var pageIndex = index * 2 + 1;
-    var offset = $pages.eq(pageIndex).position().left;
+    var $page = $pages.eq(index * 2 + 1);
+    var offset = $page.offset().left - $page.parent().offset().left;
 
     $monkey.scrollLeft(offset);
   };
