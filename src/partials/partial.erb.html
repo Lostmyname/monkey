@@ -1,13 +1,13 @@
 <div data-key="lmn-book" data-name="<%= customisation.name %>"
      data-gender="<%= customisation.gender %>" data-locale="<%= customisation.locale %>"
-     class="lmn-book monkey js-only">
-  <div class="background-brown padded-big align-center hidden-on-desktop-up">
-    <%= image_tag('wiggle.gif', { width: 100, class: 'padded-bottom' }) %>
-    <h6 class="not-strong"><%= t('loading') %></h6>
+     class="lmn-book monkey" id="monkey">
+  <div class="color-bg-cafe-royale lg-pad aligned-center">
+    <%= image_tag('wiggle-200x68.gif', { width: 100, class: 'padded-bottom' }) %>
+    <h6 class="not-strong color-white"><%= t("loading") %></h6>
   </div>
 </div>
 
-<p class="text-softened italic aligned-center padded-top hidden-on-tablet-down js-only">
-  <%= t('preview') %>
-  <%= image_tag('arrow-3-50x35.svg', { class: 'monkey-arrow' }) %>
-</p>
+<span class="italic p pos-relative color-text-disabled display-none-on-md">
+  <%= t("preview") %>
+  <%= image_tag('arrow-3-50x35.svg', { class: 'arrow-image' }) %>
+</span>
