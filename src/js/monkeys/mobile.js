@@ -3,9 +3,9 @@
 var $ = require('jquery');
 
 var mobile = module.exports = {};
+var $window = $(window);
 
 mobile.calculateSize = function () {
-  var $window = $(window);
   var height = Math.min($window.width(), $window.height());
 
   // Max height = iPad three
@@ -49,18 +49,18 @@ mobile.init = function (data, $events) {
   var $monkey = data.html;
   var RATIO = this.Monkey.IMAGE_RATIO;
 
-  $(window).on('orientationchange resize', flip);
+  $window.on('orientationchange resize', flip);
   setTimeout(flip);
 
   function flip() {
+    // @todo: Refactor this out properly. It's not used anymore.
     portrait = true;
 
-    if ($monkey.hasClass('landscape') && portrait ||
-        $monkey.hasClass('portrait') && !portrait) {
+    if ($monkey.hasClass(portrait ? 'portrait' : 'landscape')) {
       $events.trigger('rotate');
     }
 
-    var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * RATIO;
+    var width = portrait ? $window.width() * 1.5 : $window.height() * RATIO;
     var height = Math.ceil(width / RATIO);
 
     $('.landscape-images-inner').width(width * ($('.page').length + 1));
@@ -70,10 +70,12 @@ mobile.init = function (data, $events) {
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen').css('width', Math.ceil(width / 2))
+    $('.page .heidelberg-tapToOpen')
+      .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
 
-    $('.monkey, body').removeClass('landscape portrait')
+    $('.monkey, body')
+      .removeClass('landscape portrait')
       .addClass(portrait ? 'portrait' : 'landscape');
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
@@ -106,7 +108,7 @@ mobile.letterHandler = function (data, $events) {
     var currentPage = 0;
 
     $pages.each(function (i) {
-      if ($(this).offset().left >= -$(window).width()) {
+      if ($(this).offset().left >= -$window.width()) {
         currentPage = i;
 
         return false;
