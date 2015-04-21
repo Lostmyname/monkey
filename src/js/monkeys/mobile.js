@@ -95,6 +95,16 @@ mobile.init = function (data, $events) {
     }
   });
 
+  // HORRIBLE HACK FOR A HORRIBLE FIX FOR A HORRIBLE BUG
+  setTimeout(function () {
+    $monkey.one('scroll', function () {
+      var $inner = $('.landscape-images-inner');
+
+      // Forces a rerender, which gets rid of a random gap at the end
+      $inner.css('width', parseInt($inner.css('width'), 10) + 1);
+    });
+  }, 5);
+
   return this.letterHandler(data, $events);
 };
 
