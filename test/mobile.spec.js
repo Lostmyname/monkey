@@ -42,7 +42,7 @@ describe('Using monkey on mobile', function () {
     this.timeout(500); // If it isn't fired in this time, it won't be
 
     monkey.$events.on('halfway', function () { cb(); });
-    $monkey.scrollLeft($monkey.find('div').width() / 1.5).trigger('scroll');
+    $monkey.scrollLeft($monkey.find('.landscape-images-inner').width() / 1.5).trigger('scroll');
   });
 
   it('should display buy now button correctly', function () {

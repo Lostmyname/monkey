@@ -7,8 +7,6 @@ describe('Loading Monkey', function () {
 
   var $events = $({});
 
-  this.timeout(5000); // Sometimes this just happens
-
   it('should set book options from data attributes (slow)', function () {
     var $testObject = $('<div />').attr({
       'data-key': 'lmn-book',
@@ -144,7 +142,7 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length * 2 + 2);
+        $book.find('img').length.should.equal(data.urls.length * 2);
 
         data.should.have.property('container');
       });
@@ -161,7 +159,7 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length + 2);
+        $book.find('img').length.should.equal(data.urls.length + 1);
 
         data.should.have.property('container');
       });

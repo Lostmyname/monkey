@@ -84,11 +84,11 @@ mobile.init = function (data, $events) {
 
     windowLeft = scrollLeft / $monkey.find('img').width();
 
-    if (scrollLeft / $monkey.children().width() > 0.5) {
+    if (scrollLeft / $monkey.find('.landscape-images-inner').width() > 0.5) {
       $events.trigger('halfway');
     }
 
-    if (scrollLeft > $monkey.find('.last-page').parents().position().left) {
+    if ($monkey.find('.page:last').position().left < $(window).width()) {
       $events.trigger('finished');
     }
   });

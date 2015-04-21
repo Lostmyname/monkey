@@ -18,7 +18,10 @@
   <script src="../node_modules/should/should.js"></script>
   <script src="_helpers.js"></script>
 
-  <script> mocha.setup('bdd'); </script>
+  <script>
+    mocha.setup('bdd');
+    mocha.timeout(5000);
+  </script>
 
   <!-- test files -->
   <script src="tests.spec.js"></script>
