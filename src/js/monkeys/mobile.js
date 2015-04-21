@@ -31,9 +31,7 @@ mobile.generateHtml = function (data) {
     }
 
     if (i === data.urls.length - 1) {
-      $('<div />').appendTo($page)
-        .addClass('last-page')
-        .append($('<img />').attr('src', data.lastPage));
+      $page.addClass('page-halfwidth');
     }
 
     $('<img />').appendTo($page).attr('src', url);
@@ -70,7 +68,7 @@ mobile.init = function (data, $events) {
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen')
+    $('.page .heidelberg-tapToOpen, .page-halfwidth')
       .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
 
