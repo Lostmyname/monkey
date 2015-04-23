@@ -11,7 +11,10 @@ module.exports = function (monkeyContainer) {
   var $container = $(monkeyContainer);
 
   return function (data) {
-    $container.empty().append(data.html);
+    $container
+      .addClass('loaded')
+      .removeClass('loading')
+      .append(data.html);
 
     data.container = $container;
 
