@@ -13,14 +13,13 @@
     "lmn-gulp-tasks": "^1.0.0",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
-    "mocha-phantomjs": "^3.5.3",
-    "phantomjs": "^1.9.16",
+    "mocha-sauce": "pbakaus/mocha-sauce.",
     "serve": "^1.4.0",
     "should": "^4.2.0"
   },
   "author": "Callum Macrae",
   "scripts": {
     "build": "gulp build",
-    "test": "./test/run-tests.sh"
+    "test": "echo 'Run tests through browser' && exit 1"
   }
 }

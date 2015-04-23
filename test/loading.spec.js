@@ -41,6 +41,9 @@ describe('Loading Monkey', function () {
 
       data.should.not.have.property('urls');
       data.should.not.have.property('html');
+
+      // To make sure the preloading test works
+      monkeyData.letters[10].url += '?rand=' + Date.now();
     });
   });
 
