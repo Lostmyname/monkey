@@ -9,6 +9,16 @@
       transform: rotateY(-15deg);
     }
   }
+
+  &.at-rear-cover {
+    left: 25%;
+    .Heidelberg-Page.is-active:nth-child(even):hover {
+      transform: rotateY(15deg);
+    }
+    .Heidelberg-Page.is-active:nth-child(odd) {
+      opacity: 0;
+    }
+  }
 }
 
 .Heidelberg-Page {
@@ -38,4 +48,8 @@
     width: 50%;
     margin-left: 50%;
   }
+}
+
+.loaded .loading-screen {
+  display: none;
 }

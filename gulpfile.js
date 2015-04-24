@@ -8,7 +8,8 @@ gulp.task('auto-reload', getLmnTask('auto-reload', {
 }));
 
 gulp.task('html', getLmnTask('html', {
-  langBase: 'component.monkey'
+  langBase: 'component.monkey',
+  imagePath: '../../src/imgs/'
 }));
 
 gulp.task('js', ['js-quality'], getLmnTask('browserify', {

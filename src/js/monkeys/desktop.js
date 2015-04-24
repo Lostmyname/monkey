@@ -15,16 +15,10 @@ desktop.generateHtml = function (data) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
   $.each(data.urls, function (i, url) {
-    var $page = $('<div />').appendTo($monkey)
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type);
-
-    if (i === data.urls.length - 1) {
-      $('<div />').appendTo($page)
-        .addClass('last-page')
-        .append($('<img />').attr('src', data.lastPage));
-    }
-
-    $('<img />').appendTo($page).attr('src', url);
+    $('<div />')
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .append($('<img />').attr('src', url))
+      .appendTo($monkey);
   });
 
   return $monkey;
@@ -44,6 +38,7 @@ desktop.init = function (data, $events) {
     var index = els.pages.index(els.pagesTarget);
 
     $el.toggleClass('at-front-cover', !index);
+    $el.toggleClass('at-rear-cover', index === els.pages.length - 2);
 
     if (index / els.pages.length > 0.5) {
       $events.trigger('halfway');

@@ -3,9 +3,9 @@
 var $ = require('jquery');
 
 var mobile = module.exports = {};
+var $window = $(window);
 
 mobile.calculateSize = function () {
-  var $window = $(window);
   var height = Math.min($window.width(), $window.height());
 
   // Max height = iPad three
@@ -31,9 +31,7 @@ mobile.generateHtml = function (data) {
     }
 
     if (i === data.urls.length - 1) {
-      $('<div />').appendTo($page)
-        .addClass('last-page')
-        .append($('<img />').attr('src', data.lastPage));
+      $page.addClass('page-halfwidth');
     }
 
     $('<img />').appendTo($page).attr('src', url);
@@ -49,18 +47,18 @@ mobile.init = function (data, $events) {
   var $monkey = data.html;
   var RATIO = this.Monkey.IMAGE_RATIO;
 
-  $(window).on('orientationchange resize', flip);
+  $window.on('orientationchange resize', flip);
   setTimeout(flip);
 
   function flip() {
+    // @todo: Refactor this out properly. It's not used anymore.
     portrait = true;
 
-    if ($monkey.hasClass('landscape') && portrait ||
-        $monkey.hasClass('portrait') && !portrait) {
+    if ($monkey.hasClass(portrait ? 'portrait' : 'landscape')) {
       $events.trigger('rotate');
     }
 
-    var width = portrait ? window.innerWidth * 1.5 : window.innerHeight * RATIO;
+    var width = portrait ? $window.width() * 1.5 : $window.height() * RATIO;
     var height = Math.ceil(width / RATIO);
 
     $('.landscape-images-inner').width(width * ($('.page').length + 1));
@@ -70,10 +68,12 @@ mobile.init = function (data, $events) {
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen').css('width', Math.ceil(width / 2))
+    $('.page .heidelberg-tapToOpen, .page-halfwidth')
+      .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
 
-    $('.monkey, body').removeClass('landscape portrait')
+    $('.monkey, body')
+      .removeClass('landscape portrait')
       .addClass(portrait ? 'portrait' : 'landscape');
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
@@ -84,14 +84,24 @@ mobile.init = function (data, $events) {
 
     windowLeft = scrollLeft / $monkey.find('img').width();
 
-    if (scrollLeft / $monkey.children().width() > 0.5) {
+    if (scrollLeft / $monkey.find('.landscape-images-inner').width() > 0.5) {
       $events.trigger('halfway');
     }
 
-    if (scrollLeft > $monkey.find('.last-page').parents().position().left) {
+    if ($monkey.find('.page:last').position().left < $(window).width()) {
       $events.trigger('finished');
     }
   });
+
+  // HORRIBLE HACK FOR A HORRIBLE FIX FOR A HORRIBLE BUG
+  setTimeout(function () {
+    $monkey.one('scroll', function () {
+      var $inner = $('.landscape-images-inner');
+
+      // Forces a rerender, which gets rid of a random gap at the end
+      $inner.css('width', parseInt($inner.css('width'), 10) + 1);
+    });
+  }, 5);
 
   return this.letterHandler(data, $events);
 };
@@ -106,7 +116,7 @@ mobile.letterHandler = function (data, $events) {
     var currentPage = 0;
 
     $pages.each(function (i) {
-      if ($(this).offset().left >= -$(window).width()) {
+      if ($(this).offset().left >= -$window.width()) {
         currentPage = i;
 
         return false;
@@ -126,8 +136,8 @@ mobile.letterHandler = function (data, $events) {
 
   // index is the letter index
   return function turnToPage(index) {
-    var pageIndex = index * 2 + 1;
-    var offset = $pages.eq(pageIndex).position().left;
+    var $page = $pages.eq(index * 2 + 1);
+    var offset = $page.offset().left - $page.parent().offset().left;
 
     $monkey.scrollLeft(offset);
   };

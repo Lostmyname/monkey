@@ -1,4 +1,4 @@
-/* global describe, it, monkey */
+/* global $, getRandomImage, Monkey */
 
 'use strict';
 

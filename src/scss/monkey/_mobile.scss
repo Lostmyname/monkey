@@ -20,9 +20,7 @@
 }
 
 .landscape-images {
-  //display: table;
   .landscape-images-inner {
-    //display: table-row;
     vertical-align: top;
     clear: both;
   }
@@ -31,7 +29,6 @@
 .page {
   position: relative;
   float: left;
-  //display: table-cell;
   min-width: 490px;
   padding-right: 10px;
   overflow: hidden;
@@ -43,6 +40,10 @@
   img {
     max-width: none;
   }
+}
+
+.page-halfwidth {
+  min-width: 0;
 }
 
 .buy-now {

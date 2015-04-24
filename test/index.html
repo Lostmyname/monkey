@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monkey: tests</title>
+
+  <link rel="stylesheet" href="../demo/build/styles.css">
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+</head>
+<body>
+
+  <div id="mocha"></div>
+
+  <script src="../demo/build/bundle.js"></script>
+
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/should/should.js"></script>
+  <script src="_helpers.js"></script>
+
+  <script>
+    mocha.setup('bdd');
+    mocha.timeout(5000);
+  </script>
+
+  <!-- test files -->
+  <script src="tests.spec.js"></script>
+  <script src="helpers.spec.js"></script>
+  <script src="loading.spec.js"></script>
+  <script src="desktop.spec.js"></script>
+  <script src="mobile.spec.js"></script>
+
+  <!-- run tests -->
+  <script>
+    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+    else { mocha.run(); }
+  </script>
+
+</body>
+</html>
