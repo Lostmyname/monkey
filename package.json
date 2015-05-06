@@ -9,17 +9,19 @@
     "nums": "^1.0.0"
   },
   "devDependencies": {
+    "connect": "^3.3.5",
     "gulp": "^3.8.8",
     "lmn-gulp-tasks": "^1.0.0",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
     "mocha-sauce": "pbakaus/mocha-sauce.",
     "serve": "^1.4.0",
+    "serve-static": "^1.9.2",
     "should": "^4.2.0"
   },
   "author": "Callum Macrae",
   "scripts": {
     "build": "gulp build",
-    "test": "echo 'Run tests through browser' && exit 1"
+    "test": "node test/runner.js"
   }
 }
