@@ -14,7 +14,7 @@
     "lmn-gulp-tasks": "^1.0.0",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
-    "mocha-sauce": "pbakaus/mocha-sauce.",
+    "mocha-sauce": "pbakaus/mocha-sauce",
     "serve": "^1.4.0",
     "serve-static": "^1.9.2",
     "should": "^4.2.0"
