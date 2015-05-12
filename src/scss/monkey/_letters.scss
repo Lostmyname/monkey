@@ -1,11 +1,53 @@
 #letters {
   font-size: 1.6em;
+  span {
+    cursor: pointer;
+  }
   .letter-active {
     color: #00b69d;
     border-bottom: 2px solid;
+    .character-picker {
+      display: inline;
+    }
   }
-  span {
-    cursor: pointer;
+  .character-picker {
+    display: none;
+    margin-top: 50px;
+    margin-left: -155px;
+    padding: 10px;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    z-index: 5;
+    color: #707070;
+    .tooltip-arrow {
+      margin-top: -25px;
+      width: 35px;
+      position: absolute;
+      margin-left: -25px;
+    }
+    .char-container {
+      text-align: inline-block;
+      img {
+        width: 85px;
+        border: 2px #00b69b dashed;
+        border-radius: 10px;
+        margin-right: 10px;
+        padding: 10px;
+      }
+      img:last-child {
+        margin-right: 0;
+      }
+    }
+    .character-name {
+      font-size: 1rem;
+    }
+    .img-container {
+      display: inline-block;
+    }
+    p {
+      font-style: italic;
+      font-size: 1.5rem;
+    }
   }
 }
 

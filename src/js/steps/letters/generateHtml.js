@@ -16,6 +16,7 @@ module.exports = function (selector, lang) {
 
   return function (data) {
     var $lettersContainer = $('<div />');
+    var allChars = data.all_characters;
 
     $lettersContainer.attr({
       id: 'letters-container',
@@ -31,12 +32,44 @@ module.exports = function (selector, lang) {
       .addClass('strong')
       .attr('id', 'letters');
 
+    var $toolTipArrow = $('<img />')
+      .addClass('tooltip-arrow')
+      .attr('src', '/src/imgs/tooltip-arrow-85x47.png');
+
+    var $charContainer = $('<div />')
+      .addClass('char-container')
+
     $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
     }).each(function (i, letter) {
-      $('<span />').appendTo($letters)
+      var $letterSpan = $('<span />');
+      $letterSpan.appendTo($letters)
         .text(letter.letter || '')
         .after(' ');
+
+      var $toolTip = $('<div />');
+      $toolTip.appendTo($letterSpan)
+        .addClass('character-picker pos-absolute');
+
+      var $charPickTitle = $('<p />')
+        .text('Choose another story for ‘' + letter.letter + '’');
+      $charPickTitle.appendTo($toolTip)
+      $charContainer.clone().appendTo($toolTip)
+      $toolTipArrow.clone().prependTo($toolTip);
+
+      $(allChars[i].characters).each(function (i, character) {
+        var $imgContainer = $('<div />')
+          .addClass('img-container');
+        var $img = $('<img />')
+          .attr('src', '//lmn-assets.imgix.net/characters/en-GB/' + character + '.png')
+          .addClass('character-image');
+        var $charName = $('<div />')
+          .addClass('character-name')
+          .text(character);
+        $imgContainer.appendTo($charContainer);
+        $img.appendTo($imgContainer);
+        $charName.appendTo($imgContainer);
+      })
     });
 
     $('<span />').html('&bull;')
