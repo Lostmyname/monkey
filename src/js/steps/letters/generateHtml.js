@@ -17,6 +17,7 @@ module.exports = function (selector, lang) {
 
   return function (data) {
     var $lettersContainer = $('<div />');
+    var allChars = data.all_characters;
 
     $lettersContainer.attr({
       id: 'letters-container',
@@ -32,21 +33,44 @@ module.exports = function (selector, lang) {
       .addClass('strong')
       .attr('id', 'letters');
 
-    var letters = data.name.split('');
+    var $toolTipArrow = $('<img />')
+      .addClass('tooltip-arrow')
+      .attr('src', '/src/imgs/tooltip-arrow-85x47.png');
 
-    // If name short, add blank letter for extra story
-    if (letters.length < 5) {
-      letters.splice(-1, 0, '');
-    }
+    var $charContainer = $('<div />')
+      .addClass('char-container')
 
-    $(letters).each(function (i, letter) {
-      // '' or letter
-      var isPage = /^(?:\w|)$/.test(removeDiacritics(letter));
-
-      $('<span />').appendTo($letters)
-        .toggleClass('special-char', !isPage)
-        .text(letter)
+    $(data.letters).filter(function (i, letter) {
+      return letter.part === 1;
+    }).each(function (i, letter) {
+      var $letterSpan = $('<span />');
+      $letterSpan.appendTo($letters)
+        .text(letter.letter || '')
         .after(' ');
+
+      var $toolTip = $('<div />');
+      $toolTip.appendTo($letterSpan)
+        .addClass('character-picker pos-absolute');
+
+      var $charPickTitle = $('<p />')
+        .text('Choose another story for ‘' + letter.letter + '’');
+      $charPickTitle.appendTo($toolTip)
+      $charContainer.clone().appendTo($toolTip)
+      $toolTipArrow.clone().prependTo($toolTip);
+
+      $(allChars[i].characters).each(function (i, character) {
+        var $imgContainer = $('<div />')
+          .addClass('img-container');
+        var $img = $('<img />')
+          .attr('src', '//lmn-assets.imgix.net/characters/en-GB/' + character + '.png')
+          .addClass('character-image');
+        var $charName = $('<div />')
+          .addClass('character-name')
+          .text(character);
+        $imgContainer.appendTo($charContainer);
+        $img.appendTo($imgContainer);
+        $charName.appendTo($imgContainer);
+      })
     });
 
     $('<span />').html('&bull;')
