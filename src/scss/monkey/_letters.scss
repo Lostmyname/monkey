@@ -2,17 +2,48 @@
   font-size: 1.6em;
   span {
     cursor: pointer;
+    margin: 0 8px;
+    width: 30px;
+    display: inline-block;
   }
   .letter-active {
-    color: #00b69d;
-    border-bottom: 2px solid;
+    color: #FFF;
+    border-bottom: none;
+    background-color: #f06263;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
     .character-picker {
       display: inline;
     }
   }
+  .character-card {
+    display: inline-block;
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    background-color: white;
+    margin-top: 45px;
+    margin-left: -30px;
+    padding: 0;
+    border-radius: 3px;
+    border: 1px #CCC solid;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  span:first-child, span:last-child {
+    color: black;
+    display: inline;
+    width: 0;
+    height: 0;
+    background-color: #f6f5f1;
+  }
   .character-picker {
     display: none;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-left: -165px;
     padding: 15px 15px 0 15px;
     background-color: #FFF;
@@ -68,4 +99,8 @@
       height: 1px;
     }
   }
+}
+
+.Heidelberg-Book {
+  margin-top: 70px;
 }
