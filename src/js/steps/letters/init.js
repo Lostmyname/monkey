@@ -29,7 +29,12 @@ module.exports = function ($events) {
       var character = $buttonEl.data('char');
       var page = $buttonEl.data('page');
 
-      var selectedChar = $('#letters .letter-active').find('.selected-char');
+      var activeLetter = $('#letters .letter-active');
+      var characterCard = activeLetter.find('.character-card img');
+      characterCard
+        .attr("src", '//lmn-assets.imgix.net/characters/en-GB/thumbs/' + character.character + '_200x200.png');
+
+      var selectedChar = activeLetter.find('.selected-char');
       selectedChar.removeClass('selected-char');
       var $prevButton = selectedChar.find('button');
       $prevButton

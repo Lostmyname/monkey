@@ -55,6 +55,14 @@ module.exports = function (selector, lang) {
         .text(letter.letter || '')
         .after(' ');
 
+      var $characterCard = $('<div />');
+      $characterCard.appendTo($letterSpan)
+        .addClass('character-card');
+
+      var $charCardImg = $('<img />')
+        .attr('src', '//lmn-assets.imgix.net/characters/en-GB/thumbs/' + allChars[i].selected + '_200x200.png');
+      $charCardImg.appendTo($characterCard);
+
       var $toolTip = $('<div />');
       $toolTip.appendTo($letterSpan)
         .addClass('character-picker pos-absolute');
