@@ -17,6 +17,15 @@ module.exports = function (selector, lang) {
   return function (data) {
     var $lettersContainer = $('<div />');
     var allChars = data.all_characters;
+    var defaultChars = data.default_characters;
+
+    $(allChars).each(function (ix, characterSet) {
+      $(characterSet.characters).each(function (i, charObj) {
+        if (charObj.character === defaultChars[ix].character) {
+          characterSet.selected = charObj.character;
+        }
+      })
+    })
 
     $lettersContainer.attr({
       id: 'letters-container',
@@ -36,8 +45,7 @@ module.exports = function (selector, lang) {
       .addClass('tooltip-arrow')
       .attr('src', '/src/imgs/tooltip-arrow-85x47.png');
 
-    var $charContainer = $('<div />')
-      .addClass('char-container')
+    var $divider = $('<hr />');
 
     $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
@@ -51,24 +59,47 @@ module.exports = function (selector, lang) {
       $toolTip.appendTo($letterSpan)
         .addClass('character-picker pos-absolute');
 
-      var $charPickTitle = $('<p />')
-        .text('Choose another story for ‘' + letter.letter + '’');
+      var $charPickTitle = $('<div />')
+        .text('Choose another story for ‘' + letter.letter + '’')
+        .addClass('title');
+
       $charPickTitle.appendTo($toolTip)
-      $charContainer.clone().appendTo($toolTip)
+
+      var $charContainer = $('<div />')
+        .addClass('char-container')
+      $charContainer.appendTo($toolTip)
       $toolTipArrow.clone().prependTo($toolTip);
 
-      $(allChars[i].characters).each(function (i, character) {
+      var letterChars = allChars[i]
+      $(letterChars.characters).each(function (ix, charObj) {
         var $imgContainer = $('<div />')
           .addClass('img-container');
+
         var $img = $('<img />')
-          .attr('src', '//lmn-assets.imgix.net/characters/en-GB/' + character + '.png')
+          .attr('src', '//lmn-assets.imgix.net/characters/en-GB/thumbs/' + charObj.character + '_200x200.png')
           .addClass('character-image');
         var $charName = $('<div />')
           .addClass('character-name')
-          .text(character);
+          .text(charObj.character);
         $imgContainer.appendTo($charContainer);
         $img.appendTo($imgContainer);
         $charName.appendTo($imgContainer);
+
+        var $selectButton = $('<button />')
+          .data('char', charObj)
+          .data('page', i);
+        if (letterChars.selected == charObj.character) {
+          $imgContainer.addClass('selected-char');
+          $selectButton
+            .addClass('button')
+            .attr('disabled', true)
+            .text('selected');
+        } else {
+          $selectButton
+            .addClass('button primary')
+            .text('select');
+        }
+        $selectButton.appendTo($charName)
       })
     });
 
