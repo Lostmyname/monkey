@@ -8,21 +8,3 @@
     cursor: pointer;
   }
 }
-
-.landscape #letters-container {
-  position: absolute;
-  color: #f6f5f1;
-  #letters {
-    position: fixed;
-    z-index: 100;
-    left: 50%;
-    padding: 5px 10px;
-    background-color: rgba(#333333, 0.6);
-    border-radius: 5px;
-    color: white;
-    transform: translate(-50%, 0);
-    .letter-active {
-      color: #ff5227;
-    }
-  }
-}

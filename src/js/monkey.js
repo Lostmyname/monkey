@@ -13,7 +13,6 @@ window.Monkey = module.exports = (function () {
     var $monkeyContainer = $(monkeyContainer);
 
     this.options = options = $.extend({
-      buyNow: '#0', // Buy now link, or false for no link
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
@@ -27,7 +26,6 @@ window.Monkey = module.exports = (function () {
       },
 
       lang: {
-        buyNow: 'Buy now',
         bookFor: 'A personalised book made for'
       }
     }, options);
@@ -54,14 +52,8 @@ window.Monkey = module.exports = (function () {
         .then(Monkey.letters._init(this.$events));
     }
 
-    if (options.buyNow) {
-      promise = promise.then(Monkey._addBuyNow(options.buyNow, options.lang));
-    }
-
     this.promise = promise;
   }
-
-  Monkey.IMAGE_RATIO = 2048 / 738; // buddy ignore:line
 
   Monkey._getData = require('./steps/getData');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
@@ -69,8 +61,6 @@ window.Monkey = module.exports = (function () {
   Monkey._generateHtml = require('./steps/generateHtml');
   Monkey._initMonkey = require('./steps/initMonkey');
   Monkey._insertHtml = require('./steps/insertHtml');
-
-  Monkey._addBuyNow = require('./steps/addBuyNow');
 
   Monkey.spread = {};
   Monkey.spread.Monkey = Monkey;

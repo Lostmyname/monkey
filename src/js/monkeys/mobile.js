@@ -39,29 +39,22 @@ mobile.generateHtml = function (data) {
 };
 
 mobile.init = function (data, $events) {
-  var portrait;
   var windowLeft = 0;
 
   var $monkey = data.html;
   var RATIO = this.Monkey.IMAGE_RATIO;
 
-  $window.on('orientationchange resize', flip);
-  setTimeout(flip);
+  $window.on('orientationchange resize', setWidths);
+  setTimeout(setWidths);
 
-  function flip() {
-    // @todo: Refactor this out properly. It's not used anymore.
-    portrait = true;
-
-    if ($monkey.hasClass(portrait ? 'portrait' : 'landscape')) {
-      $events.trigger('rotate');
-    }
-
-    var width = portrait ? $window.width() * 1.5 : $window.height() * RATIO;
+  function setWidths() {
+    var width = $window.width() * 1.5;
     var height = Math.ceil(width / RATIO);
+    var $page = $('.page');
 
-    $('.landscape-images-inner').width(width * ($('.page').length + 1));
+    $('.landscape-images-inner').width(width * ($page.length + 1));
 
-    $('.page > img').css({
+    $page.children('img').css({
       height: height,
       width: Math.ceil(width)
     });
@@ -69,10 +62,6 @@ mobile.init = function (data, $events) {
     $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
-
-    $('.monkey, body')
-      .removeClass('landscape portrait')
-      .addClass(portrait ? 'portrait' : 'landscape');
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
