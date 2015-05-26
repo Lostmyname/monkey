@@ -190,6 +190,24 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should generate letters HTML with special chars correctly (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      letters: true,
+      book: {
+        name: 'Maë-Lily',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise.then(function (data) {
+      var spans = data.lettersElement.find('span span');
+      spans.length.should.equal(10);
+      spans.filter(':contains("Ë")').length.should.equal(1);
+      spans.filter(':contains("-")').length.should.equal(1);
+    });
+  });
+
   // Can't insert it because it already exists :(
   it('should generate spread HTML (slow)', function () {
     return promise.then(function (data) {
