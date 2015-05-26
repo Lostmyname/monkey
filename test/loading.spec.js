@@ -240,34 +240,10 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should not insert buy now button when not mobile', function () {
-    promise = promise.then(Monkey._addBuyNow('#0', options.lang));
-
-    return promise.then(function (data) {
-      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
-
-      $buyNow.length.should.equal(0);
-    });
-  });
-
-  it('should insert buy now button', function () {
-    promise = promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._addBuyNow('http://google.com/', options.lang));
-
-    return promise.then(function (data) {
-      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
-
-      $buyNow.length.should.equal(1);
-
-      data.buyNow[0].should.equal($buyNow[0]);
-    });
-  });
-
   it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
     var monkey = new Monkey($testObject, {
-      buyNow: 'testTESTtest',
       letters: false,
       monkeyType: 'mobile',
       book: options.book
@@ -276,9 +252,6 @@ describe('Loading Monkey', function () {
     return monkey.promise.then(function (data) {
       $testObject.children().length.should.be.above(0);
       data.html[0].should.equal($testObject.children()[0]);
-
-      var html = $testObject.html();
-      html.should.containEql('testTESTtest');
     });
   });
 });

@@ -12,14 +12,16 @@ describe('Using monkey on mobile', function () {
       book: options.book
     });
 
-    return monkey.promise.then(function () {
+    return monkey.promise.then(function (data) {
+      data.html.trigger('touchstart');
+
       $monkey = $container.find('.monkey');
       $container.appendTo('body');
     });
   });
 
   it('should be initiated', function () {
-    $container.children().length.should.equal(3);
+    $container.children().length.should.equal(2);
   });
 
   it('should scroll', function () {
@@ -43,11 +45,6 @@ describe('Using monkey on mobile', function () {
 
     monkey.$events.on('halfway', function () { cb(); });
     $monkey.scrollLeft($monkey.find('.landscape-images-inner').width() / 1.5).trigger('scroll');
-  });
-
-  it('should display buy now button correctly', function () {
-    var shouldBe = $monkey.hasClass('portrait') ? 'hidden' : 'visible';
-    $container.find('.buy-now').is(':' + shouldBe).should.be.True;
   });
 
   after(function () {
