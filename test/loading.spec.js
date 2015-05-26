@@ -159,7 +159,7 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length + 1);
+        $book.find('img').length.should.equal(data.urls.length);
 
         data.should.have.property('container');
       });

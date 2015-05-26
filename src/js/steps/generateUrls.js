@@ -21,7 +21,6 @@ module.exports = function (preload) {
     var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
     data.queryString = queryString;
 
-    data.bookTipSwipe += queryString;
     data.lastPage += queryString;
 
     data.urls = $.map(data.letters, function (letterData) {
@@ -33,13 +32,7 @@ module.exports = function (preload) {
       return letterData.url + queryString;
     });
 
-    var urls = data.urls.slice(0, preload);
-
-    if (data.monkeyType === 'mobile') {
-      urls.unshift(data.bookTipSwipe);
-    }
-
-    return helpers.preload(urls)
+    return helpers.preload(data.urls.slice(0, preload))
       .then(function () {
         return data;
       });

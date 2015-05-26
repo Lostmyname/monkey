@@ -25,9 +25,7 @@ mobile.generateHtml = function (data) {
       .addClass('page page-' + data.letters[i].type);
 
     if (i === 0) {
-      $('<div />').appendTo($page)
-        .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', data.bookTipSwipe));
+      $page.addClass('page-first page-halfwidth');
     }
 
     if (i === data.urls.length - 1) {
