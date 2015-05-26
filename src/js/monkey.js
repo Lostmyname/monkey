@@ -36,8 +36,8 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml())
-      .then(Monkey._initMonkey(this.$events))
       .then(Monkey._insertHtml(monkeyContainer))
+      .then(Monkey._initMonkey(this.$events))
       .then(function (data) {
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
@@ -59,8 +59,8 @@ window.Monkey = module.exports = (function () {
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
   Monkey._generateHtml = require('./steps/generateHtml');
-  Monkey._initMonkey = require('./steps/initMonkey');
   Monkey._insertHtml = require('./steps/insertHtml');
+  Monkey._initMonkey = require('./steps/initMonkey');
 
   Monkey.spread = {};
   Monkey.spread.Monkey = Monkey;

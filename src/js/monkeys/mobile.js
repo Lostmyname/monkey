@@ -80,7 +80,32 @@ mobile.init = function (data, $events) {
     }
   });
 
+  this.harass(data);
+
   return this.letterHandler(data, $events);
+};
+
+mobile.harass = function (data) {
+  // Taken from jQuery Easing: http://gsgd.co.uk/sandbox/jquery/easing/
+  var easing = 'easeInOutQuad';
+  $.easing[easing] = function (x, t, b, c, d) {
+    if ((t /= d / 2) < 1) {
+      return c / 2 * t * t + b;
+    }
+    return -c / 2 * ((--t) * (t - 2) - 1) + b;
+  };
+
+  data.container.one('mousedown touchstart pointerdown', function () {
+    data.html.stop();
+  });
+
+  function scroll() {
+    data.html.animate({ scrollLeft: 10 }, 800, easing, function () {
+      data.html.animate({ scrollLeft: 0 }, 800, easing, scroll);
+    });
+  }
+
+  scroll();
 };
 
 mobile.letterHandler = function (data, $events) {
