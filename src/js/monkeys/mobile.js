@@ -66,7 +66,7 @@ mobile.init = function (data, $events) {
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen, .page-halfwidth')
+    $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
 
