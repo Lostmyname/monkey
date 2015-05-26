@@ -5,8 +5,8 @@ var $ = require('jquery');
 module.exports = function ($events) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
-    var $spans = $letters.find('span');
-    var $charButtons = $letters.find('button')
+    var $spans = $letters.find('.letter');
+    var $charButtons = $letters.find('button');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -20,35 +20,19 @@ module.exports = function ($events) {
         .eq(currentPage).addClass('letter-active');
     });
 
-    $letters.on('click', 'span', function () {
+    $letters.on('click', '.letter', function () {
       data.turnToPage($(this).index());
     });
 
-    $charButtons.on('click', function () {
-      var $buttonEl = $(this);
-      var character = $buttonEl.data('char');
-      var page = $buttonEl.data('page');
+    var $letterSpan = $('.letter-spans');
+    var animationDelay = 500;
+    var animationSpeed = 1200;
 
-      var activeLetter = $('#letters .letter-active');
-      var characterCard = activeLetter.find('.character-card img');
-      characterCard
-        .attr("src", '//lmn-assets.imgix.net/characters/en-GB/thumbs/' + character.character + '_200x200.png');
-
-      var selectedChar = activeLetter.find('.selected-char');
-      selectedChar.removeClass('selected-char');
-      var $prevButton = selectedChar.find('button');
-      $prevButton
-        .attr('disabled', false)
-        .text('select')
-        .addClass('primary');
-
-      $buttonEl
-        .attr('disabled', true)
-        .removeClass('primary')
-        .text('selected');
-      $buttonEl.parent().addClass('selected-char')
-      data.swapPage(page, character);
-    })
+    setTimeout(function() {
+      $letterSpan.animate({scrollLeft: '400px'}, animationSpeed, function () {
+        $letterSpan.animate({scrollLeft: '-400px'}, animationSpeed)
+      });
+    }, animationDelay);
 
     return data;
   };
