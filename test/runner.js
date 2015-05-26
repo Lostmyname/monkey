@@ -4,7 +4,7 @@
 
 var path = require('path');
 var connect = require('connect');
-var serveStatic = require('serve-static')
+var serveStatic = require('serve-static');
 var MochaSauce = require('mocha-sauce');
 var exitCode = 0;
 
