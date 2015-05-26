@@ -21,8 +21,6 @@ module.exports = function (preload) {
     var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
     data.queryString = queryString;
 
-    data.lastPage += queryString;
-
     data.urls = $.map(data.letters, function (letterData) {
       if (letterData.type === 'spread' && !letterData.ready) {
         letterData.type = 'spreadMissing';
