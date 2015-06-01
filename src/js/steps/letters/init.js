@@ -6,7 +6,6 @@ module.exports = function ($events) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter');
-    var $charButtons = $letters.find('button');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -28,9 +27,9 @@ module.exports = function ($events) {
     var animationDelay = 500;
     var animationSpeed = 1200;
 
-    setTimeout(function() {
-      $letterSpan.animate({scrollLeft: '400px'}, animationSpeed, function () {
-        $letterSpan.animate({scrollLeft: '-400px'}, animationSpeed)
+    setTimeout(function () {
+      $letterSpan.animate({ scrollLeft: '400px' }, animationSpeed, function () {
+        $letterSpan.animate({ scrollLeft: '-400px' }, animationSpeed);
       });
     }, animationDelay);
 

@@ -53,7 +53,7 @@ module.exports = function (selector, lang) {
         .addClass('character-card');
 
       var $charCardImg = $('<img />')
-        .attr('src', '//lmn-assets.imgix.net/characters/en-GB/thumbs/' + allChars[i].character + '_200x200.png');
+        .attr('src', allChars[i].thumbnail);
       $charCardImg.appendTo($characterCard);
     })
 
