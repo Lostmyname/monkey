@@ -53,7 +53,7 @@ module.exports = function (selector, lang) {
         .addClass('character-card');
 
       var $charCardImg = $('<img />')
-        .attr('src', allChars[i].thumbnail);
+        .attr('src', letter.thumbnail);
       $charCardImg.appendTo($characterCard);
     })
 
