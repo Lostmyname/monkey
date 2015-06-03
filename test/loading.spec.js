@@ -169,7 +169,7 @@ describe('Loading Monkey', function () {
     promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
 
     return promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(data.name.length + 2);
     });
   });
@@ -185,7 +185,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(6);
     });
   });
