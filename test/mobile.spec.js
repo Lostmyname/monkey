@@ -35,7 +35,7 @@ describe('Using monkey on mobile', function () {
     setTimeout(function () {
       $container.find('.letter-active').index().should.be.within(4, 6);
       done();
-    }, 300);
+    }, 3000);
   });
 
   it('should fire event when scrolled', function (cb) {
