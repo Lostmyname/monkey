@@ -16,7 +16,6 @@ module.exports = function (selector, lang) {
 
   return function (data) {
     var $lettersContainer = $('<div />');
-    var allChars = data.default_characters;
 
     $lettersContainer.attr({
       id: 'letters-container',
