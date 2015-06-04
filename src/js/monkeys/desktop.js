@@ -25,6 +25,8 @@ desktop.generateHtml = function (data) {
 };
 
 desktop.init = function (data, $events) {
+  var maxBookProgress = 0;
+
   data.heidelberg = new Heidelberg(data.html, {
     arrowKeys: false,
     hasSpreads: true
@@ -36,6 +38,11 @@ desktop.init = function (data, $events) {
     $events.trigger('pageTurn');
 
     var index = els.pages.index(els.pagesTarget);
+    var bookProgress = index / els.pages.length
+    if (bookProgress > maxBookProgress) {
+      maxBookProgress = bookProgress;
+      $events.trigger('bookprogress', { progress: maxBookProgress });
+    }
 
     $el.toggleClass('at-front-cover', !index);
     $el.toggleClass('at-rear-cover', index === els.pages.length - 2);
