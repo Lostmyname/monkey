@@ -20,6 +20,9 @@ mobile.generateHtml = function (data) {
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
 
+  var $letterContainer = $('#monkey')
+    .addClass('mobile');
+
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
       .addClass('page page-' + data.letters[i].type);

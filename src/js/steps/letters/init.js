@@ -6,7 +6,7 @@ var isMobile = require('../../helpers/isMobile');
 module.exports = function ($events) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
-    var $spans = $letters.find('span:not(.special-char)');
+    var $spans = $letters.find('.letter:not(.special-char)');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -24,9 +24,8 @@ module.exports = function ($events) {
           .addClass('letter-active');
     });
 
-    $letters.on('click', 'span', function () {
+    $letters.on('click', '.letter', function () {
       var $this = $(this);
-
       var charsBefore = $this.prevAll('.special-char').length;
       data.turnToPage($this.index() - charsBefore);
     });
