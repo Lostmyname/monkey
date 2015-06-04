@@ -25,9 +25,7 @@ mobile.generateHtml = function (data) {
       .addClass('page page-' + data.letters[i].type);
 
     if (i === 0) {
-      $('<div />').appendTo($page)
-        .addClass('heidelberg-tapToOpen')
-        .append($('<img />').attr('src', data.bookTipSwipe));
+      $page.addClass('page-first page-halfwidth');
     }
 
     if (i === data.urls.length - 1) {
@@ -41,40 +39,29 @@ mobile.generateHtml = function (data) {
 };
 
 mobile.init = function (data, $events) {
-  var portrait;
   var windowLeft = 0;
 
   var $monkey = data.html;
   var RATIO = this.Monkey.IMAGE_RATIO;
 
-  $window.on('orientationchange resize', flip);
-  setTimeout(flip);
+  $window.on('orientationchange resize', setWidths);
+  setTimeout(setWidths);
 
-  function flip() {
-    // @todo: Refactor this out properly. It's not used anymore.
-    portrait = true;
-
-    if ($monkey.hasClass(portrait ? 'portrait' : 'landscape')) {
-      $events.trigger('rotate');
-    }
-
-    var width = portrait ? $window.width() * 1.5 : $window.height() * RATIO;
+  function setWidths() {
+    var width = $window.width() * 1.5;
     var height = Math.ceil(width / RATIO);
+    var $page = $('.page');
 
-    $('.landscape-images-inner').width(width * ($('.page').length + 1));
+    $('.landscape-images-inner').width(width * ($page.length + 1));
 
-    $('.page > img').css({
+    $page.children('img').css({
       height: height,
       width: Math.ceil(width)
     });
 
-    $('.page .heidelberg-tapToOpen, .page-halfwidth')
+    $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
-
-    $('.monkey, body')
-      .removeClass('landscape portrait')
-      .addClass(portrait ? 'portrait' : 'landscape');
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
@@ -93,17 +80,32 @@ mobile.init = function (data, $events) {
     }
   });
 
-  // HORRIBLE HACK FOR A HORRIBLE FIX FOR A HORRIBLE BUG
-  setTimeout(function () {
-    $monkey.one('scroll', function () {
-      var $inner = $('.landscape-images-inner');
-
-      // Forces a rerender, which gets rid of a random gap at the end
-      $inner.css('width', parseInt($inner.css('width'), 10) + 1);
-    });
-  }, 5);
+  this.harass(data);
 
   return this.letterHandler(data, $events);
+};
+
+mobile.harass = function (data) {
+  // Taken from jQuery Easing: http://gsgd.co.uk/sandbox/jquery/easing/
+  var easing = 'easeInOutQuad';
+  $.easing[easing] = function (x, t, b, c, d) {
+    if ((t /= d / 2) < 1) {
+      return c / 2 * t * t + b;
+    }
+    return -c / 2 * ((--t) * (t - 2) - 1) + b;
+  };
+
+  data.container.one('mousedown touchstart pointerdown', function () {
+    data.html.stop();
+  });
+
+  function scroll() {
+    data.html.animate({ scrollLeft: 10 }, 800, easing, function () {
+      data.html.animate({ scrollLeft: 0 }, 800, easing, scroll);
+    });
+  }
+
+  scroll();
 };
 
 mobile.letterHandler = function (data, $events) {

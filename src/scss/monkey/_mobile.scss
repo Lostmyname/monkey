@@ -38,27 +38,18 @@
   .landscape & {
     background: #333333;
   }
+}
+
+.page-first {
+  padding-right: 0;
+  margin-right: 10px;
 
   img {
-    max-width: none;
+    position: relative;
+    left: -100%;
   }
 }
 
 .page-halfwidth {
   min-width: 0;
-}
-
-.buy-now {
-  position: fixed;
-  right: 15px;
-  bottom: 30px;
-  padding: 4px 8px;
-  font-size: 1.1em;
-  background: rgba(#333333, 0.6);
-  border: 1px rgba(white, 0.5) solid;
-  border-radius: 5px;
-  color: white;
-  .portrait & {
-    display: none;
-  }
 }

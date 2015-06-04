@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var removeDiacritics = require('diacritics').remove;
 
 /**
  * Generate HTML for letters.

@@ -26,7 +26,7 @@ function changeMonkeyType(type) {
 }
 
 function getRandomImage() {
-  var img = '//lmn-assets.imgix.net/widget/en-GB/v2/images/book_tip.png?w=1000&dpr=1&q=60';
+  var img = '//lmn-assets.imgix.net/widget/en-GB/v2/girl/R_Robot_s_Page_2.jpg?h=1000&dpr=1&q=60';
   return img.replace('1000', 200 + Math.floor(Math.random() * 100));
 }
 
