@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var isMobile = require('../../helpers/isMobile');
 
 module.exports = function ($events) {
   return function (data) {
@@ -23,15 +24,15 @@ module.exports = function ($events) {
       data.turnToPage($(this).index());
     });
 
-    var $letterSpan = $('.letter-spans');
-    var animationDelay = 500;
-    var animationSpeed = 1200;
+    var $lettersWrapper = $('#letters');
+    var animationDelay = 1000;
+    var animationSpeed = 800;
 
-    setTimeout(function () {
-      $letterSpan.animate({ scrollLeft: '400px' }, animationSpeed, function () {
-        $letterSpan.animate({ scrollLeft: '-400px' }, animationSpeed);
-      });
-    }, animationDelay);
+    if (isMobile()) {
+      setTimeout(function () {
+        $lettersWrapper.animate({marginLeft:"100px"},animationSpeed);
+      }, animationDelay);
+    }
 
     return data;
   };

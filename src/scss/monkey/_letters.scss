@@ -1,6 +1,6 @@
 .letter-spans {
   margin: auto;
-  overflow-x: auto;
+  overflow-x: scroll;
   height: 75px;
 }
 
@@ -10,17 +10,19 @@
 
 #letters {
   font-size: 1.2em;
-  width: 700px;
   height: 75px;
   margin: auto;
-  left: 500px;
+  position: relative;
+  display: table;
+  overflow-x: scroll;
   .letter {
     cursor: pointer;
-    margin: 0 2px;
+    margin: 0 6px;
     width: 40px;
     height: 75px;
     border-bottom: none;
-    display: inline-block;
+    display: block;
+    float: left;
     vertical-align: top;
     .char {
       width: 25px;
