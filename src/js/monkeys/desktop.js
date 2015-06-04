@@ -41,7 +41,7 @@ desktop.init = function (data, $events) {
     var bookProgress = index / els.pages.length
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
-      $events.trigger('bookprogress', {progress: maxBookProgress})
+      $events.trigger('bookprogress', { progress: maxBookProgress });
     }
 
     $el.toggleClass('at-front-cover', !index);
