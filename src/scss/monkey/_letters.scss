@@ -1,10 +1,41 @@
 #letters {
   font-size: 1.6em;
+  letter-spacing: 2px;
+  color:  #00b69d;
+
   .letter-active {
-    color: #00b69d;
-    border-bottom: 2px solid;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding-left: 3px;
+    line-height:  36px;
+    text-align: center;
+    color: white;
+    background: #f36563;
+    border-radius: 20px;
   }
+
   span {
     cursor: pointer;
+  }
+}
+
+.landscape #letters-container {
+  position: absolute;
+  color:  #00b69d;
+
+  #letters {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    padding: 5px 10px;
+    background-color: rgba(#333333, 0.6);
+    border-radius: 5px;
+    color: white;
+    transform: translate(-50%, 0);
+
+    .letter-active {
+      color: #ff5227;
+    }
   }
 }

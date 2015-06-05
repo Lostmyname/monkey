@@ -20,13 +20,9 @@ module.exports = function (selector, lang) {
 
     $lettersContainer.attr({
       id: 'letters-container',
-      'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
+      'class': 'align-center  md-mar-b',
       'data-key': 'monkey-letters'
     });
-
-    $('<p />').appendTo($lettersContainer)
-      .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
-      .text(lang.bookFor);
 
     var $letters = $('<span />').appendTo($lettersContainer)
       .addClass('strong')
