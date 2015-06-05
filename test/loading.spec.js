@@ -159,9 +159,19 @@ describe('Loading Monkey', function () {
       .then(function (data) {
         $book.children().length.should.not.equal(0);
 
-        $book.find('img').length.should.equal(data.urls.length + 1);
+        $book.find('img').length.should.equal(data.urls.length);
 
         data.should.have.property('container');
+      });
+  });
+
+  it('should remove existing HTML', function () {
+    var $book = $('<div />').attr('data-key', 'lmn-book').html('<br><br>');
+    $book.children().length.should.equal(2);
+
+    return promise.then(Monkey._insertHtml($book))
+      .then(function () {
+        $book.children('br').length.should.equal(0);
       });
   });
 
@@ -187,6 +197,24 @@ describe('Loading Monkey', function () {
     return monkey.promise.then(function (data) {
       var spans = data.lettersElement.find('span span');
       spans.length.should.equal(6);
+    });
+  });
+
+  it('should generate letters HTML with special chars correctly (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      letters: true,
+      book: {
+        name: 'Maë-Lily',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise.then(function (data) {
+      var spans = data.lettersElement.find('span span');
+      spans.length.should.equal(10);
+      spans.filter(':contains("Ë")').length.should.equal(1);
+      spans.filter(':contains("-")').length.should.equal(1);
     });
   });
 
@@ -222,34 +250,10 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should not insert buy now button when not mobile', function () {
-    promise = promise.then(Monkey._addBuyNow('#0', options.lang));
-
-    return promise.then(function (data) {
-      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
-
-      $buyNow.length.should.equal(0);
-    });
-  });
-
-  it('should insert buy now button', function () {
-    promise = promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._addBuyNow('http://google.com/', options.lang));
-
-    return promise.then(function (data) {
-      var $buyNow = data.html.parents('[data-key="lmn-book"]').find('.buy-now');
-
-      $buyNow.length.should.equal(1);
-
-      data.buyNow[0].should.equal($buyNow[0]);
-    });
-  });
-
   it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
     var monkey = new Monkey($testObject, {
-      buyNow: 'testTESTtest',
       letters: false,
       monkeyType: 'mobile',
       book: options.book
@@ -258,9 +262,6 @@ describe('Loading Monkey', function () {
     return monkey.promise.then(function (data) {
       $testObject.children().length.should.be.above(0);
       data.html[0].should.equal($testObject.children()[0]);
-
-      var html = $testObject.html();
-      html.should.containEql('testTESTtest');
     });
   });
 });

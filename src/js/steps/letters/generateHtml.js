@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var removeDiacritics = require('diacritics').remove;
 
 /**
  * Generate HTML for letters.
@@ -27,11 +28,20 @@ module.exports = function (selector, lang) {
       .addClass('strong')
       .attr('id', 'letters');
 
-    $(data.letters).filter(function (i, letter) {
-      return letter.part === 1;
-    }).each(function (i, letter) {
+    var letters = data.name.split('');
+
+    // If name short, add blank letter for extra story
+    if (letters.length < 5) {
+      letters.splice(-1, 0, '');
+    }
+
+    $(letters).each(function (i, letter) {
+      // '' or letter
+      var isPage = /^(?:\w|)$/.test(removeDiacritics(letter));
+
       $('<span />').appendTo($letters)
-        .text(letter.letter || '')
+        .toggleClass('special-char', !isPage)
+        .text(letter)
         .after(' ');
     });
 
