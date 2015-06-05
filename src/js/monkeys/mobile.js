@@ -40,6 +40,7 @@ mobile.generateHtml = function (data) {
 
 mobile.init = function (data, $events) {
   var windowLeft = 0;
+  var maxProgress = 0;
 
   var $monkey = data.html;
   var RATIO = this.Monkey.IMAGE_RATIO;
@@ -68,6 +69,11 @@ mobile.init = function (data, $events) {
 
   $monkey.on('scroll', function () {
     var scrollLeft = $monkey.scrollLeft();
+    var index = scrollLeft / $monkey.find('.landscape-images-inner').width();
+    if (index > maxProgress) {
+      maxProgress = index;
+      $events.trigger('bookprogress', { progress: index })
+    }
 
     windowLeft = scrollLeft / $monkey.find('img').width();
 
