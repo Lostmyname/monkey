@@ -17,7 +17,7 @@ window.Monkey = module.exports = (function () {
       letters: true, // Display letters? true, false, or selector
       monkeyType: 'auto', // auto, desktop, mobile
 
-      server: 'http://192.168.0.170:3020/widgets/actuallymonkey.json?callback=?',
+      server: 'http://192.168.0.57:3020/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),

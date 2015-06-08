@@ -7,6 +7,7 @@ module.exports = function ($events) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
+    var $letterSpans = $('.letter-spans');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -22,6 +23,17 @@ module.exports = function ($events) {
           .end()
         .eq(currentPage)
           .addClass('letter-active');
+
+      if (isMobile) {
+        var $currentLetter = $($spans[currentPage]);
+        var $currentChar = $currentLetter.find('.char');
+        var halfScreenWidth = $(window).width() / 2;
+        if ($currentChar.length !== 0) {
+          var centerOffset = $currentChar.offset().left - halfScreenWidth;
+          var currentScroll = $letterSpans.scrollLeft();
+          $letterSpans.animate({ scrollLeft: (centerOffset + currentScroll) });
+        };
+      }
     });
 
     $letters.on('click', '.letter', function () {
@@ -36,7 +48,7 @@ module.exports = function ($events) {
 
     if (isMobile()) {
       setTimeout(function () {
-        $lettersWrapper.animate({marginLeft:"100px"},animationSpeed);
+        $lettersWrapper.animate({ marginLeft: '100px' }, animationSpeed)
       }, animationDelay);
     }
 
