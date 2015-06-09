@@ -3,7 +3,7 @@
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile');
 
-module.exports = function ($events) {
+module.exports = function ($events, icons) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
@@ -24,7 +24,7 @@ module.exports = function ($events) {
         .eq(currentPage)
           .addClass('letter-active');
 
-      if (isMobile) {
+      if (isMobile && icons) {
         var $currentLetter = $($spans[currentPage]);
         var $currentChar = $currentLetter.find('.char');
         var halfScreenWidth = $(window).width() / 2;
@@ -42,11 +42,10 @@ module.exports = function ($events) {
       data.turnToPage($this.index() - charsBefore);
     });
 
-    var $lettersWrapper = $('#letters');
-    var animationDelay = 1000;
-    var animationSpeed = 800;
-
-    if (isMobile()) {
+    if (isMobile() && icons) {
+      var $lettersWrapper = $('#letters');
+      var animationDelay = 1000;
+      var animationSpeed = 800;
       setTimeout(function () {
         $lettersWrapper.animate({ marginLeft: '100px' }, animationSpeed)
       }, animationDelay);

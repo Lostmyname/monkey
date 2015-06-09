@@ -591,13 +591,15 @@ These are just the first. We hope you meet a whole lot more.
       name: 'Heidelberg',
       gender: 'girl',
       locale: 'en-GB'
-    }
+    },
+    icons: true
   });
 
   monkey.promise.then(function (data) {
     if (data.monkeyType === 'desktop') {
       data.html.closest('.lmn-book').addClass('desktop-monkey');
     }
+    data.html.closest('.lmn-book').addClass('monkey-icons');
   });
 </script>
 

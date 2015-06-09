@@ -9,7 +9,7 @@ var removeDiacritics = require('diacritics').remove;
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  */
-module.exports = function (selector, lang) {
+module.exports = function (selector, lang, icons) {
   if (typeof lang === 'undefined' && typeof selector === 'object') {
     lang = selector;
     selector = true;
@@ -20,9 +20,15 @@ module.exports = function (selector, lang) {
 
     $lettersContainer.attr({
       id: 'letters-container',
-      'class': 'aligned-center row leaded lg-mar-b', // @todo: remove leaded
+      'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
       'data-key': 'monkey-letters'
     });
+
+    if (icons) {
+      $lettersContainer
+        .removeClass('md-mar-b')
+        .addClass('lg-mar-b');
+    };
 
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
@@ -34,6 +40,13 @@ module.exports = function (selector, lang) {
     var $letters = $('<div />').appendTo($letterSpanContainer)
       .addClass('strong')
       .attr('id', 'letters');
+
+    var letters = data.name.split('');
+
+    // If name short, add blank letter for extra story
+    if (letters.length < 5) {
+      letters.splice(-1, 0, '');
+    }
 
     $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
@@ -48,13 +61,15 @@ module.exports = function (selector, lang) {
         .text(letter.letter || '');
       $letterSpan.appendTo($letterDiv);
 
-      var $characterCard = $('<div />');
-      $characterCard.appendTo($letterDiv)
-        .addClass('character-card');
+      if (icons) {
+        var $characterCard = $('<div />');
+        $characterCard.appendTo($letterDiv)
+          .addClass('character-card');
 
-      var $charCardImg = $('<img />')
-        .attr('src', letter.thumbnail);
-      $charCardImg.appendTo($characterCard);
+        var $charCardImg = $('<img />')
+          .attr('src', letter.thumbnail);
+        $charCardImg.appendTo($characterCard);
+      }
     })
 
     $('<div />').html('&bull;')
