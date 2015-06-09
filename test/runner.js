@@ -15,7 +15,7 @@ var sauce = new MochaSauce({
   username: process.env.SAUCE_USERNAME,
   accessKey: process.env.SAUCE_ACCESS_KEY,
   host: 'localhost',
-  port: 4445,
+  port: port,
 
   url: 'http://localhost:' + port + '/test/index.html'
 });
