@@ -42,15 +42,19 @@ module.exports = function (selector, lang, icons) {
       .attr('id', 'letters');
 
     var letters = data.name.split('');
+    var dataLetters = $(data.letters).filter(function (i, letter) {
+      return letter.part === 1;
+    })
+    var combinedLetters = combineLetters(letters, dataLetters);
 
     // If name short, add blank letter for extra story
     if (letters.length < 5) {
       letters.splice(-1, 0, '');
     }
 
-    $(data.letters).filter(function (i, letter) {
-      return letter.part === 1;
-    }).each(function (i, letter) {
+    $(combinedLetters).each(function (i, letter) {
+      console.log(letter);
+
       var $letterDiv = $('<div />');
       $letterDiv.appendTo($letters)
         .addClass('letter')
@@ -61,7 +65,7 @@ module.exports = function (selector, lang, icons) {
         .text(letter.letter || '');
       $letterSpan.appendTo($letterDiv);
 
-      if (icons) {
+      if (icons && letter.thumbnail) {
         var $characterCard = $('<div />');
         $characterCard.appendTo($letterDiv)
           .addClass('character-card');
@@ -70,7 +74,7 @@ module.exports = function (selector, lang, icons) {
           .attr('src', letter.thumbnail);
         $charCardImg.appendTo($characterCard);
       }
-    })
+    });
 
     $('<div />').html('&bull;')
       .prependTo($letters)
@@ -92,3 +96,16 @@ module.exports = function (selector, lang, icons) {
     return data;
   };
 };
+
+var combineLetters = function (splitLetters, dataLetters) {
+  var offset = 0
+  return $.map(splitLetters, function (val, i) {
+    if (val === '-') {
+      offset++;
+      return {letter: val}
+    } else {
+      dataLetters[i - offset]['letter'] = val
+      return dataLetters[i]
+    }
+  });
+}

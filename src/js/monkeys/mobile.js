@@ -20,9 +20,6 @@ mobile.generateHtml = function (data) {
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
 
-  var $letterContainer = $('#monkey')
-    .addClass('mobile');
-
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
       .addClass('page page-' + data.letters[i].type);
@@ -45,6 +42,7 @@ mobile.init = function (data, $events) {
   var windowLeft = 0;
 
   var $monkey = data.html;
+  $monkey.parents('#monkey').addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
 
   $window.on('orientationchange resize', setWidths);

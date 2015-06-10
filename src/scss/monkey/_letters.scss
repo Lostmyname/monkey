@@ -56,8 +56,6 @@
       border-radius: 50%;
     }
     .letter-active .character-card {
-      -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-      -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
       box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
     }
     .letter:first-child, .letter:last-child {
@@ -94,8 +92,6 @@
     border-radius: 50%;
   }
   .character-card {
-    -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
   }
 }

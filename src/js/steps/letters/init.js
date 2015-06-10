@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-var isMobile = require('../../helpers/isMobile');
+var isMobile = require('../../helpers/isMobile')();
 
 module.exports = function ($events, icons) {
   return function (data) {
@@ -25,7 +25,7 @@ module.exports = function ($events, icons) {
           .addClass('letter-active');
 
       if (isMobile && icons) {
-        var $currentLetter = $($spans[currentPage]);
+        var $currentLetter = $spans.eq(currentPage);
         var $currentChar = $currentLetter.find('.char');
         var halfScreenWidth = $(window).width() / 2;
         if ($currentChar.length !== 0) {
@@ -42,12 +42,11 @@ module.exports = function ($events, icons) {
       data.turnToPage($this.index() - charsBefore);
     });
 
-    if (isMobile() && icons) {
-      var $lettersWrapper = $('#letters');
+    if (isMobile && icons) {
       var animationDelay = 1000;
       var animationSpeed = 800;
       setTimeout(function () {
-        $lettersWrapper.animate({ marginLeft: '100px' }, animationSpeed)
+        $letters.animate({ marginLeft: '100px' }, animationSpeed)
       }, animationDelay);
     }
 

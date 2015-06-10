@@ -211,7 +211,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter .char');
       spans.length.should.equal(10);
       spans.filter(':contains("Ë")').length.should.equal(1);
       spans.filter(':contains("-")').length.should.equal(1);
