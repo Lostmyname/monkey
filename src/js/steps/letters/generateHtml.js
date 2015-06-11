@@ -24,12 +24,6 @@ module.exports = function (selector, lang, icons) {
       'data-key': 'monkey-letters'
     });
 
-    if (icons) {
-      $lettersContainer
-        .removeClass('md-mar-b')
-        .addClass('lg-mar-b');
-    };
-
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
       .text(lang.bookFor);
@@ -90,6 +84,13 @@ module.exports = function (selector, lang, icons) {
     }
 
     data.lettersElement = $lettersContainer.prependTo($book);
+
+    if (icons) {
+      $lettersContainer
+        .removeClass('md-mar-b')
+        .addClass('lg-mar-b');
+      $lettersContainer.parents('#monkey').addClass('monkey-icons');
+    };
 
     return data;
   };
