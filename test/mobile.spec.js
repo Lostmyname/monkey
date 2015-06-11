@@ -37,13 +37,15 @@ describe('Using monkey on mobile', function () {
     setTimeout(function () {
       $container.find('.letter-active').index().should.be.within(4, 6);
       done();
-    }, 3000);
+    }, 300);
   });
 
   it('should fire event when scrolled', function (cb) {
     this.timeout(500); // If it isn't fired in this time, it won't be
 
-    monkey.$events.on('halfway', function () { cb(); });
+    monkey.$events.on('halfway', function () {
+      cb();
+    });
     $monkey.scrollLeft($monkey.find('.landscape-images-inner').width() / 1.5).trigger('scroll');
   });
 

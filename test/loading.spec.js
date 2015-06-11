@@ -250,6 +250,15 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should generate html for icons', function () {
+    promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
+
+    return promise.then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(10);
+    });
+  });
+
   it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
