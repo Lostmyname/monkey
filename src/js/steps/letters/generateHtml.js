@@ -45,23 +45,21 @@ module.exports = function (selector, lang, icons) {
     var dataLetters = $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
     })
-    var combinedLetters = combineLetters(letters, dataLetters);
 
     // If name short, add blank letter for extra story
     if (letters.length < 5) {
       letters.splice(-1, 0, '');
     }
+    var combinedLetters = combineLetters(letters, dataLetters);
 
     $(combinedLetters).each(function (i, letter) {
-      console.log(letter);
-
       var $letterDiv = $('<div />');
       $letterDiv.appendTo($letters)
         .addClass('letter')
         .after(' ');
 
       var $letterSpan = $('<div />')
-        .addClass('char')
+        .toggleClass('char', letter.letter !== '')
         .text(letter.letter || '');
       $letterSpan.appendTo($letterDiv);
 
@@ -100,12 +98,13 @@ module.exports = function (selector, lang, icons) {
 var combineLetters = function (splitLetters, dataLetters) {
   var offset = 0
   return $.map(splitLetters, function (val, i) {
-    if (val === '-') {
+    var idx = i - offset;
+    if (val === '-' || val === '') {
       offset++;
       return {letter: val}
     } else {
-      dataLetters[i - offset]['letter'] = val
-      return dataLetters[i]
+      dataLetters[idx]['letter'] = val
+      return dataLetters[idx]
     }
   });
 }
