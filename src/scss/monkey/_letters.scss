@@ -41,31 +41,39 @@
       .char {
         width: 28px;
         height: 28px;
-        line-height: 29px;
+        line-height: 28px;
         text-align: center;
         margin: 0 auto 6px auto;
       }
     }
-    .letter-active {
+    .letter:hover{
+      .char {
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 50%;
+      }
+      .character-card {
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+      }
+    }
+    .letter-active, .letter-active:hover {
       border-bottom: none;
-    }
-    .letter-active .char {
-      color: #FFF;
-      background-color: #f06263;
-      border-radius: 50%;
-    }
-    .letter-active .character-card {
-      box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+      .char {
+        color: #FFF;
+        background-color: #f06263;
+        border-radius: 50%;
+      }
+      .character-card {
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+      }
     }
     .letter:first-child, .letter:last-child {
       color: black;
       display: inline;
-      width: 0;
+      width: 25px;
       height: 0;
-      background-color: #f6f5f1;
-      background-color: #fff;
-      font-size: 30px;
-      line-height: 33px;
+      font-size: 1.5rem;
+      line-height: 25px;
     }
     .character-card {
       display: inline-block;
@@ -83,20 +91,6 @@
     margin-top: 10px;
     height: 82px;
   }
-}
-
-.letter:hover{
-  .char {
-    background-color: #e0e0e0;
-    border-radius: 50%;
-  }
-  .character-card {
-    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-  }
-}
-.letter:active {
-  background-color: #e0e0e0;
-  border-radius: 4px;
 }
 
 .landscape #letters-container {

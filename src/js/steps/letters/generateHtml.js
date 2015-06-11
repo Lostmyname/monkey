@@ -85,9 +85,6 @@ module.exports = function (selector, lang, icons) {
     data.lettersElement = $lettersContainer.prependTo($book);
 
     if (icons) {
-      $lettersContainer
-        .removeClass('md-mar-b')
-        .addClass('lg-mar-b');
       $lettersContainer.parents('#monkey').addClass('monkey-icons');
     };
 

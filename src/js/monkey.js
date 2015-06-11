@@ -15,7 +15,7 @@ window.Monkey = module.exports = (function () {
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
-      icons: true, // Display character icons under letters? true, false
+      icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
