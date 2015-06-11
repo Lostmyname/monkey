@@ -1,7 +1,6 @@
 'use strict';
 
 var $ = require('jquery');
-var removeDiacritics = require('diacritics').remove;
 
 /**
  * Generate HTML for letters.
@@ -38,7 +37,7 @@ module.exports = function (selector, lang, icons) {
     var letters = data.name.split('');
     var dataLetters = $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
-    })
+    });
 
     // If name short, add blank letter for extra story
     if (letters.length < 5) {
@@ -102,10 +101,10 @@ var combineLetters = function (splitLetters, dataLetters) {
     var idx = i - offset;
     if (val === '-' || val === '') {
       offset++;
-      return {letter: val}
+      return { letter: val };
     } else {
-      dataLetters[idx]['letter'] = val
-      return dataLetters[idx]
+      dataLetters[idx].letter = val;
+      return dataLetters[idx];
     }
   });
 }

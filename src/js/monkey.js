@@ -18,7 +18,8 @@ window.Monkey = module.exports = (function () {
       icons: true, // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
 
-      server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      server: 'http://192.168.0.57:3020/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
