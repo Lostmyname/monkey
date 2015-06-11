@@ -179,7 +179,7 @@ describe('Loading Monkey', function () {
     promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
 
     return promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(data.name.length + 2);
     });
   });
@@ -195,7 +195,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(6);
     });
   });
@@ -211,7 +211,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(10);
       spans.filter(':contains("Ë")').length.should.equal(1);
       spans.filter(':contains("-")').length.should.equal(1);
@@ -247,6 +247,15 @@ describe('Loading Monkey', function () {
     return promise.then(function (data) {
       $events.trigger('letterChange', 7);
       data.lettersElement.find('.letter-active').index().should.equal(3);
+    });
+  });
+
+  it('should generate html for icons', function () {
+    promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
+
+    return promise.then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(10);
     });
   });
 

@@ -43,6 +43,7 @@ mobile.init = function (data, $events) {
   var maxProgress = 0;
 
   var $monkey = data.html;
+  $monkey.parents('#monkey').addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
 
   $window.on('orientationchange resize', setWidths);
