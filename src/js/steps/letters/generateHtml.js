@@ -95,8 +95,11 @@ module.exports = function (selector, lang, icons) {
 var combineLetters = function (splitLetters, dataLetters) {
   var offset = 0
   return $.map(splitLetters, function (val, i) {
-    var idx = i - offset;
-    if (val === '-' || val === '') {
+    var idx = i;
+    if (splitLetters.length > 5) {
+      idx = i - offset;
+    }
+    if (val === '-') {
       offset++;
       return { letter: val };
     } else {

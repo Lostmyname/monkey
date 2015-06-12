@@ -273,4 +273,22 @@ describe('Loading Monkey', function () {
       data.html[0].should.equal($testObject.children()[0]);
     });
   });
+
+  it('should generate icons for short, hephenated names correctly (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      letters: true,
+      book: {
+        name: 'Lee-T',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise
+    .then(Monkey.letters._generateHtml(true, options.lang, true))
+    .then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(4);
+    });
+  });
 });
