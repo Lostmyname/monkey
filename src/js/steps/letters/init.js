@@ -3,6 +3,9 @@
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
 
+var animationDelay = 1500;
+var animationSpeed = 800;
+
 module.exports = function ($events, icons) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
@@ -31,8 +34,11 @@ module.exports = function ($events, icons) {
         if ($currentChar.length !== 0) {
           var centerOffset = $currentChar.offset().left - halfScreenWidth;
           var currentScroll = $letterSpans.scrollLeft();
-          $letterSpans.animate({ scrollLeft: (centerOffset + currentScroll) });
-        };
+
+          $letterSpans
+            .delay(animationDelay)
+            .animate({ scrollLeft: (centerOffset + currentScroll) }, animationSpeed);
+        }
       }
     });
 
@@ -43,11 +49,9 @@ module.exports = function ($events, icons) {
     });
 
     if (isMobile && icons) {
-      var animationDelay = 1000;
-      var animationSpeed = 800;
-      setTimeout(function () {
-        $letters.animate({ marginLeft: '100px' }, animationSpeed)
-      }, animationDelay);
+        $letters
+          .delay(animationDelay)
+          .animate({ marginLeft: 100 }, animationSpeed);
     }
 
     return data;
