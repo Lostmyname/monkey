@@ -17,6 +17,7 @@ window.Monkey = module.exports = (function () {
       letters: true, // Display letters? true, false, or selector
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
+      animateName: true,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -55,7 +56,7 @@ window.Monkey = module.exports = (function () {
         options.icons
         )
       )
-      .then(Monkey.letters._init(this.$events, options.icons));
+      .then(Monkey.letters._init(this.$events, options));
     }
 
     this.promise = promise;
