@@ -6,7 +6,7 @@ var isMobile = require('../../helpers/isMobile')();
 var animationDelay = 1500;
 var animationSpeed = 800;
 
-module.exports = function ($events, icons) {
+module.exports = function ($events, options) {
   return function (data) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
@@ -27,7 +27,7 @@ module.exports = function ($events, icons) {
         .eq(currentPage)
           .addClass('letter-active');
 
-      if (isMobile && icons) {
+      if (isMobile && options.icons) {
         var $currentLetter = $spans.eq(currentPage);
         var $currentChar = $currentLetter.find('.char');
         var halfScreenWidth = $(window).width() / 2;
@@ -36,7 +36,6 @@ module.exports = function ($events, icons) {
           var currentScroll = $letterSpans.scrollLeft();
 
           $letterSpans
-            .delay(animationDelay)
             .animate({ scrollLeft: (centerOffset + currentScroll) }, animationSpeed);
         }
       }
@@ -48,7 +47,7 @@ module.exports = function ($events, icons) {
       data.turnToPage($this.index() - charsBefore);
     });
 
-    if (isMobile && icons) {
+    if (isMobile && options.icons && options.animateName) {
         $letters
           .delay(animationDelay)
           .animate({ marginLeft: 100 }, animationSpeed);
