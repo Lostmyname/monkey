@@ -16,6 +16,7 @@
   <script src="../node_modules/jquery/dist/jquery.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
   <script src="../node_modules/should/should.js"></script>
+  <script src="../node_modules/mocha-sauce/client.js"></script>
   <script src="_helpers.js"></script>
 
   <script>
@@ -32,8 +33,7 @@
 
   <!-- run tests -->
   <script>
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
+    mochaSaucePlease({ xunit: false });
   </script>
 
 </body>
