@@ -58,7 +58,7 @@ module.exports = function ($events, options) {
       $letters
         .delay(animationDelay)
         .animate({ marginLeft: 100 }, animationSpeed);
-    } else if (isMobile) {
+    } else if (isMobile && options.animateName) {
       $letters.css({ marginLeft: 100 });
     }
 
