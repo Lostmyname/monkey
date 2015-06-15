@@ -51,7 +51,6 @@ module.exports = function ($events, options) {
     $spans.each(function () {
       calculatedWidth  += $(this).outerWidth(true);
     });
-    calculatedWidth += 'px';
     $letters.css({ width: calculatedWidth });
 
     if (isMobile && options.icons && options.animateName) {
