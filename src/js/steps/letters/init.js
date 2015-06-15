@@ -47,10 +47,19 @@ module.exports = function ($events, options) {
       data.turnToPage($this.index() - charsBefore);
     });
 
+    var calculatedWidth = 0;
+    $spans.each(function () {
+      calculatedWidth  += $(this).outerWidth(true);
+    });
+    calculatedWidth += 'px';
+    $letters.css({ width: calculatedWidth });
+
     if (isMobile && options.icons && options.animateName) {
-        $letters
-          .delay(animationDelay)
-          .animate({ marginLeft: 100 }, animationSpeed);
+      $letters
+        .delay(animationDelay)
+        .animate({ marginLeft: 100 }, animationSpeed);
+    } else if (isMobile) {
+      $letters.css({ marginLeft: 100 });
     }
 
     return data;
