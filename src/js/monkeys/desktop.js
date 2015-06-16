@@ -16,7 +16,7 @@ desktop.generateHtml = function (data) {
 
   $.each(data.urls, function (i, url) {
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
       .append($('<img />').attr('src', url))
       .appendTo($monkey);
   });
@@ -25,6 +25,8 @@ desktop.generateHtml = function (data) {
 };
 
 desktop.init = function (data, $events) {
+  var maxBookProgress = 0;
+
 
   Heidelberg.prototype.replacePage = function(pages, spreads) {
     console.log("replaciong page");
@@ -64,6 +66,11 @@ desktop.init = function (data, $events) {
     $events.trigger('pageTurn');
 
     var index = els.pages.index(els.pagesTarget);
+    var bookProgress = index / els.pages.length
+    if (bookProgress > maxBookProgress) {
+      maxBookProgress = bookProgress;
+      $events.trigger('bookprogress', { progress: maxBookProgress });
+    }
 
     $el.toggleClass('at-front-cover', !index);
     $el.toggleClass('at-rear-cover', index === els.pages.length - 2);

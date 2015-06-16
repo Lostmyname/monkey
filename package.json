@@ -1,11 +1,11 @@
 {
   "name": "lmn-monkey",
-  "version": "4.2.1",
+  "version": "4.4.6",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
     "diacritics": "^1.2.1",
-    "heidelberg": "^1.0.3",
+    "heidelberg": "^1.0.4",
     "jquery": "^1.11.2",
     "nums": "^1.0.0"
   },

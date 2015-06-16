@@ -15,9 +15,11 @@ window.Monkey = module.exports = (function () {
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
+      icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
+      animateName: true,
 
-      server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
+      server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
@@ -48,8 +50,13 @@ window.Monkey = module.exports = (function () {
       });
 
     if (options.letters) {
-      promise = promise.then(Monkey.letters._generateHtml(options.letters, options.lang))
-        .then(Monkey.letters._init(this.$events));
+      promise = promise.then(Monkey.letters._generateHtml(
+        options.letters,
+        options.lang,
+        options.icons
+        )
+      )
+      .then(Monkey.letters._init(this.$events, options));
     }
 
     this.promise = promise;

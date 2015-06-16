@@ -1,8 +1,30 @@
 .monkey.mobile {
-  overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  margin-top: -5px;
-  margin-bottom: -5px;
+  overflow: scroll;
+  &.portrait {
+    margin-bottom: -5px;
+  }
+}
+.mobile.monkey.monkey-icons {
+  #letters {
+    margin-left: -250px;
+    width: 700px;
+  }
+  .letter-spans {
+    overflow-x: scroll;
+  }
+}
+
+.landscape .lmn-book {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding-top: 0;
+  margin-top: 0;
+  background-color: #f6f5f1;
 }
 
 .landscape-images {
@@ -19,8 +41,8 @@
   padding-right: 10px;
   overflow: hidden;
 
-  img {
-    max-width: none;
+  .landscape & {
+    background: #333333;
   }
 }
 

@@ -179,7 +179,7 @@ describe('Loading Monkey', function () {
     promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
 
     return promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(data.name.length + 2);
     });
   });
@@ -195,7 +195,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(6);
     });
   });
@@ -211,7 +211,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise.then(function (data) {
-      var spans = data.lettersElement.find('span span');
+      var spans = data.lettersElement.find('.letter');
       spans.length.should.equal(10);
       spans.filter(':contains("Ë")').length.should.equal(1);
       spans.filter(':contains("-")').length.should.equal(1);
@@ -250,6 +250,15 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should generate html for icons', function () {
+    promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
+
+    return promise.then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(10);
+    });
+  });
+
   it('should have a constructor function that accept options', function () {
     var $testObject = $('<div />').attr('data-key', 'lmn-book');
 
@@ -262,6 +271,24 @@ describe('Loading Monkey', function () {
     return monkey.promise.then(function (data) {
       $testObject.children().length.should.be.above(0);
       data.html[0].should.equal($testObject.children()[0]);
+    });
+  });
+
+  it('should generate icons for short, hephenated names correctly (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      letters: true,
+      book: {
+        name: 'Lee-T',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise
+    .then(Monkey.letters._generateHtml(true, options.lang, true))
+    .then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(4);
     });
   });
 });
