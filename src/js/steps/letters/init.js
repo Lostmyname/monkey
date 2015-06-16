@@ -47,11 +47,13 @@ module.exports = function ($events, options) {
       data.turnToPage($this.index() - charsBefore);
     });
 
-    var calculatedWidth = 0;
-    $spans.each(function () {
-      calculatedWidth  += $(this).outerWidth(true);
-    });
-    $letters.css({ width: calculatedWidth });
+    if (options.icons) {
+      var calculatedWidth = 0;
+      $spans.each(function () {
+        calculatedWidth  += $(this).outerWidth(true);
+      });
+      $letters.css({ width: calculatedWidth });
+    };
 
     if (isMobile && options.icons && options.animateName) {
       $letters
