@@ -13,6 +13,7 @@ module.exports = function (selector, lang, icons) {
     lang = selector;
     selector = true;
   }
+  var defer = $.Deferred();
 
   return function (data) {
     var $lettersContainer = $('<div />');
@@ -45,50 +46,62 @@ module.exports = function (selector, lang, icons) {
     }
     var combinedLetters = combineLetters(letters, dataLetters);
 
-    $(combinedLetters).each(function (i, letter) {
-      var $letterDiv = $('<div />');
-      $letterDiv.appendTo($letters)
-        .addClass('letter')
-        .after(' ');
+    var loadLetterCards = function () {
+      var cardsToLoad = 5;
+      $(combinedLetters).each(function (i, letter) {
+        var $letterDiv = $('<div />');
+        $letterDiv.appendTo($letters)
+          .addClass('letter')
+          .after(' ');
 
-      var $letterSpan = $('<div />')
-        .toggleClass('char', letter.letter !== '')
-        .text(letter.letter || '');
-      $letterSpan.appendTo($letterDiv);
+        var $letterSpan = $('<div />')
+          .toggleClass('char', letter.letter !== '')
+          .text(letter.letter || '');
+        $letterSpan.appendTo($letterDiv);
 
-      if (icons && letter.thumbnail) {
-        var $characterCard = $('<div />');
-        $characterCard.appendTo($letterDiv)
-          .addClass('character-card');
+        if (icons && letter.thumbnail) {
+          var $characterCard = $('<div />');
+          $characterCard.appendTo($letterDiv)
+            .addClass('character-card');
 
-        var $charCardImg = $('<img />')
-          .attr('src', letter.thumbnail);
-        $charCardImg.appendTo($characterCard);
-      }
-    });
-
-    $('<div />').html('&bull;')
-      .prependTo($letters)
-      .addClass('letter')
-      .after(' ')
-      .clone().appendTo($letters);
-
-    var $book = false;
-    if (typeof selector !== 'boolean') {
-      $book = $(selector);
+          var $charCardImg = $('<img />')
+            .attr('src', letter.thumbnail);
+          $charCardImg.appendTo($characterCard);
+        }
+        // $charCardImg.on('load', function () {
+          // if (--cardsToLoad === 0) {
+          //   console.log("resolving");
+          // }
+        // });
+        defer.resolve();
+      });
+      return defer.promise();
     }
 
-    if (!$book || !$book.length) {
-      $book = data.html.parents('[data-key="lmn-book"]');
-    }
+    return loadLetterCards()
+      .then(function() {
+        $('<div />').html('&bull;')
+          .prependTo($letters)
+          .addClass('letter')
+          .after(' ')
+          .clone().appendTo($letters);
 
-    data.lettersElement = $lettersContainer.prependTo($book);
+        var $book = false;
+        if (typeof selector !== 'boolean') {
+          $book = $(selector);
+        }
 
-    if (icons) {
-      $lettersContainer.parents('#monkey').addClass('monkey-icons');
-    };
+        if (!$book || !$book.length) {
+          $book = data.html.parents('[data-key="lmn-book"]');
+        }
 
-    return data;
+        data.lettersElement = $lettersContainer.prependTo($book);
+
+        if (icons) {
+          $lettersContainer.parents('#monkey').addClass('monkey-icons');
+        };
+        return data
+      })
   };
 };
 

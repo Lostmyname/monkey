@@ -39,15 +39,6 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml())
       .then(Monkey._insertHtml(monkeyContainer))
-      .then(Monkey._initMonkey(this.$events))
-      .then(function (data) {
-        if (data.needsSpread) {
-          Monkey.spread._getData(data, options)
-            .then(Monkey.spread._insertSpread());
-        }
-
-        return data;
-      });
 
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(
@@ -58,6 +49,17 @@ window.Monkey = module.exports = (function () {
       )
       .then(Monkey.letters._init(this.$events, options));
     }
+
+    promise = promise.then(Monkey._initMonkey(this.$events))
+    .then(function (data) {
+      if (data.needsSpread) {
+        Monkey.spread._getData(data, options)
+          .then(Monkey.spread._insertSpread());
+      }
+
+      return data;
+    });
+
 
     this.promise = promise;
   }
