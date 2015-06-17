@@ -50,13 +50,8 @@ window.Monkey = module.exports = (function () {
       });
 
     if (options.letters) {
-      promise = promise.then(Monkey.letters._generateHtml(
-        options.letters,
-        options.lang,
-        options.icons
-        )
-      )
-      .then(Monkey.letters._init(this.$events, options));
+      promise = promise.then(Monkey.letters._generateHtml(options))
+        .then(Monkey.letters._init(this.$events, options));
     }
 
     this.promise = promise;

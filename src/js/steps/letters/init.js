@@ -50,17 +50,23 @@ module.exports = function ($events, options) {
     if (options.icons) {
       var calculatedWidth = 0;
       $spans.each(function () {
-        calculatedWidth  += $(this).outerWidth(true);
+        calculatedWidth += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth });
-    };
+    }
 
-    if (isMobile && options.icons && options.animateName) {
-      $letters
-        .delay(animationDelay)
-        .animate({ marginLeft: 100 }, animationSpeed);
-    } else if (isMobile && options.animateName) {
+    if (isMobile && options.animateName) {
       $letters.css({ marginLeft: 100 });
+
+      if (options.icons) {
+        $letters.find('.letter').each(function (i) {
+          var $letter = $(this);
+
+          setTimeout(function () {
+            $letter.removeClass('letter-hidden');
+          }, 400 * i);
+        });
+      }
     }
 
     return data;

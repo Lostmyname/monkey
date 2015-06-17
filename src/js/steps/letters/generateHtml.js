@@ -5,27 +5,21 @@ var $ = require('jquery');
 /**
  * Generate HTML for letters.
  *
- * @param {string|boolean} [selector] Selector or element to insert letters into.
- * @param {object} lang Object containing language stuff.
+ * @param {object} options Monkey options.
  */
-module.exports = function (selector, lang, icons) {
-  if (typeof lang === 'undefined' && typeof selector === 'object') {
-    lang = selector;
-    selector = true;
-  }
-
+module.exports = function (options) {
   return function (data) {
     var $lettersContainer = $('<div />');
 
     $lettersContainer.attr({
       id: 'letters-container',
-      'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
+      'class': 'aligned-center row md-mar-b',
       'data-key': 'monkey-letters'
     });
 
     $('<p />').appendTo($lettersContainer)
-      .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
-      .text(lang.bookFor);
+      .addClass('no-mar')
+      .text(options.lang.bookFor);
 
     var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
       .addClass('letter-spans');
@@ -48,7 +42,7 @@ module.exports = function (selector, lang, icons) {
     $(combinedLetters).each(function (i, letter) {
       var $letterDiv = $('<div />');
       $letterDiv.appendTo($letters)
-        .addClass('letter')
+        .addClass('letter letter-hidden')
         .after(' ');
 
       var $letterSpan = $('<div />')
@@ -56,7 +50,7 @@ module.exports = function (selector, lang, icons) {
         .text(letter.letter || '');
       $letterSpan.appendTo($letterDiv);
 
-      if (icons && letter.thumbnail) {
+      if (options.icons && letter.thumbnail) {
         var $characterCard = $('<div />');
         $characterCard.appendTo($letterDiv)
           .addClass('character-card');
@@ -74,8 +68,8 @@ module.exports = function (selector, lang, icons) {
       .clone().appendTo($letters);
 
     var $book = false;
-    if (typeof selector !== 'boolean') {
-      $book = $(selector);
+    if (typeof options.selector !== 'boolean') {
+      $book = $(options.selector);
     }
 
     if (!$book || !$book.length) {
@@ -84,16 +78,16 @@ module.exports = function (selector, lang, icons) {
 
     data.lettersElement = $lettersContainer.prependTo($book);
 
-    if (icons) {
+    if (options.icons) {
       $lettersContainer.parents('#monkey').addClass('monkey-icons');
-    };
+    }
 
     return data;
   };
 };
 
 var combineLetters = function (splitLetters, dataLetters) {
-  var offset = 0
+  var offset = 0;
   return $.map(splitLetters, function (val, i) {
     var idx = i;
     if (splitLetters.length > 5) {
@@ -107,4 +101,4 @@ var combineLetters = function (splitLetters, dataLetters) {
       return dataLetters[idx];
     }
   });
-}
+};

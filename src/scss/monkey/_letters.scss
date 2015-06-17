@@ -33,12 +33,19 @@
       padding: 2px 4px 0px 4px;
       display: block;
       margin: 0;
+      transition: transform 0.4s;
+
       .char {
         width: 28px;
         height: 28px;
         line-height: 28px;
         text-align: center;
         margin: 0 auto 6px auto;
+      }
+
+      &.letter-hidden {
+        opacity: 0;
+        transform: scale(0.2);
       }
     }
     .letter:hover{
