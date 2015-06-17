@@ -16,7 +16,7 @@ desktop.generateHtml = function (data) {
 
   $.each(data.urls, function (i, url) {
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
       .append($('<img />').attr('src', url))
       .appendTo($monkey);
   });
