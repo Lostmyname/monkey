@@ -12,7 +12,8 @@ desktop.calculateSize = function () {
 };
 
 desktop.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  // var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  var $monkey = data.base;
 
   $.each(data.urls, function (i, url) {
     $('<div />')
@@ -22,6 +23,10 @@ desktop.generateHtml = function (data) {
   });
 
   return $monkey;
+};
+
+desktop.generateBaseElement = function (data) {
+  return $('<div />').addClass('monkey desktop BOMBON');
 };
 
 desktop.init = function (data, $events) {

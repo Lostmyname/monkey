@@ -14,7 +14,7 @@ mobile.calculateSize = function () {
 };
 
 mobile.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('monkey mobile');
+  var $monkey = data.html;
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
@@ -36,6 +36,10 @@ mobile.generateHtml = function (data) {
   });
 
   return $monkey;
+};
+
+mobile.generateBaseElement = function (data) {
+  return $('<div />').addClass('monkey mobile');
 };
 
 mobile.init = function (data, $events) {

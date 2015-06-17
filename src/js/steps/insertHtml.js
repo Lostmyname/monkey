@@ -11,7 +11,7 @@ module.exports = function (monkeyContainer) {
   var $container = $(monkeyContainer);
 
   return function (data) {
-    $container.empty().append(data.html);
+    $container.append(data.html);
 
     data.container = $container;
 

@@ -35,11 +35,8 @@ window.Monkey = module.exports = (function () {
     this.$events = $({});
 
     var promise = Monkey._getData(options)
-      .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateUrls(options.preload))
-      .then(Monkey._generateHtml())
-      .then(Monkey._insertHtml(monkeyContainer))
-
+    .then(Monkey._calculateMonkey(options.monkeyType))
+    .then(Monkey._generateBaseElement($monkeyContainer))
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(
         options.letters,
@@ -50,21 +47,24 @@ window.Monkey = module.exports = (function () {
       .then(Monkey.letters._init(this.$events, options));
     }
 
-    promise = promise.then(Monkey._initMonkey(this.$events))
+    promise = promise
+    .then(Monkey._generateUrls(options.preload))
+    .then(Monkey._generateHtml())
+    .then(Monkey._insertHtml(monkeyContainer))
+    .then(Monkey._initMonkey(this.$events))
     .then(function (data) {
       if (data.needsSpread) {
         Monkey.spread._getData(data, options)
           .then(Monkey.spread._insertSpread());
       }
-
       return data;
     });
-
 
     this.promise = promise;
   }
 
   Monkey._getData = require('./steps/getData');
+  Monkey._generateBaseElement = require('./steps/generateBaseElement');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
   Monkey._generateHtml = require('./steps/generateHtml');

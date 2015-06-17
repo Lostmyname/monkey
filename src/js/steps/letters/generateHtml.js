@@ -47,7 +47,7 @@ module.exports = function (selector, lang, icons) {
     var combinedLetters = combineLetters(letters, dataLetters);
 
     var loadLetterCards = function () {
-      var cardsToLoad = 5;
+      var cardsToLoad = combineLetters.length;
       $(combinedLetters).each(function (i, letter) {
         var $letterDiv = $('<div />');
         $letterDiv.appendTo($letters)
@@ -68,11 +68,11 @@ module.exports = function (selector, lang, icons) {
             .attr('src', letter.thumbnail);
           $charCardImg.appendTo($characterCard);
         }
-        // $charCardImg.on('load', function () {
-          // if (--cardsToLoad === 0) {
-          //   console.log("resolving");
-          // }
-        // });
+        $charCardImg.on('load', function () {
+          if (--cardsToLoad === 0) {
+            console.log("resolving");
+          }
+        });
         defer.resolve();
       });
       return defer.promise();
@@ -92,7 +92,7 @@ module.exports = function (selector, lang, icons) {
         }
 
         if (!$book || !$book.length) {
-          $book = data.html.parents('[data-key="lmn-book"]');
+          $book = data.base.parents('[data-key="lmn-book"]');
         }
 
         data.lettersElement = $lettersContainer.prependTo($book);

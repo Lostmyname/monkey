@@ -6,9 +6,10 @@
  * Varies depending on the browser.
  *
  */
-module.exports = function () {
+module.exports = function (monkeyContainer) {
   return function (data) {
-    data.html = this.monkeys[data.monkeyType].generateBaseElement(data);
+    data.base = this.monkeys[data.monkeyType].generateBaseElement(data);
+    monkeyContainer.append(data.base);
 
     return data;
   }.bind(this);
