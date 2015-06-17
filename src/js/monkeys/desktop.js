@@ -16,7 +16,7 @@ desktop.generateHtml = function (data) {
 
   $.each(data.urls, function (i, url) {
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
       .append($('<img />').attr('src', url))
       .appendTo($monkey);
   });
@@ -27,10 +27,38 @@ desktop.generateHtml = function (data) {
 desktop.init = function (data, $events) {
   var maxBookProgress = 0;
 
+
+  Heidelberg.prototype.replacePage = function(pages, spreads) {
+    console.log("replaciong page");
+    var page = $('.Page' + pages);
+  }
+
   data.heidelberg = new Heidelberg(data.html, {
     arrowKeys: false,
     hasSpreads: true
   });
+
+
+  data.swapPage = function(index, character) {
+    var page = (index + 3) + index;
+    var $newImage = $('<img />')
+      .attr('src', character.url1 + data.queryString)
+    var $newImage2 = $('<img />')
+      .attr('src', character.url2 + data.queryString)
+
+    var newPage1 = $('<div />')
+        .addClass('Heidelberg-Spread page- Page-' + page)
+        .append($newImage.clone());
+
+    var newPage2 = $('<div />')
+        .addClass('Heidelberg-Spread page- Page-' + (page + 1))
+        .append($newImage2.clone());
+
+    var page1El = $('.Page-' + page);
+    var page2El = $('.Page-' + (page + 1));
+    page1El.replaceWith(newPage1);
+    page2El.replaceWith(newPage2);
+  }
 
   data.heidelberg.el.addClass('at-front-cover');
 
