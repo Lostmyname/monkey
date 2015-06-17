@@ -12,8 +12,8 @@ desktop.calculateSize = function () {
 };
 
 desktop.generateHtml = function (data) {
-  // var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
-  var $monkey = data.base;
+  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  // var $monkeyBase = data.base;
 
   $.each(data.urls, function (i, url) {
     $('<div />')

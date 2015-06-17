@@ -92,10 +92,11 @@ module.exports = function (selector, lang, icons) {
         }
 
         if (!$book || !$book.length) {
-          $book = data.base.parents('[data-key="lmn-book"]');
+          $book = data.monkeyContainer;
         }
 
-        data.lettersElement = $lettersContainer.prependTo($book);
+        $book.find('.worm-loader').remove();
+        data.lettersElement = $lettersContainer.appendTo($book);
 
         if (icons) {
           $lettersContainer.parents('#monkey').addClass('monkey-icons');

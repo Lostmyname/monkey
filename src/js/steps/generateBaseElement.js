@@ -9,7 +9,8 @@
 module.exports = function (monkeyContainer) {
   return function (data) {
     data.base = this.monkeys[data.monkeyType].generateBaseElement(data);
-    monkeyContainer.append(data.base);
+    data.monkeyContainer = monkeyContainer;
+    // monkeyContainer.append(data.base);
 
     return data;
   }.bind(this);
