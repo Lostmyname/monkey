@@ -8,6 +8,11 @@ var animationSpeed = 800;
 
 module.exports = function ($events, options) {
   return function (data) {
+    // Probably means that there was no name
+    if (!data.lettersElement) {
+      return data;
+    }
+
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');

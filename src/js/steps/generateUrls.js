@@ -18,8 +18,10 @@ module.exports = function (preload) {
     var size = monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
 
-    var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
-    data.queryString = queryString;
+    var queryString = size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
+
+    // @todo: Is this used?
+    data.queryString = '?' + queryString;
 
     data.urls = $.map(data.letters, function (letterData) {
       if (letterData.type === 'spread' && !letterData.ready) {
@@ -27,7 +29,8 @@ module.exports = function (preload) {
         data.needsSpread = true;
       }
 
-      return letterData.url + queryString;
+      var separator = letterData.url.indexOf('?') === -1 ? '?' : '&';
+      return letterData.url + separator + queryString;
     });
 
     return helpers.preload(data.urls.slice(0, preload))

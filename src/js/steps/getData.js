@@ -10,10 +10,13 @@ var $ = require('jquery');
  *                   information on the pages. Seriously, just use a debugger.
  */
 module.exports = function (options) {
-  var locale = options.book.locale;
-
   return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
+      // For backwards compatibility
+      if (!data.book.spreads) {
+        data.book.spreads = 'double';
+      }
+
       return data.book;
     });
 };

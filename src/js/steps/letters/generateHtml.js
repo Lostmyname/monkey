@@ -15,6 +15,10 @@ module.exports = function (selector, lang, icons) {
   }
 
   return function (data) {
+    if (!data.name) {
+      return data;
+    }
+
     var $lettersContainer = $('<div />');
 
     $lettersContainer.attr({

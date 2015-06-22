@@ -12,11 +12,16 @@ desktop.calculateSize = function () {
 };
 
 desktop.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  var $monkey = $('<div />').addClass('Heidelberg-Book desktop');
+
+  if (data.spreads === 'double') {
+    $monkey.addClass('with-Spreads');
+  }
 
   $.each(data.urls, function (i, url) {
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .addClass('Heidelberg-' + (data.spreads === 'single' ? 'Page' : 'Spread'))
+      .addClass('page-' + data.letters[i].type)
       .append($('<img />').attr('src', url))
       .appendTo($monkey);
   });
@@ -29,7 +34,7 @@ desktop.init = function (data, $events) {
 
   data.heidelberg = new Heidelberg(data.html, {
     arrowKeys: false,
-    hasSpreads: true
+    hasSpreads: (data.spreads === 'double')
   });
 
   data.heidelberg.el.addClass('at-front-cover');
@@ -38,7 +43,7 @@ desktop.init = function (data, $events) {
     $events.trigger('pageTurn');
 
     var index = els.pages.index(els.pagesTarget);
-    var bookProgress = index / els.pages.length
+    var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
       $events.trigger('bookprogress', { progress: maxBookProgress });
