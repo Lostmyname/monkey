@@ -26,7 +26,7 @@ desktop.generateHtml = function (data) {
 };
 
 desktop.generateBaseElement = function (data) {
-  return $('<div />').addClass('monkey desktop BOMBON');
+  return $('<div />').addClass('monkey desktop');
 };
 
 desktop.init = function (data, $events) {

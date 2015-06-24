@@ -14,7 +14,8 @@ mobile.calculateSize = function () {
 };
 
 mobile.generateHtml = function (data) {
-  var $monkey = data.html;
+  // var $monkey = data.monkeyContainer;
+  var $monkey = $('<div />').addClass('monkey mobile');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
@@ -46,7 +47,7 @@ mobile.init = function (data, $events) {
   var windowLeft = 0;
   var maxProgress = 0;
 
-  var $monkey = data.html;
+  var $monkey = data.base;
   $monkey.parents('#monkey').addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
 
