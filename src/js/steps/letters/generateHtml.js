@@ -46,7 +46,7 @@ module.exports = function (selector, lang, icons) {
 
     var $toolTipArrow = $('<img />')
       .addClass('tooltip-arrow')
-      .attr('src', '/src/imgs/tooltip-arrow-85x47.png');
+      .attr('src', 'https://s3-eu-west-1.amazonaws.com/lmn-cdn-assets/widget/tooltip-arrow-85x47.png');
     var letters = data.name.split('');
     var dataLetters = $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
