@@ -12,6 +12,8 @@ module.exports = function ($events, options) {
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
     var $charButtons = $letters.find('button');
+    var $changeButtons = $letters.find('.change-character');
+    var $characterPickers = $letters.find('.character-picker');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -46,6 +48,12 @@ module.exports = function ($events, options) {
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
       data.turnToPage($this.index() - charsBefore);
+      var activeLetter = $('#letters .letter-active');
+      activeLetter.find('.character-picker').show();
+    });
+
+    $changeButtons.on('click', function () {
+      $(this).parent().find('.character-picker').addClass('active');
     });
 
     if (options.icons) {

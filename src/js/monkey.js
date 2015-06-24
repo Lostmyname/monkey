@@ -18,9 +18,11 @@ window.Monkey = module.exports = (function () {
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
+      firstBookName: $monkeyContainer.data('first-book-name'),
 
       // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
-      server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      // server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),

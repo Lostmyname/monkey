@@ -64,6 +64,9 @@ module.exports = function (selector, lang, icons) {
       $letterDiv.appendTo($letters)
         .addClass('letter')
         .after(' ');
+      if (letter.changed) {
+        $letterDiv.addClass('changed')
+      };
 
       var $letterSpan = $('<div />')
         .toggleClass('char', letter.letter !== '')
@@ -78,6 +81,13 @@ module.exports = function (selector, lang, icons) {
         var $charCardImg = $('<img />')
           .attr('src', letter.thumbnail);
         $charCardImg.appendTo($characterCard);
+
+        if (letter.changed) {
+          var $changeSpan = $('<span />')
+            .addClass('change-character color-alert')
+            .text('CHANGE');
+          $changeSpan.appendTo($letterDiv);
+        }
 
         var $toolTip = $('<div />');
         $toolTip.appendTo($letterSpan)
