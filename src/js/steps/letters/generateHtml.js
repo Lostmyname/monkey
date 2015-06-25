@@ -85,8 +85,15 @@ module.exports = function (selector, lang, icons) {
           $toolTip.appendTo($letterSpan)
             .addClass('character-picker pos-absolute');
 
+          var charPickTitle;
+          if (letter.characters.length === 0) {
+            charPickTitle = 'Sorry. No more ‘' + letter.letter +
+              '’ characters available.';
+          } else {
+            charPickTitle = 'Choose another story for ‘' + letter.letter + '’';
+          }
           var $charPickTitle = $('<div />')
-            .text('Choose another story for ‘' + letter.letter + '’')
+            .text(charPickTitle)
             .addClass('title');
 
           $charPickTitle.appendTo($toolTip)
@@ -121,7 +128,7 @@ module.exports = function (selector, lang, icons) {
                 .text('selected');
             } else {
               $selectButton
-                .addClass('button primary')
+                // .addClass('button primary')
                 .text('select');
             }
             $selectButton.appendTo($charName);
