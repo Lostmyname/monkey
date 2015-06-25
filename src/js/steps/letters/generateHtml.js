@@ -128,7 +128,7 @@ module.exports = function (selector, lang, icons) {
                 .text('selected');
             } else {
               $selectButton
-                // .addClass('button primary')
+                .addClass('button primary')
                 .text('select');
             }
             $selectButton.appendTo($charName);

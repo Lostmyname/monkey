@@ -18,6 +18,7 @@ window.Monkey = module.exports = (function () {
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
+      replaceMonkey: false,
 
       // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
       server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
@@ -42,7 +43,7 @@ window.Monkey = module.exports = (function () {
 
     var promise = Monkey._getData(options)
     .then(Monkey._calculateMonkey(options.monkeyType))
-    .then(Monkey._generateBaseElement($monkeyContainer))
+    .then(Monkey._generateBaseElement($monkeyContainer, options))
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(
         options.letters,
