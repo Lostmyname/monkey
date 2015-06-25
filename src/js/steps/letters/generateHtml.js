@@ -17,16 +17,6 @@ module.exports = function (selector, lang, icons) {
 
   return function (data) {
     var $lettersContainer = $('<div />');
-    var allChars = data.all_characters;
-    var defaultChars = data.default_characters;
-
-    $(allChars).each(function (ix, characterSet) {
-      $(characterSet.characters).each(function (i, charObj) {
-        if (charObj.character === defaultChars[ix].character) {
-          characterSet.selected = charObj.character;
-        }
-      });
-    });
 
     $lettersContainer.attr({
       id: 'letters-container',
@@ -91,13 +81,6 @@ module.exports = function (selector, lang, icons) {
             }
           });
 
-          if (letter.changed) {
-            var $changeSpan = $('<span />')
-              .addClass('change-character color-alert')
-              .text('CHANGE');
-            $changeSpan.appendTo($letterDiv);
-          }
-
           var $toolTip = $('<div />');
           $toolTip.appendTo($letterSpan)
             .addClass('character-picker pos-absolute');
@@ -113,8 +96,7 @@ module.exports = function (selector, lang, icons) {
           $charContainer.appendTo($toolTip)
           $toolTipArrow.clone().prependTo($toolTip);
 
-          var letterChars = allChars[i]
-          $(letterChars.characters).each(function (ix, charObj) {
+          $(letter.characters).each(function (ix, charObj) {
             var $imgContainer = $('<div />')
               .addClass('img-container');
 
@@ -131,7 +113,7 @@ module.exports = function (selector, lang, icons) {
             var $selectButton = $('<button />')
               .data('char', charObj)
               .data('page', i);
-            if (letterChars.selected == charObj.character) {
+            if (letter.selected.character == charObj.character) {
               $imgContainer.addClass('selected-char');
               $selectButton
                 .addClass('button')
