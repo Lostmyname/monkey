@@ -18,7 +18,6 @@ window.Monkey = module.exports = (function () {
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
-      firstBookName: $monkeyContainer.data('first-book-name'),
 
       // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
       // server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
@@ -35,6 +34,10 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
+    options.book = $.extend(
+        {firstbook: $monkeyContainer.data('first-book-name')},
+        options.book);
+
     this.$events = $({});
 
     var promise = Monkey._getData(options)
@@ -49,7 +52,7 @@ window.Monkey = module.exports = (function () {
       )
       .then(Monkey.letters._init(this.$events, options));
     }
-    if (options.firstBookName) {
+    if (options.book.firstbook) {
       promise = promise.then(Monkey.letters._generateOverlay(options));
     }
 

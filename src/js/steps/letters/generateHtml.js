@@ -167,7 +167,7 @@ module.exports = function (selector, lang, icons) {
           $book = data.monkeyContainer;
         }
 
-        $book.find('.worm-loader').remove();
+        $book.find('.loader-img').remove();
         data.lettersElement = $lettersContainer.appendTo($book);
 
         if (icons) {

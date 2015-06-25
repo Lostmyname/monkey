@@ -12,7 +12,7 @@ var $ = require('jquery');
 module.exports = function (options) {
   var locale = options.book.locale;
 
-  return $.getJSON(options.server, { firstbook: options.firstBookName, widget: options.book })
+  return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
       return data.book;
     });
