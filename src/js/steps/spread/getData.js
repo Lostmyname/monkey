@@ -48,7 +48,7 @@ module.exports = function (monkeyData, options) {
   return defer.promise();
 
   function makeRequest() {
-    $.getJSON(options.server, { widget: options.book })
+    $.getJSON(options.server, { firstbook: options.firstBookName, widget: options.book })
       .then(function (data) {
         $.each(data.book.letters, function (i, letter) {
           if (letter.type === 'spread' && letter.ready) {

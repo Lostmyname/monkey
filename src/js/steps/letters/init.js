@@ -11,6 +11,9 @@ module.exports = function ($events, options) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
+    var $charButtons = $letters.find('button');
+    var $changeButtons = $letters.find('.change-character');
+    var $characterPickers = $letters.find('.character-picker');
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -45,6 +48,12 @@ module.exports = function ($events, options) {
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
       data.turnToPage($this.index() - charsBefore);
+      var activeLetter = $('#letters .letter-active');
+      activeLetter.find('.character-picker').show();
+    });
+
+    $changeButtons.on('click', function () {
+      $(this).parent().find('.character-picker').addClass('active');
     });
 
     if (options.icons) {
@@ -53,6 +62,32 @@ module.exports = function ($events, options) {
         calculatedWidth  += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth });
+
+      $charButtons.on('click', function () {
+        var $buttonEl = $(this);
+        var character = $buttonEl.data('char');
+        var page = $buttonEl.data('page');
+
+        var activeLetter = $('#letters .letter-active');
+        var characterCard = activeLetter.find('.character-card img');
+        characterCard
+          .attr("src", character.thumbnail);
+
+        var selectedChar = activeLetter.find('.selected-char');
+        selectedChar.removeClass('selected-char');
+        var $prevButton = selectedChar.find('button');
+        $prevButton
+          .attr('disabled', false)
+          .text('select')
+          .addClass('primary');
+
+        $buttonEl
+          .attr('disabled', true)
+          .removeClass('primary')
+          .text('selected');
+        $buttonEl.parent().addClass('selected-char')
+        data.swapPage(page, character);
+      });
     };
 
     if (isMobile && options.icons && options.animateName) {
