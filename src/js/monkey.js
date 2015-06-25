@@ -20,8 +20,8 @@ window.Monkey = module.exports = (function () {
       animateName: true,
 
       // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
-      // server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
-      server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
+      server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      // server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
