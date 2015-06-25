@@ -13,6 +13,7 @@ module.exports = function (selector, lang, icons) {
     lang = selector;
     selector = true;
   }
+  var defer = $.Deferred();
 
   return function (data) {
     var $lettersContainer = $('<div />');
@@ -59,107 +60,121 @@ module.exports = function (selector, lang, icons) {
     }
     var combinedLetters = combineLetters(letters, dataLetters);
 
-    $(combinedLetters).each(function (i, letter) {
-      var $letterDiv = $('<div />');
-      $letterDiv.appendTo($letters)
-        .addClass('letter')
-        .after(' ');
-      if (letter.changed) {
-        $letterDiv.addClass('changed')
-      };
-
-      var $letterSpan = $('<div />')
-        .toggleClass('char', letter.letter !== '')
-        .text(letter.letter || '');
-      $letterSpan.appendTo($letterDiv);
-
-      if (icons && letter.thumbnail) {
-        var $characterCard = $('<div />');
-        $characterCard.appendTo($letterDiv)
-          .addClass('character-card');
-
-        var $charCardImg = $('<img />')
-          .attr('src', letter.thumbnail);
-        $charCardImg.appendTo($characterCard);
-
+    var loadLetterCards = function () {
+      var cardsToLoad = combineLetters.length;
+      $(combinedLetters).each(function (i, letter) {
+        var $letterDiv = $('<div />');
+        $letterDiv.appendTo($letters)
+          .addClass('letter')
+          .after(' ');
         if (letter.changed) {
-          var $changeSpan = $('<span />')
-            .addClass('change-character color-alert')
-            .text('CHANGE');
-          $changeSpan.appendTo($letterDiv);
-        }
+          $letterDiv.addClass('changed')
+        };
 
-        var $toolTip = $('<div />');
-        $toolTip.appendTo($letterSpan)
-          .addClass('character-picker pos-absolute');
+        var $letterSpan = $('<div />')
+          .toggleClass('char', letter.letter !== '')
+          .text(letter.letter || '');
+        $letterSpan.appendTo($letterDiv);
 
-        var $charPickTitle = $('<div />')
-          .text('Choose another story for ‘' + letter.letter + '’')
-          .addClass('title');
+        if (icons && letter.thumbnail) {
+          var $characterCard = $('<div />');
+          $characterCard.appendTo($letterDiv)
+            .addClass('character-card');
 
-        $charPickTitle.appendTo($toolTip)
+          var $icon = $('<img />')
+            .attr('src', letter.thumbnail);
+          $icon.appendTo($characterCard);
 
-        var $charContainer = $('<div />')
-          .addClass('char-container')
-        $charContainer.appendTo($toolTip)
-        $toolTipArrow.clone().prependTo($toolTip);
+          $icon.on('load', function () {
+            if (--cardsToLoad === 0) {
+              console.log("resolving");
+            }
+          });
 
-        var letterChars = allChars[i]
-        $(letterChars.characters).each(function (ix, charObj) {
-          var $imgContainer = $('<div />')
-            .addClass('img-container');
-
-          var $img = $('<img />')
-            .attr('src', charObj.thumbnail)
-            .addClass('character-image');
-          var $charName = $('<div />')
-            .addClass('character-name')
-            .text(charObj.character);
-          $imgContainer.appendTo($charContainer);
-          $img.appendTo($imgContainer);
-          $charName.appendTo($imgContainer);
-
-          var $selectButton = $('<button />')
-            .data('char', charObj)
-            .data('page', i);
-          if (letterChars.selected == charObj.character) {
-            $imgContainer.addClass('selected-char');
-            $selectButton
-              .addClass('button')
-              .attr('disabled', true)
-              .text('selected');
-          } else {
-            $selectButton
-              .addClass('button primary')
-              .text('select');
+          if (letter.changed) {
+            var $changeSpan = $('<span />')
+              .addClass('change-character color-alert')
+              .text('CHANGE');
+            $changeSpan.appendTo($letterDiv);
           }
-          $selectButton.appendTo($charName);
-        });
-      }
-    });
 
-    $('<div />').html('&bull;')
-      .prependTo($letters)
-      .addClass('letter')
-      .after(' ')
-      .clone().appendTo($letters);
+          var $toolTip = $('<div />');
+          $toolTip.appendTo($letterSpan)
+            .addClass('character-picker pos-absolute');
 
-    var $book = false;
-    if (typeof selector !== 'boolean') {
-      $book = $(selector);
-    }
+          var $charPickTitle = $('<div />')
+            .text('Choose another story for ‘' + letter.letter + '’')
+            .addClass('title');
 
-    if (!$book || !$book.length) {
-      $book = data.html.parents('[data-key="lmn-book"]');
-    }
+          $charPickTitle.appendTo($toolTip)
 
-    data.lettersElement = $lettersContainer.prependTo($book);
+          var $charContainer = $('<div />')
+            .addClass('char-container')
+          $charContainer.appendTo($toolTip)
+          $toolTipArrow.clone().prependTo($toolTip);
 
-    if (icons) {
-      $lettersContainer.parents('#monkey').addClass('monkey-icons');
+          var letterChars = allChars[i]
+          $(letterChars.characters).each(function (ix, charObj) {
+            var $imgContainer = $('<div />')
+              .addClass('img-container');
+
+            var $img = $('<img />')
+              .attr('src', charObj.thumbnail)
+              .addClass('character-image');
+            var $charName = $('<div />')
+              .addClass('character-name')
+              .text(charObj.character);
+            $imgContainer.appendTo($charContainer);
+            $img.appendTo($imgContainer);
+            $charName.appendTo($imgContainer);
+
+            var $selectButton = $('<button />')
+              .data('char', charObj)
+              .data('page', i);
+            if (letterChars.selected == charObj.character) {
+              $imgContainer.addClass('selected-char');
+              $selectButton
+                .addClass('button')
+                .attr('disabled', true)
+                .text('selected');
+            } else {
+              $selectButton
+                .addClass('button primary')
+                .text('select');
+            }
+            $selectButton.appendTo($charName);
+          });
+          defer.resolve();
+        }
+      });
+      return defer.promise();
     };
 
-    return data;
+    return loadLetterCards()
+      .then(function() {
+        $('<div />').html('&bull;')
+          .prependTo($letters)
+          .addClass('letter')
+          .after(' ')
+          .clone().appendTo($letters);
+
+        var $book = false;
+        if (typeof selector !== 'boolean') {
+          $book = $(selector);
+        }
+
+        if (!$book || !$book.length) {
+          $book = data.monkeyContainer;
+        }
+
+        $book.find('.worm-loader').remove();
+        data.lettersElement = $lettersContainer.appendTo($book);
+
+        if (icons) {
+          $lettersContainer.parents('#monkey').addClass('monkey-icons');
+        };
+        return data
+      })
   };
 };
 

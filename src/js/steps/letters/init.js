@@ -61,7 +61,7 @@ module.exports = function ($events, options) {
       $spans.each(function () {
         calculatedWidth  += $(this).outerWidth(true);
       });
-      $letters.css({ width: calculatedWidth });
+      $letters.css({ width: calculatedWidth + 10 });
 
       $charButtons.on('click', function () {
         var $buttonEl = $(this);

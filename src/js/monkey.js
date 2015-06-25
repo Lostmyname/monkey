@@ -49,6 +49,9 @@ window.Monkey = module.exports = (function () {
       )
       .then(Monkey.letters._init(this.$events, options));
     }
+    if (options.firstBookName) {
+      promise = promise.then(Monkey.letters._generateOverlay(options));
+    }
 
     promise = promise
     .then(Monkey._generateUrls(options.preload))
@@ -83,6 +86,7 @@ window.Monkey = module.exports = (function () {
   Monkey.letters.Monkey = Monkey;
   Monkey.letters._generateHtml = require('./steps/letters/generateHtml');
   Monkey.letters._init = require('./steps/letters/init');
+  Monkey.letters._generateOverlay = require('./steps/letters/generateOverlay');
 
   Monkey.helpers = {};
   Monkey.helpers.Monkey = Monkey;
