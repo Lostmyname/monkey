@@ -15,6 +15,7 @@ window.Monkey = module.exports = (function () {
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
+      slider: false, // Display slider? true, false, or selector
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
@@ -59,6 +60,11 @@ window.Monkey = module.exports = (function () {
       .then(Monkey.letters._init(this.$events, options));
     }
 
+    if (options.slider) {
+      promise = promise.then(Monkey.slider._generateHtml(options))
+        .then(Monkey.slider._init(this.$events));
+    }
+
     this.promise = promise;
   }
 
@@ -78,6 +84,11 @@ window.Monkey = module.exports = (function () {
   Monkey.letters.Monkey = Monkey;
   Monkey.letters._generateHtml = require('./steps/letters/generateHtml');
   Monkey.letters._init = require('./steps/letters/init');
+
+  Monkey.slider = {};
+  Monkey.slider.Monkey = Monkey;
+  Monkey.slider._generateHtml = require('./steps/slider/generateHtml');
+  Monkey.slider._init = require('./steps/slider/init');
 
   Monkey.helpers = {};
   Monkey.helpers.Monkey = Monkey;
