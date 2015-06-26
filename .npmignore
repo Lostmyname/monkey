@@ -1,6 +1,8 @@
 node_modules
-build
 demo/build
 demo/partials
 *.log
 .sass-cache
+
+src
+test
