@@ -14,7 +14,6 @@ mobile.calculateSize = function () {
 };
 
 mobile.generateHtml = function (data) {
-  // var $monkey = data.monkeyContainer;
   var $monkey = $('<div />').addClass('monkey mobile');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
@@ -23,7 +22,7 @@ mobile.generateHtml = function (data) {
 
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
-      .addClass('page page-' + data.letters[i].type);
+      .addClass('page page-' + data.letters[i].type + ' Page-' + i);
 
     if (i === 0) {
       $page.addClass('page-first page-halfwidth');
@@ -91,6 +90,29 @@ mobile.init = function (data, $events) {
       $events.trigger('finished');
     }
   });
+
+  data.swapPage = function(index, character) {
+    var page = (index + 3) + index;
+    var $newImage = $('<img />')
+      .attr('src', character.url1 + data.queryString)
+      .css({width: 480});
+    var $newImage2 = $('<img />')
+      .attr('src', character.url2 + data.queryString)
+      .css({width: 480});
+
+    var newPage1 = $('<div />')
+        .addClass('page page- Page-' + page)
+        .append($newImage.clone());
+
+    var newPage2 = $('<div />')
+        .addClass('page page- Page-' + (page + 1))
+        .append($newImage2.clone());
+
+    var page1El = $('.Page-' + page);
+    var page2El = $('.Page-' + (page + 1));
+    page1El.replaceWith(newPage1);
+    page2El.replaceWith(newPage2);
+  }
 
   this.harass(data);
 

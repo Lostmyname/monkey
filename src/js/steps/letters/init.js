@@ -8,13 +8,17 @@ var animationSpeed = 800;
 
 module.exports = function ($events, options) {
   return function (data) {
+    var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
-    var $charButtons = $letters.find('button');
-    var $changeButtons = $letters.find('.change-character');
-    var $characterPickers = $letters.find('.character-picker');
+    var $picker = $monkey.prev();
+    var $pickers = $picker.find('.character-picker');
+    var $charButtons = $picker.find('button');
+    var $changeButtons = $picker.find('.change-character');
     var currentPageIndex = 0;
+    var $activeLetter;
+    var $currentPicker;
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -53,9 +57,12 @@ module.exports = function ($events, options) {
       var charsBefore = $this.prevAll('.special-char').length;
       $('.character-picker').hide();
       data.turnToPage($this.index() - charsBefore);
-      var activeLetter = $('#letters .letter-active');
+      $activeLetter = $('#letters .letter-active');
       if (currentPageIndex === $this.index()) {
-        activeLetter.find('.character-picker').show();
+        $currentPicker = $($pickers[$this.index() - 1]);
+        $currentPicker
+          .show()
+          .addClass('active');
       }
       currentPageIndex = $this.index();
       event.stopPropagation();
@@ -71,18 +78,18 @@ module.exports = function ($events, options) {
         calculatedWidth  += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth + 10 });
+      $('.picker-container').css({width: calculatedWidth + 10});
 
       $charButtons.on('click', function () {
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
         var page = $buttonEl.data('page');
 
-        var activeLetter = $('#letters .letter-active');
-        var characterCard = activeLetter.find('.character-card img');
+        var characterCard = $activeLetter.find('.character-card img');
         characterCard
           .attr("src", character.thumbnail);
 
-        var selectedChar = activeLetter.find('.selected-char');
+        var selectedChar = $currentPicker.find('.selected-char');
         selectedChar.removeClass('selected-char');
         var $prevButton = selectedChar.find('button');
         $prevButton
@@ -98,12 +105,11 @@ module.exports = function ($events, options) {
         data.swapPage(page, character);
       });
     };
-
     if (isMobile && options.icons && options.animateName) {
       $letters
         .delay(animationDelay)
         .animate({ marginLeft: 100 }, animationSpeed);
-    } else if (isMobile && options.animateName) {
+    } else if (isMobile && !options.animateName) {
       $letters.css({ marginLeft: 100 });
     }
 

@@ -11,9 +11,9 @@ module.exports = function (monkeyContainer, options) {
     if (options.replaceMonkey) {
       monkeyContainer.empty();
     }
-    data.base = this.monkeys[data.monkeyType].generateBaseElement(data);
+    monkeyContainer.addClass(data.monkeyType)
+    data.base = monkeyContainer
     data.monkeyContainer = monkeyContainer;
-    // monkeyContainer.append(data.base);
 
     return data;
   }.bind(this);

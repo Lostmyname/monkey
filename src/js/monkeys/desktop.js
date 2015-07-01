@@ -12,8 +12,9 @@ desktop.calculateSize = function () {
 };
 
 desktop.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
-  // var $monkeyBase = data.base;
+  var $monkeyWrapper = $('<div />')
+    .addClass('pos-relative monkey-wrapper');
+  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop pos-absolute');
 
   $.each(data.urls, function (i, url) {
     $('<div />')
@@ -21,12 +22,9 @@ desktop.generateHtml = function (data) {
       .append($('<img />').attr('src', url))
       .appendTo($monkey);
   });
+  $monkey.appendTo($monkeyWrapper);
 
-  return $monkey;
-};
-
-desktop.generateBaseElement = function (data) {
-  return $('<div />').addClass('monkey desktop');
+  return $monkeyWrapper;
 };
 
 desktop.init = function (data, $events) {
@@ -38,7 +36,7 @@ desktop.init = function (data, $events) {
     var page = $('.Page' + pages);
   }
 
-  data.heidelberg = new Heidelberg(data.html, {
+  data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
     hasSpreads: true
   });

@@ -1,5 +1,5 @@
 .Heidelberg-Book {
-  position: relative;
+  position: absolute;
   left: 0;
   transition: left 0.7s;
 
@@ -43,4 +43,8 @@
     width: 50%;
     margin-left: 50%;
   }
+}
+
+.monkey-wrapper {
+  height: 500px;
 }

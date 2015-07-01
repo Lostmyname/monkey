@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var isMobile = require('../../helpers/isMobile')();
 
 /**
  * Generate HTML for letters.
@@ -28,7 +29,11 @@ module.exports = function (selector, lang, icons) {
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
       .text(lang.bookFor);
 
-    var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
+    var $pickerContainer = $('<div />')
+      .addClass('picker-container');
+
+    var $letterSpanContainer = $('<div />')
+      .appendTo($lettersContainer)
       .addClass('letter-spans');
 
     var $letters = $('<div />').appendTo($letterSpanContainer)
@@ -82,7 +87,14 @@ module.exports = function (selector, lang, icons) {
           });
 
           var $toolTip = $('<div />');
-          $toolTip.appendTo($letterSpan)
+          if (isMobile) {
+            var toolTipLeft = ($(window).width() - 300) / 2;
+            $toolTip.css({left: toolTipLeft});
+          } else {
+            var toolTipMargin = (i -2) * 48;
+            $toolTip.css({marginLeft: toolTipMargin})
+          }
+          $toolTip.appendTo($pickerContainer)
             .addClass('character-picker pos-absolute');
 
           var charPickTitle;
@@ -156,7 +168,8 @@ module.exports = function (selector, lang, icons) {
           $book = data.monkeyContainer;
         }
 
-        $book.find('.loader-img').remove();
+        $book.empty();
+        $pickerContainer.prependTo($book.parent());
         data.lettersElement = $lettersContainer.appendTo($book);
 
         if (icons) {
