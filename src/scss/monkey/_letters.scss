@@ -57,9 +57,9 @@
       }
     }
     .change-character {
+      display: none;
       font-size: 0.5em;
       font-weight: bold;
-      display: block;
     }
     .letter-active, .letter-active:hover {
       border-bottom: none;

@@ -25,11 +25,11 @@ module.exports = function (options, monkeyContainer) {
       $overlayInner.appendTo($overlay);
 
       var $titleBox = $('<h4 />')
-        .text('These look familar!');
+        .text('These look familiar!');
       $titleBox.appendTo($overlayInner);
 
       var $messageBox = $('<div />')
-        .text('Some of the letter above appear in both ' + options.book.firstbook +
+        .text('Some of the letters above appear in both ' + options.book.firstbook +
             ' and ' + data.name + '\'s books. But never fear - we have extra ' +
             'characters for the letters in yellow. ' +
             'Would you like to use these new characters?')
@@ -59,7 +59,6 @@ module.exports = function (options, monkeyContainer) {
       });
 
       $noButton.on('click', function () {
-        $('.change-character').remove();
         closeOverlay();
       });
 

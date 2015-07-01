@@ -93,25 +93,10 @@ mobile.init = function (data, $events) {
 
   data.swapPage = function(index, character) {
     var page = (index + 3) + index;
-    var $newImage = $('<img />')
-      .attr('src', character.url1 + data.queryString)
-      .css({width: 480});
-    var $newImage2 = $('<img />')
-      .attr('src', character.url2 + data.queryString)
-      .css({width: 480});
-
-    var newPage1 = $('<div />')
-        .addClass('page page- Page-' + page)
-        .append($newImage.clone());
-
-    var newPage2 = $('<div />')
-        .addClass('page page- Page-' + (page + 1))
-        .append($newImage2.clone());
-
-    var page1El = $('.Page-' + page);
-    var page2El = $('.Page-' + (page + 1));
-    page1El.replaceWith(newPage1);
-    page2El.replaceWith(newPage2);
+    var page1El = $('.Page-' + page).find('img');
+    var page2El = $('.Page-' + (page + 1)).find('img');
+    page1El.attr({src: character.url1 + data.queryString});
+    page2El.attr({src: character.url2 + data.queryString});
   }
 
   this.harass(data);
@@ -152,6 +137,9 @@ mobile.letterHandler = function (data, $events) {
     var currentPage = 0;
 
     $pages.each(function (i) {
+      console.log($(this));
+      console.log($(this).offset().left);
+      console.log("");
       if ($(this).offset().left >= -$window.width()) {
         currentPage = i;
 
@@ -172,6 +160,7 @@ mobile.letterHandler = function (data, $events) {
 
   // index is the letter index
   return function turnToPage(index) {
+    var $pages = data.html.find('.page');
     var $page = $pages.eq(index * 2 + 1);
     var offset = $page.offset().left - $page.parent().offset().left;
 

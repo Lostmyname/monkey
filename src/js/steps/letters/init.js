@@ -56,6 +56,7 @@ module.exports = function ($events, options) {
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
       $('.character-picker').hide();
+      $this.find('.change-character').css({display: 'block'});
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
       if (currentPageIndex === $this.index()) {

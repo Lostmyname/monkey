@@ -96,6 +96,10 @@ module.exports = function (selector, lang, icons) {
           }
           $toolTip.appendTo($pickerContainer)
             .addClass('character-picker pos-absolute');
+          var $changeSpan = $('<span />')
+            .addClass('change-character color-alert')
+            .text('CHANGE');
+          $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;
           if (letter.characters.length === 0) {
