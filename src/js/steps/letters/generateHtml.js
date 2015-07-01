@@ -102,7 +102,7 @@ module.exports = function (selector, lang, icons) {
           $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;
-          if (letter.characters.length === 0) {
+          if (letter.characters.length < 2) {
             charPickTitle = 'Sorry. No more ‘' + letter.letter +
               '’ characters available.';
           } else {
