@@ -198,7 +198,7 @@
 
 .character-picker--active {
   opacity: 1;
-  transform: scale(1);
+  transform: none;
   transition-delay:.4s, 0, 0;
   visibility: visible;
   .tooltip-arrow {
