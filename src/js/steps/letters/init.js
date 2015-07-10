@@ -18,8 +18,8 @@ module.exports = function ($events, options) {
     var $picker = $monkey.prev();
     //var $pickers = $picker.find('.character-picker');
     var $pickers = $('.character-picker');
-    var $charButtons = $picker.find('button');
-    var $changeButtons = $picker.find('.change-character');
+    var $charButtons = $pickers.find('button');
+    var $changeButtons = $pickers.find('.change-character');
     var currentPageIndex = 0;
     var $activeLetter;
     var $currentPicker;
