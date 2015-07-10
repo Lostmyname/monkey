@@ -34,6 +34,8 @@ module.exports = function (selector, lang, icons) {
     var loadLetterPicker = function () {
       var cardsToLoad = data.combinedLetters.length;
       $(data.combinedLetters).each(function (i, letter) {
+
+      	console.log(letter);
         
         if (icons && letter.thumbnail) {
           

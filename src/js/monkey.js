@@ -60,16 +60,17 @@ window.Monkey = module.exports = (function () {
       }
       promise = promise.then(Monkey.letters._init(this.$events, options));
     }
-    if (options.book.firstbook) {
-      promise = promise.then(Monkey.letters._generateOverlay(options, $monkeyContainer));
-    }
 
     promise = promise
     .then(Monkey._generateUrls(options.preload))
     .then(Monkey._generateHtml())
     .then(Monkey._insertHtml(monkeyContainer))
-    .then(Monkey._initMonkey(this.$events))
-    .then(function (data) {
+    .then(Monkey._initMonkey(this.$events));
+
+    if (options.book.firstbook) {
+      promise = promise.then(Monkey.letters._generateOverlay(options, $monkeyContainer));
+    }
+    promise = promise.then(function (data) {
       if (data.needsSpread) {
         Monkey.spread._getData(data, options)
           .then(Monkey.spread._insertSpread());

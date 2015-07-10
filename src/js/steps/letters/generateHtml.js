@@ -60,7 +60,7 @@ module.exports = function (selector, lang, icons) {
           .attr('data-letter', letter.letter)
           .attr('data-character', letter.selected) // Make this lowercase?
           .after(' ');
-        if (letter.changed) {
+        if (letter.selected !== letter.default_character) {
           $letterDiv.addClass('changed')
         };
 

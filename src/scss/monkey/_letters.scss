@@ -113,14 +113,75 @@
   }
 }
 
-.overlay {
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  height: 250px;
-  z-index: 10;
-  margin-top: -5px;
+@keyframes fadeAndScaleIn {
+  0% {
+    opacity:0;
+    transform: scale(1.05) transform3d(0,0,0);
+  }
+  100% {
+    opacity:1;
+    transform: transform3d(0,0,0);
+  }
 }
+
+.overlay {
+  animation: fadeAndScaleIn .4s 1 ease both;
+  //background:#fff;
+  height:100%;
+  left:0;
+  position: absolute;
+  top:0;
+  width:100%;
+  z-index:5;
+}
+.overlay__inner {
+  //display: flex;
+  height:100%;
+  left:0;
+  top:0;
+  position: absolute;
+  width:100%;
+  z-index:1;
+
+  .row {
+    //align-self: center;
+    margin:0;
+    width:100%;
+  }
+
+  .col {
+    max-width:38em;
+  }
+  .row > .col {
+    margin: 0 auto;
+  }
+}
+
+// Browser-proof version (IE8 + 9)
+
+.overlay__inner {
+  &:before {
+    content:"";
+    display: inline-block;
+    
+    height:100%;
+    margin-left: -1px;
+    vertical-align: middle;
+    
+    width:1px;
+  }
+
+  .row {
+    display: inline-block;
+    max-width:99%;
+    vertical-align: middle;
+  }
+}
+
+.overlay__buttons {
+  padding-top: 1em;
+}
+
 
 .picker-container {
   margin: 0 auto;

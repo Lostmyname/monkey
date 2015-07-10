@@ -16,17 +16,26 @@ module.exports = function (options, monkeyContainer) {
       // $monkeyContainer.css({minHeight: 220});
       var $overlay = $('<div />');
       var $monkeyContainer = data.monkeyContainer;
+      var classes = {
+        overlayActive: 'js--active-overlay'
+      };
 
-      $overlay.appendTo($monkeyContainer)
-        .addClass('overlay lg-pad lg-pad-on-md sm-pad-on-sm');
+      $monkeyContainer.addClass(classes.overlayActive);
+
+      $overlay.appendTo($monkeyContainer.find('.monkey-wrapper'))
+        .addClass('overlay color-bg-narvik');
 
       var $overlayInner = $('<div />')
-        .addClass('row');
+        .addClass('overlay__inner lg-pad lg-pad-on-md sm-pad-on-sm');
       $overlayInner.appendTo($overlay);
+
+      var $overlayContent = $('<div />')
+        .addClass('row');
+      $overlayContent.appendTo($overlayInner);
 
       var $titleBox = $('<h4 />')
         .text('These look familiar!');
-      $titleBox.appendTo($overlayInner);
+      $titleBox.appendTo($overlayContent);
 
       var $messageBox = $('<div />')
         .text('Some of the letters above appear in both ' + options.book.firstbook +
@@ -34,10 +43,10 @@ module.exports = function (options, monkeyContainer) {
             'characters for the letters in yellow. ' +
             'Would you like to use these new characters?')
         .addClass('col col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-xs-offset-0');
-        $messageBox.appendTo($overlayInner);
+      $messageBox.appendTo($overlayContent);
 
       var $buttonContainer = $('<div />')
-        .addClass('col lg-pad');
+        .addClass('col overlay__buttons');
 
       var $yesButton = $('<button />')
         .text('YES PLEASE!')
@@ -47,7 +56,7 @@ module.exports = function (options, monkeyContainer) {
         .text('No thanks!')
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
-      $buttonContainer.appendTo($overlayInner);
+      $buttonContainer.appendTo($overlayContent);
       $noButton.appendTo($buttonContainer);
       $yesButton.appendTo($buttonContainer, function () {
         defer.resolve();
@@ -64,7 +73,9 @@ module.exports = function (options, monkeyContainer) {
 
       function closeOverlay () {
         $('.letter').removeClass('changed');
-        $monkeyContainer.css({minHeight: 0});
+        $monkeyContainer
+          .removeClass(classes.overlayActive)
+          .css({minHeight: 0});
         $overlay.slideUp();
 
       };
