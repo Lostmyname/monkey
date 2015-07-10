@@ -26,6 +26,12 @@
   }
 }
 
+#letters-container {
+  position: relative;
+  transform: translate(0,0);
+  z-index:1;
+}
+
 .monkey-icons {
 
   #letters {
@@ -34,12 +40,15 @@
       padding: 2px 4px 0px 4px;
       display: block;
       margin: 0 1px 0 0;
+      position: relative;
       .char {
+        border-radius: 50%;
         width: 28px;
         height: 28px;
         line-height: 28px;
         text-align: center;
         margin: 0 auto 6px auto;
+        transition: .25s ease;
       }
     }
     .letter.changed {
@@ -50,26 +59,32 @@
       .char {
         background-color: #f1f1f1;
         color: #333;
-        border-radius: 50%;
+        
       }
       .character-card {
         box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
       }
     }
     .change-character {
-      display: none;
+      display: block;
       font-size: 0.5em;
       font-weight: bold;
+      opacity: 0;
+      transition: opacity .25s ease;
     }
     .letter-active, .letter-active:hover {
       border-bottom: none;
       .char {
         color: #FFF;
         background-color: #f06263;
-        border-radius: 50%;
       }
       .character-card {
         box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+      }
+    }
+    .letter-active {
+      .change-character {
+        opacity: 1;
       }
     }
     .letter:first-child, .letter:last-child {
@@ -111,20 +126,29 @@
   margin: 0 auto;
 }
 .character-picker {
-  display: none;
-  margin-top: 130px;
+  display: block;
+  margin-top:24px;
   padding: 15px 15px 0 15px;
   background-color: #FFF;
   border: 2px solid #e6e6e6;
   border-radius: 5px;
+  font-weight: normal;
   z-index: 12000000000;
   color: #707070;
-  min-width: 300px;
+  min-width: 310px;
+  opacity: 0;
+  top:100%;
+  left:50%;
+  transform:scale(1.05);
+  transition: visibility .4s ease, opacity .4s ease, transform .4s ease;
+  visibility: hidden;
+
   .tooltip-arrow {
+    left:50%;
     margin-top: -32px;
     width: 30px;
     position: absolute;
-    margin-left: -20px;
+    margin-left: -15px;
   }
   .char-container {
     .img-container {
@@ -170,6 +194,16 @@
 }
 .character-picker.active {
   display: inline;
+}
+
+.character-picker--active {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay:.4s, 0, 0;
+  visibility: visible;
+  .tooltip-arrow {
+    display: block;
+  }
 }
 
 

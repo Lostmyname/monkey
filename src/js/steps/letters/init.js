@@ -8,12 +8,16 @@ var animationSpeed = 800;
 
 module.exports = function ($events, options) {
   return function (data) {
+    var classes = {
+      charPickerActive: 'character-picker--active'
+    };
     var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
     var $picker = $monkey.prev();
-    var $pickers = $picker.find('.character-picker');
+    //var $pickers = $picker.find('.character-picker');
+    var $pickers = $('.character-picker');
     var $charButtons = $picker.find('button');
     var $changeButtons = $picker.find('.change-character');
     var currentPageIndex = 0;
@@ -49,29 +53,27 @@ module.exports = function ($events, options) {
       }
     });
 
-    $letters.on('click', '.letter', function () {
+    $letters.on('click', '.letter', function (evt) {
       $('html').on('click',function() {
-        $('.character-picker').hide();
+        $('.character-picker').removeClass(classes.charPickerActive);
       });
+
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
-      $('.character-picker').hide();
-      $('.change-character').hide();
-      $this.find('.change-character').css({display: 'block'});
+      $('.'+classes.charPickerActive).removeClass(classes.charPickerActive);
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
       if (currentPageIndex === $this.index()) {
         $currentPicker = $($pickers[$this.index() - 1]);
         $currentPicker
-          .show()
-          .addClass('active');
+          .addClass(classes.charPickerActive);
       }
       currentPageIndex = $this.index();
-      event.stopPropagation();
+      evt.stopPropagation();
     });
 
     $changeButtons.on('click', function () {
-      $(this).parent().find('.character-picker').addClass('active');
+      $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
     });
 
     if (options.icons) {

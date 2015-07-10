@@ -37,22 +37,13 @@ module.exports = function (selector, lang, icons) {
         
         if (icons && letter.thumbnail) {
           
-          var $toolTip = $('<div />');
-          if (isMobile) {
-            var toolTipLeft = ($(window).width() - 300) / 2;
-            $toolTip.css({left: toolTipLeft});
-          } else {
-            var toolTipMargin = (i -2) * 48;
-            $toolTip.css({marginLeft: toolTipMargin})
-          }
-          $toolTip.appendTo($pickerContainer)
-            .addClass('character-picker pos-absolute');
+          var $toolTip = $('<div />');         
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
             .text('CHANGE');
 
          	var $letterDiv = $('.letter[data-letter="'+letter.letter+'"][data-character="'+letter.selected+'"]');
-          $changeSpan.appendTo($letterDiv);
+          $changeSpan.appendTo($letterDiv);          
 
           var charPickTitle;
 
@@ -75,6 +66,21 @@ module.exports = function (selector, lang, icons) {
             .addClass('char-container')
           $charContainer.appendTo($toolTip)
           $toolTipArrow.clone().prependTo($toolTip);
+
+          if(isMobile) {
+          	var toolTipLeft = ($(window).width() - 300) / 2;
+            $toolTip.css({left: toolTipLeft});
+            $toolTip.appendTo($pickerContainer)
+            	.addClass('character-picker pos-absolute');
+          } else {
+          	$toolTip.appendTo($letterDiv)
+          	.addClass('character-picker pos-absolute');
+	          var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
+
+	         	$toolTip.css({
+	         		'margin-left': toolTipMargin
+	         	});
+	        }
 
           $(remainingLetterChars).each(function (ix, charObj) {
             // Include the character in the selection if not used earlier
