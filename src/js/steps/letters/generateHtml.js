@@ -86,14 +86,15 @@ module.exports = function (selector, lang, icons) {
 
     if (icons) {
       $lettersContainer.parents('#monkey').addClass('monkey-icons');
-    };
+    }
 
     return data;
   };
 };
 
-var combineLetters = function (splitLetters, dataLetters) {
-  var offset = 0
+function combineLetters(splitLetters, dataLetters) {
+  var offset = 0;
+
   return $.map(splitLetters, function (val, i) {
     var idx = i;
     if (splitLetters.length > 5) {
@@ -102,9 +103,9 @@ var combineLetters = function (splitLetters, dataLetters) {
     if (val === '-') {
       offset++;
       return { letter: val };
-    } else {
-      dataLetters[idx].letter = val;
-      return dataLetters[idx];
     }
+
+    dataLetters[idx].letter = val;
+    return dataLetters[idx];
   });
 }

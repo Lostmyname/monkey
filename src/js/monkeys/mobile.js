@@ -73,7 +73,7 @@ mobile.init = function (data, $events) {
     var index = scrollLeft / $monkey.find('.landscape-images-inner').width();
     if (index > maxProgress) {
       maxProgress = index;
-      $events.trigger('bookprogress', { progress: index })
+      $events.trigger('bookprogress', { progress: index });
     }
 
     windowLeft = scrollLeft / $monkey.find('img').width();

@@ -1,6 +1,4 @@
 window.Monkey = module.exports = (function () {
-  'use strict';
-
   var $ = require('jquery');
 
   /**
