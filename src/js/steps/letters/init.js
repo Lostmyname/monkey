@@ -80,7 +80,7 @@ module.exports = function ($events, options) {
         calculatedWidth  += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth + 10 });
-      $('.picker-container').css({width: calculatedWidth + 10});
+      $('.picker-container').css({ width: calculatedWidth + 10 });
 
       $charButtons.on('click', function () {
         var $buttonEl = $(this);

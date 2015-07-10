@@ -54,6 +54,10 @@ module.exports = function (selector, lang, icons) {
       letters.splice(-1, 0, '');
     }
     var combinedLetters = combineLetters(letters, dataLetters);
+    var allCharacters = $.map(combinedLetters, function (el) {
+        return el.selected;
+      });
+
 
     var loadLetterCards = function () {
       var cardsToLoad = combineLetters.length;
@@ -102,7 +106,12 @@ module.exports = function (selector, lang, icons) {
           $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;
-          if (letter.characters.length < 2) {
+
+          var remainingLetterChars = $.grep(letter.characters, function (charObj) {
+            return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
+          });
+
+          if (remainingLetterChars < 2) {
             charPickTitle = 'Sorry. No more ‘' + letter.letter +
               '’ characters available.';
           } else {
@@ -119,7 +128,8 @@ module.exports = function (selector, lang, icons) {
           $charContainer.appendTo($toolTip)
           $toolTipArrow.clone().prependTo($toolTip);
 
-          $(letter.characters).each(function (ix, charObj) {
+          $(remainingLetterChars).each(function (ix, charObj) {
+            // Include the character in the selection if not used earlier
             var $imgContainer = $('<div />')
               .addClass('img-container');
 
@@ -136,7 +146,7 @@ module.exports = function (selector, lang, icons) {
             var $selectButton = $('<button />')
               .data('char', charObj)
               .data('page', i);
-            if (letter.selected.character == charObj.character) {
+            if (letter.selected == charObj.character) {
               $imgContainer.addClass('selected-char');
               $selectButton
                 .addClass('button')
