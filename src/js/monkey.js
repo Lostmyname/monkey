@@ -19,6 +19,7 @@ window.Monkey = module.exports = (function () {
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
       replaceMonkey: false,
+      showCharPicker: true,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -46,10 +47,19 @@ window.Monkey = module.exports = (function () {
       promise = promise.then(Monkey.letters._generateHtml(
         options.letters,
         options.lang,
-        options.icons
+        options.icons,
+        options.showCharPicker
         )
-      )
-      .then(Monkey.letters._init(this.$events, options));
+      );
+      if(options.showCharPicker) {
+        promise = promise.then(Monkey.letters._generateCharPicker(
+            options.letters,
+            options.lang,
+            options.icons
+          )
+        );
+      }
+      promise = promise.then(Monkey.letters._init(this.$events, options));
     }
     if (options.book.firstbook) {
       promise = promise.then(Monkey.letters._generateOverlay(options, $monkeyContainer));
@@ -87,6 +97,7 @@ window.Monkey = module.exports = (function () {
   Monkey.letters = {};
   Monkey.letters.Monkey = Monkey;
   Monkey.letters._generateHtml = require('./steps/letters/generateHtml');
+  Monkey.letters._generateCharPicker = require('./steps/letters/generateCharPicker');
   Monkey.letters._init = require('./steps/letters/init');
   Monkey.letters._generateOverlay = require('./steps/letters/generateOverlay');
 
