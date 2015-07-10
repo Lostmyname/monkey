@@ -9,7 +9,7 @@ var isMobile = require('../../helpers/isMobile')();
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  */
-module.exports = function (selector, lang, icons, showCharPicker) {
+module.exports = function (selector, lang, icons) {
   if (typeof lang === 'undefined' && typeof selector === 'object') {
     lang = selector;
     selector = true;
@@ -28,9 +28,6 @@ module.exports = function (selector, lang, icons, showCharPicker) {
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
       .text(lang.bookFor);
-
-    var $pickerContainer = $('<div />')
-      .addClass('picker-container');
 
     var $letterSpanContainer = $('<div />')
       .appendTo($lettersContainer)
@@ -110,7 +107,7 @@ module.exports = function (selector, lang, icons, showCharPicker) {
         }
 
         $book.empty();
-        $pickerContainer.prependTo($book.parent());
+        //$pickerContainer.prependTo($book.parent());
         data.lettersElement = $lettersContainer.appendTo($book);
 
         if (icons) {
