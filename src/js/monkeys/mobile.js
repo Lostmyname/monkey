@@ -14,7 +14,7 @@ mobile.calculateSize = function () {
 };
 
 mobile.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('monkey mobile');
+  var $monkey = $('<div />').addClass('monkey mobile js--add-overlay');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)

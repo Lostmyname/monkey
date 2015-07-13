@@ -13,7 +13,7 @@ desktop.calculateSize = function () {
 
 desktop.generateHtml = function (data) {
   var $monkeyWrapper = $('<div />')
-    .addClass('pos-relative monkey-wrapper');
+    .addClass('pos-relative monkey-wrapper js--add-overlay');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop pos-absolute');
 
   $.each(data.urls, function (i, url) {

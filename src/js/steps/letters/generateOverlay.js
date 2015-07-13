@@ -22,7 +22,7 @@ module.exports = function (options, monkeyContainer) {
 
       $monkeyContainer.addClass(classes.overlayActive);
 
-      $overlay.appendTo($monkeyContainer.find('.monkey-wrapper'))
+      $overlay.appendTo($monkeyContainer.find('.js--add-overlay'))
         .addClass('overlay color-bg-narvik');
 
       var $overlayInner = $('<div />')
