@@ -78,7 +78,7 @@
 // Mobile overlay
 
 .js--active-overlay {
-  .monkey.mobile {
+  &.monkey.mobile {
     .landscape-images {
       display: none;
     }
