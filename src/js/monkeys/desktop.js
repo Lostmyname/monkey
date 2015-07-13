@@ -58,7 +58,7 @@ desktop.init = function (data, $events) {
     var page2El = $('.Page-' + (page + 1));
     page1El.replaceWith(newPage1);
     page2El.replaceWith(newPage2);
-  }
+  };
 
   data.heidelberg.el.addClass('at-front-cover');
 
@@ -66,7 +66,7 @@ desktop.init = function (data, $events) {
     $events.trigger('pageTurn');
 
     var index = els.pages.index(els.pagesTarget);
-    var bookProgress = index / els.pages.length
+    var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
       $events.trigger('bookprogress', { progress: maxBookProgress });

@@ -77,7 +77,7 @@ mobile.init = function (data, $events) {
     var index = scrollLeft / $monkey.find('.landscape-images-inner').width();
     if (index > maxProgress) {
       maxProgress = index;
-      $events.trigger('bookprogress', { progress: index })
+      $events.trigger('bookprogress', { progress: index });
     }
 
     windowLeft = scrollLeft / $monkey.find('img').width();
@@ -97,7 +97,7 @@ mobile.init = function (data, $events) {
     var page2El = $('.Page-' + (page + 1)).find('img');
     page1El.attr({ src: character.url1 + data.queryString });
     page2El.attr({ src: character.url2 + data.queryString });
-  }
+  };
 
   this.harass(data);
 

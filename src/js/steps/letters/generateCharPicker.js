@@ -54,9 +54,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           var charPickTitle;
 
           var remainingLetterChars = $.grep(letter.characters, function (charObj) {
-            return
-              (charObj.character === allCharacters[i]) ||
-              allCharacters.indexOf(charObj.character) === -1;
+            return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
 
           if (remainingLetterChars < 2) {
