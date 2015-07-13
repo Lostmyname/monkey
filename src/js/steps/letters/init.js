@@ -24,8 +24,6 @@ module.exports = function ($events, options) {
     var $activeLetter;
     var $currentPicker;
 
-    console.log($pickers);
-
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
       if (currentPage < 0) {
@@ -67,9 +65,8 @@ module.exports = function ($events, options) {
         $currentPicker = $($pickers[$this.index() - 1]);
         $currentPicker
           .addClass(classes.charPickerActive);
-        console.log($currentPicker, $this.index(), $pickers[1]);
       }
-      
+
       currentPageIndex = $this.index();
       evt.stopPropagation();
     });
@@ -82,7 +79,6 @@ module.exports = function ($events, options) {
                                 .find('.character-picker')
                                 .eq(letterParentIndex - 1);
           $letterCharPicker.addClass(classes.charPickerActive);
-          evt.stopPropagation();
       } else {
         $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
       }
@@ -96,7 +92,6 @@ module.exports = function ($events, options) {
       $letters.css({ width: calculatedWidth + 10 });
 
       $charButtons.on('click', function () {
-        console.log('char button clicked');
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
         var page = $buttonEl.data('page');
