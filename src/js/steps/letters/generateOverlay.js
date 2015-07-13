@@ -76,7 +76,9 @@ module.exports = function (options, monkeyContainer) {
         $monkeyContainer
           .removeClass(classes.overlayActive)
           .css({minHeight: 0});
-        $overlay.slideUp();
+        $overlay.fadeOut(250, function() {
+          $(this).remove();
+        });
 
       };
       return defer.promise();
