@@ -3,6 +3,14 @@
   max-width:1280px;
 }
 
+.Heidelberg-Page.is-active {
+  
+
+  .js--active-overlay & {
+    transform: none;
+  }
+}
+
 .monkey-wrapper {
   height:auto;
   padding-top: percentage(500 / 1280);
@@ -55,8 +63,4 @@
     width: 50%;
     margin-left: 50%;
   }
-}
-
-.monkey-wrapper {
-  height: 500px;
 }

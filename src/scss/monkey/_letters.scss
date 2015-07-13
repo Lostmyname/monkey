@@ -117,29 +117,16 @@
   }
 }
 
-@keyframes fadeAndScaleIn {
-  0% {
-    opacity:0;
-    transform: scale(1.05) transform3d(0,0,0);
-  }
-  100% {
-    opacity:1;
-    transform: transform3d(0,0,0);
-  }
-}
-
 .overlay {
-  animation: fadeAndScaleIn .4s 1 ease both;
-  //background:#fff;
+  bottom:0;
   height:100%;
   left:0;
   position: absolute;
-  top:0;
+  transform:translate(0,0);
   width:100%;
   z-index:5;
 }
 .overlay__inner {
-  //display: flex;
   height:100%;
   left:0;
   top:0;
@@ -148,7 +135,6 @@
   z-index:1;
 
   .row {
-    //align-self: center;
     margin:0;
     width:100%;
   }
@@ -185,7 +171,6 @@
 .overlay__buttons {
   padding-top: 1em;
 }
-
 
 .picker-container {
   margin: 0 auto;
