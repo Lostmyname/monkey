@@ -80,13 +80,16 @@ module.exports = function (options, monkeyContainer) {
           $(this).remove();
         });
 
-      };
+      }
       return defer.promise();
-    };
-    loadOverlay()
-      .then(function () {
-        return data;
-      })
-    return data
-  }
-}
+    }
+    console.log(data);
+    if(data.shouldShowDuplicateModal === true) {
+      loadOverlay()
+        .then(function () {
+          return data;
+        });
+    }
+    return data;
+  };
+};

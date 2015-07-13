@@ -51,6 +51,18 @@ module.exports = function (selector, lang, icons) {
     }
     var combinedLetters = data.combinedLetters = combineLetters(letters, dataLetters);
 
+    // Whether we should show the duplicate letters modal if more than one
+    // book has been created
+    var determineIfDuplicate = function () {
+      var outcome = false;
+      $(combinedLetters).each(function (i, letter) {
+        if (letter.changed) outcome = true;
+      });
+      return outcome;
+    };
+
+    data.shouldShowDuplicateModal = determineIfDuplicate();
+
     var loadLetterCards = function () {
       var cardsToLoad = combineLetters.length;
       $(combinedLetters).each(function (i, letter) {
