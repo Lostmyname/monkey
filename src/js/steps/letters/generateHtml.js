@@ -75,7 +75,9 @@ module.exports = function (selector, lang, icons) {
             .addClass('character-card');
 
           var $icon = $('<img />')
-            .attr('src', letter.thumbnail);
+            .attr('src', letter.thumbnail)
+            .attr('height', 38)
+            .attr('width', 38);
           $icon.appendTo($characterCard);
 
           $icon.on('load', function () {

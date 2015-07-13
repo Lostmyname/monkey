@@ -14,7 +14,7 @@ mobile.calculateSize = function () {
 };
 
 mobile.generateHtml = function (data) {
-  var $monkey = $('<div />').addClass('monkey mobile js--add-overlay');
+  var $monkey = $('<div />').addClass('monkey-wrapper mobile js--add-overlay');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
@@ -137,9 +137,9 @@ mobile.letterHandler = function (data, $events) {
     var currentPage = 0;
 
     $pages.each(function (i) {
-      console.log($(this));
-      console.log($(this).offset().left);
-      console.log("");
+      // console.log($(this));
+      // console.log($(this).offset().left);
+      // console.log("");
       if ($(this).offset().left >= -$window.width()) {
         currentPage = i;
 

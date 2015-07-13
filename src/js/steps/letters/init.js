@@ -4,7 +4,7 @@ var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
 
 var animationDelay = 1500;
-var animationSpeed = 800;
+var animationSpeed = 500;
 
 module.exports = function ($events, options) {
   return function (data) {
@@ -17,12 +17,14 @@ module.exports = function ($events, options) {
     var $letterSpans = $('.letter-spans');
     var $picker = $monkey.prev();
     //var $pickers = $picker.find('.character-picker');
-    var $pickers = $('.character-picker');
-    var $charButtons = $pickers.find('button');
-    var $changeButtons = $pickers.find('.change-character');
+    var $pickers = isMobile ? $('.picker-container').find('.character-picker') : $letters.find('.character-picker');
+    var $charButtons = isMobile ? $('.picker-container').find('button') : $pickers.find('button');
+    var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var $activeLetter;
     var $currentPicker;
+
+    console.log($pickers);
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -44,11 +46,9 @@ module.exports = function ($events, options) {
         var $currentChar = $currentLetter.find('.char');
         var halfScreenWidth = $(window).width() / 2;
         if ($currentChar.length !== 0) {
-          var centerOffset = $currentChar.offset().left - halfScreenWidth;
-          var currentScroll = $letterSpans.scrollLeft();
-
+          var centerOffset = $currentLetter.position().left - ($currentLetter.outerWidth(true) / 2);
           $letterSpans
-            .animate({ scrollLeft: (centerOffset + currentScroll) }, animationSpeed);
+            .animate({ scrollLeft: centerOffset }, animationSpeed);
         }
       }
     });
@@ -67,13 +67,25 @@ module.exports = function ($events, options) {
         $currentPicker = $($pickers[$this.index() - 1]);
         $currentPicker
           .addClass(classes.charPickerActive);
+        console.log($currentPicker, $this.index(), $pickers[1]);
       }
+      
       currentPageIndex = $this.index();
       evt.stopPropagation();
     });
 
-    $changeButtons.on('click', function () {
-      $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
+    $changeButtons.on('click', function (evt) {
+      if(isMobile) {
+        var $letterParent = $(this).closest('.letter'),
+          letterParentIndex = $letterParent.index(),
+          $letterCharPicker = $monkey
+                                .find('.character-picker')
+                                .eq(letterParentIndex - 1);
+          $letterCharPicker.addClass(classes.charPickerActive);
+          evt.stopPropagation();
+      } else {
+        $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
+      }
     });
 
     if (options.icons) {
@@ -82,9 +94,9 @@ module.exports = function ($events, options) {
         calculatedWidth  += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth + 10 });
-      $('.picker-container').css({ width: calculatedWidth + 10 });
 
       $charButtons.on('click', function () {
+        console.log('char button clicked');
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
         var page = $buttonEl.data('page');
@@ -109,12 +121,25 @@ module.exports = function ($events, options) {
         data.swapPage(page, character);
       });
     };
+    var openingMargin = ($(window).width() / 2)
+                     - ($('.letter').eq(0)[0].clientWidth) 
+                     - ($('.letter').eq(1)[0].clientWidth / 2);
     if (isMobile && options.icons && options.animateName) {
       $letters
+        .css({
+          paddingRight: openingMargin,
+          width: calculatedWidth + 10 + openingMargin
+        })
         .delay(animationDelay)
-        .animate({ marginLeft: 100 }, animationSpeed);
+        .animate({
+          marginLeft: openingMargin
+        }, animationSpeed);
     } else if (isMobile && !options.animateName) {
-      $letters.css({ marginLeft: 100 });
+      $letters.css({
+        marginLeft: openingMargin,
+        paddingRight: openingMargin,
+        width: calculatedWidth + 10 + openingMargin
+      });
     }
 
     return data;

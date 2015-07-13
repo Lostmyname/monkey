@@ -12,7 +12,7 @@ var isMobile = require('../../helpers/isMobile')();
  * @param  {boolean} Boolean to decide whether to show icons (necessary?)
  * @return {[type]}
  */
-module.exports = function (selector, lang, icons) {
+module.exports = function (selector, lang, icons, monkeyContainer) {
 	if (typeof lang === 'undefined' && typeof selector === 'object') {
     lang = selector;
     selector = true;
@@ -25,7 +25,13 @@ module.exports = function (selector, lang, icons) {
         .addClass('tooltip-arrow')
         .attr('src', 'https://s3-eu-west-1.amazonaws.com/lmn-cdn-assets/widget/tooltip-arrow-85x47.png');
 
-    var $pickerContainer = $('.picker-container');
+    var $monkeyContainer = monkeyContainer;
+
+    if(isMobile) {
+    	var $pickerContainer = $('<div />')
+    		.addClass('picker-container')
+    		.appendTo($monkeyContainer);
+    }
 
     var allCharacters = $.map(data.combinedLetters, function (el) {
         return el.selected;
@@ -68,8 +74,6 @@ module.exports = function (selector, lang, icons) {
           $toolTipArrow.clone().prependTo($toolTip);
 
           if(isMobile) {
-          	var toolTipLeft = ($(window).width() - 300) / 2;
-            $toolTip.css({left: toolTipLeft});
             $toolTip.appendTo($pickerContainer)
             	.addClass('character-picker pos-absolute');
           } else {

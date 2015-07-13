@@ -3,8 +3,13 @@
 }
 
 .monkey.mobile {
+  overflow: visible;
+}
+
+.monkey-wrapper.mobile {
   -webkit-overflow-scrolling: touch;
   overflow: scroll;
+  padding:0;
   &.portrait {
     margin-bottom: -5px;
   }
@@ -63,4 +68,40 @@
 
 .page-halfwidth {
   min-width: 0;
+}
+
+#letters-container {
+  margin-left:0;
+  margin-right: 0;
+}
+
+// Mobile overlay
+
+.js--active-overlay {
+  .monkey.mobile {
+    .landscape-images {
+      display: none;
+    }
+    .overlay {
+      height:auto;
+      position: relative;
+    }
+    .overlay__inner {
+      position: relative;
+    }
+  }
+}
+
+// Mobile Char Picker
+
+.mobile .picker-container {
+  position: relative;
+
+  .character-picker {
+    left:2.5%;
+    margin-top: -4px;
+    min-width:0;
+    top:0;
+    width:95%;
+  }
 }
