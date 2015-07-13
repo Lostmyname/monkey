@@ -5,7 +5,7 @@ import $ from 'jquery';
  *
  * @param {object} options Options passed to monkey.
  */
-export default function (options, lang) {
+export default function (options) {
   return function (data) {
     var $sliderContainer = $('<div />', {
       id: 'slider-container',
@@ -15,10 +15,10 @@ export default function (options, lang) {
 
     $('<p />').appendTo($sliderContainer)
       .addClass('no-mar')
-      .text(lang.bookFor);
+      .text(options.lang.bookFor);
 
     var $sliderInnerContainer = $('<div />').appendTo($sliderContainer)
-      .addClass('col col-lg-6 col-lg-offset-3');
+      .addClass('col col-lg-6 col-lg-offset-3 col-sm-12 col-sm-offset-0');
 
     $('<input />', { type: 'range' })
       .appendTo($sliderInnerContainer);
