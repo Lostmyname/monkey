@@ -39,7 +39,7 @@
     .letter {
       padding: 2px 4px 0px 4px;
       display: block;
-      margin: 0 1px 0 0;
+      margin: 0 1px 12px 0;
       position: relative;
       .char {
         border-radius: 50%;
@@ -69,8 +69,12 @@
       display: block;
       font-size: 0.5em;
       font-weight: bold;
+      left:0;
       opacity: 0;
+      padding:0 4px;
+      position: absolute;
       transition: opacity .25s ease;
+      top:100%;
     }
     .letter-active, .letter-active:hover {
       border-bottom: none;
