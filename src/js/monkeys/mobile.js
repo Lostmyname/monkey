@@ -91,12 +91,12 @@ mobile.init = function (data, $events) {
     }
   });
 
-  data.swapPage = function(index, character) {
+  data.swapPage = function (index, character) {
     var page = (index + 3) + index;
     var page1El = $('.Page-' + page).find('img');
     var page2El = $('.Page-' + (page + 1)).find('img');
-    page1El.attr({src: character.url1 + data.queryString});
-    page2El.attr({src: character.url2 + data.queryString});
+    page1El.attr({ src: character.url1 + data.queryString });
+    page2El.attr({ src: character.url2 + data.queryString });
   }
 
   this.harass(data);

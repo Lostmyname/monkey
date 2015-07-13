@@ -17,8 +17,14 @@ module.exports = function ($events, options) {
     var $letterSpans = $('.letter-spans');
     var $picker = $monkey.prev();
     //var $pickers = $picker.find('.character-picker');
-    var $pickers = isMobile ? $('.picker-container').find('.character-picker') : $letters.find('.character-picker');
-    var $charButtons = isMobile ? $('.picker-container').find('button') : $pickers.find('button');
+    var $pickers = isMobile ? data.base
+                                .find('.picker-container')
+                                .find('.character-picker')
+                            : $letters.find('.character-picker');
+    var $charButtons = isMobile ? data.base
+                                    .find('.picker-container')
+                                    .find('button')
+                                : $pickers.find('button');
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var $activeLetter;
@@ -44,7 +50,8 @@ module.exports = function ($events, options) {
         var $currentChar = $currentLetter.find('.char');
         var halfScreenWidth = $(window).width() / 2;
         if ($currentChar.length !== 0) {
-          var centerOffset = $currentLetter.position().left - ($currentLetter.outerWidth(true) / 2);
+          var centerOffset = $currentLetter.position().left -
+                            ($currentLetter.outerWidth(true) / 2);
           $letterSpans
             .animate({ scrollLeft: centerOffset }, animationSpeed);
         }
@@ -52,13 +59,13 @@ module.exports = function ($events, options) {
     });
 
     $letters.on('click', '.letter', function (evt) {
-      $('html').on('click',function() {
+      $('html').on('click',function () {
         $('.character-picker').removeClass(classes.charPickerActive);
       });
 
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
-      $('.'+classes.charPickerActive).removeClass(classes.charPickerActive);
+      $('.' + classes.charPickerActive).removeClass(classes.charPickerActive);
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
       if (currentPageIndex === $this.index()) {
@@ -72,13 +79,16 @@ module.exports = function ($events, options) {
     });
 
     $changeButtons.on('click', function (evt) {
-      if(isMobile) {
-        var $letterParent = $(this).closest('.letter'),
-          letterParentIndex = $letterParent.index(),
-          $letterCharPicker = $monkey
-                                .find('.character-picker')
-                                .eq(letterParentIndex - 1);
-          $letterCharPicker.addClass(classes.charPickerActive);
+      var $letterParent,
+        letterParentIndex,
+        $letterCharPicker;
+      if (isMobile) {
+        $letterParent = $(this).closest('.letter'),
+        letterParentIndex = $letterParent.index(),
+        $letterCharPicker = $monkey
+                              .find('.character-picker')
+                              .eq(letterParentIndex - 1);
+        $letterCharPicker.addClass(classes.charPickerActive);
       } else {
         $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
       }
@@ -98,7 +108,7 @@ module.exports = function ($events, options) {
 
         var characterCard = $activeLetter.find('.character-card img');
         characterCard
-          .attr("src", character.thumbnail);
+          .attr('src', character.thumbnail);
 
         var selectedChar = $currentPicker.find('.selected-char');
         selectedChar.removeClass('selected-char');
@@ -116,9 +126,9 @@ module.exports = function ($events, options) {
         data.swapPage(page, character);
       });
     };
-    var openingMargin = ($(window).width() / 2)
-                     - ($('.letter').eq(0)[0].clientWidth) 
-                     - ($('.letter').eq(1)[0].clientWidth / 2);
+    var openingMargin = ($(window).width() / 2) -
+                        ($('.letter').eq(0)[0].clientWidth) -
+                        ($('.letter').eq(1)[0].clientWidth / 2);
     if (isMobile && options.icons && options.animateName) {
       $letters
         .css({

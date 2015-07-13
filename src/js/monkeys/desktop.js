@@ -30,24 +30,21 @@ desktop.generateHtml = function (data) {
 desktop.init = function (data, $events) {
   var maxBookProgress = 0;
 
-
-  Heidelberg.prototype.replacePage = function(pages, spreads) {
-    console.log("replaciong page");
+  Heidelberg.prototype.replacePage = function (pages, spreads) {
     var page = $('.Page' + pages);
-  }
+  };
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
     hasSpreads: true
   });
 
-
-  data.swapPage = function(index, character) {
+  data.swapPage = function (index, character) {
     var page = (index + 3) + index;
     var $newImage = $('<img />')
-      .attr('src', character.url1 + data.queryString)
+      .attr('src', character.url1 + data.queryString);
     var $newImage2 = $('<img />')
-      .attr('src', character.url2 + data.queryString)
+      .attr('src', character.url2 + data.queryString);
 
     var newPage1 = $('<div />')
         .addClass('Heidelberg-Spread page- Page-' + page)

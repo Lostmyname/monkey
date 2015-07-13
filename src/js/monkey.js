@@ -35,14 +35,14 @@ window.Monkey = module.exports = (function () {
     }, options);
 
     options.book = $.extend(
-        {firstbook: $monkeyContainer.data('first-book-name')},
+        { firstbook: $monkeyContainer.data('first-book-name') },
         options.book);
 
     this.$events = $({});
 
     var promise = Monkey._getData(options)
     .then(Monkey._calculateMonkey(options.monkeyType))
-    .then(Monkey._generateBaseElement($monkeyContainer, options))
+    .then(Monkey._generateBaseElement($monkeyContainer, options));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(
         options.letters,
@@ -50,7 +50,7 @@ window.Monkey = module.exports = (function () {
         options.icons
         )
       );
-      if(options.showCharPicker) {
+      if (options.showCharPicker) {
         promise = promise.then(Monkey.letters._generateCharPicker(
             options.letters,
             options.lang,

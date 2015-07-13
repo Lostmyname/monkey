@@ -75,8 +75,8 @@ module.exports = function (options, monkeyContainer) {
         $('.letter').removeClass('changed');
         $monkeyContainer
           .removeClass(classes.overlayActive)
-          .css({minHeight: 0});
-        $overlay.fadeOut(250, function() {
+          .css({ minHeight: 0 });
+        $overlay.fadeOut(250, function () {
           $(this).remove();
         });
 

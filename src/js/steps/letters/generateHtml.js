@@ -54,6 +54,7 @@ module.exports = function (selector, lang, icons) {
     var loadLetterCards = function () {
       var cardsToLoad = combineLetters.length;
       $(combinedLetters).each(function (i, letter) {
+
         var $letterDiv = $('<div />');
         $letterDiv.appendTo($letters)
           .addClass('letter')
@@ -82,7 +83,7 @@ module.exports = function (selector, lang, icons) {
 
           $icon.on('load', function () {
             if (--cardsToLoad === 0) {
-              console.log("resolving");
+              console.log('resolving');
             }
           });
           defer.resolve();
@@ -92,7 +93,7 @@ module.exports = function (selector, lang, icons) {
     };
 
     return loadLetterCards()
-      .then(function() {
+      .then(function () {
         $('<div />').html('&bull;')
           .prependTo($letters)
           .addClass('letter')
@@ -126,6 +127,8 @@ var combineLetters = function (splitLetters, dataLetters) {
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
+    dataLetters[idx].changed =
+      dataLetters[idx].selected !== dataLetters[idx].default_character;
     if (val === '-') {
       offset++;
       return { letter: val };
@@ -133,5 +136,6 @@ var combineLetters = function (splitLetters, dataLetters) {
       dataLetters[idx].letter = val;
       return dataLetters[idx];
     }
+
   });
 }
