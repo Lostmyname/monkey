@@ -111,7 +111,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for desktop', function () {
     return promise.then(changeMonkeyType('desktop'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.jQuery;
@@ -122,7 +122,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for mobile', function () {
     return promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.jQuery;
@@ -136,7 +136,7 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('desktop'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._initMonkey($events))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
@@ -153,7 +153,7 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._initMonkey($({})))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
@@ -236,26 +236,26 @@ describe('Loading Monkey', function () {
     });
   });
 
-  it('should initiate letters correctly', function () {
-    Monkey.monkeys.test = {
-      letterHandler: function () {}
-    };
-
-    promise = promise.then(changeMonkeyType('test'))
-      .then(Monkey.letters._init($events));
-
-    return promise.then(function (data) {
-      $events.trigger('letterChange', 7);
-      data.lettersElement.find('.letter-active').index().should.equal(3);
-    });
-  });
-
   it('should generate html for icons', function () {
     promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.character-card');
       spans.length.should.equal(10);
+    });
+  });
+
+  it('should initiate letters correctly', function () {
+    Monkey.monkeys.test = {
+      letterHandler: function () {}
+    };
+
+    promise = promise.then(changeMonkeyType('test'))
+      .then(Monkey.letters._init($events, options));
+
+    return promise.then(function (data) {
+      $events.trigger('letterChange', 7);
+      data.lettersElement.find('.letter-active').index().should.equal(3);
     });
   });
 

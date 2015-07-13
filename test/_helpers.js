@@ -37,8 +37,9 @@ var options = {
     locale: 'en-GB'
   },
   lang: {
-    buyNow: 'Buy now',
-    bookFor: 'A personalised book for'
+    bookFor: 'A personalised book made for',
+    noAltText: 'No alternative text for this page, sorry.'
   },
-  server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?'
+  server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+  letters: true
 };
