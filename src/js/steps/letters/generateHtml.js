@@ -58,7 +58,7 @@ module.exports = function (selector, lang, icons) {
         $letterDiv.appendTo($letters)
           .addClass('letter')
           .attr('data-letter', letter.letter)
-          .attr('data-character', letter.selected) // Make this lowercase?
+          .attr('data-character', letter.default_character)
           .after(' ');
         if (letter.selected !== letter.default_character) {
           $letterDiv.addClass('changed')
@@ -107,7 +107,6 @@ module.exports = function (selector, lang, icons) {
         }
 
         $book.empty();
-        //$pickerContainer.prependTo($book.parent());
         data.lettersElement = $lettersContainer.appendTo($book);
 
         if (icons) {

@@ -34,8 +34,6 @@ module.exports = function (selector, lang, icons) {
     var loadLetterPicker = function () {
       var cardsToLoad = data.combinedLetters.length;
       $(data.combinedLetters).each(function (i, letter) {
-
-      	console.log(letter);
         
         if (icons && letter.thumbnail) {
           
@@ -44,7 +42,7 @@ module.exports = function (selector, lang, icons) {
             .addClass('change-character color-alert')
             .text('CHANGE');
 
-         	var $letterDiv = $('.letter[data-letter="'+letter.letter+'"][data-character="'+letter.selected+'"]');
+         	var $letterDiv = $('.letter[data-letter="'+letter.letter+'"][data-character="'+letter.default_character+'"]');
           $changeSpan.appendTo($letterDiv);          
 
           var charPickTitle;
