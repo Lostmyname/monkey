@@ -176,7 +176,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML correctly', function () {
-    promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
+    promise = promise.then(Monkey.letters._generateHtml(options));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.letter');
@@ -237,7 +237,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate html for icons', function () {
-    promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
+    promise = promise.then(Monkey.letters._generateHtml(options));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.character-card');
@@ -285,7 +285,7 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise
-    .then(Monkey.letters._generateHtml(true, options.lang, true))
+    .then(Monkey.letters._generateHtml(options))
     .then(function (data) {
       var spans = data.lettersElement.find('.character-card');
       spans.length.should.equal(4);

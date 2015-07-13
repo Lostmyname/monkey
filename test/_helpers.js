@@ -41,5 +41,5 @@ var options = {
     noAltText: 'No alternative text for this page, sorry.'
   },
   server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
-  letters: true
+  icons: true
 };

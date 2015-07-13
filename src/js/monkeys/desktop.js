@@ -14,8 +14,6 @@ desktop.calculateSize = function () {
 desktop.generateHtml = function (data, lang) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
-  console.log(lang);
-
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
       src: url,

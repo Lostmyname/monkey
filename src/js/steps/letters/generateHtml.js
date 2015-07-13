@@ -5,15 +5,9 @@ var $ = require('jquery');
 /**
  * Generate HTML for letters.
  *
- * @param {string|boolean} [selector] Selector or element to insert letters into.
- * @param {object} lang Object containing language stuff.
+ * @param {object} options Options object from monkey.
  */
-module.exports = function (selector, lang, icons) {
-  if (typeof lang === 'undefined' && typeof selector === 'object') {
-    lang = selector;
-    selector = true;
-  }
-
+module.exports = function (options) {
   return function (data) {
     var $lettersContainer = $('<div />');
 
@@ -29,7 +23,7 @@ module.exports = function (selector, lang, icons) {
 
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
-      .text(lang.bookFor)
+      .text(options.lang.bookFor)
       .append($hiddenName);
 
     var $letterSpanContainer = $('<div />')
@@ -64,7 +58,7 @@ module.exports = function (selector, lang, icons) {
         .text(letter.letter || '');
       $letterSpan.appendTo($letterDiv);
 
-      if (icons && letter.thumbnail) {
+      if (options.icons && letter.thumbnail) {
         var $characterCard = $('<div />');
         $characterCard.appendTo($letterDiv)
           .addClass('character-card');
@@ -82,8 +76,8 @@ module.exports = function (selector, lang, icons) {
       .clone().appendTo($letters);
 
     var $book = false;
-    if (typeof selector !== 'boolean') {
-      $book = $(selector);
+    if (typeof options.letters !== 'boolean') {
+      $book = $(options.letters);
     }
 
     if (!$book || !$book.length) {
@@ -92,7 +86,7 @@ module.exports = function (selector, lang, icons) {
 
     data.lettersElement = $lettersContainer.prependTo($book);
 
-    if (icons) {
+    if (options.icons) {
       $lettersContainer.parents('#monkey').addClass('monkey-icons');
     }
 
