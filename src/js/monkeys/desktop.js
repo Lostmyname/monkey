@@ -11,13 +11,18 @@ desktop.calculateSize = function () {
   return 'w=' + Math.min($(window).width(), MAX_WIDTH);
 };
 
-desktop.generateHtml = function (data) {
+desktop.generateHtml = function (data, lang) {
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
 
   $.each(data.urls, function (i, url) {
+    var $img = $('<img />', {
+      src: url,
+      alt: data.letters[i].text || lang.noAltText
+    });
+
     $('<div />')
       .addClass('Heidelberg-Spread page-' + data.letters[i].type)
-      .append($('<img />').attr('src', url))
+      .append($img)
       .appendTo($monkey);
   });
 

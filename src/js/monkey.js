@@ -26,7 +26,8 @@ window.Monkey = module.exports = (function () {
       },
 
       lang: {
-        bookFor: 'A personalised book made for'
+        bookFor: 'A personalised book made for',
+        noAltText: 'No alternative text for this page, sorry.'
       }
     }, options);
 
@@ -35,7 +36,7 @@ window.Monkey = module.exports = (function () {
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateUrls(options.preload))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer))
       .then(Monkey._initMonkey(this.$events))
       .then(function (data) {

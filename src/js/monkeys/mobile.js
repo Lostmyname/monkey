@@ -13,7 +13,7 @@ mobile.calculateSize = function () {
   return 'h=' + Math.min(MAX_HEIGHT, Math.ceil(height));
 };
 
-mobile.generateHtml = function (data) {
+mobile.generateHtml = function (data, lang) {
   var $monkey = $('<div />').addClass('monkey mobile');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
@@ -32,7 +32,10 @@ mobile.generateHtml = function (data) {
       $page.addClass('page-halfwidth');
     }
 
-    $('<img />').appendTo($page).attr('src', url);
+    $('<img />', {
+      src: url,
+      alt: data.letters[i].text || lang.noAltText
+    }).appendTo($page);
   });
 
   return $monkey;

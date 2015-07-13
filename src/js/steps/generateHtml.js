@@ -7,9 +7,9 @@
  *
  * @todo: Templating?
  */
-module.exports = function () {
+module.exports = function (lang) {
   return function (data) {
-    data.html = this.monkeys[data.monkeyType].generateHtml(data);
+    data.html = this.monkeys[data.monkeyType].generateHtml(data, lang);
 
     return data;
   }.bind(this);
