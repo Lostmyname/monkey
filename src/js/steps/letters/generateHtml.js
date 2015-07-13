@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-//var isMobile = require('../../helpers/isMobile')();
+// var isMobile = require('../../helpers/isMobile')();
 
 /**
  * Generate HTML for letters.
@@ -55,7 +55,9 @@ module.exports = function (selector, lang, icons) {
     var determineIfDuplicate = function () {
       var outcome = false;
       $(combinedLetters).each(function (i, letter) {
-        if (letter.changed) outcome = true;
+        if (letter.changed) {
+          outcome = true;
+        }
       });
       return outcome;
     };
@@ -67,6 +69,7 @@ module.exports = function (selector, lang, icons) {
       $(combinedLetters).each(function (i, letter) {
 
         var $letterDiv = $('<div />');
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         $letterDiv.appendTo($letters)
           .addClass('letter')
           .attr('data-letter', letter.letter)
@@ -75,6 +78,7 @@ module.exports = function (selector, lang, icons) {
         if (letter.selected !== letter.default_character) {
           $letterDiv.addClass('changed');
         }
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         var $letterSpan = $('<div />')
           .toggleClass('char', letter.letter !== '')
@@ -138,8 +142,10 @@ var combineLetters = function (splitLetters, dataLetters) {
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
+    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
     dataLetters[idx].changed =
       dataLetters[idx].selected !== dataLetters[idx].default_character;
+    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
     if (val === '-') {
       offset++;
       return { letter: val };

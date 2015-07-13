@@ -15,7 +15,7 @@ module.exports = function ($events, options) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
-    //var $pickers = $picker.find('.character-picker');
+    // var $pickers = $picker.find('.character-picker');
     var $pickers = isMobile ? data.base
                                 .find('.picker-container')
                                 .find('.character-picker')

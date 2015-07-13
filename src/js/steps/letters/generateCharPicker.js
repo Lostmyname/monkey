@@ -45,9 +45,10 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
             .text('CHANGE');
-
+          // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
           var $letterDiv = $('.letter[data-letter="' + letter.letter + '"]' +
             '[data-character="' + letter.default_character + '"]');
+          // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
           $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;

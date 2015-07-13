@@ -8,7 +8,7 @@ var $ = require('jquery');
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  */
-module.exports = function (options, monkeyContainer) {
+module.exports = function (options) {
   var defer = $.Deferred();
   return function (data) {
     function loadOverlay () {
@@ -81,8 +81,7 @@ module.exports = function (options, monkeyContainer) {
       }
       return defer.promise();
     }
-    console.log(data);
-    if(data.shouldShowDuplicateModal === true) {
+    if (data.shouldShowDuplicateModal === true) {
       loadOverlay()
         .then(function () {
           return data;

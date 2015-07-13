@@ -69,7 +69,7 @@ window.Monkey = module.exports = (function () {
     .then(Monkey._initMonkey(this.$events));
 
     if (options.book.firstbook) {
-      promise = promise.then(Monkey.letters._generateOverlay(options, $monkeyContainer));
+      promise = promise.then(Monkey.letters._generateOverlay(options));
     }
     promise = promise.then(function (data) {
       if (data.needsSpread) {

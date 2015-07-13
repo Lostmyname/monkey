@@ -54,7 +54,8 @@ mobile.init = function (data, $events) {
   setTimeout(setWidths);
 
   function setWidths() {
-    var width = $window.width() * 1.5;
+    var widthModifier = 1.5;
+    var width = $window.width() * widthModifier;
     var height = Math.ceil(width / RATIO);
     var $page = $('.page');
 
@@ -92,7 +93,8 @@ mobile.init = function (data, $events) {
   });
 
   data.swapPage = function (index, character) {
-    var page = (index + 3) + index;
+    var pageNumModifier = 3;
+    var page = (index * 2) + pageNumModifier;
     var page1El = $('.Page-' + page).find('img');
     var page2El = $('.Page-' + (page + 1)).find('img');
     page1El.attr({ src: character.url1 + data.queryString });
@@ -118,9 +120,11 @@ mobile.harass = function (data) {
     data.html.stop();
   });
 
+  var animSpeed = 800;
+
   function scroll() {
-    data.html.animate({ scrollLeft: 10 }, 800, easing, function () {
-      data.html.animate({ scrollLeft: 0 }, 800, easing, scroll);
+    data.html.animate({ scrollLeft: 10 }, animSpeed, easing, function () {
+      data.html.animate({ scrollLeft: 0 }, animSpeed, easing, scroll);
     });
   }
 
