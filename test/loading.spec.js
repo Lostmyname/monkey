@@ -291,4 +291,22 @@ describe('Loading Monkey', function () {
       spans.length.should.equal(4);
     });
   });
+
+  it('should generate letters for names with spaces (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      book: {
+        name: 'Lee T',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise
+    .then(Monkey.letters._generateHtml(options))
+    .then(function (data) {
+      var spans = data.lettersElement.find('.letter');
+      spans.length.should.equal(5 + 2);
+      spans.find('.char')[4].should.match(/ /);
+    });
+  });
 });

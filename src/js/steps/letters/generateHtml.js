@@ -102,7 +102,7 @@ function combineLetters(splitLetters, dataLetters) {
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
-    if (val === '-') {
+    if (val === '-' || val === ' ') {
       offset++;
       return { letter: val };
     }
