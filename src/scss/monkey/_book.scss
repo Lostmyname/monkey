@@ -1,7 +1,19 @@
+.lmn-book {
+  margin:0 auto;
+  max-width:1280px;
+}
+
+.monkey-wrapper {
+  height:auto;
+  padding-top: percentage(500 / 1280);
+}
+
 .Heidelberg-Book {
   position: absolute;
   left: 0;
   transition: left 0.7s;
+  top:0;
+  width:100%;
 
   &.at-front-cover {
     left: -25%;
