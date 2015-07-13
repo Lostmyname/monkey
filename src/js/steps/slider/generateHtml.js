@@ -5,16 +5,23 @@ import $ from 'jquery';
  *
  * @param {object} options Options passed to monkey.
  */
-export default function (options) {
+export default function (options, lang) {
   return function (data) {
     var $sliderContainer = $('<div />', {
       id: 'slider-container',
-      'class': 'aligned-center row md-mar-b',
+      'class': 'row aligned-center md-mar-b',
       'data-key': 'monkey-slider'
     });
 
+    $('<p />').appendTo($sliderContainer)
+      .addClass('no-mar')
+      .text(lang.bookFor);
+
+    var $sliderInnerContainer = $('<div />').appendTo($sliderContainer)
+      .addClass('col col-lg-6 col-lg-offset-3');
+
     $('<input />', { type: 'range' })
-      .appendTo($sliderContainer);
+      .appendTo($sliderInnerContainer);
 
     var $book = false;
     if (typeof options.slider !== 'boolean') {

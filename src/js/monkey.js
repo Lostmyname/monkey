@@ -61,7 +61,7 @@ window.Monkey = module.exports = (function () {
     }
 
     if (options.slider) {
-      promise = promise.then(Monkey.slider._generateHtml(options))
+      promise = promise.then(Monkey.slider._generateHtml(options, options.lang))
         .then(Monkey.slider._init(this.$events));
     }
 
