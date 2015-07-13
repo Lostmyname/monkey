@@ -12,8 +12,6 @@ module.exports = function (options, monkeyContainer) {
   var defer = $.Deferred();
   return function (data) {
     function loadOverlay () {
-      var $monkeyContainer = monkeyContainer;
-      // $monkeyContainer.css({minHeight: 220});
       var $overlay = $('<div />');
       var $monkeyContainer = data.monkeyContainer;
       var classes = {

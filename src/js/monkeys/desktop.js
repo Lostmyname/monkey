@@ -30,9 +30,9 @@ desktop.generateHtml = function (data) {
 desktop.init = function (data, $events) {
   var maxBookProgress = 0;
 
-  Heidelberg.prototype.replacePage = function (pages, spreads) {
-    var page = $('.Page' + pages);
-  };
+  // Heidelberg.prototype.replacePage = function (pages, spreads) {
+  //   var page = $('.Page' + pages);
+  // };
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,

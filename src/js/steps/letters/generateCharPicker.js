@@ -37,7 +37,6 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
       });
 
     var loadLetterPicker = function () {
-      var cardsToLoad = data.combinedLetters.length;
       $(data.combinedLetters).each(function (i, letter) {
 
         if (icons && letter.thumbnail) {
@@ -47,7 +46,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             .addClass('change-character color-alert')
             .text('CHANGE');
 
-          var $letterDiv = $('.letter[data-letter="' + letter.letter + '"] ' +
+          var $letterDiv = $('.letter[data-letter="' + letter.letter + '"]' +
             '[data-character="' + letter.default_character + '"]');
           $changeSpan.appendTo($letterDiv);
 
@@ -66,11 +65,11 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           var $charPickTitle = $('<div />')
             .text(charPickTitle)
             .addClass('title');
-          $charPickTitle.appendTo($toolTip)
+          $charPickTitle.appendTo($toolTip);
 
           var $charContainer = $('<div />')
-            .addClass('char-container')
-          $charContainer.appendTo($toolTip)
+            .addClass('char-container');
+          $charContainer.appendTo($toolTip);
           $toolTipArrow.clone().prependTo($toolTip);
 
           if (isMobile) {
@@ -105,7 +104,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               .data('char', charObj)
               .data('page', i);
 
-            if (letter.selected == charObj.character) {
+            if (letter.selected === charObj.character) {
               $imgContainer.addClass('selected-char');
               $selectButton
                 .addClass('button')
@@ -129,5 +128,5 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
       .then(function () {
         return data;
       });
-  }
-}
+  };
+};

@@ -11,8 +11,8 @@ module.exports = function (monkeyContainer, options) {
     if (options.replaceMonkey) {
       monkeyContainer.empty();
     }
-    monkeyContainer.addClass(data.monkeyType)
-    data.base = monkeyContainer
+    monkeyContainer.addClass(data.monkeyType);
+    data.base = monkeyContainer;
     data.monkeyContainer = monkeyContainer;
 
     return data;

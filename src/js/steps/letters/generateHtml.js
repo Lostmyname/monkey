@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-var isMobile = require('../../helpers/isMobile')();
+//var isMobile = require('../../helpers/isMobile')();
 
 /**
  * Generate HTML for letters.
@@ -44,7 +44,6 @@ module.exports = function (selector, lang, icons) {
       return letter.part === 1;
     });
 
-    var $divider = $('<hr />');
     // If name short, add blank letter for extra story
     if (letters.length < 5) {
       letters.splice(-1, 0, '');
@@ -74,8 +73,8 @@ module.exports = function (selector, lang, icons) {
           .attr('data-character', letter.default_character)
           .after(' ');
         if (letter.selected !== letter.default_character) {
-          $letterDiv.addClass('changed')
-        };
+          $letterDiv.addClass('changed');
+        }
 
         var $letterSpan = $('<div />')
           .toggleClass('char', letter.letter !== '')
@@ -126,14 +125,14 @@ module.exports = function (selector, lang, icons) {
 
         if (icons) {
           $lettersContainer.parents('#monkey').addClass('monkey-icons');
-        };
-        return data
-      })
+        }
+        return data;
+      });
   };
 };
 
 var combineLetters = function (splitLetters, dataLetters) {
-  var offset = 0
+  var offset = 0;
   return $.map(splitLetters, function (val, i) {
     var idx = i;
     if (splitLetters.length > 5) {
@@ -150,4 +149,4 @@ var combineLetters = function (splitLetters, dataLetters) {
     }
 
   });
-}
+};

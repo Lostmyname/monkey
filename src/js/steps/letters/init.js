@@ -15,7 +15,6 @@ module.exports = function ($events, options) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
-    var $picker = $monkey.prev();
     //var $pickers = $picker.find('.character-picker');
     var $pickers = isMobile ? data.base
                                 .find('.picker-container')
@@ -48,7 +47,6 @@ module.exports = function ($events, options) {
       if (isMobile && options.icons) {
         var $currentLetter = $spans.eq(currentPage);
         var $currentChar = $currentLetter.find('.char');
-        var halfScreenWidth = $(window).width() / 2;
         if ($currentChar.length !== 0) {
           var centerOffset = $currentLetter.position().left -
                             ($currentLetter.outerWidth(true) / 2);
@@ -78,7 +76,7 @@ module.exports = function ($events, options) {
       evt.stopPropagation();
     });
 
-    $changeButtons.on('click', function (evt) {
+    $changeButtons.on('click', function () {
       var $letterParent,
         letterParentIndex,
         $letterCharPicker;
@@ -93,9 +91,9 @@ module.exports = function ($events, options) {
         $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
       }
     });
-
+    var calculatedWidth = 0;
     if (options.icons) {
-      var calculatedWidth = 0;
+
       $spans.each(function () {
         calculatedWidth  += $(this).outerWidth(true);
       });
@@ -122,14 +120,14 @@ module.exports = function ($events, options) {
           .attr('disabled', true)
           .removeClass('primary')
           .text('selected');
-        $buttonEl.parent().addClass('selected-char')
+        $buttonEl.parent().addClass('selected-char');
         data.swapPage(page, character);
       });
-    };
+    }
     var openingMargin = ($(window).width() / 2) -
                         ($('.letter').eq(0)[0].clientWidth) -
                         ($('.letter').eq(1)[0].clientWidth / 2);
-    if (isMobile && options.icons && options.animateName) {
+    if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
       $letters
         .css({
           paddingRight: openingMargin,
