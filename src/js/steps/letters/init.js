@@ -142,7 +142,7 @@ module.exports = function ($events, options) {
     });
 
     $letters.on('click', '.letter', function (evt) {
-      $('html').on('click', function () {
+      $('html').one('click', function () {
         destroyPicker($pickers);
       });
       var $this = $(this);
@@ -179,12 +179,13 @@ module.exports = function ($events, options) {
     });
 
     if (options.icons) {
-      $charButtons.on('click', function () {
+      $charButtons.on('click', function (evt) {
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
         var page = $buttonEl.data('page');
 
         var characterCard = $activeLetter.find('.character-card img');
+        var $pickerEl = $buttonEl.closest('.character-picker');
         characterCard
           .attr('src', character.thumbnail);
 
@@ -201,7 +202,9 @@ module.exports = function ($events, options) {
           .removeClass('primary')
           .text('In Use');
         $buttonEl.addClass('selected-char');
+        destroyPicker($pickerEl);
         data.swapPage(page, character);
+        evt.stopPropagation();
       });
     }
 
