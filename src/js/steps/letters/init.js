@@ -112,7 +112,7 @@ module.exports = function ($events, options) {
         selectedChar.removeClass('selected-char');
         var $prevButton = selectedChar.find('button');
         $prevButton
-          .attr('disabled', false)
+          .removeAttr('disabled')
           .text('select')
           .addClass('primary');
 
