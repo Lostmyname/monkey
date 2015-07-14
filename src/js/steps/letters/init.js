@@ -193,13 +193,13 @@ module.exports = function ($events, options) {
         var $prevButton = selectedChar.find('.button');
         $prevButton
           .removeAttr('disabled')
-          .text('select')
+          .text('Select')
           .addClass('primary');
 
         $buttonEl.find('.button')
           .attr('disabled', true)
           .removeClass('primary')
-          .text('selected');
+          .text('In Use');
         $buttonEl.addClass('selected-char');
         data.swapPage(page, character);
       });

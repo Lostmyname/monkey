@@ -141,11 +141,11 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               $selectButton
                 .addClass('button')
                 .attr('disabled', true)
-                .text('selected');
+                .text('In Use');
             } else {
               $selectButton
                 .addClass('button primary')
-                .text('select');
+                .text('Select');
             }
             $selectButton.appendTo($charName);
           });
