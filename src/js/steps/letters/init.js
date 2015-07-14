@@ -190,17 +190,19 @@ module.exports = function ($events, options) {
         function changeLetterThumbnail ($letter, character) {
           var $card = $letter.find('.character-card');
           var $currentThumb = $card.find('img');
-          var $newThumb = $currentThumb.clone();
-          $currentThumb.addClass('character-card__image--old');
-          $newThumb
-            .appendTo($card)
-            .addClass('character-card__image--new')
-            .attr('src', character.thumbnail);
-          setTimeout(function () {
-            $currentThumb.remove();
-            $newThumb.removeClass('character-card__image--new');
-          }, 400);
-
+          var currentUrl = $currentThumb.attr('src');
+          if (currentUrl !== character.thumbnail) {
+            var $newThumb = $currentThumb.clone();
+            $currentThumb.addClass('character-card__image--old');
+            $newThumb
+              .appendTo($card)
+              .addClass('character-card__image--new')
+              .attr('src', character.thumbnail);
+            setTimeout(function () {
+              $currentThumb.remove();
+              $newThumb.removeClass('character-card__image--new');
+            }, 400);
+          }
         }
 
         changeLetterThumbnail($activeLetter, character);
