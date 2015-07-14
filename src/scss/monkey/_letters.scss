@@ -74,14 +74,19 @@
 }
 .change-character {
   display: block;
-  font-size: 0.5em;
+  font-size: 10px;
   font-weight: bold;
-  left:0;
+  left:-1px;
   opacity: 0;
   padding:0 4px;
   position: absolute;
   transition: opacity .25s ease;
   top:100%;
+
+  .letter:hover &,
+  .letter:focus & {
+    text-decoration: underline;
+  }
 }
 .letter-active, .letter-active:hover {
   border-bottom: none;
