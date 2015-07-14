@@ -36,10 +36,13 @@
   font-size: 1.2em;
 }
 .letter {
+  border-radius:2px;
   padding: 2px 4px 0px 4px;
   display: block;
   margin: 0 1px 12px 0;
   position: relative;
+  transition: background .25s ease;
+
   .char {
     border-radius: 50%;
     font-weight: bold;
@@ -55,7 +58,8 @@
   background-color: #ffc600;
   border-radius: 5px;
 }
-.letter:hover{
+.letter:hover,
+.letter:focus{
   .char {
     background-color: #f1f1f1;
     color: #333;
@@ -64,6 +68,9 @@
   .character-card {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
   }
+}
+.letter:active {
+  background:#f1f1f1;
 }
 .change-character {
   display: block;
