@@ -23,8 +23,8 @@ module.exports = function ($events, options) {
                             : $letters.find('.character-picker');
     var $charButtons = isMobile ? data.base
                                     .find('.picker-container')
-                                    .find('button')
-                                : $pickers.find('button');
+                                    .find('[data-js="switch-character"]')
+                                : $pickers.find('[data-js="switch-character"]');
     var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
@@ -155,17 +155,17 @@ module.exports = function ($events, options) {
 
         var selectedChar = $currentPicker.find('.selected-char');
         selectedChar.removeClass('selected-char');
-        var $prevButton = selectedChar.find('button');
+        var $prevButton = selectedChar.find('.button');
         $prevButton
           .removeAttr('disabled')
           .text('select')
           .addClass('primary');
 
-        $buttonEl
+        $buttonEl.find('.button')
           .attr('disabled', true)
           .removeClass('primary')
           .text('selected');
-        $buttonEl.parent().addClass('selected-char');
+        $buttonEl.addClass('selected-char');
         data.swapPage(page, character);
       });
     }

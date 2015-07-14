@@ -99,7 +99,10 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
 
           $(remainingLetterChars).each(function (ix, charObj) {
             // Include the character in the selection if not used earlier
-            var $imgContainer = $('<div />')
+            var $imgContainer = $('<button />')
+              .attr('data-js', 'switch-character')
+              .data('char', charObj)
+              .data('page', i)
               .addClass('img-container');
 
             var $img = $('<img />')
@@ -112,9 +115,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             $img.appendTo($imgContainer);
             $charName.appendTo($imgContainer);
 
-            var $selectButton = $('<button />')
-              .data('char', charObj)
-              .data('page', i);
+            var $selectButton = $('<span />');
 
             if (letter.selected === charObj.character) {
               $imgContainer.addClass('selected-char');
