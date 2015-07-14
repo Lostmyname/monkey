@@ -9,7 +9,8 @@ var animationSpeed = 500;
 module.exports = function ($events, options) {
   return function (data) {
     var classes = {
-      charPickerActive: 'character-picker--active'
+      charPickerActive: 'character-picker--active',
+      charPickerBgActive: 'picker-container__bg--active'
     };
     var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
@@ -24,10 +25,45 @@ module.exports = function ($events, options) {
                                     .find('.picker-container')
                                     .find('button')
                                 : $pickers.find('button');
+    var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var $activeLetter;
     var $currentPicker;
+
+    function setUpPicker ($activePicker, $activeLetter) {
+      if (isMobile) {
+          $pickerBg.addClass(classes.charPickerBgActive);
+          var bounding = $activeLetter.offset();
+          $activeLetter
+            .clone()
+            .addClass('letter--cloned')
+            .insertAfter($monkey)
+            .css({
+              fontSize: '1.2em',
+              position: 'absolute',
+              left: bounding.left,
+              lineHeight: 1.2,
+              top: bounding.top,
+              zIndex: 3
+            });
+      }
+      $activePicker
+        .addClass(classes.charPickerActive);
+    }
+
+    function destroyPicker ($activePicker, $activeLetter) {
+      if (isMobile) {
+        $activeLetter = typeof $activeLetter !== 'undefined' ?
+                          $activeLetter :
+                          $('.letter--cloned');
+        $activeLetter.remove();
+        $pickerBg
+          .removeClass(classes.charPickerBgActive);
+      }
+      $activePicker
+        .removeClass(classes.charPickerActive);
+    }
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -58,18 +94,20 @@ module.exports = function ($events, options) {
 
     $letters.on('click', '.letter', function (evt) {
       $('html').on('click',function () {
-        $('.character-picker').removeClass(classes.charPickerActive);
+        destroyPicker($pickers);
       });
 
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
-      $('.' + classes.charPickerActive).removeClass(classes.charPickerActive);
+
+      destroyPicker($('.' + classes.charPickerActive));
+
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
       if (currentPageIndex === $this.index()) {
         $currentPicker = $($pickers[$this.index() - 1]);
-        $currentPicker
-          .addClass(classes.charPickerActive);
+
+        setUpPicker($currentPicker, $this);
       }
 
       currentPageIndex = $this.index();
@@ -86,10 +124,10 @@ module.exports = function ($events, options) {
         $letterCharPicker = $monkey
                               .find('.character-picker')
                               .eq(letterParentIndex - 1);
-        $letterCharPicker.addClass(classes.charPickerActive);
       } else {
-        $(this).parent().find('.character-picker').addClass(classes.charPickerActive);
+        $letterCharPicker = $(this).parent().find('.character-picker');
       }
+      setUpPicker($letterCharPicker, $letterParent);
     });
     var calculatedWidth = 0;
     if (options.icons) {

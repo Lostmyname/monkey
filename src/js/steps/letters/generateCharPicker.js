@@ -27,6 +27,10 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     var $monkeyContainer = monkeyContainer;
 
     if (isMobile) {
+      var $pickerBg = $('<div />')
+        .addClass('picker-container__bg');
+      $pickerBg.appendTo($monkeyContainer);
+
       var $pickerContainer = $('<div />')
         .addClass('picker-container')
         .appendTo($monkeyContainer);
