@@ -82,7 +82,7 @@ module.exports = function ($events, options) {
       $letters.css({ width: calculatedWidth });
     }
 
-    var openingMargin = ($(window).width() / 2) -
+    var openingMargin = ($monkey.width() / 2) -
                         ($('.letter').eq(0)[0].clientWidth) -
                         ($('.letter').eq(1)[0].clientWidth / 2);
 
