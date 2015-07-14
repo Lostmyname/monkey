@@ -80,6 +80,13 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           if (isMobile) {
             $toolTip.appendTo($pickerContainer)
               .addClass('character-picker pos-absolute');
+
+            var $closeButton = $('<button>')
+              .attr('type', 'button')
+              .addClass('button primary character-picker__close')
+              .attr('data-js', 'close-mobile-char-picker')
+              .text('Close');
+            $closeButton.appendTo($toolTip);
           } else {
             $toolTip.appendTo($letterDiv)
             .addClass('character-picker pos-absolute');

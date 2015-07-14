@@ -121,4 +121,11 @@
 .picker-container__bg--active {
   display: block;
 }
+
+.character-picker__close {
+  left:0;
+  margin-top: 16px;
+  position: absolute;
+  top:100%;
+  width:100%;
 }
