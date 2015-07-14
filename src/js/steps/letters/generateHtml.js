@@ -74,6 +74,7 @@ module.exports = function (selector, lang, icons) {
           .addClass('letter')
           .attr('data-letter', letter.letter)
           .attr('data-character', letter.default_character)
+          .attr('data-type', letter.type)
           .after(' ');
         if (letter.selected !== letter.default_character) {
           $letterDiv.addClass('changed');

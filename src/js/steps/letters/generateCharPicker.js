@@ -41,32 +41,37 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
         return el.selected || '';
       });
 
-
     var loadLetterPicker = function () {
       $(data.combinedLetters).each(function (i, letter) {
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        var $letterDiv = letter.type !== 'bridge' ?
+                        $('.letter[data-letter="' + letter.letter + '"]' +
+                        '[data-character="' + letter.default_character + '"]') :
+                        $('.letter[data-letter=""][data-type="bridge"]');
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         var $toolTip = $('<div />');
-        $toolTip.appendTo($pickerContainer)
-          .addClass('character-picker pos-absolute');
+            $toolTip
+              .addClass('character-picker pos-absolute');
 
         if (isMobile) {
           $toolTip.appendTo($pickerContainer);
-	        var $closeButton = $('<button>')
+          var $closeButton = $('<button>')
               .attr('type', 'button')
               .addClass('button primary character-picker__close')
               .attr('data-js', 'close-mobile-char-picker')
               .text('Close');
           $closeButton.appendTo($toolTip);
+
           if(data.name.length <= 5) {
             $toolTip.addClass('character-picker--no-arrow');
           }
-
         } else {
           $toolTip.appendTo($letterDiv)
           var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
 
           $toolTip.css({
-            'margin-left': toolTipMargin
+            marginLeft: toolTipMargin
           });
         }
 
@@ -75,10 +80,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
             .text('CHANGE');
-          // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-          var $letterDiv = $('.letter[data-letter="' + letter.letter + '"]' +
-            '[data-character="' + letter.default_character + '"]');
-          // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
           $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;
@@ -86,6 +88,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           var remainingLetterChars = $.grep(letter.characters, function (charObj) {
             return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
+
+
 
           if (remainingLetterChars.length < 2) {
             charPickTitle = 'Sorry. No more ‘' + letter.letter +
@@ -102,19 +106,6 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             .addClass('char-container');
           $charContainer.appendTo($toolTip);
           $toolTipArrow.clone().prependTo($toolTip);
-
-          if (isMobile) {
-            $toolTip.appendTo($pickerContainer)
-              .addClass('character-picker pos-absolute');
-          } else {
-            $toolTip.appendTo($letterDiv)
-            .addClass('character-picker pos-absolute');
-            var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
-
-            $toolTip.css({
-              'margin-left': toolTipMargin
-            });
-          }
 
           $(remainingLetterChars).each(function (ix, charObj) {
             // Include the character in the selection if not used earlier
@@ -157,8 +148,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     };
 
     return loadLetterPicker()
-    	.then(function() {
-    		return data;
-    	});
-  }
-}
+      .then(function () {
+        return data;
+      });
+  };
+};
