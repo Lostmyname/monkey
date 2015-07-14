@@ -109,9 +109,9 @@ module.exports = function (selector, lang, icons) {
 
     return loadLetterCards()
       .then(function () {
-        $('<div />').html('&bull;')
+        $('<div />').html('<div class="char">&bull;</div>')
           .prependTo($letters)
-          .addClass('letter')
+          .addClass('letter letter--cover')
           .after(' ')
           .clone().appendTo($letters);
 

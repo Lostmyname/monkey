@@ -32,8 +32,6 @@
   z-index:1;
 }
 
-//.monkey-icons {
-
 #letters {
   font-size: 1.2em;
 }
@@ -93,13 +91,26 @@
     opacity: 1;
   }
 }
-.letter:first-child, .letter:last-child {
-  color: black;
-  display: inline;
-  width: 25px;
-  height: 0;
-  font-size: 1.5rem;
-  line-height: 25px;
+.monkey-icons #letters {
+  .letter:first-child,
+  .letter:last-child,
+  .letter--cover {
+    color: black;
+    display: inline-block;
+    height:auto;
+    width: 25px;
+    font-size: 1.5rem;
+    line-height: 16px;
+    padding-left:0;
+    padding-right: 0;
+
+    .char {
+      height:16px;
+      line-height:16px;
+      margin:7px 5px 5px 4px;
+      width:16px;
+    }
+  }
 }
 .character-card {
   display: inline-block;
@@ -115,6 +126,11 @@
 .letter-spans {
   margin-top: 10px;
   height: 82px;
+}
+.letter--cloned {
+  .change-character {
+    display: none;
+  }
 }
 
 .overlay {
