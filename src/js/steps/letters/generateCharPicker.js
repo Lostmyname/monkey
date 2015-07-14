@@ -6,6 +6,7 @@ var isMobile = require('../../helpers/isMobile')();
 /**
  *
  * Generate HTML for the Character Picker
+ *
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  * @param  {boolean} Boolean to decide whether to show icons (necessary?)
@@ -37,15 +38,37 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     }
 
     var allCharacters = $.map(data.combinedLetters, function (el) {
-        return el.selected;
+        return el.selected || '';
       });
+
 
     var loadLetterPicker = function () {
       $(data.combinedLetters).each(function (i, letter) {
 
+        var $toolTip = $('<div />');
+        $toolTip.appendTo($pickerContainer)
+          .addClass('character-picker pos-absolute');
+
+        if(isMobile) {
+          $toolTip.appendTo($pickerContainer);
+	  var $closeButton = $('<button>')
+              .attr('type', 'button')
+              .addClass('button primary character-picker__close')
+              .attr('data-js', 'close-mobile-char-picker')
+              .text('Close');
+            $closeButton.appendTo($toolTip);
+
+        } else {
+          $toolTip.appendTo($letterDiv)
+          var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
+
+          $toolTip.css({
+            'margin-left': toolTipMargin
+          });
+        }
+
         if (icons && letter.thumbnail) {
 
-          var $toolTip = $('<div />');
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
             .text('CHANGE');
@@ -61,7 +84,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
 
-          if (remainingLetterChars < 2) {
+          if (remainingLetterChars.length < 2) {
             charPickTitle = 'Sorry. No more ‘' + letter.letter +
               '’ characters available.';
           } else {
@@ -80,13 +103,6 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           if (isMobile) {
             $toolTip.appendTo($pickerContainer)
               .addClass('character-picker pos-absolute');
-
-            var $closeButton = $('<button>')
-              .attr('type', 'button')
-              .addClass('button primary character-picker__close')
-              .attr('data-js', 'close-mobile-char-picker')
-              .text('Close');
-            $closeButton.appendTo($toolTip);
           } else {
             $toolTip.appendTo($letterDiv)
             .addClass('character-picker pos-absolute');
@@ -138,8 +154,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     };
 
     return loadLetterPicker()
-      .then(function () {
-        return data;
-      });
-  };
-};
+    	.then(function() {
+    		return data;
+    	});
+  }
+}
