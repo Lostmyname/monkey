@@ -96,13 +96,21 @@
 
 .mobile .picker-container {
   position: relative;
-
+}
+.mobile {
   .character-picker {
     left:2.5%;
     margin-top: -4px;
     min-width:0;
     top:0;
     width:95%;
+  }
+  .character-picker--no-arrow {
+    margin-top:-16px;
+
+    .tooltip-arrow {
+      display: none;
+    }
   }
 }
 

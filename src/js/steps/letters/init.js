@@ -12,6 +12,7 @@ module.exports = function ($events, options) {
       charPickerActive: 'character-picker--active',
       charPickerBgActive: 'picker-container__bg--active'
     };
+    // @todo: tidy this up
     var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
@@ -50,7 +51,7 @@ module.exports = function ($events, options) {
           $letterSpans.css({
             overflow: 'hidden'
           });
-          $pickerBg.on('click', function() {
+          $pickerBg.on('click', function () {
             destroyPicker($activePicker);
           });
       }
@@ -71,6 +72,47 @@ module.exports = function ($events, options) {
       $activePicker
         .removeClass(classes.charPickerActive);
     }
+
+    var calculatedWidth = 0;
+    if (options.icons) {
+
+      $spans.each(function () {
+        calculatedWidth  += $(this).outerWidth(true);
+      });
+      $letters.css({ width: calculatedWidth });
+    }
+
+    var openingMargin = ($(window).width() / 2) -
+                        ($('.letter').eq(0)[0].clientWidth) -
+                        ($('.letter').eq(1)[0].clientWidth / 2);
+
+    if (data.name.length > 5) {
+      if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
+        $letters
+          .css({
+            paddingRight: openingMargin,
+            width: calculatedWidth + 10 + openingMargin
+          })
+          .delay(animationDelay)
+          .animate({
+            marginLeft: openingMargin
+          }, animationSpeed);
+      } else if (isMobile && !options.animateName) {
+        $letters.css({
+          marginLeft: openingMargin,
+          paddingRight: openingMargin,
+          width: calculatedWidth + 10 + openingMargin
+        });
+      }
+    } else {
+      if (isMobile) {
+        $letters.css({
+          margin: '0 auto'
+        });
+      }
+    }
+
+    // Events
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -110,14 +152,13 @@ module.exports = function ($events, options) {
 
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
+
       if (currentPageIndex === $this.index()) {
         $currentPicker = $($pickers[$this.index() - 1]);
-
         setUpPicker($currentPicker, $this);
       }
 
       currentPageIndex = $this.index();
-
       evt.stopPropagation();
     });
 
@@ -136,14 +177,8 @@ module.exports = function ($events, options) {
       }
       setUpPicker($letterCharPicker, $letterParent);
     });
-    var calculatedWidth = 0;
+
     if (options.icons) {
-
-      $spans.each(function () {
-        calculatedWidth  += $(this).outerWidth(true);
-      });
-      $letters.css({ width: calculatedWidth + 10 });
-
       $charButtons.on('click', function () {
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
@@ -167,26 +202,6 @@ module.exports = function ($events, options) {
           .text('selected');
         $buttonEl.addClass('selected-char');
         data.swapPage(page, character);
-      });
-    }
-    var openingMargin = ($(window).width() / 2) -
-                        ($('.letter').eq(0)[0].clientWidth) -
-                        ($('.letter').eq(1)[0].clientWidth / 2);
-    if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
-      $letters
-        .css({
-          paddingRight: openingMargin,
-          width: calculatedWidth + 10 + openingMargin
-        })
-        .delay(animationDelay)
-        .animate({
-          marginLeft: openingMargin
-        }, animationSpeed);
-    } else if (isMobile && !options.animateName) {
-      $letters.css({
-        marginLeft: openingMargin,
-        paddingRight: openingMargin,
-        width: calculatedWidth + 10 + openingMargin
       });
     }
 

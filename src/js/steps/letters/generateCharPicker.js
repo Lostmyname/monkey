@@ -49,14 +49,17 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
         $toolTip.appendTo($pickerContainer)
           .addClass('character-picker pos-absolute');
 
-        if(isMobile) {
+        if (isMobile) {
           $toolTip.appendTo($pickerContainer);
-	  var $closeButton = $('<button>')
+	        var $closeButton = $('<button>')
               .attr('type', 'button')
               .addClass('button primary character-picker__close')
               .attr('data-js', 'close-mobile-char-picker')
               .text('Close');
-            $closeButton.appendTo($toolTip);
+          $closeButton.appendTo($toolTip);
+          if(data.name.length <= 5) {
+            $toolTip.addClass('character-picker--no-arrow');
+          }
 
         } else {
           $toolTip.appendTo($letterDiv)
