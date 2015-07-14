@@ -130,10 +130,47 @@
   background-color: white;
   border-radius: 4px;
   border: 1px #e0e0e0 solid;
+  overflow: hidden;
+  position: relative;
   img {
+    background:#fff;
+    display: block;
+    margin-top: 0;
     width: 38px;
+    // transition: .25s ease-in;
     height: 38px;
   }
+}
+
+@keyframes old-thumb {
+  0% {
+    opacity:1;
+    transform: scale(1);
+  }
+  100% {
+    opacity:0;
+    transform: scale(0.9);
+  }
+}
+@keyframes new-thumb {
+  0% {
+    opacity:0;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity:1;
+    transform: none;
+  }
+}
+.character-card__image--old {
+  animation: old-thumb .25s 1 ease both;
+}
+
+.character-card__image--new {
+  animation: new-thumb .25s .15s 1 ease both;
+  left:0;
+  position: absolute;
+  top:0;
 }
 .letter-spans {
   margin-top: 10px;
