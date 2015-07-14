@@ -149,13 +149,13 @@
   }
   100% {
     opacity:0;
-    transform: scale(0.9);
+    transform: scale(0.5);
   }
 }
 @keyframes new-thumb {
   0% {
     opacity:0;
-    transform: scale(1.1);
+    transform: scale(1.5);
   }
   100% {
     opacity:1;
@@ -163,11 +163,11 @@
   }
 }
 .character-card__image--old {
-  animation: old-thumb .25s 1 ease both;
+  animation: old-thumb .3s 1 ease both;
 }
 
 .character-card__image--new {
-  animation: new-thumb .25s .15s 1 ease both;
+  animation: new-thumb .3s .1s 1 ease both;
   left:0;
   position: absolute;
   top:0;
