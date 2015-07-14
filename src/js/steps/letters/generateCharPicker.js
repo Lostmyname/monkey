@@ -6,6 +6,7 @@ var isMobile = require('../../helpers/isMobile')();
 /**
  *
  * Generate HTML for the Character Picker
+ *
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  * @param  {boolean} Boolean to decide whether to show icons (necessary?)
@@ -33,15 +34,30 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     }
 
     var allCharacters = $.map(data.combinedLetters, function (el) {
-        return el.selected;
+        return el.selected || '';
       });
+
 
     var loadLetterPicker = function () {
       $(data.combinedLetters).each(function (i, letter) {
 
+        var $toolTip = $('<div />');
+        $toolTip.appendTo($pickerContainer)
+          .addClass('character-picker pos-absolute');
+
+        if(isMobile) {
+          $toolTip.appendTo($pickerContainer)
+        } else {
+          $toolTip.appendTo($letterDiv)
+          var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
+
+          $toolTip.css({
+            'margin-left': toolTipMargin
+          });
+        }
+
         if (icons && letter.thumbnail) {
 
-          var $toolTip = $('<div />');
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
             .text('CHANGE');
@@ -51,13 +67,16 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
           // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
           $changeSpan.appendTo($letterDiv);
 
+         	var $letterDiv = $('.letter[data-letter="'+letter.letter+'"][data-character="'+letter.default_character+'"]');
+          $changeSpan.appendTo($letterDiv);
+
           var charPickTitle;
 
           var remainingLetterChars = $.grep(letter.characters, function (charObj) {
             return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
 
-          if (remainingLetterChars < 2) {
+          if (remainingLetterChars.length < 2) {
             charPickTitle = 'Sorry. No more ‘' + letter.letter +
               '’ characters available.';
           } else {
@@ -72,19 +91,6 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             .addClass('char-container');
           $charContainer.appendTo($toolTip);
           $toolTipArrow.clone().prependTo($toolTip);
-
-          if (isMobile) {
-            $toolTip.appendTo($pickerContainer)
-              .addClass('character-picker pos-absolute');
-          } else {
-            $toolTip.appendTo($letterDiv)
-            .addClass('character-picker pos-absolute');
-            var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
-
-            $toolTip.css({
-              'margin-left': toolTipMargin
-            });
-          }
 
           $(remainingLetterChars).each(function (ix, charObj) {
             // Include the character in the selection if not used earlier
@@ -126,8 +132,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
     };
 
     return loadLetterPicker()
-      .then(function () {
-        return data;
-      });
-  };
-};
+    	.then(function() {
+    		return data;
+    	});
+  }
+}
