@@ -108,18 +108,25 @@
 
 .picker-container__bg {
   background:black;
-  display: none;
   height:100%;
   left:0;
-  opacity:0.6;
+  opacity:0;
   position: fixed;
   top:0;
+  transition: visibility 0s ease .2s, opacity .2s ease;
+  visibility: hidden;
   width:100%;
   z-index:3;
 }
 
 .picker-container__bg--active {
-  display: block;
+  opacity: .6;
+  transition-delay:0s, 0s;
+  visibility: visible;
+}
+
+.letter-spans {
+  //overflow: hidden !important;
 }
 
 .character-picker__close {

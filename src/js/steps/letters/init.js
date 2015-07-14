@@ -47,6 +47,12 @@ module.exports = function ($events, options) {
               top: bounding.top,
               zIndex: 3
             });
+          $letterSpans.css({
+            overflow: 'hidden'
+          });
+          $pickerBg.on('click', function() {
+            destroyPicker($activePicker);
+          });
       }
       $activePicker
         .addClass(classes.charPickerActive);
@@ -60,6 +66,7 @@ module.exports = function ($events, options) {
         $activeLetter.remove();
         $pickerBg
           .removeClass(classes.charPickerBgActive);
+        $letterSpans.removeAttr('style');
       }
       $activePicker
         .removeClass(classes.charPickerActive);
@@ -93,10 +100,9 @@ module.exports = function ($events, options) {
     });
 
     $letters.on('click', '.letter', function (evt) {
-      $('html').on('click',function () {
+      $('html').on('click', function () {
         destroyPicker($pickers);
       });
-
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
 
@@ -111,6 +117,7 @@ module.exports = function ($events, options) {
       }
 
       currentPageIndex = $this.index();
+
       evt.stopPropagation();
     });
 

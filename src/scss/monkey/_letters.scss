@@ -190,7 +190,7 @@
   top:100%;
   left:50%;
   transform:scale(1.05);
-  transition: visibility .4s ease, opacity .4s ease, transform .4s ease;
+  transition: visibility 0s ease .4s, opacity .4s ease, transform .4s ease;
   visibility: hidden;
 
   .tooltip-arrow {
@@ -249,7 +249,7 @@
 .character-picker--active {
   opacity: 1;
   transform: none;
-  transition-delay:.4s, 0, 0;
+  transition-delay:0s, 0s, 0s;
   visibility: visible;
   .tooltip-arrow {
     display: block;
