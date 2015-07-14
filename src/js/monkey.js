@@ -21,7 +21,8 @@ window.Monkey = module.exports = (function () {
       replaceMonkey: false,
       showCharPicker: true,
 
-      server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
