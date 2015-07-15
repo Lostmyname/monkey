@@ -66,7 +66,7 @@ module.exports = function (options) {
       });
 
       $noButton.on('click', function () {
-        closeOverlay();
+        revertCharsToOriginal(closeOverlay);
       });
 
       function closeOverlay() {
@@ -78,6 +78,25 @@ module.exports = function (options) {
           $(this).remove();
         });
 
+      }
+
+      function revertCharsToOriginal(callback) {
+        for (var i = 0; i < data.combinedLetters.length; i++) {
+          var letter = data.combinedLetters[i];
+          if (letter.changed === true) {
+            var characters = letter.characters;
+            for (var j = 0; j < characters.length; j++) {
+              var character = characters[j];
+              if (character.character === letter.default_character) {
+                var $letter = $('.letter[data-letter="' + character.letter + '"]' +
+                                '[data-character="' + character.character + '"]');
+                data.changeCharacter($letter.find('[data-js="switch-character"]:not(.selected-char)'), false)
+              }
+            }
+
+          }
+        }
+        callback();
       }
       return defer.promise();
     }

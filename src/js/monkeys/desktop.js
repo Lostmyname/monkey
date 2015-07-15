@@ -63,6 +63,7 @@ desktop.init = function (data, $events) {
     var page2El = $('.Page-' + (page + 1));
     page1El.replaceWith(newPage1);
     page2El.replaceWith(newPage2);
+
   };
 
   data.heidelberg.el.addClass('at-front-cover');

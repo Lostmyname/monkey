@@ -192,49 +192,55 @@ module.exports = function ($events, options) {
       setUpPicker($letterCharPicker, $letterParent);
     });
 
+    data.changeCharacter = function (button, evt) {
+      var $buttonEl = $(button);
+      var character = $buttonEl.data('char');
+      var page = $buttonEl.data('page');
+      var $pickerEl = $buttonEl.closest('.character-picker');
+      var $currentLetter = $activeLetter || $buttonEl.closest('.letter');
+      data.changeLetterThumbnail($currentLetter, character);
+      var selectedChar = $pickerEl.find('.selected-char');
+      selectedChar.removeClass('selected-char');
+      var $prevButton = selectedChar.find('.button');
+      $prevButton
+        .removeAttr('disabled')
+        .text('Select')
+        .addClass('primary');
+
+      $buttonEl.find('.button')
+        .attr('disabled', true)
+        .removeClass('primary')
+        .text('In Use');
+      $buttonEl.addClass('selected-char');
+      destroyPicker($pickerEl);
+      data.swapPage(page, character);
+      if (evt !== false) {
+        return evt.stopPropagation();
+      }
+    };
+
+    data.changeLetterThumbnail = function ($letter, character) {
+      var $card = $letter.find('.character-card');
+      var $currentThumb = $card.find('img');
+      var currentUrl = $currentThumb.attr('src');
+      if (currentUrl !== character.thumbnail) {
+        var $newThumb = $currentThumb.clone();
+        $currentThumb.addClass('character-card__image--old');
+        $newThumb
+          .appendTo($card)
+          .addClass('character-card__image--new')
+          .attr('src', character.thumbnail);
+        setTimeout(function () {
+          $currentThumb.remove();
+          $newThumb.removeClass('character-card__image--new');
+        }, 400);
+      }
+      return this;
+    };
+
     if (options.icons) {
       $charButtons.on('click', function (evt) {
-        var $buttonEl = $(this);
-        var character = $buttonEl.data('char');
-        var page = $buttonEl.data('page');
-        var $pickerEl = $buttonEl.closest('.character-picker');
-
-        function changeLetterThumbnail($letter, character) {
-          var $card = $letter.find('.character-card');
-          var $currentThumb = $card.find('img');
-          var currentUrl = $currentThumb.attr('src');
-          if (currentUrl !== character.thumbnail) {
-            var $newThumb = $currentThumb.clone();
-            $currentThumb.addClass('character-card__image--old');
-            $newThumb
-              .appendTo($card)
-              .addClass('character-card__image--new')
-              .attr('src', character.thumbnail);
-            setTimeout(function () {
-              $currentThumb.remove();
-              $newThumb.removeClass('character-card__image--new');
-            }, 400);
-          }
-        }
-
-        changeLetterThumbnail($activeLetter, character);
-
-        var selectedChar = $currentPicker.find('.selected-char');
-        selectedChar.removeClass('selected-char');
-        var $prevButton = selectedChar.find('.button');
-        $prevButton
-          .removeAttr('disabled')
-          .text('Select')
-          .addClass('primary');
-
-        $buttonEl.find('.button')
-          .attr('disabled', true)
-          .removeClass('primary')
-          .text('In Use');
-        $buttonEl.addClass('selected-char');
-        destroyPicker($pickerEl);
-        data.swapPage(page, character);
-        evt.stopPropagation();
+        data.changeCharacter(this, evt);
       });
     }
 
