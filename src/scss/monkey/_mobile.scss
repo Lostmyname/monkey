@@ -25,6 +25,30 @@
   }
 }
 
+@keyframes name-agitator {
+  0% {
+    transform: translateX(-8px);
+  }
+  6% {
+    transform: translateX(0);
+  }
+  12% {
+    transform: translateX(-8px);
+  }
+  18% {
+    transform: translateX(0);
+  }
+  94% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-8px);
+  }
+}
+.letter-spans--agitated {
+  animation: name-agitator 3s .2s infinite ease;
+}
+
 .landscape .lmn-book {
   position: fixed;
   top: 0;

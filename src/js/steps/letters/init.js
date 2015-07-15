@@ -86,27 +86,16 @@ module.exports = function ($events, options) {
                         ($('.letter').eq(1)[0].clientWidth / 2);
 
     function nameAgitator() {
-      var animSpeed = 800;
-      // Taken from jQuery Easing: http://gsgd.co.uk/sandbox/jquery/easing/
-      var easing = 'easeInOutQuad';
-      $.easing[easing] = function (x, t, b, c, d) {
-        if ((t /= d / 2) < 1) {
-          return c / 2 * t * t + b;
-        }
-        return -c / 2 * ((--t) * (t - 2) - 1) + b;
+      var classes = {
+        agitator: 'letter-spans--agitated'
       };
-
       data.lettersElement.one('mousedown touchstart pointerdown', function () {
-        $letterSpans.stop();
+        $letters.removeClass(classes.agitator);
       });
 
       function agitate() {
-       // console.log('hello');
-        $letterSpans.animate({ scrollLeft: 10 }, animSpeed, easing, function () {
-          $letterSpans.animate({ scrollLeft: 0 }, animSpeed, easing, agitate);
-        });
+        $letters.addClass(classes.agitator);
       }
-      console.log($letterSpans);
       agitate();
 
     }
