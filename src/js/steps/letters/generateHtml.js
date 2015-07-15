@@ -87,10 +87,10 @@ module.exports = function (options) {
           .text(letter.letter || '');
         $letterSpan.appendTo($letterDiv);
 
-      if (options.icons && letter.thumbnail) {
-        var $characterCard = $('<div />');
-        $characterCard.appendTo($letterDiv)
-          .addClass('character-card');
+        if (options.icons && letter.thumbnail) {
+          var $characterCard = $('<div />');
+          $characterCard.appendTo($letterDiv)
+            .addClass('character-card');
 
           var $icon = $('<img />')
             .attr('src', letter.thumbnail)
@@ -132,10 +132,10 @@ module.exports = function (options) {
         }
         return data;
       });
-  }
+  };
 };
 
-var combineLetters = function (splitLetters, dataLetters) {
+function combineLetters(splitLetters, dataLetters) {
   var offset = 0;
   return $.map(splitLetters, function (val, i) {
     var idx = i;
@@ -149,10 +149,10 @@ var combineLetters = function (splitLetters, dataLetters) {
     if (val === '-') {
       offset++;
       return { letter: val };
-    } else {
-      dataLetters[idx].letter = val;
-      return dataLetters[idx];
     }
 
+    dataLetters[idx].letter = val;
+    return dataLetters[idx];
+
   });
-};
+}
