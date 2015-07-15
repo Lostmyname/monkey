@@ -3,8 +3,8 @@
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
 
-var animationDelay = 1500;
-var animationSpeed = 500;
+var animationDelay = 1600;
+var animationSpeed = 800;
 
 module.exports = function ($events, options) {
   return function (data) {
@@ -17,7 +17,6 @@ module.exports = function ($events, options) {
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $letterSpans = $('.letter-spans');
-    // var $pickers = $picker.find('.character-picker');
     var $pickers = isMobile ? data.base
                                 .find('.picker-container')
                                 .find('.character-picker')
@@ -86,8 +85,35 @@ module.exports = function ($events, options) {
                         ($('.letter').eq(0)[0].clientWidth) -
                         ($('.letter').eq(1)[0].clientWidth / 2);
 
+    function nameAgitator() {
+      var animSpeed = 800;
+      // Taken from jQuery Easing: http://gsgd.co.uk/sandbox/jquery/easing/
+      var easing = 'easeInOutQuad';
+      $.easing[easing] = function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) {
+          return c / 2 * t * t + b;
+        }
+        return -c / 2 * ((--t) * (t - 2) - 1) + b;
+      };
+
+      data.lettersElement.one('mousedown touchstart pointerdown', function () {
+        $letterSpans.stop();
+      });
+
+      function agitate() {
+       // console.log('hello');
+        $letterSpans.animate({ scrollLeft: 10 }, animSpeed, easing, function () {
+          $letterSpans.animate({ scrollLeft: 0 }, animSpeed, easing, agitate);
+        });
+      }
+      console.log($letterSpans);
+      agitate();
+
+    }
+
     if (data.name.length > 5) {
       if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
+
         $letters
           .css({
             paddingRight: openingMargin,
@@ -96,7 +122,7 @@ module.exports = function ($events, options) {
           .delay(animationDelay)
           .animate({
             marginLeft: openingMargin
-          }, animationSpeed);
+          }, animationSpeed, nameAgitator);
       } else if (isMobile && !options.animateName) {
         $letters.css({
           marginLeft: openingMargin,
@@ -134,7 +160,7 @@ module.exports = function ($events, options) {
           var centerOffset = $currentLetter.position().left -
                             ($currentLetter.outerWidth(true) / 2);
           $letterSpans
-            .animate({ scrollLeft: centerOffset }, animationSpeed);
+            .animate({ scrollLeft: centerOffset }, animationSpeed / 4);
         }
       }
     });
