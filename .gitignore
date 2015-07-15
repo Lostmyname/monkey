@@ -3,3 +3,4 @@ demo/build
 demo/partials
 *.log
 .sass-cache
+.DS_Store
