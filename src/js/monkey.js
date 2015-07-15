@@ -44,12 +44,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateBaseElement($monkeyContainer, options));
     if (options.letters) {
-      promise = promise.then(Monkey.letters._generateHtml(
-        options.letters,
-        options.lang,
-        options.icons
-        )
-      );
+      promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker) {
         promise = promise.then(Monkey.letters._generateCharPicker(
             options.letters,

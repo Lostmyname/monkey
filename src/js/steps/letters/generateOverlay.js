@@ -11,7 +11,7 @@ var $ = require('jquery');
 module.exports = function (options) {
   var defer = $.Deferred();
   return function (data) {
-    function loadOverlay () {
+    function loadOverlay() {
       var $overlay = $('<div />');
       var $monkeyContainer = data.monkeyContainer;
       var classes = {
@@ -69,7 +69,7 @@ module.exports = function (options) {
         closeOverlay();
       });
 
-      function closeOverlay () {
+      function closeOverlay() {
         $('.letter').removeClass('changed');
         $monkeyContainer
           .removeClass(classes.overlayActive)

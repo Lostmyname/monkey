@@ -51,8 +51,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         var $toolTip = $('<div />');
-            $toolTip
-              .addClass('character-picker pos-absolute');
+        $toolTip
+          .addClass('character-picker pos-absolute');
 
         if (isMobile) {
           $toolTip.appendTo($pickerContainer);
@@ -63,11 +63,11 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               .text('Close');
           $closeButton.appendTo($toolTip);
 
-          if(data.name.length <= 5) {
+          if (data.name.length <= 5) {
             $toolTip.addClass('character-picker--no-arrow');
           }
         } else {
-          $toolTip.appendTo($letterDiv)
+          $toolTip.appendTo($letterDiv);
           var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
 
           $toolTip.css({

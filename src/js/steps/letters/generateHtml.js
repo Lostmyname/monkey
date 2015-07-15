@@ -117,24 +117,22 @@ module.exports = function (options) {
           .after(' ')
           .clone().appendTo($letters);
 
-    var $book = false;
-    if (typeof options.letters !== 'boolean') {
-      $book = $(options.letters);
-    }
-
+        var $book = false;
+        if (typeof options.letters !== 'boolean') {
+          $book = $(options.letters);
+        }
         if (!$book || !$book.length) {
           $book = data.monkeyContainer;
         }
-
         $book.empty();
         data.lettersElement = $lettersContainer.appendTo($book);
 
-    if (options.icons) {
-      $lettersContainer.parents('#monkey').addClass('monkey-icons');
-    }
-
-    return data;
-  };
+        if (options.icons) {
+          $lettersContainer.parents('#monkey').addClass('monkey-icons');
+        }
+        return data;
+      });
+  }
 };
 
 var combineLetters = function (splitLetters, dataLetters) {
@@ -144,10 +142,10 @@ var combineLetters = function (splitLetters, dataLetters) {
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
-    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+
     dataLetters[idx].changed =
       dataLetters[idx].selected !== dataLetters[idx].default_character;
-    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+
     if (val === '-') {
       offset++;
       return { letter: val };

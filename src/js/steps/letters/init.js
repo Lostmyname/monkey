@@ -29,37 +29,37 @@ module.exports = function ($events, options) {
     var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
-    var $activeLetter;
-    var $currentPicker;
+    var $activeLetter,
+      $currentPicker;
 
-    function setUpPicker ($activePicker, $activeLetter) {
+    function setUpPicker($activePicker, $activeLetter) {
       if (isMobile) {
-          $pickerBg.addClass(classes.charPickerBgActive);
-          var bounding = $activeLetter.offset();
-          $activeLetter
-            .clone()
-            .addClass('letter--cloned')
-            .insertAfter($monkey)
-            .css({
-              fontSize: '1.2em',
-              position: 'absolute',
-              left: bounding.left,
-              lineHeight: 1.2,
-              top: bounding.top,
-              zIndex: 3
-            });
-          $letterSpans.css({
-            overflow: 'hidden'
+        $pickerBg.addClass(classes.charPickerBgActive);
+        var bounding = $activeLetter.offset();
+        $activeLetter
+          .clone()
+          .addClass('letter--cloned')
+          .insertAfter($monkey)
+          .css({
+            fontSize: '1.2em',
+            position: 'absolute',
+            left: bounding.left,
+            lineHeight: 1.2,
+            top: bounding.top,
+            zIndex: 3
           });
-          $pickerBg.on('click', function () {
-            destroyPicker($activePicker);
-          });
+        $letterSpans.css({
+          overflow: 'hidden'
+        });
+        $pickerBg.on('click', function () {
+          destroyPicker($activePicker);
+        });
       }
       $activePicker
         .addClass(classes.charPickerActive);
     }
 
-    function destroyPicker ($activePicker, $activeLetter) {
+    function destroyPicker($activePicker, $activeLetter) {
       if (isMobile) {
         $activeLetter = typeof $activeLetter !== 'undefined' ?
                           $activeLetter :
@@ -77,7 +77,7 @@ module.exports = function ($events, options) {
     if (options.icons) {
 
       $spans.each(function () {
-        calculatedWidth  += $(this).outerWidth(true);
+        calculatedWidth += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth });
     }
@@ -104,12 +104,10 @@ module.exports = function ($events, options) {
           width: calculatedWidth + 10 + openingMargin
         });
       }
-    } else {
-      if (isMobile) {
-        $letters.css({
-          margin: '0 auto'
-        });
-      }
+    } else if (isMobile) {
+      $letters.css({
+        margin: '0 auto'
+      });
     }
 
     // Events
@@ -167,8 +165,8 @@ module.exports = function ($events, options) {
         letterParentIndex,
         $letterCharPicker;
       if (isMobile) {
-        $letterParent = $(this).closest('.letter'),
-        letterParentIndex = $letterParent.index(),
+        $letterParent = $(this).closest('.letter');
+        letterParentIndex = $letterParent.index();
         $letterCharPicker = $monkey
                               .find('.character-picker')
                               .eq(letterParentIndex - 1);
@@ -183,11 +181,9 @@ module.exports = function ($events, options) {
         var $buttonEl = $(this);
         var character = $buttonEl.data('char');
         var page = $buttonEl.data('page');
-
-        var characterCard = $activeLetter.find('.character-card img');
         var $pickerEl = $buttonEl.closest('.character-picker');
 
-        function changeLetterThumbnail ($letter, character) {
+        function changeLetterThumbnail($letter, character) {
           var $card = $letter.find('.character-card');
           var $currentThumb = $card.find('img');
           var currentUrl = $currentThumb.attr('src');
