@@ -123,6 +123,31 @@
       width:16px;
     }
   }
+  .letter--cover {
+    .char {
+      overflow: hidden;
+      position: relative;
+      text-indent:200%;
+      white-space:nowrap;
+
+      &:before {
+        background:#000;
+        border-radius:50%;
+        content:"";
+        height:8px;
+        left:50%;
+        margin:-4px 0 0 -4px;
+        position: absolute;
+        top:50%;
+        transition: .25s ease;
+        width:8px;
+      }
+    }
+
+    &.letter-active .char:before {
+      background:#fff;
+    }
+  }
 }
 .character-card {
   display: inline-block;
