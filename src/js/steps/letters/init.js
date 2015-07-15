@@ -207,17 +207,12 @@ module.exports = function ($events, options) {
         .text('Select')
         .addClass('primary');
 
-      $buttonEl.find('.button')
-        .attr('disabled', true)
-        .removeClass('primary')
-        .text('In Use');
-      $buttonEl.addClass('selected-char');
-      destroyPicker($pickerEl);
-      data.swapPage(page, character);
-      if (evt !== false) {
-        return evt.stopPropagation();
-      }
-    };
+        var characterCard = $activeLetter.find('.character-card img');
+        characterCard
+          .attr('src', character.thumbnail);
+        $activeLetter
+          .attr('data-character', character.character);
+        var $pickerEl = $buttonEl.closest('.character-picker');
 
     data.changeLetterThumbnail = function ($letter, character) {
       var $card = $letter.find('.character-card');
