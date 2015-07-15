@@ -54,4 +54,36 @@ describe('Using monkey on desktop', function () {
   after(function () {
     $container.remove();
   });
+
+  describe('Special Characters for separating names', function () {
+    var data, monkey;
+    var $container = $('<div />').attr('data-key', 'lmn-book');
+
+    before(function () {
+      options.book.name = 'Mary Mary-Jane';
+      this.timeout(4000);
+
+      monkey = new Monkey($container, {
+        monkeyType: 'desktop',
+        book: options.book
+      });
+
+      return monkey.promise.then(function (dataa) {
+        $container.appendTo('body');
+        data = dataa;
+      });
+    });
+
+    it('should not make hyphens in names clickable', function () {
+      $container.find('.nonclickable.special-char .char:contains(-)').length.should.equal(1);
+    });
+
+    it('should not make spaces in names clickable', function () {
+      $container.find('.nonclickable.special-char .char:contains( )').length.should.equal(1);
+    });
+
+    after(function () {
+      $container.remove();
+    });
+  });
 });

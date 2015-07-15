@@ -49,6 +49,12 @@ module.exports = function (options) {
 
     $(combinedLetters).each(function (i, letter) {
       var $letterDiv = $('<div />');
+
+      // Ensures spaces and hyphens are not clickable in double barrel names
+      if (letter.letter === ' ' || letter.letter === '-') {
+        $letterDiv.addClass('special-char nonclickable');
+      }
+
       $letterDiv.appendTo($letters)
         .addClass('letter')
         .after(' ');
