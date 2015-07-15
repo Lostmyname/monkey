@@ -2,6 +2,7 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
+var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
 
 var animationDelay = 1600;
 var animationSpeed = 800;
@@ -100,7 +101,7 @@ module.exports = function ($events, options) {
 
     }
 
-    if (data.name.length > 5) {
+    if (data.name.length > numOfCentralizedChars) {
       if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
 
         $letters

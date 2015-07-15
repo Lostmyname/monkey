@@ -2,6 +2,7 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
+var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
 
 /**
  *
@@ -63,7 +64,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               .text('Close');
           $closeButton.appendTo($toolTip);
 
-          if (data.name.length <= 5) {
+          if (data.name.length <= numOfCentralizedChars) {
             $toolTip.addClass('character-picker--no-arrow');
           }
         } else {
