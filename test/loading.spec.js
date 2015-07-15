@@ -111,7 +111,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for desktop', function () {
     return promise.then(changeMonkeyType('desktop'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.jQuery;
@@ -122,7 +122,7 @@ describe('Loading Monkey', function () {
 
   it('should generate HTML for mobile', function () {
     return promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(function (data) {
         data.should.have.property('html');
         data.html.should.be.jQuery;
@@ -136,7 +136,7 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('desktop'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._initMonkey($events))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
@@ -153,7 +153,7 @@ describe('Loading Monkey', function () {
     $book.children().length.should.equal(0);
 
     return promise.then(changeMonkeyType('mobile'))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._initMonkey($({})))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
@@ -176,7 +176,7 @@ describe('Loading Monkey', function () {
   });
 
   it('should generate letters HTML correctly', function () {
-    promise = promise.then(Monkey.letters._generateHtml(true, options.lang));
+    promise = promise.then(Monkey.letters._generateHtml(options));
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.letter');
@@ -236,26 +236,26 @@ describe('Loading Monkey', function () {
     });
   });
 
+  it('should generate html for icons', function () {
+    promise = promise.then(Monkey.letters._generateHtml(options));
+
+    return promise.then(function (data) {
+      var spans = data.lettersElement.find('.character-card');
+      spans.length.should.equal(10);
+    });
+  });
+
   it('should initiate letters correctly', function () {
     Monkey.monkeys.test = {
       letterHandler: function () {}
     };
 
     promise = promise.then(changeMonkeyType('test'))
-      .then(Monkey.letters._init($events));
+      .then(Monkey.letters._init($events, options));
 
     return promise.then(function (data) {
       $events.trigger('letterChange', 7);
       data.lettersElement.find('.letter-active').index().should.equal(3);
-    });
-  });
-
-  it('should generate html for icons', function () {
-    promise = promise.then(Monkey.letters._generateHtml(true, options.lang, true));
-
-    return promise.then(function (data) {
-      var spans = data.lettersElement.find('.character-card');
-      spans.length.should.equal(10);
     });
   });
 
@@ -285,10 +285,28 @@ describe('Loading Monkey', function () {
     });
 
     return monkey.promise
-    .then(Monkey.letters._generateHtml(true, options.lang, true))
+    .then(Monkey.letters._generateHtml(options))
     .then(function (data) {
       var spans = data.lettersElement.find('.character-card');
       spans.length.should.equal(4);
+    });
+  });
+
+  it('should generate letters for names with spaces (slow)', function () {
+    var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
+      book: {
+        name: 'Lee T',
+        gender: 'girl',
+        locale: 'en-GB'
+      }
+    });
+
+    return monkey.promise
+    .then(Monkey.letters._generateHtml(options))
+    .then(function (data) {
+      var spans = data.lettersElement.find('.letter');
+      spans.length.should.equal(5 + 2);
+      spans.find('.char')[4].should.match(/ /);
     });
   });
 });

@@ -11,15 +11,20 @@ desktop.calculateSize = function () {
   return 'w=' + Math.min($(window).width(), MAX_WIDTH);
 };
 
-desktop.generateHtml = function (data) {
+desktop.generateHtml = function (data, lang) {
   var $monkeyWrapper = $('<div />')
     .addClass('pos-relative monkey-wrapper js--add-overlay');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop pos-absolute');
 
   $.each(data.urls, function (i, url) {
+    var $img = $('<img />', {
+      src: url,
+      alt: data.letters[i].text || lang.noAltText
+    });
+
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
-      .append($('<img />').attr('src', url))
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .append($img)
       .appendTo($monkey);
   });
   $monkey.appendTo($monkeyWrapper);

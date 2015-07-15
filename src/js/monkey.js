@@ -1,6 +1,4 @@
 window.Monkey = module.exports = (function () {
-  'use strict';
-
   var $ = require('jquery');
 
   /**
@@ -31,7 +29,8 @@ window.Monkey = module.exports = (function () {
       },
 
       lang: {
-        bookFor: 'A personalised book made for'
+        bookFor: 'A personalised book made for',
+        noAltText: 'No alternative text for this page, sorry.'
       }
     }, options);
 
@@ -42,8 +41,8 @@ window.Monkey = module.exports = (function () {
     this.$events = $({});
 
     var promise = Monkey._getData(options)
-    .then(Monkey._calculateMonkey(options.monkeyType))
-    .then(Monkey._generateBaseElement($monkeyContainer, options));
+      .then(Monkey._calculateMonkey(options.monkeyType))
+      .then(Monkey._generateBaseElement($monkeyContainer, options));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(
         options.letters,
@@ -64,21 +63,22 @@ window.Monkey = module.exports = (function () {
     }
 
     promise = promise
-    .then(Monkey._generateUrls(options.preload))
-    .then(Monkey._generateHtml())
-    .then(Monkey._insertHtml(monkeyContainer))
-    .then(Monkey._initMonkey(this.$events));
+      .then(Monkey._generateUrls(options.preload))
+      .then(Monkey._generateHtml(options.lang))
+      .then(Monkey._insertHtml(monkeyContainer))
+      .then(Monkey._initMonkey(this.$events));
 
     if (options.book.firstbook) {
       promise = promise.then(Monkey.letters._generateOverlay(options));
     }
     promise = promise.then(function (data) {
-      if (data.needsSpread) {
-        Monkey.spread._getData(data, options)
-          .then(Monkey.spread._insertSpread());
-      }
-      return data;
-    });
+        if (data.needsSpread) {
+          Monkey.spread._getData(data, options)
+            .then(Monkey.spread._insertSpread());
+        }
+
+        return data;
+      });
 
     this.promise = promise;
   }
