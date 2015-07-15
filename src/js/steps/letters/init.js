@@ -41,7 +41,7 @@ module.exports = function ($events, options) {
       }
     });
 
-    $letters.on('click', '.letter', function () {
+    $letters.on('click', '.letter:not(.nonclickable)', function () {
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
       data.turnToPage($this.index() - charsBefore);
