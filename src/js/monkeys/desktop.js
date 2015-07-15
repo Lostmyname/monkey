@@ -23,7 +23,7 @@ desktop.generateHtml = function (data, lang) {
     });
 
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
       .append($img)
       .appendTo($monkey);
   });
