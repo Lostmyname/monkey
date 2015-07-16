@@ -102,10 +102,12 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             .text(charPickTitle)
             .addClass('title');
           $charPickTitle.appendTo($toolTip);
+          if (remainingLetterChars.length > 0) {
+            var $charContainer = $('<div />')
+              .addClass('char-container');
+            $charContainer.appendTo($toolTip);
+          }
 
-          var $charContainer = $('<div />')
-            .addClass('char-container');
-          $charContainer.appendTo($toolTip);
           $toolTipArrow.clone().prependTo($toolTip);
 
           $(remainingLetterChars).each(function (ix, charObj) {
