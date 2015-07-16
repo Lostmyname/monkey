@@ -145,7 +145,7 @@ function combineLetters(splitLetters, dataLetters) {
     dataLetters[idx].changed =
       dataLetters[idx].selected !== dataLetters[idx].default_character;
 
-    if (val === '-') {
+    if (val === '-' && val === ' ') {
       offset++;
       return { letter: val };
     }
