@@ -89,7 +89,7 @@ module.exports = function ($events, options) {
 
     var openingMargin = ($monkey.width() / 2) -
                         ($('.letter').eq(0)[0].clientWidth) -
-                        ($('.letter').eq(0)[0].clientWidth / 2);
+                        ($('.letter').eq(1)[0].clientWidth / 2);
 
     function nameAgitator() {
       var classes = {
