@@ -12,7 +12,6 @@ module.exports = function (options) {
   var defer = $.Deferred();
   return function (data) {
     var $lettersContainer = $('<div />');
-
     $lettersContainer.attr({
       id: 'letters-container',
       'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
@@ -103,8 +102,8 @@ module.exports = function (options) {
               console.log('resolving');
             }
           });
-          defer.resolve();
         }
+        defer.resolve();
       });
       return defer.promise();
     };
