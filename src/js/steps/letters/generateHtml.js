@@ -19,8 +19,7 @@ module.exports = function (options) {
 
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
-      .text(options.lang.bookFor)
-      .append($hiddenName);
+      .text(options.lang.bookFor);
 
     var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
       .addClass('letter-spans');
