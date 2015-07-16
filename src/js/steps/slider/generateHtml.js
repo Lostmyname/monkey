@@ -17,6 +17,10 @@ export default function (options) {
       .addClass('no-mar')
       .text(options.lang.bookFor);
 
+    $('<h3 />').appendTo($sliderContainer)
+      .addClass('h5')
+      .text(options.lang.bookTo);
+
     var $sliderInnerContainer = $('<div />').appendTo($sliderContainer)
       .addClass('col col-lg-6 col-lg-offset-3 col-sm-12 col-sm-offset-0');
 
