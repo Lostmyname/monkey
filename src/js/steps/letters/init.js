@@ -17,6 +17,7 @@ module.exports = function ($events, options) {
     var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
+    var $allSpans = $letters.find('.letter');
     var $letterSpans = $('.letter-spans');
     var $pickers = isMobile ? data.base
                                 .find('.picker-container')
@@ -81,7 +82,7 @@ module.exports = function ($events, options) {
     var calculatedWidth = 0;
     if (options.icons) {
 
-      $spans.each(function () {
+      $allSpans.each(function () {
         calculatedWidth += $(this).outerWidth(true);
       });
       $letters.css({ width: calculatedWidth });
@@ -189,7 +190,7 @@ module.exports = function ($events, options) {
       }
     });
 
-    $letters.on('click', '.letter', function (evt) {
+    $letters.on('click', '.letter:not(.nonclickable)', function (evt) {
       if ($monkey.hasClass('js--active-overlay')) {
         return false;
       }
@@ -234,17 +235,25 @@ module.exports = function ($events, options) {
       var character = $buttonEl.data('char');
       var page = $buttonEl.data('page');
       var $currentLetter = $activeLetter || $buttonEl.closest('.letter');
-      switchActiveButtonState($buttonEl);
+      switchActiveButtonState($currentLetter, character);
       data.changeCharacter(page, character, $currentLetter);
 
       return evt.stopPropagation();
     };
 
-    function switchActiveButtonState($buttonEl) {
-      var $pickerEl = $buttonEl.closest('.character-picker');
+    function switchActiveButtonState($currentLetter, currentCharacter) {
+      var $pickerEl = isMobile ?
+                      $monkey
+                        .find('.character-picker')
+                        .eq($currentLetter.index() - 1) :
+                      $currentLetter.find('.character-picker');
+
+      var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
+                                      '[data-character="' + currentCharacter.character + '"]');
       var selectedChar = $pickerEl.find('.selected-char');
-      selectedChar.removeClass('selected-char');
       var $prevButton = selectedChar.find('.button');
+
+      selectedChar.removeClass('selected-char');
       $prevButton
         .removeAttr('disabled')
         .text('Select')
@@ -261,6 +270,9 @@ module.exports = function ($events, options) {
     data.changeCharacter = function (page, character, $currentLetter) {
       if (options.icons) {
         changeLetterThumbnail($currentLetter, character);
+      }
+      if (options.showCharPicker) {
+        switchActiveButtonState($currentLetter, character);
       }
       data.swapPage(page, character);
       $currentLetter

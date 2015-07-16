@@ -67,8 +67,12 @@ module.exports = function (options) {
     var loadLetterCards = function () {
       var cardsToLoad = combineLetters.length;
       $(combinedLetters).each(function (i, letter) {
-
         var $letterDiv = $('<div />');
+
+        if (letter.letter === ' ' || letter.letter === '-') {
+          $letterDiv.addClass('special-char nonclickable');
+        }
+
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         $letterDiv.appendTo($letters)
           .addClass('letter')
@@ -97,11 +101,11 @@ module.exports = function (options) {
             .attr('width', 38);
           $icon.appendTo($characterCard);
 
-          $icon.on('load', function () {
-            if (--cardsToLoad === 0) {
-              console.log('resolving');
-            }
-          });
+          // $icon.on('load', function () {
+          //   if (--cardsToLoad === 0) {
+          //     console.log('resolving');
+          //   }
+          // });
         }
         defer.resolve();
       });
@@ -141,11 +145,10 @@ function combineLetters(splitLetters, dataLetters) {
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
-
     dataLetters[idx].changed =
       dataLetters[idx].selected !== dataLetters[idx].default_character;
 
-    if (val === '-' && val === ' ') {
+    if (val === '-' || val === ' ') {
       offset++;
       return { letter: val };
     }

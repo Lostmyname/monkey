@@ -43,7 +43,9 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
       });
 
     var loadLetterPicker = function () {
+      var currentDisplayPage = 0;
       $(data.combinedLetters).each(function (i, letter) {
+
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         var $letterDiv = letter.type !== 'bridge' ?
                         $('.letter[data-letter="' + letter.letter + '"]' +
@@ -114,8 +116,9 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             // Include the character in the selection if not used earlier
             var $imgContainer = $('<button />')
               .attr('data-js', 'switch-character')
+              .attr('data-character', charObj.character)
               .data('char', charObj)
-              .data('page', i)
+              .data('page', currentDisplayPage)
               .addClass('img-container');
 
             var $img = $('<img />')
@@ -144,6 +147,10 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
             $selectButton.appendTo($charName);
           });
         }
+        if (!(letter.letter === '-' || letter.letter === ' ')) {
+          currentDisplayPage++;
+        }
+
         defer.resolve();
 
       });
