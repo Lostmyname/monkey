@@ -192,13 +192,19 @@ module.exports = function ($events, options) {
       setUpPicker($letterCharPicker, $letterParent);
     });
 
-    data.changeCharacter = function (button, evt) {
+    data.getChangedCharacter = function (button, evt) {
       var $buttonEl = $(button);
       var character = $buttonEl.data('char');
       var page = $buttonEl.data('page');
-      var $pickerEl = $buttonEl.closest('.character-picker');
       var $currentLetter = $activeLetter || $buttonEl.closest('.letter');
-      data.changeLetterThumbnail($currentLetter, character);
+      switchActiveButtonState($buttonEl);
+      data.changeCharacter(page, character, $currentLetter);
+
+      return evt.stopPropagation();
+    };
+
+    function switchActiveButtonState($buttonEl) {
+      var $pickerEl = $buttonEl.closest('.character-picker');
       var selectedChar = $pickerEl.find('.selected-char');
       selectedChar.removeClass('selected-char');
       var $prevButton = selectedChar.find('.button');
@@ -213,21 +219,27 @@ module.exports = function ($events, options) {
         .text('In Use');
       $buttonEl.addClass('selected-char');
       destroyPicker($pickerEl);
-      data.swapPage(page, character);
+    }
 
+    data.changeCharacter = function (page, character, $currentLetter) {
+      if (options.icons) {
+        changeLetterThumbnail($currentLetter, character);
+      }
+      data.swapPage(page, character);
       $currentLetter
         .data('char', character.character);
+      $spans = $spans ||
+                data
+                  .lettersElement
+                  .find('#letters')
+                  .find('.letter:not(.special-char)');
       var charactersArray = $.map($spans, function (el) {
-            return $(el).attr('data-character');
-          });
+        return $(el).attr('data-character');
+      });
       $events.trigger('charactersChanged', { characters: charactersArray });
-
-      if (evt !== false) {
-        return evt.stopPropagation();
-      }
     };
 
-    data.changeLetterThumbnail = function ($letter, character) {
+    function changeLetterThumbnail($letter, character) {
       var $card = $letter.find('.character-card');
       var $currentThumb = $card.find('img');
       var currentUrl = $currentThumb.attr('src');
@@ -244,11 +256,11 @@ module.exports = function ($events, options) {
         }, 400);
       }
       return this;
-    };
+    }
 
     if (options.icons) {
       $charButtons.on('click', function (evt) {
-        data.changeCharacter(this, evt);
+        data.getChangedCharacter(this, evt);
       });
     }
 

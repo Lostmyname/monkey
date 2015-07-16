@@ -90,7 +90,7 @@ module.exports = function (options) {
               if (character.character === letter.default_character) {
                 var $letter = $('.letter[data-letter="' + character.letter + '"]' +
                                 '[data-character="' + character.character + '"]');
-                data.changeCharacter($letter.find('[data-js="switch-character"]:not(.selected-char)'), false)
+                data.changeCharacter(i, character, $letter);
               }
             }
 
