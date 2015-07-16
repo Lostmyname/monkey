@@ -16,6 +16,7 @@ window.Monkey = module.exports = (function () {
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
+      minDelay: 0,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -33,7 +34,7 @@ window.Monkey = module.exports = (function () {
 
     this.$events = $({});
 
-    var promise = Monkey._getData(options)
+    var promise = $.when(Monkey._getData(options), Monkey.helpers.delay(options.minDelay))
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
@@ -75,6 +76,7 @@ window.Monkey = module.exports = (function () {
 
   Monkey.helpers = {};
   Monkey.helpers.Monkey = Monkey;
+  Monkey.helpers.delay = require('./helpers/delay');
   Monkey.helpers.handleReplace = require('./helpers/handleReplace');
   Monkey.helpers.isMobile = require('./helpers/isMobile');
   Monkey.helpers.preload = require('./helpers/preload');

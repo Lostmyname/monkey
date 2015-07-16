@@ -61,4 +61,13 @@ describe('Monkey helpers', function () {
       cb();
     });
   });
+
+  it('should have a delay helper', function () {
+    var time = Date.now();
+
+    return helpers.delay(40)
+      .then(function () {
+        (Date.now() - time).should.be.within(39, 45);
+      });
+  });
 });
