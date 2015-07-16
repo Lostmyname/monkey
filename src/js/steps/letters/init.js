@@ -32,8 +32,13 @@ module.exports = function ($events, options) {
     var $activeLetter,
       $currentPicker;
 
+    data.canSetUpMobileScrollListener = true;
+
     function setUpPicker($activePicker, $activeLetter) {
       if (isMobile) {
+        if ($activePicker.length === 0) {
+          return false;
+        }
         $pickerBg.addClass(classes.charPickerBgActive);
         var bounding = $activeLetter.offset();
         $activeLetter
@@ -101,18 +106,47 @@ module.exports = function ($events, options) {
 
     }
 
+    function getFirstChangedCharOffset() {
+
+      if (data.shouldShowDuplicateModal) {
+        var $changed = $('.letter.changed').eq(0);
+        var val = $changed.position().left -
+                  ($changed.outerWidth(true) / 2);
+        return val;
+      }
+      return 0;
+    }
+
     if (data.name.length > numOfCentralizedChars) {
       if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
-
-        $letters
-          .css({
-            paddingRight: openingMargin,
-            width: calculatedWidth + 10 + openingMargin
-          })
+        if (data.shouldShowDuplicateModal) {
+          data.canSetUpMobileScrollListener = false;
+          $letters
+            .css({
+              marginLeft: openingMargin,
+              paddingRight: openingMargin,
+              width: calculatedWidth + 10 + openingMargin
+            });
+          $letterSpans
           .delay(animationDelay)
           .animate({
-            marginLeft: openingMargin
-          }, animationSpeed, nameAgitator);
+            scrollLeft: getFirstChangedCharOffset()
+          }, animationSpeed, function () {
+            nameAgitator();
+            data.canSetUpMobileScrollListener = true;
+          });
+        } else {
+          $letters
+            .css({
+              paddingRight: openingMargin,
+              width: calculatedWidth + 10 + openingMargin
+            })
+            .delay(animationDelay)
+            .animate({
+              marginLeft: openingMargin
+            }, animationSpeed, nameAgitator);
+        }
+
       } else if (isMobile && !options.animateName) {
         $letters.css({
           marginLeft: openingMargin,

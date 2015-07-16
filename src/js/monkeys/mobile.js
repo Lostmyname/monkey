@@ -154,7 +154,7 @@ mobile.letterHandler = function (data, $events) {
       }
     });
 
-    if (currentPage !== page) {
+    if (currentPage !== page && data.canSetUpMobileScrollListener === true) {
       page = currentPage;
       $events.trigger('letterChange', page);
     }
