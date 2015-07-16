@@ -214,15 +214,19 @@ module.exports = function ($events, options) {
       $buttonEl.addClass('selected-char');
       destroyPicker($pickerEl);
       data.swapPage(page, character);
-      if (evt !== false) {
-        return evt.stopPropagation();
-      }
       var characterCard = $activeLetter.find('.character-card img');
       characterCard
         .attr('src', character.thumbnail);
       $activeLetter
         .data('char', character.character);
       var $pickerEl = $buttonEl.closest('.character-picker');
+      var charactersArray = $.map($spans, function (el) {
+            return $(el).attr('data-character');
+          });
+      $events.trigger('charactersChanged', { characters: charactersArray });
+      if (evt !== false) {
+        return evt.stopPropagation();
+      }
     };
 
     data.changeLetterThumbnail = function ($letter, character) {
