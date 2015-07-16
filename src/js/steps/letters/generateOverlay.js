@@ -18,6 +18,22 @@ module.exports = function (options) {
         overlayActive: 'js--active-overlay'
       };
 
+      var textObjects = {
+        singular: {
+          title: 'This looks familiar!',
+          intro: 'One of the',
+          letter: 'letter'
+        },
+        plural: {
+          title: 'These look familiar!',
+          intro: 'Some of the',
+          letter: 'letters'
+        }
+      };
+      var nounTypes = data.shouldShowDuplicateModal === 1 ?
+                      textObjects.singular :
+                      textObjects.plural;
+
       $monkeyContainer.addClass(classes.overlayActive);
 
       $overlay.appendTo($monkeyContainer.find('.js--add-overlay'))
@@ -32,13 +48,13 @@ module.exports = function (options) {
       $overlayContent.appendTo($overlayInner);
 
       var $titleBox = $('<h4 />')
-        .text('These look familiar!');
+        .text(nounTypes.title);
       $titleBox.appendTo($overlayContent);
 
       var $messageBox = $('<div />')
-        .text('Some of the letters above appear in both ' + options.book.firstbook +
+        .text(nounTypes.intro + ' letters above appear in both ' + options.book.firstbook +
             ' and ' + data.name + '\'s books. But never fear - we have extra ' +
-            'characters for the letters in yellow. ' +
+            'characters for the ' + nounTypes.letter + ' in yellow. ' +
             'Would you like to use these new characters?')
         .addClass('col col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-xs-offset-0');
       $messageBox.appendTo($overlayContent);
@@ -100,7 +116,7 @@ module.exports = function (options) {
       }
       return defer.promise();
     }
-    if (data.shouldShowDuplicateModal === true) {
+    if (data.shouldShowDuplicateModal !== false) {
       loadOverlay()
         .then(function () {
           return data;

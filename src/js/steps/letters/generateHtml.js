@@ -56,7 +56,7 @@ module.exports = function (options) {
       var outcome = false;
       $(combinedLetters).each(function (i, letter) {
         if (letter.changed) {
-          outcome = true;
+          outcome++;
         }
       });
       return outcome;
