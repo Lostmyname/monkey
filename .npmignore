@@ -1,8 +1,0 @@
-node_modules
-demo/build
-demo/partials
-*.log
-.sass-cache
-
-src
-test
