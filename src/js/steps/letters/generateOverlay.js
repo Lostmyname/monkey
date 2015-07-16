@@ -8,7 +8,7 @@ var $ = require('jquery');
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
  */
-module.exports = function (options) {
+module.exports = function (options, $events) {
   var defer = $.Deferred();
   return function (data) {
     function loadOverlay() {
@@ -87,6 +87,11 @@ module.exports = function (options) {
 
       function closeOverlay() {
         $('.letter').removeClass('changed');
+        $('.letter-spans').animate({
+          scrollLeft: 0
+        }, 800, function () {
+          $events.trigger('letterChange', 0);
+        });
         $monkeyContainer
           .removeClass(classes.overlayActive)
           .css({ minHeight: 0 });
