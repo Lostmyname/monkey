@@ -37,7 +37,7 @@ module.exports = function (options, $events) {
       $monkeyContainer.addClass(classes.overlayActive);
 
       $overlay.appendTo($monkeyContainer.find('.js--add-overlay'))
-        .addClass('overlay color-bg-narvik');
+        .addClass('overlay');
 
       var $overlayInner = $('<div />')
         .addClass('overlay__inner lg-pad lg-pad-on-md sm-pad-on-sm');
@@ -71,8 +71,8 @@ module.exports = function (options, $events) {
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       $buttonContainer.appendTo($overlayContent);
-      $noButton.appendTo($buttonContainer);
-      $yesButton.appendTo($buttonContainer, function () {
+      $yesButton.appendTo($buttonContainer);
+      $noButton.appendTo($buttonContainer, function () {
         defer.resolve();
       });
 
