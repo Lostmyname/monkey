@@ -19,4 +19,10 @@
       display: block;
     }
   }
+  .change-character {
+    visibility: hidden;
+  }
+  .letter-active .change-character {
+    visibility: visible;
+  }
 }
