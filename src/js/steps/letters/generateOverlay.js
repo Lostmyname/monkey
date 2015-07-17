@@ -1,6 +1,8 @@
 'use strict';
 
 var $ = require('jquery');
+var isMobile = require('../../helpers/isMobile')();
+
 
 /**
  * Generate HTML for letters.
@@ -71,10 +73,17 @@ module.exports = function (options, $events) {
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       $buttonContainer.appendTo($overlayContent);
-      $yesButton.appendTo($buttonContainer);
-      $noButton.appendTo($buttonContainer, function () {
-        defer.resolve();
-      });
+      if(isMobile) {
+        $yesButton.appendTo($buttonContainer);
+        $noButton.appendTo($buttonContainer, function () {
+          defer.resolve();
+        });
+      } else {
+        $noButton.appendTo($buttonContainer);
+        $yesButton.appendTo($buttonContainer, function () {
+          defer.resolve();
+        });
+      }
 
       $yesButton.on('click', function () {
         data.editCharacters = true;
