@@ -248,6 +248,14 @@
   width:100%;
   z-index:5;
 }
+
+@media (min-width: 1025px) {
+  .overlay {
+    left:2.5rem;
+    right:2.5rem;
+    width: auto;
+  }
+}
 .overlay__inner {
   height:100%;
   left:0;
@@ -264,6 +272,7 @@
   .col {
     max-width:38em;
   }
+
   .row > .col {
     margin: 0 auto;
   }
@@ -292,6 +301,10 @@
 
 .overlay__buttons {
   padding-top: 1em;
+
+  .desktop & {
+    padding-bottom: 1.5em;
+  }
 }
 
 .landscape #letters-container {

@@ -9,7 +9,7 @@ var $ = require('jquery');
  *                   name and gender, and then a letters property containing
  *                   information on the pages. Seriously, just use a debugger.
  */
-module.exports = function (options) {
+module.exports = function (monkeyContainer, options) {
   return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
       return data.book;

@@ -36,10 +36,16 @@ module.exports = function (options, $events) {
                       textObjects.singular :
                       textObjects.plural;
 
+      $events.trigger('overlayActive', $monkeyContainer);
+
       $monkeyContainer.addClass(classes.overlayActive);
 
       $overlay.appendTo($monkeyContainer.find('.js--add-overlay'))
         .addClass('overlay');
+
+      $monkeyContainer
+        .next()
+        .hide();
 
       var $overlayInner = $('<div />')
         .addClass('overlay__inner lg-pad lg-pad-on-md sm-pad-on-sm');
@@ -59,7 +65,7 @@ module.exports = function (options, $events) {
             ' and ' + data.name + '\'s books. But never fear - we have extra ' +
             'characters for the ' + nounTypes.letter + ' in yellow. ' +
             'Would you like to use these new characters?')
-        .addClass('col col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-xs-offset-0');
+        .addClass('overlay__copy col');
       $messageBox.appendTo($overlayContent);
 
       var $buttonContainer = $('<div />')
@@ -96,6 +102,10 @@ module.exports = function (options, $events) {
       });
 
       function closeOverlay() {
+        $events.trigger('overlayClosed', $monkeyContainer);
+        $monkeyContainer
+          .next()
+          .removeAttr('style');
         $('.letter').removeClass('changed');
         $('.letter-spans').animate({
           scrollLeft: 0

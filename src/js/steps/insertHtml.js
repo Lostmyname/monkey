@@ -13,7 +13,8 @@ module.exports = function (monkeyContainer, options) {
   return function (data) {
     if (!options.replaceMonkey && options.showCharPicker) {
       $container.find('.loader-img').remove();
-      $container.next('.lmn-book__label').removeAttr('style');
+      $container.next('.italic').addClass('js--show-label');
+      $container.next('.italic').removeAttr('style');
     }
     $container.append(data.html);
 
