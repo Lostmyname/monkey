@@ -292,9 +292,6 @@ module.exports = function ($events, options) {
             }
           });
       $events.trigger('charactersChanged', { characters: charactersArray });
-      if (evt !== false) {
-        return evt.stopPropagation();
-      }
     };
 
     function changeLetterThumbnail($letter, character) {
