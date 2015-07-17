@@ -34,9 +34,15 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
-    options.book = $.extend(
-        { firstbook: $monkeyContainer.data('first-book-name') },
-        options.book);
+    if ($monkeyContainer.data('first-book-name')) {
+      options.book.comparisonBooks = [
+        {
+          name: $monkeyContainer.data('first-book-name'),
+          gender: $monkeyContainer.data('first-book-gender'),
+          locale: $monkeyContainer.data('first-book-locale'),
+        }
+      ];
+    }
 
     this.$events = $({});
 
@@ -63,7 +69,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._insertHtml(monkeyContainer, options))
       .then(Monkey._initMonkey(this.$events));
 
-    if (options.book.firstbook) {
+    if (options.book.comparisonBooks) {
       promise = promise.then(Monkey.letters._generateOverlay(options, this.$events));
     }
     promise = promise.then(function (data) {

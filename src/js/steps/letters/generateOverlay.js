@@ -52,9 +52,10 @@ module.exports = function (options, $events) {
       var $titleBox = $('<h4 />')
         .text(nounTypes.title);
       $titleBox.appendTo($overlayContent);
+     var comparisonName = options.book.comparisonBooks[0].name;
 
       var $messageBox = $('<div />')
-        .text(nounTypes.intro + ' letters above appear in both ' + options.book.firstbook +
+        .text(nounTypes.intro + ' letters above appear in both ' + comparisonName +
             ' and ' + data.name + '\'s books. But never fear - we have extra ' +
             'characters for the ' + nounTypes.letter + ' in yellow. ' +
             'Would you like to use these new characters?')
