@@ -73,7 +73,7 @@ module.exports = function (options, $events) {
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       $buttonContainer.appendTo($overlayContent);
-      if(isMobile) {
+      if (isMobile) {
         $yesButton.appendTo($buttonContainer);
         $noButton.appendTo($buttonContainer, function () {
           defer.resolve();
