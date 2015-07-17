@@ -95,8 +95,8 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
 
 
           if (remainingLetterChars.length < 2) {
-            charPickTitle = 'Sorry. No more ‘' + letter.letter +
-              '’ characters available.';
+            charPickTitle = 'No ‘' + letter.letter +
+              '’ characters are available.';
           } else {
             charPickTitle = 'Choose another story for ‘' + letter.letter + '’';
           }
