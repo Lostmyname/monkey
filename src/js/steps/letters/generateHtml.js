@@ -65,7 +65,6 @@ module.exports = function (options) {
     data.shouldShowDuplicateModal = determineIfDuplicate();
 
     var loadLetterCards = function () {
-      var cardsToLoad = combineLetters.length;
       $(combinedLetters).each(function (i, letter) {
         var $letterDiv = $('<div />');
 
@@ -127,8 +126,11 @@ module.exports = function (options) {
         if (!$book || !$book.length) {
           $book = data.monkeyContainer;
         }
-        $book.empty();
-        data.lettersElement = $lettersContainer.appendTo($book);
+        if (!options.replaceMonkey && !options.showCharPicker) {
+          $book.empty();
+        }
+        data.lettersElement = $lettersContainer
+                                .insertBefore($book.find('.loader-img'));
 
         if (options.icons) {
           $lettersContainer.parents('#monkey').addClass('monkey-icons');

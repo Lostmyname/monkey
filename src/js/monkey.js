@@ -60,7 +60,7 @@ window.Monkey = module.exports = (function () {
     promise = promise
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
-      .then(Monkey._insertHtml(monkeyContainer))
+      .then(Monkey._insertHtml(monkeyContainer, options))
       .then(Monkey._initMonkey(this.$events));
 
     if (options.book.firstbook) {

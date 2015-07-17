@@ -8,8 +8,11 @@
  */
 module.exports = function (monkeyContainer, options) {
   return function (data) {
-    if (options.replaceMonkey) {
+
+    if (options.replaceMonkey && !options.showCharPicker) {
       monkeyContainer.empty();
+    } else if (!options.replaceMonkey && options.showCharPicker) {
+      monkeyContainer.next('.lmn-book__label').hide();
     }
     monkeyContainer.addClass(data.monkeyType);
     data.base = monkeyContainer;
