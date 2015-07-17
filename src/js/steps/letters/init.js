@@ -283,9 +283,18 @@ module.exports = function ($events, options) {
                   .find('#letters')
                   .find('.letter:not(.special-char)');
       var charactersArray = $.map($spans, function (el) {
-        return $(el).attr('data-character');
-      });
+            var $letter = $(el);
+            if ($letter.attr('data-letter')) {
+                return {
+                         letter: $letter.attr('data-letter'),
+                         character: $letter.attr('data-character')
+                       }
+            }
+          });
       $events.trigger('charactersChanged', { characters: charactersArray });
+      if (evt !== false) {
+        return evt.stopPropagation();
+      }
     };
 
     function changeLetterThumbnail($letter, character) {
