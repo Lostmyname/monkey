@@ -13,7 +13,7 @@ module.exports = function () {
   // We start with a 5 character minimum, then for every 50px after 420px window
   // width, we add a character.
   var numOfChars = 5;
-  if(window.innerWidth >= 420) {
+  if (window.innerWidth >= 420) {
     numOfChars = Math.round(parseFloat(((windowWidth - 420) / 50) + 5));
   }
   return numOfChars;

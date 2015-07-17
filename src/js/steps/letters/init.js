@@ -285,10 +285,10 @@ module.exports = function ($events, options) {
       var charactersArray = $.map($spans, function (el) {
             var $letter = $(el);
             if ($letter.attr('data-letter')) {
-                return {
-                         letter: $letter.attr('data-letter'),
-                         character: $letter.attr('data-character')
-                       }
+              return {
+                letter: $letter.attr('data-letter'),
+                character: $letter.attr('data-character')
+              };
             }
           });
       $events.trigger('charactersChanged', { characters: charactersArray });

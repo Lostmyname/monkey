@@ -52,7 +52,7 @@ module.exports = function (options, $events) {
       var $titleBox = $('<h4 />')
         .text(nounTypes.title);
       $titleBox.appendTo($overlayContent);
-     var comparisonName = options.book.comparisonBooks[0].name;
+      var comparisonName = options.book.comparisonBooks[0].name;
 
       var $messageBox = $('<div />')
         .text(nounTypes.intro + ' letters above appear in both ' + comparisonName +
