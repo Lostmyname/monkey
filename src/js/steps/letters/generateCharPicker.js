@@ -14,11 +14,7 @@ var lang = require('lang');
  * @param  {boolean} Boolean to decide whether to show icons (necessary?)
  * @return {[type]}
  */
-module.exports = function (selector, language, icons, monkeyContainer) {
-  if (typeof language === 'undefined' && typeof selector === 'object') {
-    language = selector;
-    selector = true;
-  }
+module.exports = function (options, monkeyContainer) {
   var defer = $.Deferred();
 
   return function (data) {
@@ -79,7 +75,7 @@ module.exports = function (selector, language, icons, monkeyContainer) {
           });
         }
 
-        if (icons && letter.thumbnail) {
+        if (options.icons && letter.thumbnail) {
 
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')

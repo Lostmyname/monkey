@@ -11,6 +11,8 @@ window.Monkey = module.exports = (function () {
   function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
 
+    var pickerLocales = ['en-GB', 'en-US'];
+
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
@@ -36,7 +38,7 @@ window.Monkey = module.exports = (function () {
     }, options);
 
     if ($monkeyContainer.data('locale') !== options.book.locale &&
-        ['en-GB', 'en-US'].indexOf(options.book.locale) === -1 &&
+        pickerLocales.indexOf(options.book.locale) === -1 &&
         $monkeyContainer.data('changedChars') === true
       ) {
       $monkeyContainer.data('show-language-overlay', true);
@@ -61,11 +63,9 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._checkLanguageChange($monkeyContainer));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
-      if (options.showCharPicker) {
+      if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
         promise = promise.then(Monkey.letters._generateCharPicker(
-            options.letters,
-            options.lang,
-            options.icons,
+            options,
             $monkeyContainer
           )
         );
