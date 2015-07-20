@@ -46,7 +46,9 @@ module.exports = function (options, $events) {
 
       var overlayTitle,
         overlayText;
-      var comparisonName = options.book.comparisonBooks[0].name;
+      if(typeof options.book.comparisonBooks !== 'undefined') {
+        var comparisonName = options.book.comparisonBooks[0].name;
+      }
 
       if (data.showLanguageOverlay === true) {
         overlayTitle = lang('monkey.language.title');
