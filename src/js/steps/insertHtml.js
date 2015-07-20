@@ -11,11 +11,9 @@ module.exports = function (monkeyContainer, options) {
   var $container = $(monkeyContainer);
 
   return function (data) {
-    if (!options.replaceMonkey && options.showCharPicker) {
-      $container.find('.loader-img').remove();
-      $container.next('.italic').addClass('js--show-label');
-      $container.next('.italic').removeAttr('style');
-    }
+    $container.find('.loader-img').remove();
+    $container.next('.italic').addClass('js--show-label');
+    $container.next('.italic').removeAttr('style');
     $container.append(data.html);
 
     data.container = $container;

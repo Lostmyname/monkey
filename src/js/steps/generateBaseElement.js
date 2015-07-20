@@ -9,11 +9,13 @@
 module.exports = function (monkeyContainer, options) {
   return function (data) {
 
-    if (options.replaceMonkey && !options.showCharPicker) {
+    data.loading = monkeyContainer.find('.loader-img').clone();
+
+    if (options.replaceMonkey) {
       monkeyContainer.empty();
-    } else if (!options.replaceMonkey && options.showCharPicker) {
-      monkeyContainer.next('.italic').hide();
+      data.loading = data.loading.appendTo(monkeyContainer);
     }
+
     monkeyContainer.addClass(data.monkeyType);
     data.base = monkeyContainer;
     data.monkeyContainer = monkeyContainer;

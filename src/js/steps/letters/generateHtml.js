@@ -126,11 +126,10 @@ module.exports = function (options) {
         if (!$book || !$book.length) {
           $book = data.monkeyContainer;
         }
-        if (!options.replaceMonkey && !options.showCharPicker) {
-          $book.empty();
-        }
-        data.lettersElement = $lettersContainer
-                                .insertBefore($book.find('.loader-img'));
+        $book.empty();
+
+        data.lettersElement = $lettersContainer.appendTo($book);
+        data.loading = data.loading.appendTo($book);
 
         if (options.icons) {
           $lettersContainer.parents('#monkey').addClass('monkey-icons');
