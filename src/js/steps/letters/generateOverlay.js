@@ -45,7 +45,7 @@ module.exports = function (options, $events) {
       $overlayContent.appendTo($overlayInner);
 
       var $titleBox = $('<h4 />')
-        .text(lang('monkey.nounTypes.' + singularOrPlural + '.title'));
+        .text(lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title'));
       $titleBox.appendTo($overlayContent);
       var comparisonName = options.book.comparisonBooks[0].name;
 
