@@ -92,10 +92,6 @@ module.exports = function ($events, options) {
       $letters.css({ width: calculatedWidth });
     }
 
-    var openingMargin = ($monkey.width() / 2) -
-                        ($monkey.find('.letter').eq(0)[0].clientWidth) -
-                        ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
-
     function nameAgitator() {
       var classes = {
         agitator: 'letter-spans--agitated'
@@ -124,6 +120,9 @@ module.exports = function ($events, options) {
 
     if (data.name.length > numOfCentralizedChars) {
       if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
+        var openingMargin = ($monkey.width() / 2) -
+                          ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                          ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
         if (data.shouldShowDuplicateModal) {
           data.canSetUpMobileScrollListener = false;
           $letters
