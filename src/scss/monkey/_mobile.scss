@@ -10,6 +10,9 @@
   -webkit-overflow-scrolling: touch;
   overflow: scroll;
   padding:0;
+  &::-webkit-scrollbar {
+    display:none;
+  }
   &.portrait {
     margin-bottom: -5px;
   }
