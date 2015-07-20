@@ -61,8 +61,8 @@ module.exports = function (options, $events) {
       var comparisonName = options.book.comparisonBooks[0].name;
 
       var $messageBox = $('<div />')
-        .text(nounTypes.intro + ' letters above appear in both ' + comparisonName +
-            ' and ' + data.name + '\'s books. But never fear - we have extra ' +
+        .text(nounTypes.intro + ' letters above appear in both ' + comparisonName.toUpperCase() +
+            ' and ' + data.name.toUpperCase() + '\'s books. But never fear - we have extra ' +
             'characters for the ' + nounTypes.letter + ' in yellow. ' +
             'Would you like to use these new characters?')
         .addClass('overlay__copy col');
