@@ -1,5 +1,6 @@
 window.Monkey = module.exports = (function () {
   var $ = require('jquery');
+  var lang = require('lang');
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
@@ -29,8 +30,8 @@ window.Monkey = module.exports = (function () {
       },
 
       lang: {
-        bookFor: 'A personalised book made for',
-        noAltText: 'No alternative text for this page, sorry.'
+        bookFor: lang('monkey.bookFor'),
+        noAltText: lang('monkey.noAltText')
       }
     }, options);
 

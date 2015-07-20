@@ -2,3 +2,36 @@ en:
   component.monkey:
     loading: We're just putting your personalised book together
     preview: Tap to preview your book
+    bookFor: 'A personalised book made for'
+    noAltText: 'No alternative text for this page, sorry.'
+    char_picker:
+      title:
+        remaining: 'Choose another story for'
+        # not_remaining: 'No %{letter} characters are available'
+        not_remaining:
+          part_1: 'No'
+          part_2: 'characters are available.'
+      change: 'Change'
+      buttons:
+        close: 'Close'
+        select: 'Select'
+        in_use: 'In Use'
+    overlay:
+      nounTypes:
+        singular:
+          title: 'This looks familiar!'
+          intro: 'One of the'
+          letter: 'letter'
+        plural:
+          title: 'These look familiar!'
+          intro: 'Some of the'
+          letter: 'letters'
+      copy:
+        part_1: 'letters above appear in both'
+        part_2: "'s books. But never fear – we have extra characters for the"
+        part_3: 'in yellow. Would you like to use these new characters?'
+      buttons:
+        yes: 'Yes Please!'
+        no: 'No Thanks!'
+
+

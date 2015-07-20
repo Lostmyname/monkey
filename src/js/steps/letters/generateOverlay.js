@@ -2,6 +2,7 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
+var lang = require('lang');
 
 
 /**
@@ -20,21 +21,9 @@ module.exports = function (options, $events) {
         overlayActive: 'js--active-overlay'
       };
 
-      var textObjects = {
-        singular: {
-          title: 'This looks familiar!',
-          intro: 'One of the',
-          letter: 'letter'
-        },
-        plural: {
-          title: 'These look familiar!',
-          intro: 'Some of the',
-          letter: 'letters'
-        }
-      };
-      var nounTypes = data.shouldShowDuplicateModal === 1 ?
-                      textObjects.singular :
-                      textObjects.plural;
+      var singularOrPlural = data.shouldShowDuplicateModal === 1 ?
+                      'singular' :
+                      'plural';
 
       $events.trigger('overlayActive', $monkeyContainer);
 
@@ -56,15 +45,20 @@ module.exports = function (options, $events) {
       $overlayContent.appendTo($overlayInner);
 
       var $titleBox = $('<h4 />')
-        .text(nounTypes.title);
+        .text(lang('monkey.nounTypes.' + singularOrPlural + '.title'));
       $titleBox.appendTo($overlayContent);
       var comparisonName = options.book.comparisonBooks[0].name;
 
+      var overlayText = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro') + ' ' +
+                        lang('monkey.overlay.copy.part_1') + ' ' +
+                        comparisonName.toUpperCase() + ' & ' +
+                        data.name.toUpperCase() +
+                        lang('monkey.overlay.copy.part_2') + ' ' +
+                        lang('monkey.overlay.nounTypes.' + singularOrPlural + '.letter') + ' ' +
+                        lang('monkey.overlay.copy.part_3');
+
       var $messageBox = $('<div />')
-        .text(nounTypes.intro + ' letters above appear in both ' + comparisonName.toUpperCase() +
-            ' and ' + data.name.toUpperCase() + '\'s books. But never fear - we have extra ' +
-            'characters for the ' + nounTypes.letter + ' in yellow. ' +
-            'Would you like to use these new characters?')
+        .text(overlayText)
         .addClass('overlay__copy col');
       $messageBox.appendTo($overlayContent);
 
@@ -72,11 +66,11 @@ module.exports = function (options, $events) {
         .addClass('col overlay__buttons');
 
       var $yesButton = $('<button />')
-        .text('YES PLEASE!')
+        .text(lang('monkey.overlay.buttons.yes'))
         .addClass('button primary col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       var $noButton = $('<button />')
-        .text('No thanks!')
+        .text(lang('monkey.overlay.buttons.no'))
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       $buttonContainer.appendTo($overlayContent);

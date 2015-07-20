@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
 var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
+var lang = require('lang');
 
 /**
  *
@@ -13,9 +14,9 @@ var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
  * @param  {boolean} Boolean to decide whether to show icons (necessary?)
  * @return {[type]}
  */
-module.exports = function (selector, lang, icons, monkeyContainer) {
-  if (typeof lang === 'undefined' && typeof selector === 'object') {
-    lang = selector;
+module.exports = function (selector, language, icons, monkeyContainer) {
+  if (typeof language === 'undefined' && typeof selector === 'object') {
+    language = selector;
     selector = true;
   }
   var defer = $.Deferred();
@@ -63,7 +64,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               .attr('type', 'button')
               .addClass('button primary character-picker__close')
               .attr('data-js', 'close-mobile-char-picker')
-              .text('Close');
+              .text(lang('monkey.char_picker.buttons.close'));
           $closeButton.appendTo($toolTip);
 
           if (data.name.length <= numOfCentralizedChars) {
@@ -82,7 +83,7 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
 
           var $changeSpan = $('<span />')
             .addClass('change-character color-alert')
-            .text('CHANGE');
+            .text(lang('monkey.char_picker.change'));
 
           $changeSpan.appendTo($letterDiv);
 
@@ -95,10 +96,12 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
 
 
           if (remainingLetterChars.length < 2) {
-            charPickTitle = 'No ‘' + letter.letter +
-              '’ characters are available.';
+            charPickTitle = lang('monkey.char_picker.title.not_remaining.part_1') +
+                            ' ' + letter.letter + ' ' +
+                            lang('monkey.char_picker.title.not_remaining.part_2');
           } else {
-            charPickTitle = 'Choose another story for ‘' + letter.letter + '’';
+            charPickTitle = lang('monkey.char_picker.title.remaining') +
+                            ' ‘' + letter.letter + '’';
           }
           var $charPickTitle = $('<div />')
             .text(charPickTitle)
@@ -138,11 +141,11 @@ module.exports = function (selector, lang, icons, monkeyContainer) {
               $selectButton
                 .addClass('button')
                 .attr('disabled', true)
-                .text('In Use');
+                .text(lang('monkey.char_picker.buttons.in_use'));
             } else {
               $selectButton
                 .addClass('button primary')
-                .text('Select');
+                .text(lang('monkey.char_picker.buttons.select'));
             }
             $selectButton.appendTo($charName);
           });
