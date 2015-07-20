@@ -33,5 +33,10 @@ en:
       buttons:
         yes: 'Yes Please!'
         no: 'No Thanks!'
+    language:
+      title: "You've changed language!"
+      copy: 'Unfortunately, the character picker is not yet available for this language'
+      buttons:
+        okay: "Okay, thanks!"
 
 

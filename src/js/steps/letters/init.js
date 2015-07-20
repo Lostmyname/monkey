@@ -7,7 +7,7 @@ var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
 var animationDelay = 1600;
 var animationSpeed = 800;
 
-module.exports = function ($events, options) {
+module.exports = function ($events, options, $monkeyContainer) {
   return function (data) {
     var classes = {
       charPickerActive: 'character-picker--active',
@@ -295,6 +295,7 @@ module.exports = function ($events, options) {
             }
           });
       $events.trigger('charactersChanged', { characters: charactersArray });
+      $monkeyContainer.data('changedChars', true);
     };
 
     function changeLetterThumbnail($letter, character) {

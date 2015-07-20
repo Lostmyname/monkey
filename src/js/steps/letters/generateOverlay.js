@@ -44,18 +44,28 @@ module.exports = function (options, $events) {
         .addClass('row');
       $overlayContent.appendTo($overlayInner);
 
-      var $titleBox = $('<h4 />')
-        .text(lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title'));
-      $titleBox.appendTo($overlayContent);
+      var overlayTitle,
+        overlayText;
       var comparisonName = options.book.comparisonBooks[0].name;
 
-      var overlayText = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro') + ' ' +
-                        lang('monkey.overlay.copy.part_1') + ' ' +
-                        comparisonName.toUpperCase() + ' & ' +
-                        data.name.toUpperCase() +
-                        lang('monkey.overlay.copy.part_2') + ' ' +
-                        lang('monkey.overlay.nounTypes.' + singularOrPlural + '.letter') + ' ' +
-                        lang('monkey.overlay.copy.part_3');
+      if (data.showLanguageOverlay === true) {
+        overlayTitle = lang('monkey.language.title');
+        overlayText = lang('monkey.language.copy');
+      } else {
+        overlayTitle = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title');
+        overlayText = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro') + ' ' +
+                      lang('monkey.overlay.copy.part_1') + ' ' +
+                      comparisonName.toUpperCase() + ' & ' +
+                      data.name.toUpperCase() +
+                      lang('monkey.overlay.copy.part_2') + ' ' +
+                      lang('monkey.overlay.nounTypes.' + singularOrPlural + '.letter') + ' ' +
+                      lang('monkey.overlay.copy.part_3');
+      }
+
+      var $titleBox = $('<h4 />')
+        .text(overlayTitle);
+      $titleBox.appendTo($overlayContent);
+
 
       var $messageBox = $('<div />')
         .text(overlayText)
@@ -73,27 +83,40 @@ module.exports = function (options, $events) {
         .text(lang('monkey.overlay.buttons.no'))
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
+      var $okayButton = $('<button />')
+        .text(lang('monkey.language.buttons.okay'))
+        .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
+
       $buttonContainer.appendTo($overlayContent);
-      if (isMobile) {
-        $yesButton.appendTo($buttonContainer);
-        $noButton.appendTo($buttonContainer, function () {
+      if (data.showLanguageOverlay === true) {
+        $okayButton.appendTo($buttonContainer, function () {
           defer.resolve();
+        });
+        $okayButton.on('click', function () {
+          closeOverlay();
         });
       } else {
-        $noButton.appendTo($buttonContainer);
-        $yesButton.appendTo($buttonContainer, function () {
-          defer.resolve();
+        if (isMobile) {
+          $yesButton.appendTo($buttonContainer);
+          $noButton.appendTo($buttonContainer, function () {
+            defer.resolve();
+          });
+        } else {
+          $noButton.appendTo($buttonContainer);
+          $yesButton.appendTo($buttonContainer, function () {
+            defer.resolve();
+          });
+        }
+
+        $yesButton.on('click', function () {
+          data.editCharacters = true;
+          closeOverlay();
+        });
+
+        $noButton.on('click', function () {
+          revertCharsToOriginal(closeOverlay);
         });
       }
-
-      $yesButton.on('click', function () {
-        data.editCharacters = true;
-        closeOverlay();
-      });
-
-      $noButton.on('click', function () {
-        revertCharsToOriginal(closeOverlay);
-      });
 
       function closeOverlay() {
         $events.trigger('overlayClosed', $monkeyContainer);
@@ -135,7 +158,7 @@ module.exports = function (options, $events) {
       }
       return defer.promise();
     }
-    if (data.shouldShowDuplicateModal !== false) {
+    if (data.shouldShowDuplicateModal !== false || data.showLanguageOverlay === true) {
       loadOverlay()
         .then(function () {
           return data;

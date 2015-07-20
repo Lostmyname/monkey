@@ -35,6 +35,15 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
+    if ($monkeyContainer.data('locale') !== options.book.locale &&
+        ['en-GB', 'en-US'].indexOf(options.book.locale) === -1 &&
+        $monkeyContainer.data('changedChars') === true
+      ) {
+      $monkeyContainer.data('show-language-overlay', true);
+    } else {
+      $monkeyContainer.data('show-language-overlay', false);
+    }
+
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [
         {
@@ -48,7 +57,8 @@ window.Monkey = module.exports = (function () {
     this.$events = $({});
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateBaseElement($monkeyContainer, options));
+      .then(Monkey._generateBaseElement($monkeyContainer, options))
+      .then(Monkey._checkLanguageChange($monkeyContainer));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker) {
@@ -60,19 +70,16 @@ window.Monkey = module.exports = (function () {
           )
         );
       }
-      promise = promise.then(Monkey.letters._init(this.$events, options));
+      promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
     promise = promise
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer))
-      .then(Monkey._initMonkey(this.$events, options));
-
-    if (options.book.comparisonBooks) {
-      promise = promise.then(Monkey.letters._generateOverlay(options, this.$events));
-    }
-    promise = promise.then(function (data) {
+      .then(Monkey._initMonkey(this.$events, options))
+      .then(Monkey.letters._generateOverlay(options, this.$events))
+      .then(function (data) {
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
             .then(Monkey.spread._insertSpread());
@@ -91,6 +98,7 @@ window.Monkey = module.exports = (function () {
   Monkey._generateHtml = require('./steps/generateHtml');
   Monkey._insertHtml = require('./steps/insertHtml');
   Monkey._initMonkey = require('./steps/initMonkey');
+  Monkey._checkLanguageChange = require('./steps/checkLanguageChange');
 
   Monkey.spread = {};
   Monkey.spread.Monkey = Monkey;
