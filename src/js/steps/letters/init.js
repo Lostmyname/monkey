@@ -61,6 +61,11 @@ module.exports = function ($events, options, $monkeyContainer) {
         $letterSpans.css({
           overflow: 'hidden'
         });
+        if (window.innerWidth > window.innerHeight) {
+          $('html, body').animate({
+            scrollTop: bounding.top
+          }, 500);
+        }
         $pickerBg.on('click', function () {
           destroyPicker($activePicker);
         });
