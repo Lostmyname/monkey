@@ -36,11 +36,11 @@ desktop.init = function (data, $events, options) {
   var maxBookProgress = 0;
   var bookNavType;
   if (options.showCharPicker) {
-    bookNavType = 'characterPicker'
+    bookNavType = 'characterPicker';
   } else if (options.icons) {
-    bookNavType = 'icons'
+    bookNavType = 'icons';
   } else {
-    bookNavType = 'original'
+    bookNavType = 'original';
   }
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {

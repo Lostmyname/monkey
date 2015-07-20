@@ -34,7 +34,7 @@ module.exports = function ($events, options) {
       $currentPicker;
 
     if (isMobile && document.addEventListener) {
-      document.addEventListener('touchstart', function () {} ,false);
+      document.addEventListener('touchstart', function () {}, false);
     }
 
     data.canSetUpMobileScrollListener = true;

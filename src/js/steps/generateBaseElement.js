@@ -21,6 +21,6 @@ module.exports = function (monkeyContainer, options) {
     data.monkeyContainer = monkeyContainer;
 
     return data;
-  }.bind(this);
+  };
 };
 

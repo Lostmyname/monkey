@@ -7,7 +7,7 @@ var $ = require('jquery');
  *
  * @param {string|HTMLElement|jQuery} monkeyContainer The container.
  */
-module.exports = function (monkeyContainer, options) {
+module.exports = function (monkeyContainer) {
   var $container = $(monkeyContainer);
 
   return function (data) {

@@ -40,10 +40,11 @@ mobile.generateHtml = function (data, lang) {
 
   return $monkey;
 };
-
+/*eslint-disable no-unused-vars */
 mobile.generateBaseElement = function (data) {
   return $('<div />').addClass('monkey mobile');
 };
+/*eslint-enable no-usused-vars */
 
 mobile.init = function (data, $events) {
   var windowLeft = 0;
