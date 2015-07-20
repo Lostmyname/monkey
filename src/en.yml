@@ -31,8 +31,8 @@ en:
         part_2: "'s books. But never fear – we have extra characters for the"
         part_3: 'in yellow. Would you like to use these new characters?'
       buttons:
-        yes: 'Yes Please!'
-        no: 'No Thanks!'
+        yes_please: 'Yes Please!'
+        no_thanks: 'No Thanks!'
     language:
       title: "You've changed language!"
       copy: 'Unfortunately, the character picker is not yet available for this language'
