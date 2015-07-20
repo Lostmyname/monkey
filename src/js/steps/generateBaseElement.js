@@ -10,9 +10,10 @@ module.exports = function (monkeyContainer, options) {
   return function (data) {
 
     data.loading = monkeyContainer.find('.loader-img').clone();
+    monkeyContainer.empty();
 
     if (options.replaceMonkey) {
-      monkeyContainer.empty();
+
       data.loading = data.loading.appendTo(monkeyContainer);
     }
 

@@ -46,11 +46,11 @@ mobile.generateBaseElement = function (data) {
 };
 /*eslint-enable no-usused-vars */
 
-mobile.init = function (data, $events) {
+mobile.init = function (data, $events, options) {
   var windowLeft = 0;
   var maxProgress = 0;
 
-  var $monkey = data.base;
+  var $monkey = data.html;
   $monkey.parents('#monkey').addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
 

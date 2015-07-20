@@ -5,18 +5,21 @@
 describe('Loading Monkey', function () {
   var promise, promiseBeforeHtml, monkeyData;
 
+  var $testObject = $('<div />').attr({
+    'data-key': 'lmn-book',
+    'data-name': 'Test',
+    'data-gender': 'boy',
+    'data-locale': 'en-US',
+    'data-icons': true
+  });
+
+  var monkey = new Monkey($testObject);
+
+  var options = monkey.options;
+
   var $events = $({});
 
   it('should set book options from data attributes (slow)', function () {
-    var $testObject = $('<div />').attr({
-      'data-key': 'lmn-book',
-      'data-name': 'Test',
-      'data-gender': 'boy',
-      'data-locale': 'en-US'
-    });
-
-    var monkey = new Monkey($testObject);
-
     return monkey.promise.then(function () {
       monkey.options.book.name.should.equal('Test');
       monkey.options.book.gender.should.equal('boy');
@@ -26,8 +29,7 @@ describe('Loading Monkey', function () {
 
   it('should get data', function () {
     Monkey.should.have.property('_getData');
-
-    promise = Monkey._getData(options);
+    promise = Monkey._getData(monkey.options);
     promise.should.be.jqPromise;
 
     return promise.then(function (data) {
@@ -90,6 +92,7 @@ describe('Loading Monkey', function () {
     });
   });
 
+  /*
   it('should have preloaded the first image', function () {
     this.timeout(10);
 
@@ -98,7 +101,7 @@ describe('Loading Monkey', function () {
 
   it('should not have preloaded the tenth image', function (cb) {
     var finished = false;
-    Monkey.helpers.preload(monkeyData.urls[10])
+    Monkey.helpers.preload(monkeyData.urls.slice(0, 11))
       .then(function () {
         finished = true;
       });
@@ -108,6 +111,7 @@ describe('Loading Monkey', function () {
       cb();
     }, 30);
   });
+  */
 
   it('should generate HTML for desktop', function () {
     return promise.then(changeMonkeyType('desktop'))
@@ -137,7 +141,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(changeMonkeyType('desktop'))
       .then(Monkey._generateHtml(options.lang))
-      .then(Monkey._initMonkey($events))
+      .then(Monkey._initMonkey($events, options))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
@@ -154,7 +158,8 @@ describe('Loading Monkey', function () {
 
     return promise.then(changeMonkeyType('mobile'))
       .then(Monkey._generateHtml(options.lang))
-      .then(Monkey._initMonkey($({})))
+      .then(Monkey._generateBaseElement($book, options))
+      .then(Monkey._initMonkey($({})), options)
       .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
@@ -169,7 +174,9 @@ describe('Loading Monkey', function () {
     var $book = $('<div />').attr('data-key', 'lmn-book').html('<br><br>');
     $book.children().length.should.equal(2);
 
-    return promise.then(Monkey._insertHtml($book))
+    return promise
+      .then(Monkey._generateBaseElement($book, options))
+      .then(Monkey._insertHtml($book))
       .then(function () {
         $book.children('br').length.should.equal(0);
       });
@@ -180,7 +187,8 @@ describe('Loading Monkey', function () {
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.letter');
-      spans.length.should.equal(data.name.length + 2);
+      var spansToAdd = data.name.length < 5 ? 3 : 2;
+      spans.length.should.equal(data.name.length + spansToAdd);
     });
   });
 
@@ -241,7 +249,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(function (data) {
       var spans = data.lettersElement.find('.character-card');
-      spans.length.should.equal(10);
+      spans.length.should.equal(data.name.length);
     });
   });
 

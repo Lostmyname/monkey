@@ -13,8 +13,8 @@ desktop.calculateSize = function () {
 
 desktop.generateHtml = function (data, lang) {
   var $monkeyWrapper = $('<div />')
-    .addClass('pos-relative monkey-wrapper js--add-overlay');
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop pos-absolute');
+    .addClass('pos-relative monkey-wrapper js--add-overlay desktop');
+  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute');
 
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {

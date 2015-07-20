@@ -45,7 +45,7 @@ window.Monkey = module.exports = (function () {
     }
 
     this.$events = $({});
-    var promise = Monkey._getData($monkeyContainer, options)
+    var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateBaseElement($monkeyContainer, options));
     if (options.letters) {
