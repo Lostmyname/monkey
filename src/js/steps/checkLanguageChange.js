@@ -11,7 +11,7 @@ module.exports = function ($monkeyContainer) {
     if ($monkeyContainer.data('show-language-overlay') === true) {
       data.showLanguageOverlay = true;
     } else {
-      data.showLanguageOverlay = true;
+      data.showLanguageOverlay = false;
     }
     return data;
   };
