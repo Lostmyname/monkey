@@ -17,7 +17,7 @@ window.Monkey = module.exports = (function () {
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
       replaceMonkey: false,
-      showCharPicker: true,
+      showCharPicker: $monkeyContainer.data('show-picker'),
 
       // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
       server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
@@ -66,7 +66,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer, options))
-      .then(Monkey._initMonkey(this.$events));
+      .then(Monkey._initMonkey(this.$events, options));
 
     if (options.book.comparisonBooks) {
       promise = promise.then(Monkey.letters._generateOverlay(options, this.$events));

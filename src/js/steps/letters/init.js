@@ -290,7 +290,7 @@ module.exports = function ($events, options) {
             if ($letter.attr('data-letter')) {
               return {
                 letter: $letter.attr('data-letter'),
-                character: $letter.attr('data-character')
+                character: $letter.data('char') || $letter.attr('data-character')
               };
             }
           });
