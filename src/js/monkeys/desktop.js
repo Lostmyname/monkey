@@ -32,12 +32,16 @@ desktop.generateHtml = function (data, lang) {
   return $monkeyWrapper;
 };
 
-desktop.init = function (data, $events) {
+desktop.init = function (data, $events, options) {
   var maxBookProgress = 0;
-
-  // Heidelberg.prototype.replacePage = function (pages, spreads) {
-  //   var page = $('.Page' + pages);
-  // };
+  var bookNavType;
+  if (options.showCharPicker) {
+    bookNavType = 'characterPicker'
+  } else if (options.icons) {
+    bookNavType = 'icons'
+  } else {
+    bookNavType = 'original'
+  }
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
@@ -75,7 +79,9 @@ desktop.init = function (data, $events) {
     var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
-      $events.trigger('bookprogress', { progress: maxBookProgress });
+      $events.trigger('bookprogress', {
+        progress: maxBookProgress,
+        bookNavType: bookNavType });
     }
 
     $el.toggleClass('at-front-cover', !index);

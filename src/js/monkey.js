@@ -67,7 +67,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer, options))
-      .then(Monkey._initMonkey(this.$events));
+      .then(Monkey._initMonkey(this.$events, options));
 
     if (options.book.comparisonBooks) {
       promise = promise.then(Monkey.letters._generateOverlay(options, this.$events));
