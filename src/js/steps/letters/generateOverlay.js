@@ -45,9 +45,10 @@ module.exports = function (options, $events) {
       $overlayContent.appendTo($overlayInner);
 
       var overlayTitle,
-        overlayText;
-      if(typeof options.book.comparisonBooks !== 'undefined') {
-        var comparisonName = options.book.comparisonBooks[0].name;
+        overlayText,
+        comparisonName = '';
+      if (typeof options.book.comparisonBooks !== 'undefined') {
+        comparisonName = options.book.comparisonBooks[0].name;
       }
 
       if (data.showLanguageOverlay === true) {

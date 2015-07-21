@@ -89,8 +89,6 @@ module.exports = function (options, monkeyContainer) {
             return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
 
-
-
           if (remainingLetterChars.length < 2) {
             charPickTitle = lang('monkey.char_picker.title.not_remaining.part_1') +
                             ' ' + letter.letter + ' ' +
