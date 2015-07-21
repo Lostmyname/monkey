@@ -2,7 +2,7 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
-var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
+var getCentralizedCharCount = require('../../helpers/getCentralizedCharCount');
 
 var animationDelay = 1600;
 var animationSpeed = 800;
@@ -30,6 +30,7 @@ module.exports = function ($events, options, $monkeyContainer) {
     var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
+    var numOfCentralizedChars = getCentralizedCharCount();
     var $activeLetter,
       $currentPicker;
 
@@ -61,6 +62,16 @@ module.exports = function ($events, options, $monkeyContainer) {
         $letterSpans.css({
           overflow: 'hidden'
         });
+        $(window).on('orientationchange resize', function () {
+          var newBounding = $activeLetter.offset();
+          $('.letter--cloned').css({
+            left: newBounding.left,
+            top: newBounding.top
+          });
+          $('.picker-container__bg').css({
+            zIndex: 3
+          });
+        });
         if (window.innerWidth > window.innerHeight) {
           $('html, body').animate({
             scrollTop: bounding.top
@@ -81,7 +92,8 @@ module.exports = function ($events, options, $monkeyContainer) {
                           $('.letter--cloned');
         $activeLetter.remove();
         $pickerBg
-          .removeClass(classes.charPickerBgActive);
+          .removeClass(classes.charPickerBgActive)
+          .removeAttr('style');
         $letterSpans.removeAttr('style');
       }
       $activePicker
@@ -123,51 +135,66 @@ module.exports = function ($events, options, $monkeyContainer) {
       return 0;
     }
 
-    if (data.name.length > numOfCentralizedChars) {
-      if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
-        var openingMargin = ($monkey.width() / 2) -
-                          ($monkey.find('.letter').eq(0)[0].clientWidth) -
-                          ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
-        if (data.shouldShowDuplicateModal) {
-          data.canSetUpMobileScrollListener = false;
-          $letters
-            .css({
-              marginLeft: openingMargin,
-              paddingRight: openingMargin,
-              width: calculatedWidth + 10 + openingMargin
-            });
-          $letterSpans
-          .delay(animationDelay)
-          .animate({
-            scrollLeft: getFirstChangedCharOffset()
-          }, animationSpeed, function () {
-            nameAgitator();
-            data.canSetUpMobileScrollListener = true;
-          });
-        } else {
-          $letters
-            .css({
-              paddingRight: openingMargin,
-              width: calculatedWidth + 10 + openingMargin
-            })
+    function initializeName() {
+      if (data.name.length > numOfCentralizedChars) {
+        if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
+          var openingMargin = ($monkey.width() / 2) -
+                            ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                            ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+          if (data.shouldShowDuplicateModal) {
+            data.canSetUpMobileScrollListener = false;
+            $letters
+              .css({
+                marginLeft: openingMargin,
+                paddingRight: openingMargin,
+                width: calculatedWidth + 10 + openingMargin
+              });
+            $letterSpans
             .delay(animationDelay)
             .animate({
-              marginLeft: openingMargin
-            }, animationSpeed, nameAgitator);
-        }
+              scrollLeft: getFirstChangedCharOffset()
+            }, animationSpeed, function () {
+              nameAgitator();
+              data.canSetUpMobileScrollListener = true;
+            });
+          } else {
+            $letters
+              .css({
+                paddingRight: openingMargin,
+                width: calculatedWidth + 10 + openingMargin
+              })
+              .delay(animationDelay)
+              .animate({
+                marginLeft: openingMargin
+              }, animationSpeed, nameAgitator);
+          }
 
-      } else if (isMobile && !options.animateName) {
+        } else if (isMobile && !options.animateName) {
+          $letters.css({
+            marginLeft: openingMargin,
+            paddingRight: openingMargin,
+            width: calculatedWidth + 10 + openingMargin
+          });
+        }
+      } else if (isMobile) {
         $letters.css({
-          marginLeft: openingMargin,
-          paddingRight: openingMargin,
-          width: calculatedWidth + 10 + openingMargin
+          margin: '0 auto'
         });
       }
-    } else if (isMobile) {
-      $letters.css({
-        margin: '0 auto'
-      });
     }
+
+    initializeName();
+
+    $(window).on('orientationchange', function () {
+      var openingMargin = ($monkey.width() / 2) -
+                            ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                            ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+      $letters.css({
+        marginLeft: openingMargin,
+        paddingRight: openingMargin,
+        width: calculatedWidth + 10 + openingMargin
+      });
+    });
 
     // Events
 
