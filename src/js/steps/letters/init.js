@@ -214,7 +214,7 @@ module.exports = function ($events, options, $monkeyContainer) {
       $activeLetter = $('#letters .letter-active');
 
       if (currentPageIndex === $this.index()) {
-        $currentPicker = $($pickers[$this.index() - 1]);
+        $currentPicker = $($pickers[$this.index() - charsBefore - 1]);
         setUpPicker($currentPicker, $this);
       }
 
