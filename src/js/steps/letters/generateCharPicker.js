@@ -2,7 +2,7 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
-var numOfCentralizedChars = require('../../helpers/getCentralizedCharCount')();
+var getCentralizedCharCount = require('../../helpers/getCentralizedCharCount');
 var lang = require('lang');
 
 /**
@@ -18,6 +18,12 @@ module.exports = function (options, monkeyContainer) {
   var defer = $.Deferred();
 
   return function (data) {
+
+    var numOfCentralizedChars = getCentralizedCharCount();
+
+    $(window).on('resize orientationchange', function () {
+      numOfCentralizedChars = getCentralizedCharCount();
+    });
 
     var $toolTipArrow = $('<img />')
         .addClass('tooltip-arrow')
@@ -66,6 +72,13 @@ module.exports = function (options, monkeyContainer) {
           if (data.name.length <= numOfCentralizedChars) {
             $toolTip.addClass('character-picker--no-arrow');
           }
+          $(window).on('orientationchange resize', function () {
+            if (data.name.length <= numOfCentralizedChars) {
+              $toolTip.addClass('character-picker--no-arrow');
+            } else {
+              $toolTip.removeClass('character-picker--no-arrow');
+            }
+          });
         } else {
           $toolTip.appendTo($letterDiv);
           var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
@@ -147,6 +160,8 @@ module.exports = function (options, monkeyContainer) {
         if (!(letter.letter === '-' || letter.letter === ' ')) {
           currentDisplayPage++;
         }
+
+
 
         defer.resolve();
 

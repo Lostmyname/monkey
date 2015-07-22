@@ -38,6 +38,10 @@ module.exports = function ($events, options, $monkeyContainer) {
       document.addEventListener('touchstart', function () {}, false);
     }
 
+    $(window).on('resize orientationchange', function () {
+      numOfCentralizedChars = getCentralizedCharCount();
+    });
+
     data.canSetUpMobileScrollListener = true;
 
     function setUpPicker($activePicker, $activeLetter) {
@@ -186,14 +190,22 @@ module.exports = function ($events, options, $monkeyContainer) {
     initializeName();
 
     $(window).on('orientationchange', function () {
-      var openingMargin = ($monkey.width() / 2) -
-                            ($monkey.find('.letter').eq(0)[0].clientWidth) -
-                            ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
-      $letters.css({
-        marginLeft: openingMargin,
-        paddingRight: openingMargin,
-        width: calculatedWidth + 10 + openingMargin
-      });
+      if (data.name.length > numOfCentralizedChars) {
+        var openingMargin = ($monkey.width() / 2) -
+                              ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                              ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+        $letters.css({
+          marginLeft: openingMargin,
+          paddingRight: openingMargin,
+          width: calculatedWidth + 10 + openingMargin
+        });
+      } else {
+        $letters.css({
+          margin: '0 auto',
+          paddingRight: 0,
+          width: calculatedWidth + 10
+        });
+      }
     });
 
     // Events
