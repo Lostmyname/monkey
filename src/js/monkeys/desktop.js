@@ -45,7 +45,8 @@ desktop.init = function (data, $events, options) {
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
-    hasSpreads: true
+    hasSpreads: true,
+    limitPageTurns: false
   });
 
   data.swapPage = function (index, character) {
