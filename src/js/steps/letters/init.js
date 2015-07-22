@@ -341,7 +341,7 @@ module.exports = function ($events, options, $monkeyContainer) {
       }
       data.swapPage(page, character);
       $currentLetter
-        .data('char', character.character);
+        .attr('data-selected-character', character.character);
       if (updateChars) {
         data.updateCharSelection();
       }
