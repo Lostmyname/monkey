@@ -56,13 +56,9 @@ module.exports = function (options, $events) {
         overlayText = lang('monkey.language.copy');
       } else {
         overlayTitle = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title');
-        overlayText = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro') + ' ' +
-                      lang('monkey.overlay.copy.part_1') + ' ' +
-                      comparisonName.toUpperCase() + ' & ' +
-                      data.name.toUpperCase() +
-                      lang('monkey.overlay.copy.part_2') + ' ' +
-                      lang('monkey.overlay.nounTypes.' + singularOrPlural + '.letter') + ' ' +
-                      lang('monkey.overlay.copy.part_3');
+        overlayText = comparisonName.toUpperCase() + ' & ' +
+                      data.name.toUpperCase() + ' ' +
+          lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro')
       }
 
       var $titleBox = $('<h4 />')
