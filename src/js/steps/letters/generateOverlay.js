@@ -92,7 +92,7 @@ module.exports = function (options, $events) {
           defer.resolve();
         });
         $okayButton.on('click', function () {
-          closeOverlay();
+          closeOverlay(true);
         });
       } else {
         if (isMobile) {
@@ -109,7 +109,7 @@ module.exports = function (options, $events) {
 
         $yesButton.on('click', function () {
           data.editCharacters = true;
-          closeOverlay();
+          closeOverlay(true);
         });
 
         $noButton.on('click', function () {
@@ -117,8 +117,11 @@ module.exports = function (options, $events) {
         });
       }
 
-      function closeOverlay() {
+      function closeOverlay(updateChars) {
         $events.trigger('overlayClosed', $monkeyContainer);
+        if (updateChars) {
+          data.updateCharSelection();
+        }
         $monkeyContainer
           .next()
           .removeAttr('style');
@@ -147,13 +150,13 @@ module.exports = function (options, $events) {
               if (character.character === letter.default_character) {
                 var $letter = $('.letter[data-letter="' + character.letter + '"]' +
                                 '[data-character="' + character.character + '"]');
-                data.changeCharacter(i, character, $letter);
+                data.changeCharacter(i, character, $letter, false);
               }
             }
 
           }
         }
-        callback();
+        callback(false);
       }
       return defer.promise();
     }

@@ -314,17 +314,8 @@ module.exports = function ($events, options, $monkeyContainer) {
       destroyPicker($pickerEl);
     }
 
-    data.changeCharacter = function (page, character, $currentLetter) {
-      if (options.icons) {
-        changeLetterThumbnail($currentLetter, character);
-      }
-      if (options.showCharPicker) {
-        switchActiveButtonState($currentLetter, character);
-      }
-      data.swapPage(page, character);
-      $currentLetter
-        .data('char', character.character);
-      $spans = $spans ||
+    data.updateCharSelection = function () {
+      var $spans = $spans ||
                 data
                   .lettersElement
                   .find('#letters')
@@ -334,11 +325,26 @@ module.exports = function ($events, options, $monkeyContainer) {
             if ($letter.attr('data-letter')) {
               return {
                 letter: $letter.attr('data-letter'),
-                character: $letter.data('char') || $letter.attr('data-character')
+                character: $letter.attr('data-selected-character')
               };
             }
           });
       $events.trigger('charactersChanged', { characters: charactersArray });
+    };
+
+    data.changeCharacter = function (page, character, $currentLetter, updateChars) {
+      if (options.icons) {
+        changeLetterThumbnail($currentLetter, character);
+      }
+      if (options.showCharPicker) {
+        switchActiveButtonState($currentLetter, character);
+      }
+      data.swapPage(page, character);
+      $currentLetter
+        .data('char', character.character);
+      if (updateChars) {
+        data.updateCharSelection();
+      }
       $monkeyContainer.data('changedChars', true);
     };
 
