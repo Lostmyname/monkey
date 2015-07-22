@@ -12,7 +12,9 @@ desktop.calculateSize = function () {
 };
 
 desktop.generateHtml = function (data, lang) {
-  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads desktop');
+  var $monkeyWrapper = $('<div />')
+    .addClass('pos-relative monkey-wrapper js--add-overlay desktop');
+  var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute');
 
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
@@ -21,21 +23,53 @@ desktop.generateHtml = function (data, lang) {
     });
 
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type)
+      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
       .append($img)
       .appendTo($monkey);
   });
+  $monkey.appendTo($monkeyWrapper);
 
-  return $monkey;
+  return $monkeyWrapper;
 };
 
-desktop.init = function (data, $events) {
+desktop.init = function (data, $events, options) {
   var maxBookProgress = 0;
+  var bookNavType;
+  if (options.showCharPicker) {
+    bookNavType = 'characterPicker';
+  } else if (options.icons) {
+    bookNavType = 'icons';
+  } else {
+    bookNavType = 'original';
+  }
 
-  data.heidelberg = new Heidelberg(data.html, {
+  data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
-    hasSpreads: true
+    hasSpreads: true,
+    limitPageTurns: false
   });
+
+  data.swapPage = function (index, character) {
+    var page = (index + 3) + index;
+    var $newImage = $('<img />')
+      .attr('src', character.url1 + data.queryString);
+    var $newImage2 = $('<img />')
+      .attr('src', character.url2 + data.queryString);
+
+    var newPage1 = $('<div />')
+        .addClass('Heidelberg-Spread page- Page-' + page)
+        .append($newImage.clone());
+
+    var newPage2 = $('<div />')
+        .addClass('Heidelberg-Spread page- Page-' + (page + 1))
+        .append($newImage2.clone());
+
+    var page1El = $('.Page-' + page);
+    var page2El = $('.Page-' + (page + 1));
+    page1El.replaceWith(newPage1);
+    page2El.replaceWith(newPage2);
+
+  };
 
   data.heidelberg.el.addClass('at-front-cover');
 
@@ -46,7 +80,9 @@ desktop.init = function (data, $events) {
     var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
-      $events.trigger('bookprogress', { progress: maxBookProgress });
+      $events.trigger('bookprogress', {
+        progress: maxBookProgress,
+        bookNavType: bookNavType });
     }
 
     $el.toggleClass('at-front-cover', !index);

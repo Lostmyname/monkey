@@ -2,15 +2,213 @@
 
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
+var getCentralizedCharCount = require('../../helpers/getCentralizedCharCount');
 
-var animationDelay = 1500;
+var animationDelay = 1600;
 var animationSpeed = 800;
 
-module.exports = function ($events, options) {
+module.exports = function ($events, options, $monkeyContainer) {
   return function (data) {
+    var classes = {
+      charPickerActive: 'character-picker--active',
+      charPickerBgActive: 'picker-container__bg--active'
+    };
+    // @todo: tidy this up
+    var $monkey = data.base;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
+    var $allSpans = $letters.find('.letter');
     var $letterSpans = $('.letter-spans');
+    var $pickers = isMobile ? data.base
+                                .find('.picker-container')
+                                .find('.character-picker')
+                            : $letters.find('.character-picker');
+    var $charButtons = isMobile ? data.base
+                                    .find('.picker-container')
+                                    .find('[data-js="switch-character"]')
+                                : $pickers.find('[data-js="switch-character"]');
+    var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
+    var $changeButtons = $letters.find('.change-character');
+    var currentPageIndex = 0;
+    var numOfCentralizedChars = getCentralizedCharCount();
+    var $activeLetter,
+      $currentPicker;
+
+    if (isMobile && document.addEventListener) {
+      document.addEventListener('touchstart', function () {}, false);
+    }
+
+    $(window).on('resize orientationchange', function () {
+      numOfCentralizedChars = getCentralizedCharCount();
+    });
+
+    data.canSetUpMobileScrollListener = true;
+
+    function setUpPicker($activePicker, $activeLetter) {
+      if (isMobile) {
+        if ($activePicker.length === 0) {
+          return false;
+        }
+        $pickerBg.addClass(classes.charPickerBgActive);
+        var bounding = $activeLetter.offset();
+        $activeLetter
+          .clone()
+          .addClass('letter--cloned')
+          .insertAfter($monkey)
+          .css({
+            fontSize: '1.2em',
+            position: 'absolute',
+            left: bounding.left,
+            lineHeight: 1.2,
+            top: bounding.top,
+            zIndex: 3
+          });
+        $letterSpans.css({
+          overflow: 'hidden'
+        });
+        $(window).on('orientationchange resize', function () {
+          var newBounding = $activeLetter.offset();
+          $('.letter--cloned').css({
+            left: newBounding.left,
+            top: newBounding.top
+          });
+          $('.picker-container__bg').css({
+            zIndex: 3
+          });
+        });
+        if (window.innerWidth > window.innerHeight) {
+          $('html, body').animate({
+            scrollTop: bounding.top
+          }, 500);
+        }
+        $pickerBg.on('click', function () {
+          destroyPicker($activePicker);
+        });
+      }
+      $activePicker
+        .addClass(classes.charPickerActive);
+    }
+
+    function destroyPicker($activePicker, $activeLetter) {
+      if (isMobile) {
+        $activeLetter = typeof $activeLetter !== 'undefined' ?
+                          $activeLetter :
+                          $('.letter--cloned');
+        $activeLetter.remove();
+        $pickerBg
+          .removeClass(classes.charPickerBgActive)
+          .removeAttr('style');
+        $letterSpans.removeAttr('style');
+      }
+      $activePicker
+        .removeClass(classes.charPickerActive);
+    }
+
+    var calculatedWidth = 0;
+    if (options.icons) {
+
+      $allSpans.each(function () {
+        calculatedWidth += $(this).outerWidth(true);
+      });
+      $letters.css({ width: calculatedWidth });
+    }
+
+    function nameAgitator() {
+      var classes = {
+        agitator: 'letter-spans--agitated'
+      };
+      data.lettersElement.one('mousedown touchstart pointerdown', function () {
+        $letters.removeClass(classes.agitator);
+      });
+
+      function agitate() {
+        $letters.addClass(classes.agitator);
+      }
+      agitate();
+
+    }
+
+    function getFirstChangedCharOffset() {
+
+      if (data.shouldShowDuplicateModal) {
+        var $changed = $('.letter.changed').eq(0);
+        var val = $changed.position().left -
+                  ($changed.outerWidth(true) / 2);
+        return val;
+      }
+      return 0;
+    }
+
+    function initializeName() {
+      if (data.name.length > numOfCentralizedChars) {
+        if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
+          var openingMargin = ($monkey.width() / 2) -
+                            ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                            ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+          if (data.shouldShowDuplicateModal) {
+            data.canSetUpMobileScrollListener = false;
+            $letters
+              .css({
+                marginLeft: openingMargin,
+                paddingRight: openingMargin,
+                width: calculatedWidth + 10 + openingMargin
+              });
+            $letterSpans
+            .delay(animationDelay)
+            .animate({
+              scrollLeft: getFirstChangedCharOffset()
+            }, animationSpeed, function () {
+              nameAgitator();
+              data.canSetUpMobileScrollListener = true;
+            });
+          } else {
+            $letters
+              .css({
+                paddingRight: openingMargin,
+                width: calculatedWidth + 10 + openingMargin
+              })
+              .delay(animationDelay)
+              .animate({
+                marginLeft: openingMargin
+              }, animationSpeed, nameAgitator);
+          }
+
+        } else if (isMobile && !options.animateName) {
+          $letters.css({
+            marginLeft: openingMargin,
+            paddingRight: openingMargin,
+            width: calculatedWidth + 10 + openingMargin
+          });
+        }
+      } else if (isMobile) {
+        $letters.css({
+          margin: '0 auto'
+        });
+      }
+    }
+
+    initializeName();
+
+    $(window).on('orientationchange', function () {
+      if (data.name.length > numOfCentralizedChars) {
+        var openingMargin = ($monkey.width() / 2) -
+                              ($monkey.find('.letter').eq(0)[0].clientWidth) -
+                              ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+        $letters.css({
+          marginLeft: openingMargin,
+          paddingRight: openingMargin,
+          width: calculatedWidth + 10 + openingMargin
+        });
+      } else {
+        $letters.css({
+          margin: '0 auto',
+          paddingRight: 0,
+          width: calculatedWidth + 10
+        });
+      }
+    });
+
+    // Events
 
     $events.on('letterChange', function (e, page) {
       var currentPage = Math.floor((page - 1) / 2);
@@ -30,37 +228,149 @@ module.exports = function ($events, options) {
       if (isMobile && options.icons) {
         var $currentLetter = $spans.eq(currentPage);
         var $currentChar = $currentLetter.find('.char');
-        var halfScreenWidth = $(window).width() / 2;
         if ($currentChar.length !== 0) {
-          var centerOffset = $currentChar.offset().left - halfScreenWidth;
-          var currentScroll = $letterSpans.scrollLeft();
-
+          var centerOffset = $currentLetter.position().left -
+                            ($currentLetter.outerWidth(true) / 2);
           $letterSpans
-            .animate({ scrollLeft: (centerOffset + currentScroll) }, animationSpeed);
+            .animate({ scrollLeft: centerOffset }, animationSpeed / 4);
         }
       }
     });
 
-    $letters.on('click', '.letter:not(.nonclickable)', function () {
+    $letters.on('click', '.letter:not(.nonclickable)', function (evt) {
+      if ($monkey.hasClass('js--active-overlay')) {
+        return false;
+      }
+      $('html').one('click', function () {
+        destroyPicker($pickers);
+      });
       var $this = $(this);
       var charsBefore = $this.prevAll('.special-char').length;
+
+      destroyPicker($('.' + classes.charPickerActive));
+
       data.turnToPage($this.index() - charsBefore);
+      $activeLetter = $('#letters .letter-active');
+
+      if (currentPageIndex === $this.index()) {
+        $currentPicker = $($pickers[$this.index() - charsBefore - 1]);
+        setUpPicker($currentPicker, $this);
+      }
+
+      currentPageIndex = $this.index();
+      evt.stopPropagation();
     });
 
-    if (options.icons) {
-      var calculatedWidth = 0;
-      $spans.each(function () {
-        calculatedWidth += $(this).outerWidth(true);
-      });
-      $letters.css({ width: calculatedWidth });
+    $changeButtons.on('click', function () {
+      var $letterParent,
+        letterParentIndex,
+        $letterCharPicker;
+      if (isMobile) {
+        $letterParent = $(this).closest('.letter');
+        letterParentIndex = $letterParent.index();
+        $letterCharPicker = $monkey
+                              .find('.character-picker')
+                              .eq(letterParentIndex - 1);
+      } else {
+        $letterCharPicker = $(this).parent().find('.character-picker');
+      }
+      setUpPicker($letterCharPicker, $letterParent);
+    });
+
+    data.getChangedCharacter = function (button, evt) {
+      var $buttonEl = $(button);
+      var character = $buttonEl.data('char');
+      var page = $buttonEl.data('page');
+      var $currentLetter = $activeLetter || $buttonEl.closest('.letter');
+      switchActiveButtonState($currentLetter, character);
+      data.changeCharacter(page, character, $currentLetter);
+
+      return evt.stopPropagation();
+    };
+
+    function switchActiveButtonState($currentLetter, currentCharacter) {
+      var $pickerEl = isMobile ?
+                      $monkey
+                        .find('.character-picker')
+                        .eq($currentLetter.index() - 1) :
+                      $currentLetter.find('.character-picker');
+
+      var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
+                                      '[data-character="' + currentCharacter.character + '"]');
+      var selectedChar = $pickerEl.find('.selected-char');
+      var $prevButton = selectedChar.find('.button');
+
+      selectedChar.removeClass('selected-char');
+      $prevButton
+        .removeAttr('disabled')
+        .text('Select')
+        .addClass('primary');
+
+      $buttonEl.find('.button')
+        .attr('disabled', true)
+        .removeClass('primary')
+        .text('In Use');
+      $buttonEl.addClass('selected-char');
+      destroyPicker($pickerEl);
     }
 
-    if (isMobile && options.icons && options.animateName) {
-      $letters
-        .delay(animationDelay)
-        .animate({ marginLeft: 100 }, animationSpeed);
-    } else if (isMobile && options.animateName) {
-      $letters.css({ marginLeft: 100 });
+    data.updateCharSelection = function () {
+      var $spans = $spans ||
+                data
+                  .lettersElement
+                  .find('#letters')
+                  .find('.letter:not(.special-char)');
+      var charactersArray = $.map($spans, function (el) {
+            var $letter = $(el);
+            if ($letter.attr('data-letter')) {
+              return {
+                letter: $letter.attr('data-letter'),
+                character: $letter.attr('data-selected-character')
+              };
+            }
+          });
+      $events.trigger('charactersChanged', { characters: charactersArray });
+    };
+
+    data.changeCharacter = function (page, character, $currentLetter, updateChars) {
+      if (options.icons) {
+        changeLetterThumbnail($currentLetter, character);
+      }
+      if (options.showCharPicker) {
+        switchActiveButtonState($currentLetter, character);
+      }
+      data.swapPage(page, character);
+      $currentLetter
+        .data('char', character.character);
+      if (updateChars) {
+        data.updateCharSelection();
+      }
+      $monkeyContainer.data('changedChars', true);
+    };
+
+    function changeLetterThumbnail($letter, character) {
+      var $card = $letter.find('.character-card');
+      var $currentThumb = $card.find('img');
+      var currentUrl = $currentThumb.attr('src');
+      if (currentUrl !== character.thumbnail) {
+        var $newThumb = $currentThumb.clone();
+        $currentThumb.addClass('character-card__image--old');
+        $newThumb
+          .appendTo($card)
+          .addClass('character-card__image--new')
+          .attr('src', character.thumbnail);
+        setTimeout(function () {
+          $currentThumb.remove();
+          $newThumb.removeClass('character-card__image--new');
+        }, 400);
+      }
+      return this;
+    }
+
+    if (options.icons) {
+      $charButtons.on('click', function (evt) {
+        data.getChangedCharacter(this, evt);
+      });
     }
 
     return data;

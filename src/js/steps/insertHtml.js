@@ -11,7 +11,10 @@ module.exports = function (monkeyContainer) {
   var $container = $(monkeyContainer);
 
   return function (data) {
-    $container.empty().append(data.html);
+    $container.find('.loader-img').remove();
+    $container.next('.lmn-book__label').addClass('js--show-label');
+    $container.next('.lmn-book__label').removeAttr('style');
+    $container.append(data.html);
 
     data.container = $container;
 

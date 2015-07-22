@@ -1,0 +1,28 @@
+.ie8 {
+  #letters-container {
+    margin-bottom: 1.5em;
+  }
+  .overlay__buttons {
+    .button {
+      padding:8px 16px;
+    }
+
+    .button + .button {
+      margin-left: 1em;
+    }
+  }
+  .character-picker .char-container .img-container {
+    &:before {
+      display: none;
+    }
+    &:active:before {
+      display: block;
+    }
+  }
+  .change-character {
+    visibility: hidden;
+  }
+  .letter-active .change-character {
+    visibility: visible;
+  }
+}

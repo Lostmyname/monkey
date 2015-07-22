@@ -5,8 +5,9 @@
   "main": "src/js/monkey.js",
   "dependencies": {
     "diacritics": "^1.2.1",
-    "heidelberg": "^1.0.4",
+    "heidelberg": "git://github.com/djgrant/heidelberg#c0ec98cb35bb8828b2c23252b886ec1bdff18663",
     "jquery": "^1.11.2",
+    "lang": "^0.1.1",
     "nums": "^1.0.0"
   },
   "devDependencies": {

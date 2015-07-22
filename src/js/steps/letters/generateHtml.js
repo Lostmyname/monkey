@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+// var isMobile = require('../../helpers/isMobile')();
 
 /**
  * Generate HTML for letters.
@@ -8,9 +9,9 @@ var $ = require('jquery');
  * @param {object} options Options object from monkey.
  */
 module.exports = function (options) {
+  var defer = $.Deferred();
   return function (data) {
     var $lettersContainer = $('<div />');
-
     $lettersContainer.attr({
       id: 'letters-container',
       'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
@@ -29,6 +30,8 @@ module.exports = function (options) {
       .attr('id', 'letters');
 
     var letters = data.name.split('');
+
+    // Get the total letters, by finding just the first part of each letter
     var dataLetters = $(data.letters).filter(function (i, letter) {
       return letter.part === 1;
     });
@@ -37,69 +40,108 @@ module.exports = function (options) {
     if (letters.length < 5) {
       letters.splice(-1, 0, '');
     }
-    var combinedLetters = combineLetters(letters, dataLetters);
+    var combinedLetters = data.combinedLetters = combineLetters(letters, dataLetters);
 
-    $(combinedLetters).each(function (i, letter) {
-      var $letterDiv = $('<div />');
+    // Whether we should show the duplicate letters modal if more than one
+    // book has been created
+    var determineIfDuplicate = function () {
+      var outcome = false;
+      $(combinedLetters).each(function (i, letter) {
+        if (letter.changed) {
+          outcome++;
+        }
+      });
+      return outcome;
+    };
 
-      // Ensures spaces and hyphens are not clickable in double barrel names
-      if (letter.letter === ' ' || letter.letter === '-') {
-        $letterDiv.addClass('special-char nonclickable');
-      }
+    data.shouldShowDuplicateModal = determineIfDuplicate();
 
-      $letterDiv.appendTo($letters)
-        .addClass('letter')
-        .after(' ');
+    var loadLetterCards = function () {
+      $(combinedLetters).each(function (i, letter) {
+        var $letterDiv = $('<div />');
 
-      var $letterSpan = $('<div />')
-        .toggleClass('char', letter.letter !== '')
-        .text(letter.letter || '');
-      $letterSpan.appendTo($letterDiv);
+        if (letter.letter === ' ' || letter.letter === '-') {
+          $letterDiv.addClass('special-char nonclickable');
+        }
 
-      if (options.icons && letter.thumbnail) {
-        var $characterCard = $('<div />');
-        $characterCard.appendTo($letterDiv)
-          .addClass('character-card');
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        $letterDiv.appendTo($letters)
+          .addClass('letter')
+          .attr('data-letter', letter.letter)
+          .attr('data-character', letter.default_character)
+          .attr('data-selected-character', letter.selected)
+          .attr('data-type', letter.type)
+          .after(' ');
+        if (letter.selected !== letter.default_character) {
+          $letterDiv.addClass('changed');
+        }
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
-        var $charCardImg = $('<img />')
-          .attr('src', letter.thumbnail);
-        $charCardImg.appendTo($characterCard);
-      }
-    });
+        var $letterSpan = $('<div />')
+          .toggleClass('char', letter.letter !== '')
+          .text(letter.letter || '');
+        $letterSpan.appendTo($letterDiv);
 
-    $('<div />').html('&bull;')
-      .prependTo($letters)
-      .addClass('letter')
-      .after(' ')
-      .clone().appendTo($letters);
+        if (options.icons && letter.thumbnail) {
+          var $characterCard = $('<div />');
+          $characterCard.appendTo($letterDiv)
+            .addClass('character-card');
 
-    var $book = false;
-    if (typeof options.letters !== 'boolean') {
-      $book = $(options.letters);
-    }
+          var $icon = $('<img />')
+            .attr('src', letter.thumbnail)
+            .attr('height', 38)
+            .attr('width', 38);
+          $icon.appendTo($characterCard);
 
-    if (!$book || !$book.length) {
-      $book = data.html.parents('[data-key="lmn-book"]');
-    }
+          // $icon.on('load', function () {
+          //   if (--cardsToLoad === 0) {
+          //     console.log('resolving');
+          //   }
+          // });
+        }
+        defer.resolve();
+      });
+      return defer.promise();
+    };
 
-    data.lettersElement = $lettersContainer.prependTo($book);
+    return loadLetterCards()
+      .then(function () {
+        $('<div />').html('<div class="char">&bull;</div>')
+          .prependTo($letters)
+          .addClass('letter letter--cover')
+          .after(' ')
+          .clone().appendTo($letters);
 
-    if (options.icons) {
-      $lettersContainer.parents('#monkey').addClass('monkey-icons');
-    }
+        var $book = false;
+        if (typeof options.letters !== 'boolean') {
+          $book = $(options.letters);
+        }
+        if (!$book || !$book.length) {
+          $book = data.monkeyContainer;
+        }
+        $book.empty();
 
-    return data;
+        data.lettersElement = $lettersContainer.appendTo($book);
+        data.loading = data.loading.appendTo($book);
+
+        if (options.icons) {
+          $lettersContainer.parents('#monkey').addClass('monkey-icons');
+        }
+        return data;
+      });
   };
 };
 
 function combineLetters(splitLetters, dataLetters) {
   var offset = 0;
-
   return $.map(splitLetters, function (val, i) {
     var idx = i;
     if (splitLetters.length > 5) {
       idx = i - offset;
     }
+    dataLetters[idx].changed =
+      dataLetters[idx].selected !== dataLetters[idx].default_character;
+
     if (val === '-' || val === ' ') {
       offset++;
       return { letter: val };
@@ -107,5 +149,6 @@ function combineLetters(splitLetters, dataLetters) {
 
     dataLetters[idx].letter = val;
     return dataLetters[idx];
+
   });
 }

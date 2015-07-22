@@ -3,7 +3,7 @@
 var $ = require('jquery');
 
 module.exports = function (monkeyData, options) {
-  var $monkey = monkeyData.html;
+  var $monkey = monkeyData.html.find('Heidelberg-Book');
   var defer = $.Deferred();
   var resolved = false;
 

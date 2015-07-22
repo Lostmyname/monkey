@@ -26,65 +26,287 @@
   }
 }
 
-.monkey-icons {
-  #letters {
-    font-size: 1.2em;
-    .letter {
-      padding: 2px 4px 0px 4px;
-      display: block;
-      margin: 0;
-      .char {
-        width: 28px;
-        height: 28px;
-        line-height: 28px;
-        text-align: center;
-        margin: 0 auto 6px auto;
-      }
-    }
-    .letter:hover{
-      .char {
-        background-color: #f1f1f1;
-        color: #333;
-        border-radius: 50%;
-      }
-      .character-card {
-        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-      }
-    }
-    .letter-active, .letter-active:hover {
-      border-bottom: none;
-      .char {
-        color: #FFF;
-        background-color: #f06263;
-        border-radius: 50%;
-      }
-      .character-card {
-        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-      }
-    }
-    .letter:first-child, .letter:last-child {
-      color: black;
-      display: inline;
-      width: 25px;
-      height: 0;
-      font-size: 1.5rem;
-      line-height: 25px;
-    }
-    .character-card {
-      display: inline-block;
-      height: 40px;
-      background-color: white;
-      border-radius: 4px;
-      border: 1px #e0e0e0 solid;
-      img {
-        width: 38px;
-        height: 38px;
-      }
+#letters-container {
+  position: relative;
+  transform: translate(0,0);
+  z-index:3;
+}
+
+.monkey-icons #letters {
+  font-size: 1.2em;
+
+  .letter {
+    border-radius:2px;
+    padding: 2px 4px 0px 4px;
+    display: block;
+    margin: 0 1px 12px 0;
+    position: relative;
+    transition: background .25s ease;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+
+    .char {
+      border-radius: 50%;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      margin: 0 auto 6px auto;
+      transition: .25s ease;
     }
   }
+  .letter.changed {
+    background-color: #ffc600;
+    border-radius: 5px;
+  }
+  .letter:hover,
+  .letter:focus{
+    .char {
+      background-color: #f1f1f1;
+      color: #333;
+
+    }
+    .character-card {
+      box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+    }
+  }
+  .letter:active {
+    background:#f1f1f1;
+  }
+  .change-character {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    left:-1px;
+    opacity: 0;
+    padding:0 4px;
+    position: absolute;
+    text-transform: uppercase;
+    transition: opacity .25s ease;
+
+    top:100%;
+
+    .letter:hover &,
+    .letter:focus & {
+      text-decoration: underline;
+    }
+  }
+  .letter-active, .letter-active:hover {
+    border-bottom: none;
+    .char {
+      color: #FFF;
+      background-color: #f06263;
+    }
+    .character-card {
+      box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+    }
+  }
+  .letter-active {
+    .change-character {
+      opacity: 1;
+      transition-delay:.5s;
+    }
+  }
+  .letter[data-type="bridge"] {
+    display: none;
+  }
+}
+.monkey-icons #letters {
+  .letter:first-child,
+  .letter:last-child,
+  .letter--cover {
+    color: black;
+    display: inline-block;
+    height:auto;
+    width: 25px;
+    font-size: 1.5rem;
+    line-height: 16px;
+    padding-left:0;
+    padding-right: 0;
+
+    .char {
+      height:16px;
+      line-height:16px;
+      margin:7px 5px 5px 4px;
+      width:16px;
+    }
+  }
+  .letter--cover {
+    .char {
+      overflow: hidden;
+      position: relative;
+      text-indent:200%;
+      white-space:nowrap;
+
+      &:before {
+        background:#000;
+        border-radius:50%;
+        content:"";
+        height:8px;
+        left:50%;
+        margin:-4px 0 0 -4px;
+        position: absolute;
+        top:50%;
+        transition: background .25s ease;
+        width:8px;
+      }
+    }
+
+    &.letter-active .char:before {
+      background:#fff;
+      height:6px;
+      margin:-3px 0 0 -3px;
+      width:6px;
+    }
+  }
+}
+.character-card {
+  display: inline-block;
+  height: 40px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px #e0e0e0 solid;
+  overflow: hidden;
+  position: relative;
+  img {
+    background:#fff;
+    display: block;
+    margin-top: 0;
+    width: 38px;
+    // transition: .25s ease-in;
+    height: 38px;
+  }
+}
+
+@keyframes old-thumb {
+  0% {
+    opacity:1;
+    transform: scale(1);
+  }
+  100% {
+    opacity:0;
+    transform: scale(0.5);
+  }
+}
+@keyframes new-thumb {
+  0% {
+    opacity:0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity:1;
+    transform: none;
+  }
+}
+.character-card__image--old {
+  animation: old-thumb .3s 1 ease both;
+}
+
+.character-card__image--new {
+  animation: new-thumb .3s .1s 1 ease both;
+  left:0;
+  position: absolute;
+  top:0;
+}
+.monkey-icons {
   .letter-spans {
     margin-top: 10px;
     height: 82px;
+  }
+}
+.letter--cloned {
+
+  border-radius:2px;
+  padding: 2px 4px 0px 4px;
+  display: block;
+  margin: 0 1px 12px 0;
+  position: relative;
+  transition: background .25s ease;
+
+  .char {
+    color: #FFF;
+    background-color: #f06263;
+    border-radius: 50%;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    margin: 0 auto 6px auto;
+    transition: .25s ease;
+  }
+  .change-character {
+    display: none;
+  }
+}
+
+.overlay {
+  background: #fff;
+  bottom:0;
+  height:100%;
+  left:0;
+  position: absolute;
+  transform:translate(0,0);
+  width:100%;
+  z-index:5;
+}
+
+@media (min-width: 1025px) {
+  .overlay {
+    left:2.5rem;
+    right:2.5rem;
+    width: auto;
+  }
+}
+.overlay__inner {
+  height:100%;
+  left:0;
+  top:0;
+  position: absolute;
+  width:100%;
+  z-index:1;
+
+  .row {
+    margin:0;
+    width:100%;
+  }
+
+  .col {
+    max-width:38em;
+  }
+
+  .row > .col {
+    margin: 0 auto;
+  }
+}
+
+// Browser-proof version (IE8 + 9)
+
+.overlay__inner {
+  &:before {
+    content:"";
+    display: inline-block;
+
+    height:100%;
+    margin-left: -1px;
+    vertical-align: middle;
+
+    width:1px;
+  }
+
+  .row {
+    display: inline-block;
+    max-width:99%;
+    vertical-align: middle;
+  }
+}
+
+.overlay__buttons {
+  padding-top: 1em;
+
+  .desktop & {
+    padding-bottom: 1.5em;
   }
 }
 

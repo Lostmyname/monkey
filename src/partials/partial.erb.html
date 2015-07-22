@@ -1,13 +1,15 @@
 <div data-key="lmn-book" data-name="<%= customisation.name %>"
-     data-gender="<%= customisation.gender %>" data-locale="<%= customisation.locale %>"
-     class="lmn-book monkey" id="monkey">
-  <div class="color-bg-white lg-pad aligned-center">
+  data-first-book-name="Adele" data-first-book-gender="boy" data-first-book-locale="en-GB"
+  data-show-picker="true"
+  data-gender="<%= customisation.gender %>" data-locale="<%= customisation.locale %>"
+  class="lmn-book monkey" id="monkey">
+  <div class="color-bg-white lg-pad aligned-center loader-img">
     <%= image_tag('loading-32x32.gif', { width: 32, class: 'padded-bottom' }) %>
     <h6 class="not-strong color-white"><%= t("loading") %></h6>
   </div>
 </div>
 
-<span class="italic p pos-relative color-text-disabled display-none-on-md">
+<span class="italic p pos-relative color-text-disabled display-none-on-md lmn-book__label">
   <%= t("preview") %>
   <%= image_tag('arrow-3-50x35.svg', { class: 'arrow-image' }) %>
 </span>
