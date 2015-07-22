@@ -283,7 +283,7 @@ module.exports = function ($events, options, $monkeyContainer) {
       var page = $buttonEl.data('page');
       var $currentLetter = $activeLetter || $buttonEl.closest('.letter');
       switchActiveButtonState($currentLetter, character);
-      data.changeCharacter(page, character, $currentLetter);
+      data.changeCharacter(page, character, $currentLetter, true);
 
       return evt.stopPropagation();
     };
