@@ -18,22 +18,14 @@ module.exports = function (options) {
       'data-key': 'monkey-letters'
     });
 
-    var $hiddenName = $('<span />', {
-      'class': 'for-screen-reader'
-    }).text(' ' + data.name.toLowerCase());
-
     $('<p />').appendTo($lettersContainer)
       .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
-      .text(options.lang.bookFor)
-      .append($hiddenName);
+      .text(options.lang.bookFor);
 
-    var $letterSpanContainer = $('<div />')
-      .appendTo($lettersContainer)
-      .addClass('letter-spans')
-      .attr('aria-hidden', 'true');
+    var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
+      .addClass('letter-spans');
 
-    var $letters = $('<div />')
-      .appendTo($letterSpanContainer)
+    var $letters = $('<div />').appendTo($letterSpanContainer)
       .addClass('strong')
       .attr('id', 'letters');
 
