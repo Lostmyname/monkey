@@ -6,10 +6,10 @@ en:
     noAltText: 'No alternative text for this page, sorry.'
     char_picker:
       title:
-        remaining: 'Choose another story for'
+        remaining: 'Choose another character for'
         # not_remaining: 'No %{letter} characters are available'
         not_remaining:
-          part_1: 'No'
+          part_1: 'No other'
           part_2: 'characters are available.'
       change: 'Change'
       buttons:
@@ -19,17 +19,11 @@ en:
     overlay:
       nounTypes:
         singular:
-          title: 'This looks familiar!'
-          intro: 'One of the'
-          letter: 'letter'
+          title: 'Look, new character!'
+          intro: 'had some of the same characters in their books. Would you like to add these new ones instead?'
         plural:
-          title: 'These look familiar!'
-          intro: 'Some of the'
-          letter: 'letters'
-      copy:
-        part_1: 'letters above appear in both'
-        part_2: "'s books. But never fear – we have extra characters for the"
-        part_3: 'in yellow. Would you like to use these new characters?'
+          title: 'Look, new characters!'
+          intro: 'had some of the same characters in their books. Would you like to add these new ones instead?'
       buttons:
         yes_please: 'Yes Please!'
         no_thanks: 'No Thanks!'
