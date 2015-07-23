@@ -23,9 +23,7 @@ window.Monkey = module.exports = (function () {
       showCharPicker: $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
 
-      // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
-      // server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
-      server: 'https://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
