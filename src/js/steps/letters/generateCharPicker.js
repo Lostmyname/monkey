@@ -51,9 +51,9 @@ module.exports = function (options, monkeyContainer) {
 
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         var $letterDiv = letter.type !== 'bridge' ?
-                        $('.letter[data-letter="' + letter.letter + '"]' +
+                        $monkeyContainer.find('.letter[data-letter="' + letter.letter + '"]' +
                         '[data-character="' + letter.default_character + '"]') :
-                        $('.letter[data-letter=""][data-type="bridge"]');
+                        $monkeyContainer.find('.letter[data-letter=""][data-type="bridge"]');
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         var $toolTip = $('<div />');
