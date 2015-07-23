@@ -323,10 +323,14 @@ module.exports = function ($events, options, $monkeyContainer) {
       var charactersArray = $.map($spans, function (el) {
             var $letter = $(el);
             if ($letter.attr('data-letter')) {
-              return {
-                letter: $letter.attr('data-letter'),
-                character: $letter.attr('data-selected-character')
-              };
+              var character = $letter.attr('data-selected-character');
+              var res = { letter: $letter.attr('data-letter') };
+              if ($letter.attr('data-helper-character')) {
+                res.helper = character;
+              } else {
+                res.character = character;
+              }
+              return res
             }
           });
       $events.trigger('charactersChanged', { characters: charactersArray });

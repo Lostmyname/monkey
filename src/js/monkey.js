@@ -54,7 +54,8 @@ window.Monkey = module.exports = (function () {
         {
           name: $monkeyContainer.data('first-book-name'),
           gender: $monkeyContainer.data('first-book-gender'),
-          locale: $monkeyContainer.data('first-book-locale')
+          locale: $monkeyContainer.data('first-book-locale'),
+          characterSelection: $monkeyContainer.data('first-book-character-selection')
         }
       ];
     }

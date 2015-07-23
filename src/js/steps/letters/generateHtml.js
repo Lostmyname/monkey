@@ -72,6 +72,9 @@ module.exports = function (options) {
           .attr('data-selected-character', letter.selected)
           .attr('data-type', letter.type)
           .after(' ');
+        if (letter.thumbnail && letter.thumbnail.indexOf("helper") !== -1) {
+          $letterDiv.attr('data-helper-character', true)
+        }
         if (letter.selected !== letter.default_character && options.showOverlay) {
           $letterDiv.addClass('changed');
         }
