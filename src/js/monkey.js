@@ -34,6 +34,7 @@ window.Monkey = module.exports = (function () {
     }, options);
 
     this.$events = $({});
+    var that = this;
 
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
@@ -42,6 +43,8 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._insertHtml(monkeyContainer))
       .then(Monkey._initMonkey(this.$events))
       .then(function (data) {
+        that.turnToPage = data.turnToPage;
+
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
             .then(Monkey.spread._insertSpread());
