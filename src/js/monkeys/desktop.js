@@ -64,8 +64,8 @@ desktop.init = function (data, $events, options) {
         .addClass('Heidelberg-Spread page- Page-' + (page + 1))
         .append($newImage2.clone());
 
-    var page1El = $('.Page-' + page);
-    var page2El = $('.Page-' + (page + 1));
+    var page1El = data.monkeyContainer.find('.Page-' + page);
+    var page2El = data.monkeyContainer.find('.Page-' + (page + 1));
     page1El.replaceWith(newPage1);
     page2El.replaceWith(newPage2);
 

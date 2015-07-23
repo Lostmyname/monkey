@@ -72,7 +72,7 @@ module.exports = function (options) {
           .attr('data-selected-character', letter.selected)
           .attr('data-type', letter.type)
           .after(' ');
-        if (letter.selected !== letter.default_character) {
+        if (letter.selected !== letter.default_character && options.showOverlay) {
           $letterDiv.addClass('changed');
         }
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers

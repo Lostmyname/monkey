@@ -21,13 +21,16 @@ window.Monkey = module.exports = (function () {
       animateName: true,
       replaceMonkey: false,
       showCharPicker: $monkeyContainer.data('show-picker'),
+      showOverlay: $monkeyContainer.data('show-overlay'),
 
-      server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      // server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
+      server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
         gender: $monkeyContainer.data('gender'),
-        locale: $monkeyContainer.data('locale')
+        locale: $monkeyContainer.data('locale'),
+        characterSelection: $monkeyContainer.data('character-selection')
       },
 
       lang: {
@@ -76,8 +79,13 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer))
-      .then(Monkey._initMonkey(this.$events, options))
-      .then(Monkey.letters._generateOverlay(options, this.$events))
+      .then(Monkey._initMonkey(this.$events, options));
+
+    if (options.showOverlay) {
+      promise = promise
+        .then(Monkey.letters._generateOverlay(options, this.$events));
+    }
+    promise = promise
       .then(function (data) {
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
