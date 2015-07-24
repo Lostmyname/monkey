@@ -6,7 +6,8 @@ var lang = require('lang');
 
 
 /**
- * Generate HTML for letters.
+ * Generate HTML for the overlay. This contains the code for both the duplicate
+ * letter overlay, and the language overlay.
  *
  * @param {string|boolean} [selector] Selector or element to insert letters into.
  * @param {object} lang Object containing language stuff.
@@ -25,6 +26,7 @@ module.exports = function (options, $events) {
                       'singular' :
                       'plural';
 
+      // Trigger an event which we can use in Eagle to hide the book form.
       $events.trigger('overlayActive', $monkeyContainer);
 
       $monkeyContainer.addClass(classes.overlayActive);
@@ -32,6 +34,10 @@ module.exports = function (options, $events) {
       $overlay.appendTo($monkeyContainer.find('.js--add-overlay'))
         .addClass('overlay');
 
+      // We want to hide the 'Tap to Preview' label when the overlay is visible
+      // so the user only focuses on the content within the overlay, and because
+      // it's nonsensical to have a label to 'Tap to Preview' when you, at that
+      // stage, can't.
       $monkeyContainer
         .next()
         .hide();
@@ -44,13 +50,16 @@ module.exports = function (options, $events) {
         .addClass('row');
       $overlayContent.appendTo($overlayInner);
 
-      var overlayTitle,
-        overlayText,
-        comparisonName = '';
+      var overlayTitle;
+      var overlayText;
+      var comparisonName = '';
       if (typeof options.book.comparisonBooks !== 'undefined') {
         comparisonName = options.book.comparisonBooks[0].name;
       }
 
+      // Here's where we change the content of the overlay dependant on which
+      // overlay is showing. If we need more overlays for whatever reason, we
+      // should probably change how this is done as it's not entirely scalable.
       if (data.showLanguageOverlay === true) {
         overlayTitle = lang('monkey.language.title');
         overlayText = lang('monkey.language.copy');
@@ -87,6 +96,8 @@ module.exports = function (options, $events) {
         .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
 
       $buttonContainer.appendTo($overlayContent);
+      // We want to show just an 'Okay' button for the language overlay, but
+      // a Yes/No choice if it's the duplicate letters overlay.
       if (data.showLanguageOverlay === true) {
         $okayButton.appendTo($buttonContainer, function () {
           defer.resolve();
@@ -117,6 +128,13 @@ module.exports = function (options, $events) {
         });
       }
 
+      /**
+       * Closes the active overlay, triggers the close event, shows the labels,
+       * scrolls the letters back to the starting point if we're viewing a
+       * duplicate letter modal.
+       * @param  {boolean} updateChars Whether we want to update the characters
+       * @return {null}
+       */
       function closeOverlay(updateChars) {
         $events.trigger('overlayClosed', $monkeyContainer);
         if (updateChars) {
@@ -140,6 +158,13 @@ module.exports = function (options, $events) {
 
       }
 
+      /**
+       * If we're displaying the duplicate display, and the user wants to not
+       * use the new characters we've selected for them, this function resets
+       * the character selection to the letter defaults.
+       * @param  {Function} callback callback function (usually closeOverlay())
+       * @return {null}
+       */
       function revertCharsToOriginal(callback) {
         for (var i = 0; i < data.combinedLetters.length; i++) {
           var letter = data.combinedLetters[i];
