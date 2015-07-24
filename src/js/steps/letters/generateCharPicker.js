@@ -61,8 +61,6 @@ module.exports = function (options, monkeyContainer) {
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         // If the character is a bridge (Tornado, Rainbow, Hole, etc) then it
         // won't have a letter to search for, so we find the bridge letter.
-        // @todo Update this so a name could have multiple bridges, currently
-        // this only supports a single bridge character.
         var $letterDiv = letter.type !== 'bridge' ?
                         $monkeyContainer.find('.letter[data-letter="' + letter.letter + '"]' +
                         '[data-character="' + letter.default_character + '"]') :
