@@ -22,6 +22,10 @@ module.exports = function (options, monkeyContainer) {
     var numOfCentralizedChars = getCentralizedCharCount();
 
     $(window).on('resize orientationchange', function () {
+      // Update the number of characters the name needs to be before it centers
+      // the name on mobile devices. This is due to the fact that some names
+      // could be centered on landscape, but need to scroll off the page on
+      // portrait.
       numOfCentralizedChars = getCentralizedCharCount();
     });
 
@@ -31,6 +35,11 @@ module.exports = function (options, monkeyContainer) {
 
     var $monkeyContainer = monkeyContainer;
 
+    // The mobile character picker is located differently to the desktop picker.
+    // This is due to the fact we've got scrolling on the letters which means
+    // that if we put the character picker within the letter – as we do on
+    // desktop – it'll get cut off due to the overflow propert on the letter
+    // parent scrolling element.
     if (isMobile) {
       var $pickerBg = $('<div />')
         .addClass('picker-container__bg');
@@ -40,7 +49,7 @@ module.exports = function (options, monkeyContainer) {
         .addClass('picker-container')
         .appendTo($monkeyContainer);
     }
-
+    // Returns an array like ["J", "O", "N", "A", "T", "H", "A", "N"]
     var allCharacters = $.map(data.combinedLetters, function (el) {
         return el.selected || '';
       });
@@ -50,6 +59,8 @@ module.exports = function (options, monkeyContainer) {
       $(data.combinedLetters).each(function (i, letter) {
 
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        // If the character is a bridge (Tornado, Rainbow, Hole, etc) then it
+        // won't have a letter to search for, so we find the bridge letter.
         var $letterDiv = letter.type !== 'bridge' ?
                         $monkeyContainer.find('.letter[data-letter="' + letter.letter + '"]' +
                         '[data-character="' + letter.default_character + '"]') :
@@ -60,6 +71,14 @@ module.exports = function (options, monkeyContainer) {
         $toolTip
           .addClass('character-picker pos-absolute');
 
+        // If this is the mobile picker, attach it to the picker container div
+        // we created earlier, and add a close button. We also change the picker
+        // depending on whether the name is centered, or scrolled on mobile. If
+        // the name is centered, we remove the tooltip arrow, and shift the
+        // picker up a little to better connect it to the current letter. This
+        // is done by adding the .character-picker--no-arrow class to the
+        // picker. On orientation change, we also perform this check as the name
+        // could center or scroll depending on the length and the screen width.
         if (isMobile) {
           $toolTip.appendTo($pickerContainer);
           var $closeButton = $('<button>')
@@ -79,6 +98,9 @@ module.exports = function (options, monkeyContainer) {
               $toolTip.removeClass('character-picker--no-arrow');
             }
           });
+        // If we're on desktop, it's a little simpler. We just add a negative
+        // left margin to center the picker within the letter div, and append
+        // it to the corresponding letter.
         } else {
           $toolTip.appendTo($letterDiv);
           var toolTipMargin = parseInt($toolTip.outerWidth() / -2, 10);
@@ -87,7 +109,6 @@ module.exports = function (options, monkeyContainer) {
             marginLeft: toolTipMargin
           });
         }
-
         if (options.icons && letter.thumbnail) {
 
           var $changeSpan = $('<span />')
@@ -97,11 +118,17 @@ module.exports = function (options, monkeyContainer) {
           $changeSpan.appendTo($letterDiv);
 
           var charPickTitle;
-
+          // We need to calculate which letters have characters which you can
+          // select, and be clever about it. Here, we're creating an array
+          // containing only characters from a letter that haven't already
+          // been used, so that a user can't select 3 elephants in their story.
           var remainingLetterChars = $.grep(letter.characters, function (charObj) {
             return (charObj.character === allCharacters[i]) || allCharacters.indexOf(charObj.character) === -1;
           });
 
+          // If we've only got 1 remaining character, we need to show a message
+          // saying that there's no characters left to choose. Or say there are
+          // characters remaining.
           if (remainingLetterChars.length < 2) {
             charPickTitle = lang('monkey.char_picker.title.not_remaining.part_1') +
                             ' ' + letter.letter + ' ' +
@@ -122,8 +149,13 @@ module.exports = function (options, monkeyContainer) {
 
           $toolTipArrow.clone().prependTo($toolTip);
 
+          // For each of the remaining characters (note, even if there are no
+          // other characters to select, this will still render the currently
+          // selected character.)
           $(remainingLetterChars).each(function (ix, charObj) {
-            // Include the character in the selection if not used earlier
+            // Here, we're just building the items within the picker. Only thing
+            // to note is the data values we're adding to the button, which are
+            // used when actually changing the character.
             var $imgContainer = $('<button />')
               .attr('data-js', 'switch-character')
               .attr('data-character', charObj.character)
@@ -160,8 +192,6 @@ module.exports = function (options, monkeyContainer) {
         if (!(letter.letter === '-' || letter.letter === ' ')) {
           currentDisplayPage++;
         }
-
-
 
         defer.resolve();
 

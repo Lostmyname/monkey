@@ -43,7 +43,8 @@ module.exports = function (options) {
     var combinedLetters = data.combinedLetters = combineLetters(letters, dataLetters);
 
     // Whether we should show the duplicate letters modal if more than one
-    // book has been created
+    // book has been created. We return an integer if true because we need to
+    // change the wording on the overlay if it's a single letter, or multiple.
     var determineIfDuplicate = function () {
       var outcome = false;
       $(combinedLetters).each(function (i, letter) {
@@ -65,6 +66,9 @@ module.exports = function (options) {
         }
 
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        // Create the letter HTML, and add a whole bunch of data attributes
+        // that we can access for targeting the appropriate letter when using
+        // the character picker.
         $letterDiv.appendTo($letters)
           .addClass('letter')
           .attr('data-letter', letter.letter)
@@ -75,6 +79,9 @@ module.exports = function (options) {
         if (letter.thumbnail && letter.thumbnail.indexOf("helper") !== -1) {
           $letterDiv.attr('data-helper-character', true)
         }
+        // If we're showing the duplicate letter overlay, and this is one of the
+        // duplicate letters, we add a class to show visually that this is a
+        // changed letter.
         if (letter.selected !== letter.default_character && options.showOverlay) {
           $letterDiv.addClass('changed');
         }
@@ -109,6 +116,8 @@ module.exports = function (options) {
 
     return loadLetterCards()
       .then(function () {
+        // After we've loaded the name, we add the two circles either side of
+        // the name for the front and back covers.
         $('<div />').html('<div class="char">&bull;</div>')
           .prependTo($letters)
           .addClass('letter letter--cover')
@@ -122,8 +131,11 @@ module.exports = function (options) {
         if (!$book || !$book.length) {
           $book = data.monkeyContainer;
         }
+        // We replicate some functionality from js/generateBaseElement.js here,
+        // removing all current content within the container, adding the
+        // letters element to the DOM (and saving it to the data object), and
+        // adding the loading gif in whilst the book loads.
         $book.empty();
-
         data.lettersElement = $lettersContainer.appendTo($book);
         data.loading = data.loading.appendTo($book);
 
@@ -134,7 +146,13 @@ module.exports = function (options) {
       });
   };
 };
-
+/**
+ * We combine letters from the name passed through to Monkey as an option,
+ * with the letters array brought back from the server.
+ * @param  {array} splitLetters The letters in the options
+ * @param  {array} dataLetters  The letters from the server
+ * @return {array}              A combined array of both letters, mapped.
+ */
 function combineLetters(splitLetters, dataLetters) {
   var offset = 0;
   return $.map(splitLetters, function (val, i) {

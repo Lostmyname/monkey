@@ -13,6 +13,12 @@ mobile.calculateSize = function () {
   return 'h=' + Math.min(MAX_HEIGHT, Math.ceil(height));
 };
 
+/**
+ * Adds the HTML to the page
+ * @param  {object} data The data object
+ * @param  {object} lang Default language object
+ * @return {HTMLElement}      The monkey wrapper.
+ */
 mobile.generateHtml = function (data, lang) {
   var $monkey = $('<div />').addClass('monkey-wrapper mobile js--add-overlay');
   var $images = $('<div />').appendTo($monkey)
@@ -20,6 +26,7 @@ mobile.generateHtml = function (data, lang) {
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
 
+  // For each image URL we get passed, create the image and add it to the page.
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
       .addClass('page page-' + data.letters[i].type + ' Page-' + i);
@@ -44,8 +51,9 @@ mobile.generateHtml = function (data, lang) {
 mobile.generateBaseElement = function (data) {
   return $('<div />').addClass('monkey mobile');
 };
-/*eslint-enable no-usused-vars */
+/*eslint-enable no-unused-vars */
 
+// @todo document this
 mobile.init = function (data, $events, options) {
   var windowLeft = 0;
   var maxProgress = 0;
@@ -110,6 +118,7 @@ mobile.init = function (data, $events, options) {
   return this.letterHandler(data, $events);
 };
 
+// @todo document this
 mobile.harass = function (data) {
   // Taken from jQuery Easing: http://gsgd.co.uk/sandbox/jquery/easing/
   var easing = 'easeInOutQuad';
@@ -135,6 +144,7 @@ mobile.harass = function (data) {
   scroll();
 };
 
+// @todo document this.
 mobile.letterHandler = function (data, $events) {
   var $monkey = data.html;
   var $pages = $monkey.find('.page');
@@ -145,9 +155,6 @@ mobile.letterHandler = function (data, $events) {
     var currentPage = 0;
 
     $pages.each(function (i) {
-      // console.log($(this));
-      // console.log($(this).offset().left);
-      // console.log("");
       if ($(this).offset().left >= -$window.width()) {
         currentPage = i;
 

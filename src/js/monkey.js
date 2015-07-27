@@ -38,14 +38,7 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
-    if ($monkeyContainer.data('locale') !== options.book.locale &&
-        pickerLocales.indexOf(options.book.locale) === -1 &&
-        $monkeyContainer.data('changedChars') === true
-      ) {
-      $monkeyContainer.data('show-language-overlay', true);
-    } else {
-      $monkeyContainer.data('show-language-overlay', false);
-    }
+
 
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [
@@ -62,7 +55,7 @@ window.Monkey = module.exports = (function () {
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateBaseElement($monkeyContainer, options))
-      .then(Monkey._checkLanguageChange($monkeyContainer));
+      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {

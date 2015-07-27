@@ -11,6 +11,12 @@ desktop.calculateSize = function () {
   return 'w=' + Math.min($(window).width(), MAX_WIDTH);
 };
 
+/**
+ * Adds the HTML to the page
+ * @param  {object} data The data object
+ * @param  {object} lang Default language object
+ * @return {HTMLElement}      The monkey wrapper.
+ */
 desktop.generateHtml = function (data, lang) {
   var $monkeyWrapper = $('<div />')
     .addClass('pos-relative monkey-wrapper js--add-overlay desktop');
@@ -32,6 +38,7 @@ desktop.generateHtml = function (data, lang) {
   return $monkeyWrapper;
 };
 
+// @todo document this.
 desktop.init = function (data, $events, options) {
   var maxBookProgress = 0;
   var bookNavType;
