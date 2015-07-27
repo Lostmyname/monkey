@@ -19,6 +19,7 @@ window.Monkey = module.exports = (function () {
       icons: $monkeyContainer.data('icons'), // Display character icons under letters? true, false
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
+      perPage: 4,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -34,6 +35,8 @@ window.Monkey = module.exports = (function () {
     }, options);
 
     this.$events = $({});
+
+    // this is horrible
     var that = this;
 
     var promise = Monkey._getData(options)
@@ -41,7 +44,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._generateUrls(options.preload))
       .then(Monkey._generateHtml())
       .then(Monkey._insertHtml(monkeyContainer))
-      .then(Monkey._initMonkey(this.$events))
+      .then(Monkey._initMonkey(this.$events, options))
       .then(function (data) {
         that.turnToPage = data.turnToPage;
 

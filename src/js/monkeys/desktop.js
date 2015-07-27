@@ -29,7 +29,7 @@ desktop.generateHtml = function (data) {
   return $monkey;
 };
 
-desktop.init = function (data, $events) {
+desktop.init = function (data, $events, options) {
   var maxBookProgress = 0;
 
   data.heidelberg = new Heidelberg(data.html, {
@@ -61,10 +61,10 @@ desktop.init = function (data, $events) {
     }
   });
 
-  return this.letterHandler(data, $events);
+  return this.letterHandler(data, $events, options);
 };
 
-desktop.letterHandler = function (data, $events) {
+desktop.letterHandler = function (data, $events, options) {
   var fireEvent = true;
   var lastIndex = 0;
 
@@ -90,8 +90,8 @@ desktop.letterHandler = function (data, $events) {
     if (index === lastIndex) {
       index += index % 1 ? -0.5 : 0.5;
     }
-
-    var PER_PAGE = 4;
+    console.log('options', options);
+    var PER_PAGE = options.perPage;
     var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
 
