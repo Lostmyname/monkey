@@ -189,6 +189,20 @@ module.exports = function ($events, options, $monkeyContainer) {
     }
 
     /**
+     * Find the optical center point for the scrolled letters
+     * @return {float} The margin that needs to be applied.
+     */
+    function getOpeningMargin() {
+      // Find the optical centre point by calculation the actual center
+      // point within $monkey, then taking away the front cover dot width
+      // as we don't want to center that initially, and half of the width
+      // of the first letter div.
+      return ($monkey.width() / 2) -
+             ($monkey.find('.letter').eq(0)[0].clientWidth) -
+             ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+    }
+
+    /**
      * Sets up the name on a mobile device. This function checks to see whether
      * the name should be centered, or scrolled. If it's centered, some simple
      * CSS is applied to center the element. If it needs to scroll, we do some
@@ -201,13 +215,7 @@ module.exports = function ($events, options, $monkeyContainer) {
     function initializeName() {
       if (data.name.length > numOfCentralizedChars) {
         if (isMobile && options.icons && options.animateName && calculatedWidth > 0) {
-          // Find the optical centre point by calculation the actual center
-          // point within $monkey, then taking away the front cover dot width
-          // as we don't want to center that initially, and half of the width
-          // of the first letter div.
-          var openingMargin = ($monkey.width() / 2) -
-                            ($monkey.find('.letter').eq(0)[0].clientWidth) -
-                            ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+          var openingMargin = getOpeningMargin();
           // If the duplicate modal is showing, animate to the first changed
           // character. We do this by changing the scrollLeft property of the
           // $letterSpans element so that the changed character is centred.
@@ -258,13 +266,10 @@ module.exports = function ($events, options, $monkeyContainer) {
 
     // We need to change a few things when the orientation changes so that the
     // characters remain centred, or that the current character is in the centre
-    // of the device window. @todo this could be neatened up due to reusing some
-    // code from the initializeName function.
+    // of the device window.
     $(window).on('orientationchange', function () {
       if (data.name.length > numOfCentralizedChars) {
-        var openingMargin = ($monkey.width() / 2) -
-                              ($monkey.find('.letter').eq(0)[0].clientWidth) -
-                              ($monkey.find('.letter').eq(1)[0].clientWidth / 2);
+        var openingMargin = getOpeningMargin();
         $letters.css({
           marginLeft: openingMargin,
           paddingRight: openingMargin,
