@@ -344,26 +344,6 @@ module.exports = function ($events, options, $monkeyContainer) {
       evt.stopPropagation();
     });
 
-    // This code may now be redundant, but this is when a user clicks
-    // specifically on the 'Change' text within a letter. But now we attach the
-    // showing of the picker to the parent .letter element, I don't think we
-    // need this anymore. @todo ready for deletion.
-    $changeButtons.on('click', function () {
-      var $letterParent,
-        letterParentIndex,
-        $letterCharPicker;
-      if (isMobile) {
-        $letterParent = $(this).closest('.letter');
-        letterParentIndex = $letterParent.index();
-        $letterCharPicker = $monkey
-                              .find('.character-picker')
-                              .eq(letterParentIndex - 1);
-      } else {
-        $letterCharPicker = $(this).parent().find('.character-picker');
-      }
-      setUpPicker($letterCharPicker, $letterParent);
-    });
-
     /**
      * Finds the character stored in the data of a particular button in the
      * character picker, and then runs a function to actually make the switch.
