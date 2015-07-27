@@ -22,22 +22,21 @@ module.exports = function ($events, options, $monkeyContainer) {
       charPickerActive: 'character-picker--active',
       charPickerBgActive: 'picker-container__bg--active'
     };
-    // @todo: tidy this up
-    var $monkey = data.base;
+    var $monkey = data.monkeyContainer;
     var $letters = data.lettersElement.find('#letters');
     var $spans = $letters.find('.letter:not(.special-char)');
     var $allSpans = $letters.find('.letter');
     var $letterSpans = $('.letter-spans');
     // We have different pickers and character buttons for mobile/desktop.
-    var $pickers = isMobile ? data.base
+    var $pickers = isMobile ? data.monkeyContainer
                                 .find('.picker-container')
                                 .find('.character-picker')
                             : $letters.find('.character-picker');
-    var $charButtons = isMobile ? data.base
+    var $charButtons = isMobile ? data.monkeyContainer
                                     .find('.picker-container')
                                     .find('[data-js="switch-character"]')
                                 : $pickers.find('[data-js="switch-character"]');
-    var $pickerBg = isMobile ? data.base.find('.picker-container__bg') : false;
+    var $pickerBg = isMobile ? data.monkeyContainer.find('.picker-container__bg') : false;
     var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var numOfCentralizedChars = getCentralizedCharCount();

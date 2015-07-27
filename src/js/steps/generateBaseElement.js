@@ -23,10 +23,8 @@ module.exports = function (monkeyContainer, options) {
       data.loading = data.loading.appendTo(monkeyContainer);
     }
     // Add either a desktop/mobile CSS class to the container, and attach the
-    // container element to the data object. Not sure why we're declaring it
-    // twice, @todo to investigate and fix that.
+    // container element to the data object.
     monkeyContainer.addClass(data.monkeyType);
-    data.base = monkeyContainer;
     data.monkeyContainer = monkeyContainer;
 
     return data;
