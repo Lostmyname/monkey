@@ -1,7 +1,28 @@
+.lmn-book {
+  margin:0 auto;
+  max-width:1280px;
+}
+
+.Heidelberg-Page.is-active {
+
+
+  .js--active-overlay & {
+    transform: none;
+  }
+}
+
+.monkey-wrapper {
+  height:auto;
+  //padding-top: percentage(500 / 1280);
+  padding-top: percentage(387 / 1054);
+}
+
 .Heidelberg-Book {
-  position: relative;
+  position: absolute;
   left: 0;
   transition: left 0.7s;
+  top:0;
+  width:100%;
 
   &.at-front-cover {
     left: -25%;
@@ -31,6 +52,7 @@
   }
 
   img {
+    height: auto;
     width: 100%;
   }
 }
@@ -42,5 +64,16 @@
   > img {
     width: 50%;
     margin-left: 50%;
+  }
+}
+
+
+.lmn-book + .italic {
+  display: none;
+}
+
+@media (min-width:993px) {
+  .lmn-book + .italic.js--show-label {
+    display: block;
   }
 }

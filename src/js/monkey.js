@@ -1,7 +1,6 @@
 window.Monkey = module.exports = (function () {
-  'use strict';
-
   var $ = require('jquery');
+  var lang = require('lang');
 
   /**
    * Initiate monkey; generate it, and then insert it into the page.
@@ -12,6 +11,8 @@ window.Monkey = module.exports = (function () {
   function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
 
+    var pickerLocales = ['en-GB', 'en-US'];
+
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
       letters: true, // Display letters? true, false, or selector
@@ -20,31 +21,67 @@ window.Monkey = module.exports = (function () {
       monkeyType: 'auto', // auto, desktop, mobile
       animateName: true,
       perPage: 4,
+      replaceMonkey: false,
+      showCharPicker: $monkeyContainer.data('show-picker'),
+      showOverlay: $monkeyContainer.data('show-overlay'),
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),
         gender: $monkeyContainer.data('gender'),
-        locale: $monkeyContainer.data('locale')
+        locale: $monkeyContainer.data('locale'),
+        characterSelection: $monkeyContainer.data('character-selection')
       },
 
       lang: {
-        bookFor: 'A personalised book made for'
+        bookFor: lang('monkey.bookFor'),
+        noAltText: lang('monkey.noAltText')
       }
     }, options);
-
-    this.$events = $({});
 
     // this is horrible
     var that = this;
 
+    if ($monkeyContainer.data('first-book-name')) {
+      options.book.comparisonBooks = [
+        {
+          name: $monkeyContainer.data('first-book-name'),
+          gender: $monkeyContainer.data('first-book-gender'),
+          locale: $monkeyContainer.data('first-book-locale'),
+          characterSelection: $monkeyContainer.data('first-book-character-selection')
+        }
+      ];
+    }
+
+    this.$events = $({});
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
+      .then(Monkey._generateBaseElement($monkeyContainer, options))
+      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales));
+    if (options.letters) {
+      promise = promise.then(Monkey.letters._generateHtml(options));
+      if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
+        promise = promise.then(Monkey.letters._generateCharPicker(
+            options,
+            $monkeyContainer
+          )
+        );
+      }
+      promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
+    }
+
+    promise = promise
       .then(Monkey._generateUrls(options.preload))
-      .then(Monkey._generateHtml())
+      .then(Monkey._generateHtml(options.lang))
       .then(Monkey._insertHtml(monkeyContainer))
-      .then(Monkey._initMonkey(this.$events, options))
+      .then(Monkey._initMonkey(this.$events, options));
+
+    if (options.showOverlay) {
+      promise = promise
+        .then(Monkey.letters._generateOverlay(options, this.$events));
+    }
+    promise = promise
       .then(function (data) {
         that.turnToPage = data.turnToPage;
 
@@ -75,11 +112,13 @@ window.Monkey = module.exports = (function () {
   }
 
   Monkey._getData = require('./steps/getData');
+  Monkey._generateBaseElement = require('./steps/generateBaseElement');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
   Monkey._generateHtml = require('./steps/generateHtml');
   Monkey._insertHtml = require('./steps/insertHtml');
   Monkey._initMonkey = require('./steps/initMonkey');
+  Monkey._checkLanguageChange = require('./steps/checkLanguageChange');
 
   Monkey.spread = {};
   Monkey.spread.Monkey = Monkey;
@@ -89,7 +128,9 @@ window.Monkey = module.exports = (function () {
   Monkey.letters = {};
   Monkey.letters.Monkey = Monkey;
   Monkey.letters._generateHtml = require('./steps/letters/generateHtml');
+  Monkey.letters._generateCharPicker = require('./steps/letters/generateCharPicker');
   Monkey.letters._init = require('./steps/letters/init');
+  Monkey.letters._generateOverlay = require('./steps/letters/generateOverlay');
 
   Monkey.slider = {};
   Monkey.slider.Monkey = Monkey;

@@ -15,6 +15,17 @@
   <link rel="stylesheet" href="https://d12fm4vsc5tls2.cloudfront.net/assets/mermaid/stylesheets/styles.css">
   <link rel="stylesheet" href="../build/styles.css">
 
+  <!--[if lt IE 9]>
+   <script>
+      document.createElement('header');
+      document.createElement('nav');
+      document.createElement('section');
+      document.createElement('article');
+      document.createElement('aside');
+      document.createElement('footer');
+   </script>
+  <![endif]-->
+
 </head>
 <body class="js">
 
@@ -196,6 +207,7 @@
                         <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-color="white" data-pin-height="28">
                           <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_28.png" />
                         </a>
+
                         <!-- Please call pinit.js only once per page -->
                         <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
 
@@ -582,6 +594,55 @@ These are just the first. We hope you meet a whole lot more.
 
         <script type="text/x-i18n-json">{"validations":{"shared":{"field_required":"This field is required","invalid_email":"Invalid email address","valid_date":"This must be a valid date in the future","did_you_mean":"Did you mean","number_required":"Enter a phone number"},"lmn":{"name_required":"Please tell us a name","name_format":"Sorry, no numbers, spaces or punctuation please.","name_spaces":"Sorry, are you using only first names? Works best like that!","min_length":"Erm… we're sorry but this name is too short for us ;-(","max_length":"Sorry, that's too long – are you using only first names? Works best like that!","name_availablity":"Sorry, we can't do that name right now. Is there a shorter name, or nickname, you could try?","gender_required":"Please tell us if it's for a boy or a girl"},"checkout":{"payment_required":"Please select a payment type","card_number":"Invalid card number","card_expiry":"Invalid expiry date","card_code":"Invalid card code"},"dedication":{"customisation_length":"Personal dedication is too long (maximum is 400 characters). Try to keep it under ten lines","letters_accents":"Hold up, we only support basic letters and accents","ten_new_lines":"Personal dedication is too long. Please keep it under ten lines"}}}</script>
 
+        <script type="text/x-i18n-json">
+          {
+            "monkey": {
+              "loading": "We're just putting your personalised book together",
+              "preview": "Tap to preview your book",
+              "bookFor": "A personalised book made for",
+              "noAltText": "No alternative text for this page, sorry.",
+              "char_picker": {
+                "title": {
+                  "remaining": "Choose another character for",
+                  "not_remaining": {
+                    "part_1": "No other",
+                    "part_2": "characters are available."
+                  }
+                },
+                "change": "Change",
+                "buttons": {
+                  "close": "Close",
+                  "select": "Select",
+                  "in_use": "In Use"
+                }
+              },
+              "overlay": {
+                "nounTypes": {
+                  "singular": {
+                    "title": "Look, new character!",
+                    "intro": "had some of the same characters in their books. Would you like to add these new ones instead?"
+                  },
+                  "plural": {
+                    "title": "Look, new characters!",
+                    "intro": "had some of the same characters in their books. Would you like to add these new ones instead?"
+                  }
+                },
+                "buttons": {
+                  "yes_please": "Yes Please!",
+                  "no_thanks": "No Thanks!"
+                }
+              },
+              "language": {
+                "title": "You've changed language!",
+                "copy": "Unfortunately, the character picker is not yet available for this language",
+                "buttons": {
+                  "okay": "Okay, thanks!"
+                }
+              }
+            }
+          }
+        </script>
+
 
 
 <script src="/build/monkey.js"></script>
@@ -590,10 +651,13 @@ These are just the first. We hope you meet a whole lot more.
     server: '/demo/actuallytwh.json',
     slider: true,
     book: {
-      name: 'Heidelberg',
+      name: 'Thomas',
       gender: 'girl',
       locale: 'en-GB'
-    }
+    },
+    //server: 'http://localhost:3020/widgets/actuallymonkey.json?callback=?',
+    server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+    icons: true
   });
 
   monkey.promise.then(function (data) {

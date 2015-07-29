@@ -15,7 +15,7 @@ describe('Using monkey on mobile', function () {
     return monkey.promise.then(function (data) {
       data.html.trigger('touchstart');
 
-      $monkey = $container.find('.monkey');
+      $monkey = $container.find('.monkey-wrapper');
       $container.appendTo('body');
     });
   });

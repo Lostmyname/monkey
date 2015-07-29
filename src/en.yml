@@ -2,3 +2,35 @@ en:
   component.monkey:
     loading: We're just putting your personalised book together
     preview: Tap to preview your book
+    bookFor: 'A personalised book made for'
+    noAltText: 'No alternative text for this page, sorry.'
+    char_picker:
+      title:
+        remaining: 'Choose another character for'
+        # not_remaining: 'No %{letter} characters are available'
+        not_remaining:
+          part_1: 'No other'
+          part_2: 'characters are available.'
+      change: 'Change'
+      buttons:
+        close: 'Close'
+        select: 'Select'
+        in_use: 'In Use'
+    overlay:
+      nounTypes:
+        singular:
+          title: 'Look, new character!'
+          intro: 'had some of the same characters in their books. Would you like to add these new ones instead?'
+        plural:
+          title: 'Look, new characters!'
+          intro: 'had some of the same characters in their books. Would you like to add these new ones instead?'
+      buttons:
+        yes_please: 'Yes Please!'
+        no_thanks: 'No Thanks!'
+    language:
+      title: "You've changed language!"
+      copy: 'Unfortunately, the character picker is not yet available for this language'
+      buttons:
+        okay: "Okay, thanks!"
+
+

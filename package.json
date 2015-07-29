@@ -1,13 +1,14 @@
 {
   "name": "lmn-monkey",
-  "version": "4.4.7",
+  "version": "5.0.2",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
     "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
-    "heidelberg": "^1.0.4",
+    "heidelberg": "git://github.com/djgrant/heidelberg#c0ec98cb35bb8828b2c23252b886ec1bdff18663",
     "jquery": "^1.11.2",
+    "lang": "^0.1.1",
     "nums": "^1.0.0"
   },
   "devDependencies": {
@@ -16,7 +17,6 @@
     "lmn-gulp-tasks": "^2.0.2",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
-    "mocha-phantomjs": "^3.5.3",
     "phantomjs": "^1.9.16",
     "serve": "^1.4.0",
     "should": "^4.2.0"
