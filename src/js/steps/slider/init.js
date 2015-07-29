@@ -22,7 +22,7 @@ export default function ($events) {
     });
 
     $slider.on('input', function () {
-      data.turnToPage(Math.round(letters * $slider.val() / 400));
+      data.turnToPage(Math.round(letters * $slider.val() / 200));
     });
 
     return data;
