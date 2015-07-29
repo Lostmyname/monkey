@@ -37,7 +37,10 @@ module.exports = function (options) {
     });
 
     // If name short, add blank letter for extra story
-    if (letters.length < 5) {
+    var realLetters = $.map(letters, function (el) {
+      if (el !== "" && el !== "-") return el;
+    })
+    if (realLetters.length < 5) {
       letters.splice(-1, 0, '');
     }
     var combinedLetters = data.combinedLetters = combineLetters(letters, dataLetters);
@@ -102,12 +105,6 @@ module.exports = function (options) {
             .attr('height', 38)
             .attr('width', 38);
           $icon.appendTo($characterCard);
-
-          // $icon.on('load', function () {
-          //   if (--cardsToLoad === 0) {
-          //     console.log('resolving');
-          //   }
-          // });
         }
         defer.resolve();
       });

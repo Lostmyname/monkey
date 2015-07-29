@@ -120,6 +120,7 @@ module.exports = function (options, $events) {
 
         $yesButton.on('click', function () {
           data.editCharacters = true;
+          $monkeyContainer.data('changedChars') === true
           closeOverlay(true);
         });
 

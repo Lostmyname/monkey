@@ -80,6 +80,7 @@ module.exports = function (options, monkeyContainer) {
         // picker. On orientation change, we also perform this check as the name
         // could center or scroll depending on the length and the screen width.
         if (isMobile) {
+        if (isMobile && letter.letter !== '-') {
           $toolTip.appendTo($pickerContainer);
           var $closeButton = $('<button>')
               .attr('type', 'button')
