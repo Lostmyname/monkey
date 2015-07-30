@@ -59,6 +59,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateBaseElement($monkeyContainer, options))
       .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales));
+
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
@@ -92,15 +93,6 @@ window.Monkey = module.exports = (function () {
 
         return data;
       });
-
-    if (options.letters) {
-      promise = promise.then(Monkey.letters._generateHtml(
-        options.letters,
-        options.lang,
-        options.icons
-        )
-      )
-      .then(Monkey.letters._init(this.$events, options));
     }
 
     if (options.slider) {
