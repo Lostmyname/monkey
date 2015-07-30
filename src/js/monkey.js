@@ -10,7 +10,6 @@ window.Monkey = module.exports = (function () {
    */
   function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
-
     var pickerLocales = ['en-GB', 'en-US'];
 
     this.options = options = $.extend({
@@ -93,7 +92,6 @@ window.Monkey = module.exports = (function () {
 
         return data;
       });
-    }
 
     if (options.slider) {
       promise = promise.then(Monkey.slider._generateHtml(options))
