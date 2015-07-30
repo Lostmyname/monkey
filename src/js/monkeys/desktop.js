@@ -34,9 +34,7 @@ desktop.generateHtml = function (data, lang) {
 
     $('<div />')
       .addClass('Heidelberg-' + (data.spreads === 'single' ? 'Page' : 'Spread'))
-      .addClass('page-' + data.letters[i].type)
-      .append($('<img />').attr('src', url))
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
+      .addClass('page-' + data.letters[i].type + ' Page-' + i)
       .append($img)
       .appendTo($monkey);
   });
@@ -44,7 +42,6 @@ desktop.generateHtml = function (data, lang) {
 
   return $monkeyWrapper;
 };
-
 
 // @todo document this.
 desktop.init = function (data, $events, options) {
@@ -60,7 +57,7 @@ desktop.init = function (data, $events, options) {
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
-    hasSpreads: (data.spreads === 'double')
+    hasSpreads: (data.spreads === 'double'),
     limitPageTurns: false
   });
 
