@@ -60,7 +60,7 @@ module.exports = function (options, $events) {
       // Here's where we change the content of the overlay dependant on which
       // overlay is showing. If we need more overlays for whatever reason, we
       // should probably change how this is done as it's not entirely scalable.
-      if (data.showLanguageOverlay === true) {
+      if (options.showLanguageOverlay === true) {
         overlayTitle = lang('monkey.language.title');
         overlayText = lang('monkey.language.copy');
       } else {
@@ -98,7 +98,7 @@ module.exports = function (options, $events) {
       $buttonContainer.appendTo($overlayContent);
       // We want to show just an 'Okay' button for the language overlay, but
       // a Yes/No choice if it's the duplicate letters overlay.
-      if (data.showLanguageOverlay === true) {
+      if (options.showLanguageOverlay === true) {
         $okayButton.appendTo($buttonContainer, function () {
           defer.resolve();
         });
@@ -120,7 +120,7 @@ module.exports = function (options, $events) {
 
         $yesButton.on('click', function () {
           data.editCharacters = true;
-          $monkeyContainer.data('changedChars') === true
+          $monkeyContainer.data('changedChars', true)
           closeOverlay(true);
         });
 
@@ -186,7 +186,7 @@ module.exports = function (options, $events) {
       }
       return defer.promise();
     }
-    if (data.shouldShowDuplicateModal !== false || data.showLanguageOverlay === true) {
+    if (data.shouldShowDuplicateModal !== false || options.showLanguageOverlay === true) {
       loadOverlay()
         .then(function () {
           return data;

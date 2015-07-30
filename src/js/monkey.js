@@ -22,6 +22,7 @@ window.Monkey = module.exports = (function () {
       replaceMonkey: false,
       showCharPicker: $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
+      seenLanguageOverlay: false,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
@@ -38,8 +39,6 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
-
-
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [
         {
@@ -51,11 +50,15 @@ window.Monkey = module.exports = (function () {
       ];
     }
 
+    var options = Monkey._checkLanguageChange($monkeyContainer,
+        options,
+        pickerLocales
+      )
+
     this.$events = $({});
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._generateBaseElement($monkeyContainer, options))
-      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
