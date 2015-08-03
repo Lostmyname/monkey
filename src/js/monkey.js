@@ -22,7 +22,6 @@ window.Monkey = module.exports = (function () {
       replaceMonkey: false,
       showCharPicker: $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
-      seenLanguageOverlay: false,
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
 
