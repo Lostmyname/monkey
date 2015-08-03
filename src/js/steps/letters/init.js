@@ -382,7 +382,7 @@ module.exports = function ($events, options, $monkeyContainer) {
       var $pickerEl = $monkey.find('.character-picker');
       var $disableButtons = [];
 
-      currentCharacterSelection.forEach((char) => {
+      currentCharacterSelection.forEach(function(char) {
         var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
                                         '[data-character="' + char.character + '"]');
         $disableButtons.push($buttonEl);
@@ -394,7 +394,7 @@ module.exports = function ($events, options, $monkeyContainer) {
         .text('Select')
         .addClass('primary');
 
-      $disableButtons.forEach(($button) => {
+      $disableButtons.forEach(function($button) {
         $button.find('.button')
           .attr('disabled', true)
           .removeClass('primary')
