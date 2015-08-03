@@ -42,7 +42,8 @@ module.exports = function ($events, options, $monkeyContainer) {
     var numOfCentralizedChars = getCentralizedCharCount();
     var $activeLetter,
       $currentPicker;
-
+    // Store the current section so we can update the state of the buttons
+    var currentCharacterSelection = [];
     // We want to use the browser :active state rather than tap color states
     // for our buttons. This enables that.
     if (isMobile && document.addEventListener) {
@@ -371,35 +372,35 @@ module.exports = function ($events, options, $monkeyContainer) {
     /**
      * Visually changes the buttons based upon the selected button. This will
      * change all buttons in a set back to the default state of 'Select' whilst
-     * the button corresponding to the currentCharacter object will changed to
-     * the selected 'In Use' button style.
+     * the buttons corresponding to the currentCharacterSelection object will be
+     * changed to the selected 'In Use' button style.
      * @param  {DOMElement} $currentLetter  The current letter
      * @param  {object} currentCharacter The current character object
      * @return {null}
      */
     function switchActiveButtonState($currentLetter, currentCharacter) {
-      var $pickerEl = isMobile ?
-                      $monkey
-                        .find('.character-picker')
-                        .eq($currentLetter.index() - 1) :
-                      $currentLetter.find('.character-picker');
+      var $pickerEl = $monkey.find('.character-picker');
+      var $disableButtons = [];
 
-      var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
-                                      '[data-character="' + currentCharacter.character + '"]');
-      var selectedChar = $pickerEl.find('.selected-char');
-      var $prevButton = selectedChar.find('.button');
+      currentCharacterSelection.forEach((char) => {
+        var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
+                                        '[data-character="' + char.character + '"]');
+        $disableButtons.push($buttonEl);
 
-      selectedChar.removeClass('selected-char');
-      $prevButton
+      });
+
+      $pickerEl.find('[data-js="switch-character"] .button')
         .removeAttr('disabled')
         .text('Select')
         .addClass('primary');
 
-      $buttonEl.find('.button')
-        .attr('disabled', true)
-        .removeClass('primary')
-        .text('In Use');
-      $buttonEl.addClass('selected-char');
+      $disableButtons.forEach(($button) => {
+        $button.find('.button')
+          .attr('disabled', true)
+          .removeClass('primary')
+          .text('In Use');
+      });
+
       destroyPicker($pickerEl);
     }
 
@@ -426,9 +427,10 @@ module.exports = function ($events, options, $monkeyContainer) {
           } else {
             res.character = character;
           }
-          return res
+          return res;
         }
       });
+      currentCharacterSelection = charactersArray;
       $events.trigger('charactersChanged', { characters: charactersArray });
     };
 
@@ -449,14 +451,14 @@ module.exports = function ($events, options, $monkeyContainer) {
       if (options.icons) {
         changeLetterThumbnail($currentLetter, character);
       }
-      if (options.showCharPicker) {
-        switchActiveButtonState($currentLetter, character);
-      }
       data.swapPage(page, character);
       $currentLetter
         .attr('data-selected-character', character.character);
       if (updateChars) {
         data.updateCharSelection();
+      }
+      if (options.showCharPicker) {
+        switchActiveButtonState($currentLetter, character);
       }
       $monkeyContainer.data('changedChars', true);
     };

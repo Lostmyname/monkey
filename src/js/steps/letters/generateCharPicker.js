@@ -18,7 +18,6 @@ module.exports = function (options, monkeyContainer) {
   var defer = $.Deferred();
 
   return function (data) {
-
     var numOfCentralizedChars = getCentralizedCharCount();
 
     $(window).on('resize orientationchange', function () {
@@ -67,6 +66,8 @@ module.exports = function (options, monkeyContainer) {
                         $monkeyContainer.find('.letter[data-letter=""][data-type="bridge"]');
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
+        // Store each letter which is currently being used
+        var usedCharacters = data.combinedLetters.map((letter) => letter.selected);
         var $toolTip = $('<div />');
         $toolTip
           .addClass('character-picker pos-absolute');
@@ -152,7 +153,11 @@ module.exports = function (options, monkeyContainer) {
           // For each of the remaining characters (note, even if there are no
           // other characters to select, this will still render the currently
           // selected character.)
-          $(remainingLetterChars).each(function (ix, charObj) {
+
+        // For each of the the letter characters check to see if its already
+        // being used. We show all of the characters at all points so its clear
+        // which ones are available.
+          $(letter.characters).each(function (ix, charObj) {
             // Here, we're just building the items within the picker. Only thing
             // to note is the data values we're adding to the button, which are
             // used when actually changing the character.
@@ -174,17 +179,16 @@ module.exports = function (options, monkeyContainer) {
             $charName.appendTo($imgContainer);
 
             var $selectButton = $('<span />');
-
-            if (letter.selected === charObj.character) {
+            if (usedCharacters.indexOf(charObj.character) === -1) {
+              $selectButton
+                .addClass('button primary')
+                .text(lang('monkey.char_picker.buttons.select'));
+            } else {
               $imgContainer.addClass('selected-char');
               $selectButton
                 .addClass('button')
                 .attr('disabled', true)
                 .text(lang('monkey.char_picker.buttons.in_use'));
-            } else {
-              $selectButton
-                .addClass('button primary')
-                .text(lang('monkey.char_picker.buttons.select'));
             }
             $selectButton.appendTo($charName);
           });
