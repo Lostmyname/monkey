@@ -21,7 +21,7 @@ window.Monkey = module.exports = (function () {
       animateName: true,
       perPage: 4,
       replaceMonkey: false,
-      showCharPicker: $monkeyContainer.data('show-picker'),
+      showCharPicker: true || $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
@@ -39,8 +39,7 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
-    // this is horrible
-    var that = this;
+    console.log('this.options', this.options);
 
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [
@@ -54,36 +53,56 @@ window.Monkey = module.exports = (function () {
     }
 
     this.$events = $({});
+
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateBaseElement($monkeyContainer, options))
-      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales));
-
+      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales))
+      .then((data) => {
+        data.monkeyContainer = $monkeyContainer;
+        return data;
+      });
+  
     if (options.letters) {
-      promise = promise.then(Monkey.letters._generateHtml(options));
+      promise = promise
+        .then(Monkey._generateBaseElement($monkeyContainer, options))
+        .then(Monkey.letters._generateHtml(options));
+
       if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
-        promise = promise.then(Monkey.letters._generateCharPicker(
+        promise = promise
+          .then(Monkey.letters._generateCharPicker(
             options,
             $monkeyContainer
           )
         );
       }
+
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
     promise = promise
       .then(Monkey._generateUrls(options.preload))
-      .then(Monkey._generateHtml(options.lang))
-      .then(Monkey._insertHtml(monkeyContainer))
+      .then(Monkey._generateHtml(options.lang));
+
+    if (options.slider) {
+      promise = promise
+        .then(Monkey._generateBaseElement($monkeyContainer, options))
+        .then(Monkey.slider._generateHtml(options))
+        .then(Monkey.slider._init(this.$events));
+    }
+    
+    promise = promise
+      .then(Monkey._insertHtml($monkeyContainer))
       .then(Monkey._initMonkey(this.$events, options));
 
     if (options.showOverlay) {
       promise = promise
         .then(Monkey.letters._generateOverlay(options, this.$events));
     }
+
     promise = promise
-      .then(function (data) {
-        that.turnToPage = data.turnToPage;
+      .then((data) => {
+        // exposed turnToPage method
+        this.turnToPage = this.turnToPage;
 
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
@@ -93,10 +112,6 @@ window.Monkey = module.exports = (function () {
         return data;
       });
 
-    if (options.slider) {
-      promise = promise.then(Monkey.slider._generateHtml(options))
-        .then(Monkey.slider._init(this.$events));
-    }
 
     this.promise = promise;
   }

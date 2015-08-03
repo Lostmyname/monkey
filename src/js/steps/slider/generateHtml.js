@@ -27,16 +27,9 @@ export default function (options) {
     $('<input />', { type: 'range' })
       .appendTo($sliderInnerContainer);
 
-    var $book = false;
-    if (typeof options.slider !== 'boolean') {
-      $book = $(options.slider);
-    }
+    var $book = data.monkeyContainer;
 
-    if (!$book || !$book.length) {
-      $book = data.html.parents('[data-key="lmn-book"]');
-    }
-
-    data.sliderElement = $sliderContainer.prependTo($book);
+    data.sliderElement = $sliderContainer.appendTo($book);
 
     return data;
   };

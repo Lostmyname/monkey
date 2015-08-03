@@ -19,6 +19,8 @@ module.exports = function (options, monkeyContainer) {
 
   return function (data) {
 
+    console.log('gen character picker');
+
     var numOfCentralizedChars = getCentralizedCharCount();
 
     $(window).on('resize orientationchange', function () {
