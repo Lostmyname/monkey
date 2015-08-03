@@ -21,6 +21,7 @@ window.Monkey = module.exports = (function () {
       animateName: true,
       perPage: 4,
       replaceMonkey: false,
+      canClose: false,
       showCharPicker: true || $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
 
@@ -38,8 +39,6 @@ window.Monkey = module.exports = (function () {
         noAltText: lang('monkey.noAltText')
       }
     }, options);
-
-    console.log('this.options', this.options);
 
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [

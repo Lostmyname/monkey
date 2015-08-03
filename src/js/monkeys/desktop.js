@@ -58,7 +58,8 @@ desktop.init = function (data, $events, options) {
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
     hasSpreads: (data.spreads === 'double'),
-    limitPageTurns: false
+    limitPageTurns: false,
+    canClose: options.canClose || false
   });
 
   data.swapPage = function (index, character) {
@@ -138,7 +139,7 @@ desktop.letterHandler = function (data, $events, options) {
     if (index === lastIndex) {
       index += index % 1 ? -0.5 : 0.5;
     }
-    console.log('options', options);
+
     var PER_PAGE = options.perPage;
     var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
