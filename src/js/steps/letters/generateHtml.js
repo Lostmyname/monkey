@@ -38,8 +38,10 @@ module.exports = function (options) {
 
     // If name short, add blank letter for extra story
     var realLetters = $.map(letters, function (el) {
-      if (el !== "" && el !== "-") return el;
-    })
+      if (el !== '' && el !== '-') {
+        return el;
+      }
+    });
     if (realLetters.length < 5) {
       letters.splice(-1, 0, '');
     }
@@ -79,8 +81,8 @@ module.exports = function (options) {
           .attr('data-selected-character', letter.selected)
           .attr('data-type', letter.type)
           .after(' ');
-        if (letter.thumbnail && letter.thumbnail.indexOf("helper") !== -1) {
-          $letterDiv.attr('data-helper-character', true)
+        if (letter.thumbnail && letter.thumbnail.indexOf('helper') !== -1) {
+          $letterDiv.attr('data-helper-character', true);
         }
         // If we're showing the duplicate letter overlay, and this is one of the
         // duplicate letters, we add a class to show visually that this is a

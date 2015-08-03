@@ -37,7 +37,6 @@ module.exports = function ($events, options, $monkeyContainer) {
                                     .find('[data-js="switch-character"]')
                                 : $pickers.find('[data-js="switch-character"]');
     var $pickerBg = isMobile ? data.monkeyContainer.find('.picker-container__bg') : false;
-    var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var numOfCentralizedChars = getCentralizedCharCount();
     var $activeLetter,

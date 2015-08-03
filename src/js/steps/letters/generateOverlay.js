@@ -20,7 +20,7 @@ module.exports = function (options, $events) {
       var $monkeyContainer = data.monkeyContainer;
       var classes = {
         overlayActive: 'js--active-overlay'
-      };
+      }
 
       var singularOrPlural = data.shouldShowDuplicateModal === 1 ?
                       'singular' :
@@ -50,8 +50,7 @@ module.exports = function (options, $events) {
         .addClass('row');
       $overlayContent.appendTo($overlayInner);
 
-      var overlayTitle;
-      var overlayText;
+      var overlayTitle, overlayText;
       var comparisonName = '';
       if (typeof options.book.comparisonBooks !== 'undefined') {
         comparisonName = options.book.comparisonBooks[0].name;
@@ -67,7 +66,7 @@ module.exports = function (options, $events) {
         overlayTitle = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title');
         overlayText = comparisonName.toUpperCase() + ' & ' +
                       data.name.toUpperCase() + ' ' +
-          lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro')
+          lang('monkey.overlay.nounTypes.' + singularOrPlural + '.intro');
       }
 
       var $titleBox = $('<h4 />')

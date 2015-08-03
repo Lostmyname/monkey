@@ -10,7 +10,6 @@ var $ = require('jquery');
  *                   information on the pages. Seriously, just use a debugger.
  */
 module.exports = function (options) {
-  console.log(options);
   return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
       return data.book;

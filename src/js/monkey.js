@@ -49,16 +49,16 @@ window.Monkey = module.exports = (function () {
         }
       ];
     }
-
-    var options = Monkey._checkLanguageChange($monkeyContainer,
-        options,
-        pickerLocales
-      )
-
     this.$events = $({});
+
+    this.options = Monkey._checkLanguageChange($monkeyContainer,
+      this.options,
+      pickerLocales
+    );
+
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateBaseElement($monkeyContainer, options))
+      .then(Monkey._generateBaseElement($monkeyContainer, options));
     if (options.letters) {
       promise = promise.then(Monkey.letters._generateHtml(options));
       if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {

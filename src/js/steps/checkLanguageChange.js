@@ -13,19 +13,19 @@ module.exports = function ($monkeyContainer, options, pickerLocales) {
   // which have the character picker (currently en-GB and en-US) and therefore
   // don't need the language overlay, and finally, if the book has characters
   // that have been changed before the language change. Phew.
-  if (pickerLocales.indexOf(options.book.locale) === -1 &&
-      pickerLocales.indexOf($monkeyContainer.data('locale')) !== -1 &&
-      $monkeyContainer.data('changedChars')
-    ) {
-    $monkeyContainer.attr('data-show-picker', '');
-    options.showLanguageOverlay = true;
-  }
-  if ($monkeyContainer.data('locale') !== options.book.locale &&
-      pickerLocales.indexOf(options.book.locale) === -1
-    ) {
+  if (options.book.locale !== $monkeyContainer.data('locale')) {
     delete options.book.characterSelection;
-    delete options.book.comparisonBooks;
-    $monkeyContainer.data('locale', options.book.locale)
+    options.clearSelection = true;
+    if (pickerLocales.indexOf(options.book.locale) === -1 &&
+        pickerLocales.indexOf($monkeyContainer.data('locale')) !== -1 &&
+        $monkeyContainer.data('changedChars')
+      ) {
+      options.showLanguageOverlay = true;
+    }
+    $monkeyContainer.data('locale', options.book.locale);
   }
-  return options
+  if (options.book.locale !== $monkeyContainer.data('first-book-locale')) {
+    delete options.book.comparisonBooks;
+  }
+  return options;
 };
