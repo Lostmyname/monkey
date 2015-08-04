@@ -37,12 +37,15 @@ module.exports = function (options) {
     });
 
     // If name short, add blank letter for extra story
-    var realLetters = $.map(letters, function (el) {
+    var paddedLetters = $.map(letters, function (el) {
       if (el !== '' && el !== '-') {
         return el;
       }
     });
-    if (realLetters.length < 5) {
+    // The minimum length for a name is 4 but we allow a space or a -
+    // so the total minimum length is 5
+    var shortNameMinimumLength = 5;
+    if (paddedLetters.length <= shortNameMinimumLength) {
       letters.splice(-1, 0, '');
     }
     var combinedLetters = data.combinedLetters = combineLetters(letters, dataLetters);
@@ -169,6 +172,5 @@ function combineLetters(splitLetters, dataLetters) {
 
     dataLetters[idx].letter = val;
     return dataLetters[idx];
-
   });
 }
