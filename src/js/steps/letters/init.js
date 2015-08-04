@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var isMobile = require('../../helpers/isMobile')();
 var getCentralizedCharCount = require('../../helpers/getCentralizedCharCount');
+var lang = require('lang');
 
 var animationDelay = 1600;
 var animationSpeed = 800;
@@ -391,14 +392,14 @@ module.exports = function ($events, options, $monkeyContainer) {
 
       $pickerEl.find('[data-js="switch-character"] .button')
         .removeAttr('disabled')
-        .text('Select')
+        .text(lang('monkey.char_picker.buttons.select'));
         .addClass('primary');
 
       $disableButtons.forEach(function($button) {
         $button.find('.button')
           .attr('disabled', true)
           .removeClass('primary')
-          .text('In Use');
+          .text(lang('monkey.char_picker.buttons.in_use'));
       });
 
       destroyPicker($pickerEl);
