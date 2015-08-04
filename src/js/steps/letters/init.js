@@ -38,7 +38,6 @@ module.exports = function ($events, options, $monkeyContainer) {
                                     .find('[data-js="switch-character"]')
                                 : $pickers.find('[data-js="switch-character"]');
     var $pickerBg = isMobile ? data.monkeyContainer.find('.picker-container__bg') : false;
-    var $changeButtons = $letters.find('.change-character');
     var currentPageIndex = 0;
     var numOfCentralizedChars = getCentralizedCharCount();
     var $activeLetter,
@@ -183,9 +182,11 @@ module.exports = function ($events, options, $monkeyContainer) {
 
       if (data.shouldShowDuplicateModal) {
         var $changed = $('.letter.changed').eq(0);
-        var val = $changed.position().left -
-                  ($changed.outerWidth(true) / 2);
-        return val;
+        if ($changed.length) {
+          var val = $changed.position().left -
+                    ($changed.outerWidth(true) / 2);
+          return val;
+        }
       }
       return 0;
     }

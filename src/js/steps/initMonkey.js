@@ -14,6 +14,9 @@ module.exports = function ($events, options) {
   return function (data) {
     // Adds the turnToPage method, using data.monkeyType to determine whether
     // it should be desktop or mobile initialisation.
+    if (options.clearSelection) {
+      $events.trigger('clearCharSelection');
+    }
     data.turnToPage = this.monkeys[data.monkeyType].init(data, $events, options);
 
     return data;
