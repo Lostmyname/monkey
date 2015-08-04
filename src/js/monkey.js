@@ -101,7 +101,8 @@ window.Monkey = module.exports = (function () {
     promise = promise
       .then((data) => {
         // exposed turnToPage method
-        this.turnToPage = this.turnToPage;
+        console.log('data', data);
+        this.turnToPage = data.turnToPage;
 
         if (data.needsSpread) {
           Monkey.spread._getData(data, options)
