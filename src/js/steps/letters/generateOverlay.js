@@ -20,7 +20,7 @@ module.exports = function (options, $events) {
       var $monkeyContainer = data.monkeyContainer;
       var classes = {
         overlayActive: 'js--active-overlay'
-      }
+      };
 
       var singularOrPlural = data.shouldShowDuplicateModal === 1 ?
                       'singular' :
@@ -119,7 +119,7 @@ module.exports = function (options, $events) {
 
         $yesButton.on('click', function () {
           data.editCharacters = true;
-          $monkeyContainer.data('changedChars', true)
+          $monkeyContainer.data('changedChars', true);
           closeOverlay(true);
         });
 

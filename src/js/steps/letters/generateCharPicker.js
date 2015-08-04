@@ -67,7 +67,7 @@ module.exports = function (options, monkeyContainer) {
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         // Store each letter which is currently being used
-        var usedCharacters = data.combinedLetters.map(function(letter) {
+        var usedCharacters = data.combinedLetters.map(function (letter) {
           return letter.selected;
         });
         var $toolTip = $('<div />');
