@@ -156,9 +156,9 @@ module.exports = function (options, monkeyContainer) {
           // other characters to select, this will still render the currently
           // selected character.)
 
-        // For each of the the letter characters check to see if its already
-        // being used. We show all of the characters at all points so its clear
-        // which ones are available.
+          // For each of the the letter characters check to see if its already
+          // being used. We show all of the characters at all points so its clear
+          // which ones are available.
           $(letter.characters).each(function (ix, charObj) {
             // Here, we're just building the items within the picker. Only thing
             // to note is the data values we're adding to the button, which are
