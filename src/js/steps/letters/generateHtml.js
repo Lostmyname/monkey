@@ -3,6 +3,9 @@
 var $ = require('jquery');
 // var isMobile = require('../../helpers/isMobile')();
 
+// The minimum length for a name is 4 not including a space or -
+var shortNameMinimumLength = 4;
+
 /**
  * Generate HTML for letters.
  *
@@ -38,13 +41,10 @@ module.exports = function (options) {
 
     // If name short, add blank letter for extra story
     var paddedLetters = $.map(letters, function (el) {
-      if (el !== '' && el !== '-') {
+      if (el !== '' && el !== '-' && el !== ' ') {
         return el;
       }
     });
-    // The minimum length for a name is 4 but we allow a space or a -
-    // so the total minimum length is 5
-    var shortNameMinimumLength = 5;
     if (paddedLetters.length <= shortNameMinimumLength) {
       letters.splice(-1, 0, '');
     }
