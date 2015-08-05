@@ -144,6 +144,8 @@ desktop.letterHandler = function (data, $events, options) {
     var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
 
+    index = Math.round(index);
+
     // If index ends .5, doubleSpeed doesn't work. Tbh I'm not sure why.
     // @todo: Think of a proper fix
     if (index % 1 !== 0) {
@@ -159,13 +161,8 @@ desktop.letterHandler = function (data, $events, options) {
     }, (indexes.length - 1) * time);
 
     $.each(indexes, function (i, index) {
-      // Happen only every 2 or 4 times
-      if (index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
-        return;
-      }
-
       setTimeout(function () {
-        data.heidelberg.turnPage(index - 1);
+        data.heidelberg.turnPage(Math.round(index) - 1);
       }, i * time);
     });
   };
