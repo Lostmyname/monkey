@@ -155,12 +155,10 @@ describe('Loading Monkey', function () {
   it('should insert HTML correctly on mobile', function () {
     var $book = $('<div />').attr('data-key', 'lmn-book');
     $book.children().length.should.equal(0);
-        console.log('$book', $book);
 
     return promise.then(changeMonkeyType('mobile'))
       .then(Monkey._generateHtml(options.lang))
-      .then(Monkey._generateBaseElement($book, options))
-      .then(Monkey._initMonkey($({})), options)
+      .then(Monkey._initMonkey($events, options))
       .then(Monkey._insertHtml($book))
       .then(function (data) {
         $book.children().length.should.not.equal(0);
