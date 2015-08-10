@@ -88,7 +88,7 @@ window.Monkey = module.exports = (function () {
         .then(Monkey.slider._generateHtml(options))
         .then(Monkey.slider._init(this.$events));
     }
-    
+
     promise = promise
       .then(Monkey._insertHtml($monkeyContainer))
       .then(Monkey._initMonkey(this.$events, options));

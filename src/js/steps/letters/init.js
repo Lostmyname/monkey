@@ -432,7 +432,7 @@ module.exports = function ($events, options, $monkeyContainer) {
           } else {
             res.character = character;
           }
-          return res
+          return res;
         }
       });
       $events.trigger('charactersChanged', { characters: charactersArray });
