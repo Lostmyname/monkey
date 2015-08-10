@@ -15,7 +15,7 @@ gulp.task('html', getLmnTask('html', {
 
 gulp.task('js', ['js-quality'], getLmnTask('browserify', {
   src: './src/js/monkey.js',
-  dest: './build/monkey.js'
+  dest: './demo/build/bundle.js'
 }));
 
 gulp.task('js-quality', getLmnTask('js-quality', {
