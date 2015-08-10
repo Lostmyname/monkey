@@ -155,6 +155,7 @@ describe('Loading Monkey', function () {
   it('should insert HTML correctly on mobile', function () {
     var $book = $('<div />').attr('data-key', 'lmn-book');
     $book.children().length.should.equal(0);
+        console.log('$book', $book);
 
     return promise.then(changeMonkeyType('mobile'))
       .then(Monkey._generateHtml(options.lang))
@@ -210,12 +211,13 @@ describe('Loading Monkey', function () {
 
   it('should generate letters HTML with special chars correctly (slow)', function () {
     var monkey = new Monkey($('<div />').attr('data-key', 'lmn-book'), {
-      letters: true,
       book: {
         name: 'Maë-Lily',
         gender: 'girl',
         locale: 'en-GB'
-      }
+      },
+      server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      icons: true
     });
 
     return monkey.promise.then(function (data) {

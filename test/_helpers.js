@@ -36,6 +36,7 @@ var options = {
     gender: 'girl',
     locale: 'en-GB'
   },
+  clearSelection: true,
   lang: {
     bookFor: 'A personalised book made for',
     noAltText: 'No alternative text for this page, sorry.'
