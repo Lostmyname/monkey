@@ -8,7 +8,7 @@ var desktop = module.exports = {};
 
 desktop.calculateSize = function () {
   var MAX_WIDTH = 1280;
-  return 'w=' + Math.min($(window).width(), MAX_WIDTH);
+  return Math.min($(window).width(), MAX_WIDTH);
 };
 
 /**
