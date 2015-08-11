@@ -24,8 +24,6 @@ module.exports = function (preload) {
     var size = monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
 
-    console.log('data', data);
-    
     var queryString = '&w=' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
 
     // @todo: Is this used?
