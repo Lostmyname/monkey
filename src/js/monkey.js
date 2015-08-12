@@ -2,6 +2,13 @@ window.Monkey = module.exports = (function () {
   var $ = require('jquery');
   var lang = require('lang');
 
+    function getPickerPresent () {
+        var experiment_id = window.picker_experiment_id;
+        var variation = window.optimizely.data.state.variationIdsMap[experiment_id][0];
+        console.log(variation);
+        return variation == window.picker_variation_id;
+    }
+
   /**
    * Initiate monkey; generate it, and then insert it into the page.
    *
@@ -22,7 +29,7 @@ window.Monkey = module.exports = (function () {
       perPage: 4,
       replaceMonkey: false,
       canClose: false,
-      showCharPicker: true || $monkeyContainer.data('show-picker'),
+      showCharPicker: getPickerPresent(),
       showOverlay: $monkeyContainer.data('show-overlay'),
 
       server: 'https://secure.lostmy.name/widgets/actuallymonkey.json?callback=?',
