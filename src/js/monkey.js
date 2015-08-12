@@ -54,7 +54,6 @@ window.Monkey = module.exports = (function () {
 
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._generateBaseElement($monkeyContainer, options))
       .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales))
       .then((data) => {
         data.monkeyContainer = $monkeyContainer;
