@@ -24,8 +24,14 @@ module.exports = function (preload) {
     var size = monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
 
-    var queryString = '?' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
-    data.queryString = queryString;
+    if (data.spreads === 'single') {
+      size /= 2;
+    }
+
+    var queryString = 'w=' + size + '&dpr=' + dpr + '&q=' + quality[data.monkeyType];
+
+    // @todo: Is this used?
+    data.queryString = '?' + queryString;
 
     // data.urls is a list of the raw image URLs, not resized or compressed.
     data.urls = $.map(data.letters, function (letterData) {
@@ -36,7 +42,8 @@ module.exports = function (preload) {
         data.needsSpread = true;
       }
 
-      return letterData.url + queryString;
+      var separator = letterData.url.indexOf('?') === -1 ? '?' : '&';
+      return letterData.url + separator + queryString;
     });
 
     return helpers.preload(data.urls.slice(0, preload))

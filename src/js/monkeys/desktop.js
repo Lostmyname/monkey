@@ -8,7 +8,7 @@ var desktop = module.exports = {};
 
 desktop.calculateSize = function () {
   var MAX_WIDTH = 1280;
-  return 'w=' + Math.min($(window).width(), MAX_WIDTH);
+  return Math.min($(window).width(), MAX_WIDTH);
 };
 
 /**
@@ -22,6 +22,10 @@ desktop.generateHtml = function (data, lang) {
     .addClass('pos-relative monkey-wrapper js--add-overlay desktop');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute');
 
+  if (data.spreads === 'double') {
+    $monkey.addClass('with-Spreads');
+  }
+
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
       src: url,
@@ -29,7 +33,8 @@ desktop.generateHtml = function (data, lang) {
     });
 
     $('<div />')
-      .addClass('Heidelberg-Spread page-' + data.letters[i].type + ' Page-' + i)
+      .addClass('Heidelberg-' + (data.spreads === 'single' ? 'Page' : 'Spread'))
+      .addClass('page-' + data.letters[i].type + ' Page-' + i)
       .append($img)
       .appendTo($monkey);
   });
@@ -52,8 +57,9 @@ desktop.init = function (data, $events, options) {
 
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
-    hasSpreads: true,
-    limitPageTurns: false
+    hasSpreads: (data.spreads === 'double'),
+    limitPageTurns: false,
+    canClose: options.canClose || false
   });
 
   data.swapPage = function (index, character) {
@@ -104,10 +110,10 @@ desktop.init = function (data, $events, options) {
     }
   });
 
-  return this.letterHandler(data, $events);
+  return this.letterHandler(data, $events, options);
 };
 
-desktop.letterHandler = function (data, $events) {
+desktop.letterHandler = function (data, $events, options) {
   var fireEvent = true;
   var lastIndex = 0;
 
@@ -134,9 +140,11 @@ desktop.letterHandler = function (data, $events) {
       index += index % 1 ? -0.5 : 0.5;
     }
 
-    var PER_PAGE = 4;
+    var PER_PAGE = options.perPage;
     var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
+
+    index = Math.round(index);
 
     // If index ends .5, doubleSpeed doesn't work. Tbh I'm not sure why.
     // @todo: Think of a proper fix
@@ -153,13 +161,8 @@ desktop.letterHandler = function (data, $events) {
     }, (indexes.length - 1) * time);
 
     $.each(indexes, function (i, index) {
-      // Happen only every 2 or 4 times
-      if (index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
-        return;
-      }
-
       setTimeout(function () {
-        data.heidelberg.turnPage(index - 1);
+        data.heidelberg.turnPage(Math.round(index) - 1);
       }, i * time);
     });
   };

@@ -24,6 +24,7 @@ module.exports = function (monkeyContainer) {
     // Append the Heidelberg to the container, and attach the container to the
     // data attribute that's passed through the Promise chain.
     $container.append(data.html);
+
     data.container = $container;
 
     return data;

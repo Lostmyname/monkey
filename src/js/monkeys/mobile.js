@@ -54,7 +54,7 @@ mobile.generateBaseElement = function (data) {
 /*eslint-enable no-unused-vars */
 
 // @todo document this
-mobile.init = function (data, $events, options) {
+mobile.init = function (data, $events) {
   var windowLeft = 0;
   var maxProgress = 0;
 

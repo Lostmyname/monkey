@@ -9,7 +9,11 @@ describe('Using monkey on mobile', function () {
   before(function () {
     monkey = new Monkey($container, {
       monkeyType: 'mobile',
-      book: options.book
+      book: {
+        name: 'Tal',
+        gender: 'boy',
+        locale: 'en-GB'
+      }
     });
 
     return monkey.promise.then(function (data) {
@@ -35,7 +39,7 @@ describe('Using monkey on mobile', function () {
       .trigger('scroll');
 
     setTimeout(function () {
-      $container.find('.letter-active').index().should.be.within(4, 6);
+      $container.find('.letter-active').index().should.be.within(2, 4);
       done();
     }, 300);
   });

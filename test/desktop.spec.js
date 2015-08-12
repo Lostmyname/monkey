@@ -65,7 +65,9 @@ describe('Using monkey on desktop', function () {
 
       monkey = new Monkey($container, {
         monkeyType: 'desktop',
-        book: options.book
+        book: options.book,
+        server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+        icons: true
       });
 
       return monkey.promise.then(function (dataa) {

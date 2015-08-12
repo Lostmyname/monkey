@@ -11,15 +11,19 @@ var $ = require('jquery');
 module.exports = function (options) {
   var defer = $.Deferred();
   return function (data) {
+    if (!data.name) {
+      return data;
+    }
+
     var $lettersContainer = $('<div />');
     $lettersContainer.attr({
       id: 'letters-container',
-      'class': 'aligned-center row leaded md-mar-b', // @todo: remove leaded
+      'class': 'aligned-center row leaded md-mar-b',
       'data-key': 'monkey-letters'
     });
 
     $('<p />').appendTo($lettersContainer)
-      .addClass('unleaded no-mar') // @todo: remove unleaded when eagle dead
+      .addClass('no-mar')
       .text(options.lang.bookFor);
 
     var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
@@ -124,9 +128,9 @@ module.exports = function (options) {
           .clone().appendTo($letters);
 
         var $book = false;
-        if (typeof options.letters !== 'boolean') {
-          $book = $(options.letters);
-        }
+        // if (typeof options.letters !== 'boolean') {
+        //   $book = $(options.letters);
+        // }
         if (!$book || !$book.length) {
           $book = data.monkeyContainer;
         }
@@ -134,9 +138,9 @@ module.exports = function (options) {
         // removing all current content within the container, adding the
         // letters element to the DOM (and saving it to the data object), and
         // adding the loading gif in whilst the book loads.
-        $book.empty();
-        data.lettersElement = $lettersContainer.appendTo($book);
-        data.loading = data.loading.appendTo($book);
+        // $book.empty();
+        data.lettersElement = $lettersContainer.prependTo($book);
+        // data.loading = data.loading.appendTo($book);
 
         if (options.icons) {
           $lettersContainer.parents('#monkey').addClass('monkey-icons');
