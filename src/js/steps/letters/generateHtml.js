@@ -23,7 +23,7 @@ module.exports = function (options) {
     });
 
     $('<p />').appendTo($lettersContainer)
-      .addClass('no-mar') // @todo: remove unleaded when eagle dead
+      .addClass('no-mar')
       .text(options.lang.bookFor);
 
     var $letterSpanContainer = $('<div />').appendTo($lettersContainer)
