@@ -30,6 +30,6 @@
   "scripts": {
     "build": "gulp build",
     "prepublish": "npm run build",
-    "test": "./test/run-tests.sh"
+    "test": "gulp js-quality"
   }
 }
