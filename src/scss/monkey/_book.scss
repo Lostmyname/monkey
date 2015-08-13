@@ -27,14 +27,14 @@
   &.at-front-cover {
     left: -25%;
     .Heidelberg-Page.is-active:nth-child(odd):hover {
-      transform: rotateY(-15deg);
+      transform: rotateY(-20deg);
     }
   }
 
   &.at-rear-cover {
     left: 25%;
     .Heidelberg-Page.is-active:nth-child(even):hover {
-      transform: rotateY(15deg);
+      transform: rotateY(20deg);
     }
     .Heidelberg-Page.is-active:nth-child(odd) {
       opacity: 0;
