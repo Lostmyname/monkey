@@ -6,7 +6,7 @@
   "dependencies": {
     "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
-    "heidelberg": "git://github.com/Lostmyname/heidelberg#797691c99759b0ef63152baf736eb2081983acf7",
+    "heidelberg": "git://github.com/Lostmyname/heidelberg#c6a555e31b9dde1f6d8c2bb47cd7e5a2dea40033",
     "jquery": "^1.11.2",
     "lang": "^0.1.1",
     "nums": "^1.0.0"
