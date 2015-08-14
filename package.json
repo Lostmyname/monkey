@@ -1,12 +1,12 @@
 {
   "name": "lmn-monkey",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
     "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
-    "heidelberg": "git://github.com/Lostmyname/heidelberg#ccf08d98d94eac01c672ebd9b730b09060645a80",
+    "heidelberg": "git://github.com/Lostmyname/heidelberg#62f47d3ced431af5e0dbd730e3d2224fbafcdbb9",
     "jquery": "^1.11.2",
     "lang": "^0.1.1",
     "nums": "^1.0.0"
