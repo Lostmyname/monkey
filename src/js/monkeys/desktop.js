@@ -1,3 +1,4 @@
+
 'use strict';
 
 var $ = require('jquery');
@@ -154,7 +155,7 @@ desktop.letterHandler = function (data, $events) {
 
     $.each(indexes, function (i, index) {
       // Happen only every 2 or 4 times
-      if (index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
+      if (!options.slider && index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
         return;
       }
 
