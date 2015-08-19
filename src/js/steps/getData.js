@@ -12,6 +12,11 @@ var $ = require('jquery');
 module.exports = function (options) {
   return $.getJSON(options.server, { widget: options.book })
     .then(function (data) {
+      // For backwards compatibility
+      if (!data.book.spreads) {
+        data.book.spreads = 'double';
+      }
+
       return data.book;
     });
 };

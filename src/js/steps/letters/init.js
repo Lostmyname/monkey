@@ -19,6 +19,11 @@ var animationSpeed = 800;
  */
 module.exports = function ($events, options, $monkeyContainer) {
   return function (data) {
+    // Probably means that there was no name
+    if (!data.lettersElement) {
+      return data;
+    }
+
     var classes = {
       charPickerActive: 'character-picker--active',
       charPickerBgActive: 'picker-container__bg--active'

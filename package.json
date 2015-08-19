@@ -1,16 +1,18 @@
 {
   "name": "lmn-monkey",
-  "version": "5.0.3",
+  "version": "5.1.0",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
+    "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
-    "heidelberg": "git://github.com/djgrant/heidelberg#c0ec98cb35bb8828b2c23252b886ec1bdff18663",
+    "heidelberg": "^1.0.5",
     "jquery": "^1.11.2",
     "lang": "^0.1.1",
     "nums": "^1.0.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.7.12",
     "gulp": "^3.8.8",
     "lmn-gulp-tasks": "^2.0.4",
     "lmn.jester.theme.default": "^1.0.0",
@@ -20,8 +22,12 @@
     "should": "^4.2.0"
   },
   "author": "Callum Macrae",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "scripts": {
-    "build": "gulp build",
-    "test": "./test/run-tests.sh"
+    "test": "gulp js-quality"
   }
 }
