@@ -347,8 +347,9 @@ module.exports = function ($events, options, $monkeyContainer) {
       data.turnToPage($this.index() - charsBefore);
       $activeLetter = $('#letters .letter-active');
 
-      // Find the appropriate picker using indexes, and show that one.
-      if (currentPageIndex === $this.index()) {
+      // Find the appropriate picker using indexes, and show that one if the
+      // character picker is active on that letter
+      if (currentPageIndex === $this.index() && $this.data('char-picker-active')) {
         $currentPicker = $($pickers[$this.index() - charsBefore - 1]);
         setUpPicker($currentPicker, $this);
       }

@@ -159,6 +159,7 @@ module.exports = function (options, monkeyContainer) {
           // For each of the the letter characters check to see if its already
           // being used. We show all of the characters at all points so its clear
           // which ones are available.
+          var disabledCharacters = 0;
           $(letter.characters).each(function (ix, charObj) {
             // Here, we're just building the items within the picker. Only thing
             // to note is the data values we're adding to the button, which are
@@ -191,9 +192,19 @@ module.exports = function (options, monkeyContainer) {
                 .addClass('button')
                 .attr('disabled', true)
                 .text(lang('monkey.char_picker.buttons.in_use'));
+              disabledCharacters++;
             }
             $selectButton.appendTo($charName);
           });
+
+          // hide the change label if all characters are disabled
+          // TOTO Refactor: we are rendering character pickers that might never
+          // be seen
+          if (disabledCharacters === letter.characters.length) {
+            $changeSpan.hide();
+          } else {
+            $letterDiv.data('char-picker-active', true)
+          }
         }
         if (!(letter.letter === '-' || letter.letter === ' ')) {
           currentDisplayPage++;
