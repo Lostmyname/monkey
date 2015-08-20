@@ -59,7 +59,7 @@ module.exports = function (options, $events) {
       // Here's where we change the content of the overlay dependant on which
       // overlay is showing. If we need more overlays for whatever reason, we
       // should probably change how this is done as it's not entirely scalable.
-      if (options.showLanguageOverlay === true) {
+      if (options.showLanguageOverlay === true && $monkeyContainer.data('changedChars')) {
         overlayTitle = lang('monkey.language.title');
         overlayText = lang('monkey.language.copy');
       } else {
@@ -125,6 +125,7 @@ module.exports = function (options, $events) {
 
         $noButton.on('click', function () {
           revertCharsToOriginal(closeOverlay);
+          $monkeyContainer.data('changedChars', false);
         });
       }
 
