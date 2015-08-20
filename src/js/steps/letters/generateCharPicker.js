@@ -18,7 +18,6 @@ module.exports = function (options, monkeyContainer) {
   var defer = $.Deferred();
 
   return function (data) {
-
     var numOfCentralizedChars = getCentralizedCharCount();
 
     $(window).on('resize orientationchange', function () {
@@ -67,6 +66,10 @@ module.exports = function (options, monkeyContainer) {
                         $monkeyContainer.find('.letter[data-letter=""][data-type="bridge"]');
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
+        // Store each letter which is currently being used
+        var usedCharacters = data.combinedLetters.map(function (letter) {
+          return letter.selected;
+        });
         var $toolTip = $('<div />');
         $toolTip
           .addClass('character-picker pos-absolute');
@@ -79,7 +82,7 @@ module.exports = function (options, monkeyContainer) {
         // is done by adding the .character-picker--no-arrow class to the
         // picker. On orientation change, we also perform this check as the name
         // could center or scroll depending on the length and the screen width.
-        if (isMobile && letter.letter !== '-') {
+        if (isMobile && letter.letter !== '-' && letter.letter !== ' ') {
           $toolTip.appendTo($pickerContainer);
           var $closeButton = $('<button>')
               .attr('type', 'button')
@@ -152,7 +155,12 @@ module.exports = function (options, monkeyContainer) {
           // For each of the remaining characters (note, even if there are no
           // other characters to select, this will still render the currently
           // selected character.)
-          $(remainingLetterChars).each(function (ix, charObj) {
+
+          // For each of the the letter characters check to see if its already
+          // being used. We show all of the characters at all points so its clear
+          // which ones are available.
+          var disabledCharacters = 0;
+          $(letter.characters).each(function (ix, charObj) {
             // Here, we're just building the items within the picker. Only thing
             // to note is the data values we're adding to the button, which are
             // used when actually changing the character.
@@ -174,20 +182,29 @@ module.exports = function (options, monkeyContainer) {
             $charName.appendTo($imgContainer);
 
             var $selectButton = $('<span />');
-
-            if (letter.selected === charObj.character) {
+            if (usedCharacters.indexOf(charObj.character) === -1) {
+              $selectButton
+                .addClass('button primary')
+                .text(lang('monkey.char_picker.buttons.select'));
+            } else {
               $imgContainer.addClass('selected-char');
               $selectButton
                 .addClass('button')
                 .attr('disabled', true)
                 .text(lang('monkey.char_picker.buttons.in_use'));
-            } else {
-              $selectButton
-                .addClass('button primary')
-                .text(lang('monkey.char_picker.buttons.select'));
+              disabledCharacters++;
             }
             $selectButton.appendTo($charName);
           });
+
+          // hide the change label if all characters are disabled
+          // TOTO Refactor: we are rendering character pickers that might never
+          // be seen
+          if (disabledCharacters === letter.characters.length) {
+            $changeSpan.hide();
+          } else {
+            $letterDiv.data('char-picker-active', true)
+          }
         }
         if (!(letter.letter === '-' || letter.letter === ' ')) {
           currentDisplayPage++;

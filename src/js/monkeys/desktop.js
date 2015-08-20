@@ -1,3 +1,4 @@
+
 'use strict';
 
 var $ = require('jquery');
@@ -161,6 +162,11 @@ desktop.letterHandler = function (data, $events, options) {
     }, (indexes.length - 1) * time);
 
     $.each(indexes, function (i, index) {
+      // Happen only every 2 or 4 times
+      if (!options.slider && index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
+        return;
+      }
+
       setTimeout(function () {
         data.heidelberg.turnPage(Math.round(index) - 1);
       }, i * time);
