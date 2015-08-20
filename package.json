@@ -14,7 +14,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.12",
     "gulp": "^3.8.8",
-    "lmn-gulp-tasks": "^2.0.2",
+    "lmn-gulp-tasks": "^2.0.4",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
     "phantomjs": "^1.9.16",
