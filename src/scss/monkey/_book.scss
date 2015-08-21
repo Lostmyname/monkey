@@ -43,7 +43,7 @@
 }
 
 .Heidelberg-Page {
-  background: transparent;
+  background: image-url('loading-large.gif') white no-repeat center center;
   .Heidelberg-HiddenCover + & .Heidelberg-Spread {
     background-image: none !important;
     > img {
