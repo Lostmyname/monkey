@@ -220,9 +220,10 @@ describe('Loading Monkey', function () {
 
     return monkey.promise.then(function (data) {
       var spans = data.lettersElement.find('.letter');
-      spans.length.should.equal(10);
-      spans.filter(':contains("Ë")').length.should.equal(1);
-      spans.filter(':contains("-")').length.should.equal(1);
+      spans.length.should.equal(9);
+      spans.filter(':contains("Ë")').length.should.equal(0);
+      spans.filter(':contains("-")').length.should.equal(0);
+      spans.filter(':contains("E")').length.should.equal(1);
     });
   });
 
