@@ -44,6 +44,7 @@
 
 .Heidelberg-Page {
   background: image-url('loading-large.gif') white no-repeat center center;
+
   .Heidelberg-HiddenCover + & .Heidelberg-Spread {
     background-image: none !important;
     > img {
@@ -55,6 +56,10 @@
     height: auto;
     width: 100%;
   }
+}
+
+.Heidelberg-Page:nth-child(2) {
+  background: transparent;
 }
 
 .last-page {
