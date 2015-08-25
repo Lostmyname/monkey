@@ -214,7 +214,7 @@ describe('Loading Monkey', function () {
         gender: 'girl',
         locale: 'en-GB'
       },
-      server: 'https://chameleon.lostmy.name/monkey.json?callback=?',
+      server: 'https://chameleon.lostmy.name/preview.json?callback=?',
       icons: true
     });
 

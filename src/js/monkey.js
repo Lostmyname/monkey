@@ -25,7 +25,7 @@ window.Monkey = module.exports = (function () {
       showCharPicker: true || $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
 
-      server: 'https://chameleon.lostmy.name/monkey.json?callback=?',
+      server: 'https://chameleon.lostmy.name/preview.json?callback=?',
 
       book: {
         name: $monkeyContainer.data('name'),

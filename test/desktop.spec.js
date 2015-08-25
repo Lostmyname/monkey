@@ -66,7 +66,7 @@ describe('Using monkey on desktop', function () {
       monkey = new Monkey($container, {
         monkeyType: 'desktop',
         book: options.book,
-        server: 'https://chameleon.lostmy.name/monkey.json?callback=?',
+        server: 'https://chameleon.lostmy.name/preview.json?callback=?',
         icons: true
       });
 

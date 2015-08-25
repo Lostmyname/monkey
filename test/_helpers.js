@@ -41,6 +41,6 @@ var options = {
     bookFor: 'A personalised book made for',
     noAltText: 'No alternative text for this page, sorry.'
   },
-  server: 'https://chameleon.lostmy.name/monkey.json?callback=?',
+  server: 'https://chameleon.lostmy.name/preview.json?callback=?',
   icons: true
 };
