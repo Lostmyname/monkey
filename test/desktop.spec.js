@@ -76,12 +76,12 @@ describe('Using monkey on desktop', function () {
       });
     });
 
-    it('should not include hyphens in names', function () {
-      $container.find('.char:contains(-)').length.should.equal(0);
+    it('should not make hyphens in names clickable', function () {
+      $container.find('.nonclickable.special-char .char:contains(-)').length.should.equal(1);
     });
 
-    it('should not include spaces in names', function () {
-      $container.find('.char:contains( )').length.should.equal(0);
+    it('should not make spaces in names clickable', function () {
+      $container.find('.nonclickable.special-char .char:contains( )').length.should.equal(1);
     });
 
     after(function () {

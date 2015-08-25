@@ -220,10 +220,9 @@ describe('Loading Monkey', function () {
 
     return monkey.promise.then(function (data) {
       var spans = data.lettersElement.find('.letter');
-      spans.length.should.equal(9);
-      spans.filter(':contains("Ë")').length.should.equal(0);
-      spans.filter(':contains("-")').length.should.equal(0);
-      spans.filter(':contains("E")').length.should.equal(1);
+      spans.length.should.equal(10);
+      spans.filter(':contains("Ë")').length.should.equal(1);
+      spans.filter(':contains("-")').length.should.equal(1);
     });
   });
 
@@ -314,7 +313,8 @@ describe('Loading Monkey', function () {
     .then(Monkey.letters._generateHtml(options))
     .then(function (data) {
       var spans = data.lettersElement.find('.letter');
-      spans.length.should.equal(5 + 2);
+      // 4 stories + 1 bridge + 1 space + 2 covers
+      spans.length.should.equal(8);
       spans.find('.char')[4].should.match(/ /);
     });
   });
