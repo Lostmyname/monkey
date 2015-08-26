@@ -214,7 +214,7 @@ describe('Loading Monkey', function () {
         gender: 'girl',
         locale: 'en-GB'
       },
-      server: 'http://lostmyname-staging.herokuapp.com/widgets/actuallymonkey.json?callback=?',
+      server: 'https://chameleon.lostmy.name/preview.json?callback=?',
       icons: true
     });
 
@@ -239,7 +239,7 @@ describe('Loading Monkey', function () {
 
       return spreadPromise.then(function (monkeyData, spreadUrl) {
         monkeyData.should.equal(data);
-        spreadUrl.should.containEql('spread.jpg');
+        spreadUrl.should.containEql('TEST.jpg');
       });
     });
   });
@@ -313,7 +313,8 @@ describe('Loading Monkey', function () {
     .then(Monkey.letters._generateHtml(options))
     .then(function (data) {
       var spans = data.lettersElement.find('.letter');
-      spans.length.should.equal(5 + 2);
+      // 4 stories + 1 bridge + 1 space + 2 covers
+      spans.length.should.equal(8);
       spans.find('.char')[4].should.match(/ /);
     });
   });
