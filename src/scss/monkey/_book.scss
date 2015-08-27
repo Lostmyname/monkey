@@ -44,6 +44,7 @@
 
 .Heidelberg-Page {
   background: image-url('loading-large.gif') white no-repeat center center;
+  line-height: 0;
 
   .Heidelberg-HiddenCover + & .Heidelberg-Spread {
     background-image: none !important;
