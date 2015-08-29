@@ -64,7 +64,7 @@ module.exports = function (options) {
           outcome++;
         }
       });
-      return outcome;
+      return outcome && options.book.comparisonBooks !== undefined;
     };
 
     data.shouldShowDuplicateModal = determineIfDuplicate();
@@ -94,7 +94,7 @@ module.exports = function (options) {
         // If we're showing the duplicate letter overlay, and this is one of the
         // duplicate letters, we add a class to show visually that this is a
         // changed letter.
-        if (letter.selected !== letter.default_character && options.showOverlay) {
+        if (letter.selected !== letter.default_character && options.showOverlay && determineIfDuplicate()) {
           $letterDiv.addClass('changed');
         }
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
