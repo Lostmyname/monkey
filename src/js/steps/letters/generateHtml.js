@@ -102,6 +102,9 @@ module.exports = function (options) {
         if (hasLetterChanged(letter)) {
           $letterDiv.addClass('changed');
         }
+        if (letter.selected !== letter.default_character) {
+          data.monkeyContainer.data('changedChars', true)
+        }
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         var $letterSpan = $('<div />')
