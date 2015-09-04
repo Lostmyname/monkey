@@ -15,6 +15,7 @@ module.exports = function ($monkeyContainer, options, pickerLocales) {
   // that have been changed before the language change. Phew.
   if (options.book.locale !== $monkeyContainer.data('locale')) {
     delete options.book.characterSelection;
+    $monkeyContainer.data('character-selection', null)
     options.clearSelection = true;
     if (pickerLocales.indexOf(options.book.locale) === -1 &&
         pickerLocales.indexOf($monkeyContainer.data('locale')) !== -1 &&
