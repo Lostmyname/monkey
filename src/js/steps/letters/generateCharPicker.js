@@ -203,7 +203,7 @@ module.exports = function (options, monkeyContainer) {
           if (disabledCharacters === letter.characters.length) {
             $changeSpan.hide();
           } else {
-            $letterDiv.data('char-picker-active', true)
+            $letterDiv.data('char-picker-active', true);
           }
         }
         if (!(letter.letter === '-' || letter.letter === ' ')) {

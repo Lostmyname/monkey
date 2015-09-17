@@ -62,7 +62,7 @@ module.exports = function (options, $events) {
       if (options.showLanguageOverlay === true && $monkeyContainer.data('changedChars')) {
         overlayTitle = lang('monkey.language.title');
         overlayText = lang('monkey.language.copy');
-      } else if (comparisonName !== '')  {
+      } else if (comparisonName !== '') {
         overlayTitle = lang('monkey.overlay.nounTypes.' + singularOrPlural + '.title');
         overlayText = comparisonName.toUpperCase() + ' & ' +
                       data.name.toUpperCase() + ' ' +

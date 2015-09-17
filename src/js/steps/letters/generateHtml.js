@@ -31,7 +31,8 @@ module.exports = function (options) {
 
     $('<p />').appendTo($lettersContainer)
       .addClass('no-mar')
-      .text(options.lang.bookFor);
+      .text(options.lang.bookFor)
+      .append($hiddenName);
 
     var $letterSpanContainer = $('<div />')
       .appendTo($lettersContainer)
@@ -74,10 +75,10 @@ module.exports = function (options) {
       return outcome && options.book.comparisonBooks !== undefined;
     };
 
-    var hasLetterChanged = function(letter) {
+    var hasLetterChanged = function (letter) {
       return letter.selected !== letter.default_character
         && options.showOverlay && determineIfDuplicate();
-    }
+    };
 
     data.shouldShowDuplicateModal = determineIfDuplicate();
 
@@ -110,7 +111,7 @@ module.exports = function (options) {
           $letterDiv.addClass('changed');
         }
         if (letter.selected !== letter.default_character) {
-          data.monkeyContainer.data('changedChars', true)
+          data.monkeyContainer.data('changedChars', true);
         }
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 

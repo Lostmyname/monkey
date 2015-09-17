@@ -382,11 +382,8 @@ module.exports = function ($events, options, $monkeyContainer) {
      * change all buttons in a set back to the default state of 'Select' whilst
      * the buttons corresponding to the currentCharacterSelection object will be
      * changed to the selected 'In Use' button style.
-     * @param  {DOMElement} $currentLetter  The current letter
-     * @param  {object} currentCharacter The current character object
-     * @return {null}
      */
-    function switchActiveButtonState($currentLetter, currentCharacter) {
+    function switchActiveButtonState() {
       var $pickerEl = $monkey.find('.character-picker');
       var $disableButtons = [];
 
