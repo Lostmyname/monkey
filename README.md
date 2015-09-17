@@ -1,4 +1,4 @@
-# Monkey
+# Monkey [![Build Status](https://travis-ci.org/Lostmyname/monkey.svg?branch=master)](https://travis-ci.org/Lostmyname/monkey)
 
 ![They want books, too](https://i.imgur.com/GqlC4ko.gif)
 
