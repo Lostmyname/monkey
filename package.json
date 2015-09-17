@@ -28,6 +28,6 @@
     ]
   },
   "scripts": {
-    "test": "gulp js-quality"
+    "test": "gulp js-quality --fail"
   }
 }
