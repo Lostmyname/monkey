@@ -25,9 +25,9 @@ module.exports = function (options) {
       'data-key': 'monkey-letters'
     });
 
-    var $hiddenName = $('<span />', {
-      'class': 'for-screen-reader'
-    }).text(' ' + data.name.toLowerCase());
+    // var $hiddenName = $('<span />', {
+    //   'class': 'for-screen-reader'
+    // }).text(' ' + data.name.toLowerCase());
 
     $('<p />').appendTo($lettersContainer)
       .addClass('no-mar')
