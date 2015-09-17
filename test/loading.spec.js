@@ -52,7 +52,7 @@ describe('Loading Monkey', function () {
 
     return promise.then(function (data) {
       data.should.have.property('monkeyType');
-      data.monkeyType.should.match(/[desktop|mobile]/);
+      data.monkeyType.should.match(/desktop|mobile/);
     });
   });
 
@@ -68,7 +68,7 @@ describe('Loading Monkey', function () {
     return promise.then(Monkey._calculateMonkey('auto'))
       .then(function (data) {
         data.should.have.property('monkeyType');
-        data.monkeyType.should.match(/[desktop|mobile]/);
+        data.monkeyType.should.match(/desktop|mobile/);
       });
   });
 
