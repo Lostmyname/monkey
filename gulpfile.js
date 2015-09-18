@@ -13,10 +13,14 @@ gulp.task('html', getLmnTask('html', {
   imagePath: '../../src/imgs/'
 }));
 
-gulp.task('js', ['js-quality'], getLmnTask('browserify', {
+var jsOpts = {
   src: './src/js/monkey.js',
   dest: './demo/build/bundle.js'
-}));
+};
+var jsOptsWatch = { src: jsOpts.src, dest: jsOpts.dest, watch: true };
+
+gulp.task('js', getLmnTask('browserify', jsOpts));
+gulp.task('js-watch', getLmnTask('browserify', jsOptsWatch));
 
 gulp.task('js-quality', getLmnTask('js-quality', {
   src: './src/js/**/*.js'
@@ -29,7 +33,7 @@ gulp.task('scss', getLmnTask('scss', {
 }));
 
 gulp.task('build', ['html', 'js', 'scss']);
-gulp.task('default', ['build'], function () {
+gulp.task('default', ['build', 'js-watch'], function () {
   var config = {
     server: {
       baseDir: '.'
@@ -46,7 +50,6 @@ gulp.task('default', ['build'], function () {
   ], config);
 
   gulp.watch('./src/scss/**/*.{sass,scss}', ['scss']);
-  gulp.watch('./src/js/**/*.js', ['js']);
   gulp.watch('./src/partials/partial.erb.html', ['html']);
   gulp.watch('./demo/base.erb.html', ['html']);
 });
