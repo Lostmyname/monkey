@@ -176,7 +176,7 @@ module.exports = function (options, $events) {
           }, [])
           .forEach((letter, i) => {
             var $letter = $(`.letter[data-letter=${letter.letter}][data-character=${letter.character}]`);
-            data.changeCharacter(++i, letter, $letter, false);
+            data.changeCharacter(i + 1, letter, $letter, false);
           });
 
         callback(false);
