@@ -187,7 +187,8 @@ module.exports = function (options, monkeyContainer) {
                 .addClass('button primary')
                 .text(lang('monkey.char_picker.buttons.select'));
             } else {
-              $imgContainer.addClass('selected-char');
+              $imgContainer.addClass('selected-char')
+                .attr('disabled', true);
               $selectButton
                 .addClass('button')
                 .attr('disabled', true)

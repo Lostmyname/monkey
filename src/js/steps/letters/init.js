@@ -387,19 +387,24 @@ module.exports = function ($events, options, $monkeyContainer) {
       var $pickerEl = $monkey.find('.character-picker');
       var $disableButtons = [];
 
+      data.updateCharSelection();
+
       currentCharacterSelection.forEach(function (char) {
-        var $buttonEl = $pickerEl.find('[data-js="switch-character"]' +
-                                        '[data-character="' + char.character + '"]');
+        var $buttonEl = $pickerEl.find(`[data-js=switch-character][data-character=${char.character}]`);
         $disableButtons.push($buttonEl);
       });
 
-      $pickerEl.find('[data-js="switch-character"] .button')
+      $pickerEl.find('[data-js="switch-character"]')
+        .removeAttr('disabled')
+        .find('.button')
         .removeAttr('disabled')
         .text(lang('monkey.char_picker.buttons.select'))
         .addClass('primary');
 
       $disableButtons.forEach(function ($button) {
-        $button.find('.button')
+        $button
+          .attr('disabled', true)
+          .find('.button')
           .attr('disabled', true)
           .removeClass('primary')
           .text(lang('monkey.char_picker.buttons.in_use'));

@@ -167,21 +167,18 @@ module.exports = function (options, $events) {
        * @return {null}
        */
       function revertCharsToOriginal(callback) {
-        for (var i = 0; i < data.combinedLetters.length; i++) {
-          var letter = data.combinedLetters[i];
-          if (letter.changed === true) {
-            var characters = letter.characters;
-            for (var j = 0; j < characters.length; j++) {
-              var character = characters[j];
-              if (character.character === letter.default_character) {
-                var $letter = $('.letter[data-letter="' + character.letter + '"]' +
-                                '[data-character="' + character.character + '"]');
-                data.changeCharacter(i, character, $letter, false);
-              }
-            }
+        data.combinedLetters
+          .filter(letter => letter.changed === true)
+          .reduce((arr, letter) => {
+            return arr.concat(
+              letter.characters.filter(character => character.character === letter.default_character)
+            );
+          }, [])
+          .forEach((letter, i) => {
+            var $letter = $(`.letter[data-letter=${letter.letter}][data-character=${letter.character}]`);
+            data.changeCharacter(i + 1, letter, $letter, false);
+          });
 
-          }
-        }
         callback(false);
       }
       return defer.promise();
