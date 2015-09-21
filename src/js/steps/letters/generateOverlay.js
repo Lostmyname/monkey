@@ -170,12 +170,13 @@ module.exports = function (options, $events) {
         data.combinedLetters
           .filter(letter => letter.changed === true)
           .reduce((arr, letter) => {
-            letter.characters.filter(character => character.character === letter.default_character);
-            return arr.concat(letter.characters);
+            return arr.concat(
+              letter.characters.filter(character => character.character === letter.default_character)
+            );
           }, [])
           .forEach((letter, i) => {
             var $letter = $(`.letter[data-letter=${letter.letter}][data-character=${letter.character}]`);
-            data.changeCharacter(i, letter, $letter, false);
+            data.changeCharacter(++i, letter, $letter, false);
           });
 
         callback(false);
