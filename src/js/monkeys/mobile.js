@@ -106,7 +106,7 @@ mobile.init = function (data, $events) {
 
   data.swapPage = function (index, character) {
     var pageNumModifier = 3;
-    var page = (index * 2) + pageNumModifier;
+    var page = Number(index) * 2 + pageNumModifier;
     var page1El = $('.Page-' + page).find('img');
     var page2El = $('.Page-' + (page + 1)).find('img');
     page1El.attr({ src: character.url1 + data.queryString });

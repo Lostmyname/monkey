@@ -168,15 +168,18 @@ module.exports = function (options, $events) {
        */
       function revertCharsToOriginal(callback) {
         data.combinedLetters
+          .map((letter, index) => ({ ...letter, index }))
           .filter(letter => letter.changed === true)
           .reduce((arr, letter) => {
             return arr.concat(
-              letter.characters.filter(character => character.character === letter.default_character)
+              letter.characters
+                .map(character => ({ ...character, pageIndex: letter.index }))
+                .filter(character => character.character === letter.default_character)
             );
           }, [])
-          .forEach((letter, i) => {
-            var $letter = $(`.letter[data-letter=${letter.letter}][data-character=${letter.character}]`);
-            data.changeCharacter(i + 1, letter, $letter, false);
+          .forEach((character) => {
+            var $letter = $(`.letter[data-letter=${character.letter}][data-character=${character.character}]`);
+            data.changeCharacter(character.pageIndex, character, $letter, false);
           });
 
         callback(false);

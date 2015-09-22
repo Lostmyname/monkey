@@ -64,7 +64,8 @@ desktop.init = function (data, $events, options) {
   });
 
   data.swapPage = function (index, character) {
-    var page = (index + 3) + index;
+    var pageNumModifier = 3;
+    var page = Number(index) * 2 + pageNumModifier;
     var $newImage = $('<img />')
       .attr('src', character.url1 + data.queryString);
     var $newImage2 = $('<img />')
