@@ -36,7 +36,6 @@ module.exports = function (options) {
     }
 
     var queryString = width + '&q=' + quality[data.monkeyType];
-    // + '&dpr=' + dpr
 
     // @todo: Is this used?
     data.queryString = '?' + queryString;
