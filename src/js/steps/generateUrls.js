@@ -8,7 +8,7 @@ var $ = require('jquery');
  * @param  {int} preload Number of images to preload on initialisation.
  * @return {data} The data object passed through the Promise chain.
  */
-module.exports = function (preload, options) {
+module.exports = function (options) {
   var monkeys = this.monkeys;
   var helpers = this.helpers;
 
@@ -54,7 +54,7 @@ module.exports = function (preload, options) {
       return letterData.url + separator + queryString;
     });
 
-    return helpers.preload(data.urls.slice(0, preload))
+    return helpers.preload(data.urls.slice(0, options.preload))
       .then(function () {
         return data;
       });

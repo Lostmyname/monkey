@@ -78,7 +78,7 @@ window.Monkey = module.exports = (function () {
     }
 
     promise = promise
-      .then(Monkey._generateUrls(options.preload, options))
+      .then(Monkey._generateUrls(options))
       .then(Monkey._generateHtml(options.lang));
 
     if (options.slider) {
