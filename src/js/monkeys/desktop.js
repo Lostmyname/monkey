@@ -89,9 +89,9 @@ desktop.init = function (data, $events, options) {
   data.heidelberg.el.addClass('at-front-cover');
 
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, $el, els) {
-    $events.trigger('pageTurn');
-
     var index = els.pages.index(els.pagesTarget);
+    $events.trigger('pageTurn', index);
+
     var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;

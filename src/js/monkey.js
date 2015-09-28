@@ -24,8 +24,8 @@ window.Monkey = module.exports = (function () {
       canClose: false,
       showCharPicker: true || $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
-
       server: 'https://chameleon.lostmy.name/preview.json?callback=?',
+      dprSupported: true,
 
       book: {
         name: $monkeyContainer.data('name'),
@@ -78,7 +78,7 @@ window.Monkey = module.exports = (function () {
     }
 
     promise = promise
-      .then(Monkey._generateUrls(options.preload))
+      .then(Monkey._generateUrls(options))
       .then(Monkey._generateHtml(options.lang));
 
     if (options.slider) {
