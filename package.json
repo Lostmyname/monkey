@@ -7,19 +7,19 @@
     "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
     "heidelberg": "^1.0.7",
-    "jquery": "^1.11.2",
+    "jquery": "^1.11.3",
     "lang": "^0.1.1",
     "nums": "^1.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.7.12",
     "gulp": "^3.8.8",
-    "lmn-gulp-tasks": "^2.1.0",
+    "lmn-gulp-tasks": "^3.0.0",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
     "phantomjs": "^1.9.16",
     "serve": "^1.4.0",
-    "should": "^4.2.0"
+    "should": "^7.1.0"
   },
   "author": "Callum Macrae",
   "browserify": {
