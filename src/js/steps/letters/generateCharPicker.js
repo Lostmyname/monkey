@@ -50,8 +50,8 @@ module.exports = function (options, monkeyContainer) {
     }
     // Returns an array like ["J", "O", "N", "A", "T", "H", "A", "N"]
     var allCharacters = $.map(data.combinedLetters, function (el) {
-        return el.selected || '';
-      });
+      return el.selected || '';
+    });
 
     var loadLetterPicker = function () {
       var currentDisplayPage = 0;

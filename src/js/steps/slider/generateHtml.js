@@ -9,7 +9,7 @@ export default function (options) {
   return function (data) {
     var $sliderContainer = $('<div />', {
       id: 'slider-container',
-      'class': 'row aligned-center md-mar-b',
+      class: 'row aligned-center md-mar-b',
       'data-key': 'monkey-slider'
     });
 
