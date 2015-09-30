@@ -101,7 +101,8 @@ desktop.init = function (data, $events, options) {
     }
 
     $el.toggleClass('at-front-cover', !index);
-    $el.toggleClass('at-rear-cover', index === els.pages.length - 2);
+    var bookOffset = ((els.pages.length % 2 === 0) ? 2 : 1)
+    $el.toggleClass('at-rear-cover', index === els.pages.length - bookOffset);
 
     if (index / els.pages.length > 0.5) {
       $events.trigger('halfway');
