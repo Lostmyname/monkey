@@ -10,7 +10,7 @@ window.Monkey = module.exports = (function () {
    */
   function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
-    var pickerLocales = ['en-GB', 'en-US', 'fr'];
+    var pickerLocales = ['en-GB', 'en-US', 'fr', 'nl'];
 
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
