@@ -24,7 +24,8 @@ window.Monkey = module.exports = (function () {
       canClose: false,
       showCharPicker: true || $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
-      server: 'https://chameleon.lostmy.name/preview.json?callback=?',
+      // server: 'https://chameleon.lostmy.name/preview.json?callback=?',
+      server: 'http://lmn-chameleon-staging.herokuapp.com/preview.json?callback=?',
       dprSupported: true,
 
       book: {
