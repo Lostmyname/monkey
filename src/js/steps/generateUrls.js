@@ -29,7 +29,7 @@ module.exports = function (options) {
       size /= 2;
     }
 
-    if (!options.dprSupported) {
+    if (options.dprNotSupported) {
       width = 'w=' + Math.round(size * dpr);
     } else {
       width = 'w=' + size + '&dpr=' + dpr;
