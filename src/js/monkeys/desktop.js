@@ -72,12 +72,12 @@ desktop.init = function (data, $events, options) {
       .attr('src', character.url2 + data.queryString);
 
     var newPage1 = $('<div />')
-        .addClass('Heidelberg-Spread page- Page-' + page)
-        .append($newImage.clone());
+      .addClass('Heidelberg-Spread page- Page-' + page)
+      .append($newImage.clone());
 
     var newPage2 = $('<div />')
-        .addClass('Heidelberg-Spread page- Page-' + (page + 1))
-        .append($newImage2.clone());
+      .addClass('Heidelberg-Spread page- Page-' + (page + 1))
+      .append($newImage2.clone());
 
     var page1El = data.monkeyContainer.find('.Page-' + page);
     var page2El = data.monkeyContainer.find('.Page-' + (page + 1));
@@ -101,13 +101,13 @@ desktop.init = function (data, $events, options) {
     }
 
     $el.toggleClass('at-front-cover', !index);
-    $el.toggleClass('at-rear-cover', index === els.pages.length - 2);
+    $el.toggleClass('at-rear-cover', index === els.pages.length - (options.perPage / 2));
 
     if (index / els.pages.length > 0.5) {
       $events.trigger('halfway');
     }
 
-    if (index === els.pages.length - 2) {
+    if (index === els.pages.length - (options.perPage / 2)) {
       $events.trigger('finished');
     }
   });

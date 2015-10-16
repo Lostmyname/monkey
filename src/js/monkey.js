@@ -1,4 +1,5 @@
-window.Monkey = module.exports = (function () {
+
+imageWidth: 420,window.Monkey = module.exports = (function () {
   var $ = require('jquery');
   var lang = require('lang');
 
