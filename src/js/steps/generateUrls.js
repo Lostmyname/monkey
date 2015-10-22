@@ -22,14 +22,14 @@ module.exports = function (options) {
    */
   return function (data) {
     var width;
-    var size = monkeys[data.monkeyType].calculateSize(data);
+    var size = options.imageWidth || monkeys[data.monkeyType].calculateSize(data);
     var dpr = window.devicePixelRatio || 1;
 
     if (data.spreads === 'single') {
       size /= 2;
     }
 
-    if (!options.dprSupported) {
+    if (options.dprNotSupported) {
       width = 'w=' + Math.round(size * dpr);
     } else {
       width = 'w=' + size + '&dpr=' + dpr;
