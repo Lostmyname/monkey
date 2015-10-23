@@ -6,7 +6,7 @@
   "dependencies": {
     "babelify": "^6.1.2",
     "diacritics": "^1.2.1",
-    "heidelberg": "^1.0.7",
+    "heidelberg": "^1.1.0",
     "jquery": "^1.11.3",
     "lang": "^0.1.1",
     "nums": "^1.0.0"
