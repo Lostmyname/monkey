@@ -40,7 +40,7 @@ window.Monkey = module.exports = (function () {
     }, options);
 
     if (options.pickerLocalesStr) {
-      options.pickerLocales = options.pickerLocalesStr.split(",").filter(Boolean);
+      options.pickerLocales = options.pickerLocalesStr.split(',').filter(Boolean);
       options.showCharPicker = options.pickerLocales.indexOf(options.book.locale) !== -1;
     } else {
       options.pickerLocales = [];
