@@ -5,7 +5,7 @@
  *
  * @param {string|HTMLElement|jQuery} monkeyContainer The container.
  */
-module.exports = function ($monkeyContainer, options, pickerLocales) {
+module.exports = function ($monkeyContainer, options) {
 
   // We need to check whether we have to show the language overlay, and we do
   // this by seeing whether the current language is different to the book's
@@ -17,10 +17,7 @@ module.exports = function ($monkeyContainer, options, pickerLocales) {
     delete options.book.characterSelection;
     $monkeyContainer.data('character-selection', null);
     options.clearSelection = true;
-    if (pickerLocales.indexOf(options.book.locale) === -1 &&
-        pickerLocales.indexOf($monkeyContainer.data('locale')) !== -1 &&
-        $monkeyContainer.data('changedChars')
-      ) {
+    if (options.showCharPicker && $monkeyContainer.data('changedChars')) {
       options.showLanguageOverlay = true;
     }
     $monkeyContainer.data('locale', options.book.locale);

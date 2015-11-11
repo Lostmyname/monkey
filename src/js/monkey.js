@@ -10,7 +10,6 @@ window.Monkey = module.exports = (function () {
    */
   function Monkey(monkeyContainer, options) {
     var $monkeyContainer = $(monkeyContainer);
-    var pickerLocales = ['en-GB', 'en-US', 'fr', 'nl'];
 
     this.options = options = $.extend({
       preload: 3, // Number of pages to preload
@@ -22,7 +21,7 @@ window.Monkey = module.exports = (function () {
       perPage: 4,
       replaceMonkey: false,
       canClose: false,
-      showCharPicker: true || $monkeyContainer.data('show-picker'),
+      showCharPicker: $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
       server: 'https://chameleon.lostmy.name/preview.json?callback=?',
       dprNotSupported: false,
@@ -54,7 +53,7 @@ window.Monkey = module.exports = (function () {
 
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._checkLanguageChange($monkeyContainer, options, pickerLocales))
+      .then(Monkey._checkLanguageChange($monkeyContainer, options))
       .then((data) => {
         data.monkeyContainer = $monkeyContainer;
         return data;
@@ -65,7 +64,7 @@ window.Monkey = module.exports = (function () {
         .then(Monkey._generateBaseElement($monkeyContainer, options))
         .then(Monkey.letters._generateHtml(options));
 
-      if (options.showCharPicker && pickerLocales.indexOf(options.book.locale) !== -1) {
+      if (options.showCharPicker) {
         promise = promise
           .then(Monkey.letters._generateCharPicker(
             options,
