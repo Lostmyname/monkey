@@ -21,7 +21,7 @@ window.Monkey = module.exports = (function () {
       perPage: 4,
       replaceMonkey: false,
       canClose: false,
-      pickerLocalesStr: $monkeyContainer.data('picker-locales'),
+      showCharPicker: $monkeyContainer.data('show-picker'),
       showOverlay: $monkeyContainer.data('show-overlay'),
       server: 'https://chameleon.lostmy.name/preview.json?callback=?',
       dprNotSupported: false,
@@ -39,14 +39,6 @@ window.Monkey = module.exports = (function () {
       }
     }, options);
 
-    if (options.pickerLocalesStr) {
-      options.pickerLocales = options.pickerLocalesStr.split(',').filter(Boolean);
-      options.showCharPicker = options.pickerLocales.indexOf(options.book.locale) !== -1;
-    } else {
-      options.pickerLocales = [];
-      options.showCharPicker = false;
-    }
-
     if ($monkeyContainer.data('first-book-name')) {
       options.book.comparisonBooks = [
         {
@@ -61,7 +53,7 @@ window.Monkey = module.exports = (function () {
 
     var promise = Monkey._getData(options)
       .then(Monkey._calculateMonkey(options.monkeyType))
-      .then(Monkey._checkLanguageChange($monkeyContainer, options, options.pickerLocales))
+      .then(Monkey._checkLanguageChange($monkeyContainer, options))
       .then((data) => {
         data.monkeyContainer = $monkeyContainer;
         return data;
