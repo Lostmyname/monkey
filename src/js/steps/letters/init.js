@@ -14,7 +14,7 @@ var animationSpeed = 800;
  * picker. @todo Break this up into smaller partials?
  * @param  {object} $events          object attached to Monkey
  * @param  {object} options          options that Monkey was init. with
- * @param  {DOMElement} $monkeyContainer The container
+ * @param  {jQuery} $monkeyContainer The container
  * @return {data}                  The data object passed through Promise chain
  */
 module.exports = function ($events, options, $monkeyContainer) {
@@ -332,8 +332,13 @@ module.exports = function ($events, options, $monkeyContainer) {
       // If an overlay is currently being displayed, we don't want the user to
       // be able to interact with the letters.
       if ($monkey.hasClass('js--active-overlay')) {
-        return false;
+        return;
       }
+
+      if (!$monkey.hasClass('ready')) {
+        return;
+      }
+
       // Add a destroy listener so that anywhere the user clicks the picker will
       // hide.
       $('html').one('click', function () {

@@ -19,6 +19,8 @@ module.exports = function ($events, options) {
     }
     data.turnToPage = this.monkeys[data.monkeyType].init(data, $events, options);
 
+    data.monkeyContainer.addClass('ready');
+
     return data;
   }.bind(this);
 };
