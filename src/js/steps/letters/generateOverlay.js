@@ -168,11 +168,11 @@ module.exports = function (options, $events) {
        */
       function revertCharsToOriginal(callback) {
         data.combinedLetters
-          .map((letter, index) => Object.assign(letter, { index }))
+          .map((letter, index) => Object.assign({}, letter, { index }))
           .filter(letter => letter.changed === true)
           .reduce(function (arr, letter) {
             var characters = letter.characters
-              .map(character => Object.assign(character, { pageIndex: letter.index }))
+              .map(character => Object.assign({}, character, { pageIndex: letter.index }))
               .filter(character => character.character === letter.default_character);
 
             return [...arr, ...characters];
