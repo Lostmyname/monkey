@@ -27,6 +27,13 @@ desktop.generateHtml = function (data, lang) {
     $monkey.addClass('with-Spreads');
   }
 
+  $('<a />', {
+    href: '#skip-preview',
+    className: 'for-screen-reader'
+  })
+    .text('Skip book preview')
+    .appendTo($monkeyWrapper);
+
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
       src: url,
@@ -40,6 +47,8 @@ desktop.generateHtml = function (data, lang) {
       .appendTo($monkey);
   });
   $monkey.appendTo($monkeyWrapper);
+
+  $('<span />', { id: 'skip-preview' }).appendTo($monkeyWrapper);
 
   return $monkeyWrapper;
 };
