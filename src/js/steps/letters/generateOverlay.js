@@ -31,7 +31,7 @@ module.exports = function (options, $events) {
 
       $monkeyContainer.addClass(classes.overlayActive);
 
-      $overlay.prependTo($monkeyContainer.find('.js--add-overlay'))
+      $overlay.prependTo($monkeyContainer.find('.monkey-wrapper'))
         .addClass('overlay');
 
       // We want to hide the 'Tap to Preview' label when the overlay is visible
