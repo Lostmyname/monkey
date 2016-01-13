@@ -20,7 +20,7 @@ mobile.calculateSize = function () {
  * @return {HTMLElement}      The monkey wrapper.
  */
 mobile.generateHtml = function (data, lang) {
-  var $monkey = $('<div />').addClass('monkey-wrapper mobile js--add-overlay');
+  var $monkey = $('<div />').addClass('monkey-wrapper mobile');
   var $images = $('<div />').appendTo($monkey)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)

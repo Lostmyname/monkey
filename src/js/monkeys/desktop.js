@@ -20,12 +20,19 @@ desktop.calculateSize = function () {
  */
 desktop.generateHtml = function (data, lang) {
   var $monkeyWrapper = $('<div />')
-    .addClass('pos-relative monkey-wrapper js--add-overlay desktop');
+    .addClass('pos-relative monkey-wrapper desktop');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute');
 
   if (data.spreads === 'double') {
     $monkey.addClass('with-Spreads');
   }
+
+  $('<a />', {
+    href: '#skip-preview',
+    className: 'for-screen-reader'
+  })
+    .text('Skip book preview')
+    .appendTo($monkeyWrapper);
 
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
@@ -40,6 +47,8 @@ desktop.generateHtml = function (data, lang) {
       .appendTo($monkey);
   });
   $monkey.appendTo($monkeyWrapper);
+
+  $('<span />', { id: 'skip-preview' }).appendTo($monkeyWrapper);
 
   return $monkeyWrapper;
 };
