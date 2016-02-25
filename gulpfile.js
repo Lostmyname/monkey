@@ -4,10 +4,6 @@ var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var getLmnTask = require('lmn-gulp-tasks');
 
-gulp.task('auto-reload', getLmnTask('auto-reload', {
-  addArgs: ['--no-open']
-}));
-
 gulp.task('html', getLmnTask('html', {
   langBase: 'component.monkey',
   imagePath: '../../src/imgs/'

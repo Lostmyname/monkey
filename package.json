@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
-    "babelify": "^6.1.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-es2015-lmn": "^1.0.0",
+    "babelify": "^7.2.0",
     "diacritics": "^1.2.1",
     "heidelberg": "^1.1.0",
     "jquery": "^1.11.3",
@@ -14,7 +16,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.12",
     "gulp": "^3.8.8",
-    "lmn-gulp-tasks": "^3.0.0",
+    "lmn-gulp-tasks": "^6.2.1",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
     "phantomjs": "^1.9.16",
