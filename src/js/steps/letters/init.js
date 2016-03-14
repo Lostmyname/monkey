@@ -334,6 +334,9 @@ module.exports = function ($events, options, $monkeyContainer) {
       if ($monkey.hasClass('js--active-overlay')) {
         return false;
       }
+      if (!data.canTurnPage) {
+        return;
+      }
       // Add a destroy listener so that anywhere the user clicks the picker will
       // hide.
       $('html').one('click', function () {

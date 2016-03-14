@@ -18,7 +18,7 @@ module.exports = function ($events, options) {
       $events.trigger('clearCharSelection');
     }
     data.turnToPage = this.monkeys[data.monkeyType].init(data, $events, options);
-
+    data.canTurnPage = true;
     return data;
   }.bind(this);
 };
