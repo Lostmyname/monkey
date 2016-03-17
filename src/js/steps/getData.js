@@ -10,13 +10,35 @@ var $ = require('jquery');
  *                   information on the pages. Seriously, just use a debugger.
  */
 module.exports = function (options) {
-  return $.getJSON(options.server, { book: options.book })
-    .then(function (data) {
-      // For backwards compatibility
-      if (!data.book.spreads) {
-        data.book.spreads = 'double';
-      }
+  var returnPromise;
+  if (!options.platformAPI) {
+    returnPromise = $.getJSON(options.server, { book: options.book })
+      .then(function (data) {
+        // For backwards compatibility
+        if (!data.book.spreads) {
+          data.book.spreads = 'double';
+        }
 
-      return data.book;
-    });
+        return data.book;
+      });
+  } else {
+    returnPromise = $.getJSON(options.server)
+      .then(function (data) {
+        var adapatedData = {
+          book: {
+            spreads: 'single',
+            letters: data.images.map(function (image) {
+              return {
+                url: image.url,
+                id: image.id,
+                type: 'story'
+              };
+            })
+          },
+        };
+        console.log('adapatedData',adapatedData);
+        return adapatedData;
+      });
+  }
+  return returnPromise;
 };
