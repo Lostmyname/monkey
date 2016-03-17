@@ -32,7 +32,7 @@ module.exports = function (options, $events) {
       $monkeyContainer.addClass(classes.overlayActive);
 
       $overlay.prependTo($monkeyContainer.find('.monkey-wrapper'))
-        .addClass('overlay');
+        .addClass('monkey-overlay');
 
       // We want to hide the 'Tap to Preview' label when the overlay is visible
       // so the user only focuses on the content within the overlay, and because
@@ -42,13 +42,9 @@ module.exports = function (options, $events) {
         .next()
         .hide();
 
-      var $overlayInner = $('<div />')
-        .addClass('overlay__inner lg-pad lg-pad-on-md sm-pad-on-sm');
-      $overlayInner.appendTo($overlay);
-
       var $overlayContent = $('<div />')
         .addClass('row');
-      $overlayContent.appendTo($overlayInner);
+      $overlayContent.appendTo($overlay);
 
       var overlayTitle, overlayText;
       var comparisonName = '';

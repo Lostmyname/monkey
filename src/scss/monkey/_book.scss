@@ -4,17 +4,26 @@
 }
 
 .Heidelberg-Page.is-active {
-
-
   .js--active-overlay & {
     transform: none;
   }
 }
 
+$aspect-ratio: percentage(387 / 1054);
+
 .monkey-wrapper {
   height:auto;
-  //padding-top: percentage(500 / 1280);
-  padding-top: percentage(387 / 1054);
+  padding-top: $aspect-ratio;
+}
+
+.monkey-overlay {
+  @include container(700px, 20px);
+  margin-top: -$aspect-ratio;
+  padding-top: $aspect-ratio/4;
+
+  & ~ .Heidelberg-Book {
+    display: none;
+  }
 }
 
 .Heidelberg-Book {
