@@ -24,6 +24,10 @@ $aspect-ratio: percentage(387 / 1054);
   & ~ .Heidelberg-Book {
     display: none;
   }
+
+  .mobile & {
+    margin-top: 0;
+  }
 }
 
 .Heidelberg-Book {
