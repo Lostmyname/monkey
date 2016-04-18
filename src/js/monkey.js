@@ -1,4 +1,12 @@
-window.Monkey = module.exports = (function () {
+(function (Monkey) {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Monkey;
+  }
+
+  if (typeof window !== 'undefined') {
+    window.Monkey = Monkey;
+  }
+})((function () {
   var $ = require('jquery');
   var lang = require('lang');
 
@@ -152,4 +160,4 @@ window.Monkey = module.exports = (function () {
   Monkey.monkeys.desktop.Monkey = Monkey;
 
   return Monkey;
-})();
+})());
