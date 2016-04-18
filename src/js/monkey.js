@@ -6,7 +6,7 @@
   if (typeof window !== 'undefined') {
     window.Monkey = Monkey;
   }
-})(function () {
+})((function () {
   var $ = require('jquery');
   var lang = require('lang');
 
@@ -160,4 +160,4 @@
   Monkey.monkeys.desktop.Monkey = Monkey;
 
   return Monkey;
-}());
+})());
