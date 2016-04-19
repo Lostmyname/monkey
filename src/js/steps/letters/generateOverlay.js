@@ -80,11 +80,14 @@ module.exports = function (options, $events) {
 
       var $yesButton = $('<button />')
         .text(lang('monkey.overlay.buttons.yes_please'))
-        .addClass('button primary col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
+        .addClass('button button--primary col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs')
+        .addClass('spaced-left-small-on-tablet-up block-on-fablet-down widest-on-fablet-down');
 
       var $noButton = $('<button />')
         .text(lang('monkey.overlay.buttons.no_thanks'))
-        .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs');
+        .addClass('button col md-mar-t-on-sm sm-mar md-mar-t-on-xs no-mar-on-xs')
+        .addClass('spaced-right-small-on-tablet-up block-on-fablet-down widest-on-fablet-down')
+        .addClass('spaced-bottom-small-on-fablet-down');
 
       var $okayButton = $('<button />')
         .text(lang('monkey.language.buttons.okay'))
