@@ -72,7 +72,7 @@ module.exports = function (options, monkeyContainer) {
         });
         var $toolTip = $('<div />');
         $toolTip
-          .addClass('character-picker pos-absolute');
+          .addClass('character-picker pos-absolute positioned-absolute');
 
         // If this is the mobile picker, attach it to the picker container div
         // we created earlier, and add a close button. We also change the picker
@@ -86,7 +86,7 @@ module.exports = function (options, monkeyContainer) {
           $toolTip.appendTo($pickerContainer);
           var $closeButton = $('<button>')
               .attr('type', 'button')
-              .addClass('button primary character-picker__close')
+              .addClass('button button--primary character-picker__close')
               .attr('data-js', 'close-mobile-char-picker')
               .text(lang('monkey.char_picker.buttons.close'));
           $closeButton.appendTo($toolTip);
@@ -184,7 +184,7 @@ module.exports = function (options, monkeyContainer) {
             var $selectButton = $('<span />');
             if (usedCharacters.indexOf(charObj.character) === -1) {
               $selectButton
-                .addClass('button primary')
+                .addClass('button button--primary')
                 .text(lang('monkey.char_picker.buttons.select'));
             } else {
               $imgContainer.addClass('selected-char')

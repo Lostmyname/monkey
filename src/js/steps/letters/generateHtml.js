@@ -30,7 +30,7 @@ module.exports = function (options) {
     }).text(' ' + data.name.toLowerCase());
 
     $('<p />').appendTo($lettersContainer)
-      .addClass('no-mar')
+      .addClass('no-mar spaced-none')
       .text(options.lang.bookFor)
       .append($hiddenName);
 

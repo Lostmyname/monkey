@@ -25,6 +25,10 @@ $aspect-ratio: percentage(387 / 1054);
     display: none;
   }
 
+  .desktop & {
+    margin-top: -$aspect-ratio;
+  }
+
   .mobile & {
     margin-top: 0;
   }
