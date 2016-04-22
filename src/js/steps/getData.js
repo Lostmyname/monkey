@@ -24,7 +24,7 @@ module.exports = function (options) {
   } else {
     returnPromise = $.getJSON(options.server)
       .then(function (data) {
-        var adapatedData = {
+        var transformedData = {
           book: {
             spreads: 'single',
             letters: data.images.map(function (image) {
@@ -34,10 +34,9 @@ module.exports = function (options) {
                 type: 'story'
               };
             })
-          },
+          }
         };
-        console.log('adapatedData',adapatedData);
-        return adapatedData;
+        return transformedData.book;
       });
   }
   return returnPromise;
