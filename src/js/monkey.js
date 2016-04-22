@@ -55,6 +55,7 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._checkLanguageChange($monkeyContainer, options))
       .then((data) => {
+        console.log('data', data);
         data.monkeyContainer = $monkeyContainer;
         return data;
       });
@@ -76,9 +77,15 @@ window.Monkey = module.exports = (function () {
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
-    promise = promise
-      .then(Monkey._generateUrls(options))
-      .then(Monkey._generateHtml(options.lang));
+    if(!this.options.platformAPI) {
+      promise = promise
+        .then(Monkey._generateUrls(options))
+        .then(Monkey._generateHtml(options.lang));
+    } else {
+      promise = promise
+        .then(Monkey._generatePlatformUrls(options))
+        .then(Monkey._generateHtml(options.lang));
+    }
 
     if (options.slider) {
       promise = promise
@@ -117,6 +124,7 @@ window.Monkey = module.exports = (function () {
   Monkey._generateBaseElement = require('./steps/generateBaseElement');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
+  Monkey._generatePlatformUrls = require('./steps/generatePlatformUrls');
   Monkey._generateHtml = require('./steps/generateHtml');
   Monkey._insertHtml = require('./steps/insertHtml');
   Monkey._initMonkey = require('./steps/initMonkey');
