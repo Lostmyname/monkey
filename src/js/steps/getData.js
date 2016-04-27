@@ -22,7 +22,6 @@ module.exports = function (options) {
         return data.book;
       });
   } else {
-    console.log('options', options);
     returnPromise = $.ajax({
       dataType: 'JSON',
       url: options.server + 'product-builder/tjh/images',

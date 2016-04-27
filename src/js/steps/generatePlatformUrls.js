@@ -11,12 +11,6 @@ var $ = require('jquery');
 module.exports = function (options) {
   //var monkeys = this.monkeys;
   var helpers = this.helpers;
-  console.log('url options', options);
-
-  // var quality = {
-  //   desktop: 60,
-  //   mobile: 20
-  // };
 
   /**
    * Takes data and turns letters into URLs.
