@@ -22,7 +22,12 @@ module.exports = function (options) {
         return data.book;
       });
   } else {
-    returnPromise = $.getJSON(options.server)
+    console.log('options', options);
+    returnPromise = $.ajax({
+      dataType: 'JSON',
+      url: options.server + 'product-builder/tjh/images',
+      data: options.book
+    })
       .then(function (data) {
         var transformedData = {
           book: {
