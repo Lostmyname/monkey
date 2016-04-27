@@ -52,32 +52,32 @@ function generatePlatformURLs(data) {
 
   var frontPages = [
     {
-      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_FrontCover_RGB.jpg',
       id: 'front-cover',
-      type: 'special'
+      type: 'static'
     },
     {
-      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_Cover_RGB_FrontInsideCover_RGB.jpg',
       id: 'front-cover-inside',
-      type: 'story'
+      type: 'static'
     }
   ];
 
   var backPages = [
     {
-      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BarcodePage_RGB.jpg',
       id: 'back-cover',
-      type: 'story'
+      type: 'static'
     },
     {
-      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BackInsideCover_RGB.jpg',
       id: 'back-cover',
-      type: 'story'
+      type: 'static'
     },
     {
-      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BackCover_RGB.jpg',
       id: 'back-cover',
-      type: 'story'
+      type: 'static'
     }
   ];
 

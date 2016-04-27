@@ -18,7 +18,11 @@ module.exports = function (options) {
     var width = 1004;
     // data.urls is a list of the raw image URLs, not resized or compressed.
     data.urls = $.map(data.letters, function (letterData) {
-      return options.server + letterData.url + '&width=' + width;
+      var url = (letterData.type === 'static')
+        ? letterData.url
+        : options.server + letterData.url + '&width=' + width;
+
+      return url;
     });
 
     return helpers.preload(data.urls.slice(0, options.preload))
