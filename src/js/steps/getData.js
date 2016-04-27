@@ -22,7 +22,7 @@ module.exports = function (options) {
         return data.book;
       });
   } else {
-    console.log('options', options);
+    console.log('options.server', options.server);
     returnPromise = $.ajax({
       dataType: 'JSON',
       url: options.server + 'product-builder/tjh/images',
@@ -32,13 +32,7 @@ module.exports = function (options) {
         var transformedData = {
           book: {
             spreads: 'single',
-            letters: data.images.map(function (image) {
-              return {
-                url: image.url,
-                id: image.id,
-                type: 'story'
-              };
-            })
+            letters: generatePlatformURLs(data)
           }
         };
         return transformedData.book;
@@ -46,3 +40,46 @@ module.exports = function (options) {
   }
   return returnPromise;
 };
+
+function generatePlatformURLs(data) {
+  var dynamicPages = data.images.map(function (image) {
+    return {
+      url: image.url,
+      id: image.id,
+      type: 'story'
+    };
+  });
+
+  var frontPages = [
+    {
+      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      id: 'front-cover',
+      type: 'special'
+    },
+    {
+      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      id: 'front-cover-inside',
+      type: 'story'
+    }
+  ];
+
+  var backPages = [
+    {
+      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      id: 'back-cover',
+      type: 'story'
+    },
+    {
+      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      id: 'back-cover',
+      type: 'story'
+    },
+    {
+      url: '/product-builder/tjh/image?name=jack&gender=boy&locale=en-GB&phototype=type-ii&door_number=96&street=Cavendish+Drive&city=london&country_code=gb&lat=51.568001&lng=-0.000738&inscription=test&page_id=1',
+      id: 'back-cover',
+      type: 'story'
+    }
+  ];
+
+  return [].concat(frontPages, dynamicPages, backPages);
+}

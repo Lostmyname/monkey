@@ -64,6 +64,7 @@ window.Monkey = module.exports = (function () {
         .then(Monkey._generateBaseElement($monkeyContainer, options))
         .then(Monkey.letters._generateHtml(options));
 
+      console.log('options.letters', options.letters, 'options.showCharPicker', options.showCharPicker);
       if (options.showCharPicker) {
         promise = promise
           .then(Monkey.letters._generateCharPicker(
@@ -76,22 +77,25 @@ window.Monkey = module.exports = (function () {
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
-    if(!this.options.platformAPI) {
+    var generateUrls = (!this.options.platformAPI)
+      ? Monkey._generateUrls(options)
+      : Monkey._generatePlatformUrls(options);
+
+    promise = promise
+      .then(generateUrls)
+      .then(Monkey._generateHtml(options.lang));
+
+    if (this.options.platformAPI) {
       promise = promise
-        .then(Monkey._generateUrls(options))
-        .then(Monkey._generateHtml(options.lang));
-    } else {
-      promise = promise
-        .then(Monkey._generatePlatformUrls(options))
-        .then(Monkey._generateHtml(options.lang));
+        .then(Monkey._generateBaseElement($monkeyContainer, options));
     }
 
-    if (options.slider) {
-      promise = promise
-        .then(Monkey._generateBaseElement($monkeyContainer, options))
-        .then(Monkey.slider._generateHtml(options))
-        .then(Monkey.slider._init(this.$events));
-    }
+    // if (options.slider) {
+    //   promise = promise
+    //     .then(Monkey.slider._generateHtml(options))
+    //     .then(Monkey.slider._init(this.$events))
+    //     .then(Monkey._generateBaseElement($monkeyContainer, options));
+    // }
 
     promise = promise
       .then(Monkey._insertHtml($monkeyContainer))
