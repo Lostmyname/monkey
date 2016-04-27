@@ -55,7 +55,6 @@ window.Monkey = module.exports = (function () {
       .then(Monkey._calculateMonkey(options.monkeyType))
       .then(Monkey._checkLanguageChange($monkeyContainer, options))
       .then((data) => {
-        console.log('data', data);
         data.monkeyContainer = $monkeyContainer;
         return data;
       });

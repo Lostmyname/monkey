@@ -11,6 +11,7 @@ var $ = require('jquery');
 module.exports = function (options) {
   //var monkeys = this.monkeys;
   var helpers = this.helpers;
+  console.log('url options', options);
 
   // var quality = {
   //   desktop: 60,
@@ -26,7 +27,7 @@ module.exports = function (options) {
 
     // data.urls is a list of the raw image URLs, not resized or compressed.
     data.urls = $.map(data.letters, function (letterData) {
-      return 'http://prod1.platform.lostmy.name' + letterData.url;
+      return options.server + letterData.url;
     });
 
     return helpers.preload(data.urls.slice(0, options.preload))
