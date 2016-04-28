@@ -1,11 +1,11 @@
-var $ = require('jquery');
+import $ from 'jquery';
 
 /**
  * Generate HTML for slider.
  *
  * @param {object} options Options passed to monkey.
  */
-module.exports = function (options) {
+export default function (options) {
   return function (data) {
     var $sliderContainer = $('<div />', {
       id: 'slider-container',
@@ -33,4 +33,4 @@ module.exports = function (options) {
 
     return data;
   };
-};
+}

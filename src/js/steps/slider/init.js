@@ -1,4 +1,4 @@
-module.exports = function ($events) {
+export default function ($events) {
   return function (data) {
     if (!data.sliderElement) {
       return data;
@@ -27,4 +27,4 @@ module.exports = function ($events) {
 
     return data;
   };
-};
+}

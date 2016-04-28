@@ -15,7 +15,7 @@ module.exports = function (options) {
    * Takes data and turns letters into URLs.
    */
   return function (data) {
-    var width = 1004;
+    var width = 587 * (window.devicePixelRatio || 1);
     // data.urls is a list of the raw image URLs, not resized or compressed.
     data.urls = $.map(data.letters, function (letterData) {
       var url = (letterData.type === 'static')
