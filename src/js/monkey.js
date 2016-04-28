@@ -76,9 +76,9 @@ window.Monkey = module.exports = (function () {
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
-    var generateUrls = (!this.options.platformAPI)
-      ? Monkey._generateUrls(options)
-      : Monkey._generatePlatformUrls(options);
+    var generateUrls = (this.options.platformAPI)
+      ? Monkey._generatePlatformUrls(options)
+      : Monkey._generateUrls(options);
 
     promise = promise
       .then(generateUrls)
@@ -92,8 +92,7 @@ window.Monkey = module.exports = (function () {
     if (options.slider) {
       promise = promise
         .then(Monkey.slider._generateHtml(options))
-        .then(Monkey.slider._init(this.$events))
-        .then(Monkey._generateBaseElement($monkeyContainer, options));
+        .then(Monkey.slider._init(this.$events));
     }
 
     promise = promise
