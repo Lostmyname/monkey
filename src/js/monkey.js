@@ -84,13 +84,21 @@
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
 
+    var generateUrls = (this.options.platformAPI)
+      ? Monkey._generatePlatformUrls(options)
+      : Monkey._generateUrls(options);
+
     promise = promise
-      .then(Monkey._generateUrls(options))
+      .then(generateUrls)
       .then(Monkey._generateHtml(options.lang));
+
+    if (this.options.platformAPI) {
+      promise = promise
+        .then(Monkey._generateBaseElement($monkeyContainer, options));
+    }
 
     if (options.slider) {
       promise = promise
-        .then(Monkey._generateBaseElement($monkeyContainer, options))
         .then(Monkey.slider._generateHtml(options))
         .then(Monkey.slider._init(this.$events));
     }
@@ -125,6 +133,7 @@
   Monkey._generateBaseElement = require('./steps/generateBaseElement');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
+  Monkey._generatePlatformUrls = require('./steps/generatePlatformUrls');
   Monkey._generateHtml = require('./steps/generateHtml');
   Monkey._insertHtml = require('./steps/insertHtml');
   Monkey._initMonkey = require('./steps/initMonkey');
