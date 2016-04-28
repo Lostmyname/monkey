@@ -51,12 +51,12 @@ function generatePlatformURLs(data) {
 
   var frontPages = [
     {
-      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_FrontCover_RGB.jpg',
+      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_FrontCover_RGB.jpg',
       id: 'front-cover',
       type: 'static'
     },
     {
-      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_Cover_RGB_FrontInsideCover_RGB.jpg',
+      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_Cover_RGB_FrontInsideCover_RGB.jpg',
       id: 'front-cover-inside',
       type: 'static'
     }
@@ -64,17 +64,17 @@ function generatePlatformURLs(data) {
 
   var backPages = [
     {
-      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BarcodePage_RGB.jpg',
+      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BarcodePage_RGB.jpg',
       id: 'back-cover',
       type: 'static'
     },
     {
-      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BackInsideCover_RGB.jpg',
+      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BackInsideCover_RGB.jpg',
       id: 'back-cover',
       type: 'static'
     },
     {
-      url: 'https://s3-eu-west-1.amazonaws.com/tjh-preview-assets/TheJourneyHome_BackCover_RGB.jpg',
+      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BackCover_RGB.jpg',
       id: 'back-cover',
       type: 'static'
     }
