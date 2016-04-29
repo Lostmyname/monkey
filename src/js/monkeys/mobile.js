@@ -26,16 +26,20 @@ mobile.generateHtml = function (data, lang) {
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
 
+  if (data.spreads === 'single') {
+    $monkey.addClass('single-spreads');
+  }
+
   // For each image URL we get passed, create the image and add it to the page.
   $.each(data.urls, function (i, url) {
     var $page = $('<div />').appendTo($inner)
       .addClass('page page-' + data.letters[i].type + ' Page-' + i);
 
-    if (i === 0) {
+    if (data.spreads === 'single') {
+      $page.addClass('page-halfwidth');
+    } else if (i === 0) {
       $page.addClass('page-first page-halfwidth');
-    }
-
-    if (i === data.urls.length - 1) {
+    } else if (i === data.urls.length - 1) {
       $page.addClass('page-halfwidth');
     }
 
@@ -80,7 +84,10 @@ mobile.init = function (data, $events) {
 
     $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
-      .find('img').css('height', height);
+      .find('img').css({
+        height: height,
+        width: Math.ceil(width / 2)
+      });
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
