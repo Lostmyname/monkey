@@ -84,10 +84,11 @@ mobile.init = function (data, $events) {
 
     $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
-      .find('img').css({
-        height: height,
-        width: Math.ceil(width / 2)
-      });
+      .find('img').css('height', height);
+
+    if (data.spreads === 'single') {
+      $('.page-halfwidth img').css('width', width / 2);
+    }
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
