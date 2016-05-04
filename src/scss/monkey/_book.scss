@@ -60,7 +60,7 @@ $aspect-ratio: percentage(387 / 1054);
 }
 
 .Heidelberg-Page {
-  background: image-url('loading-large.gif') white no-repeat center center;
+  // background: image-url('loading-large.gif') white no-repeat center center;
 
   .Heidelberg-HiddenCover + & .Heidelberg-Spread {
     background-image: none !important;
