@@ -27,7 +27,10 @@ module.exports = function ($events, options) {
     var $images = data.monkeyContainer.find('[class*="page"] img');
     $images.on('error', function () {
       if (window.analytics) {
-        analytics.track('Broken image in monkey', { src: this.src });
+        analytics.track('Broken image in monkey', {
+          src: this.src,
+          pageID: this.getAttribute('data-id')
+        });
       }
     });
 
