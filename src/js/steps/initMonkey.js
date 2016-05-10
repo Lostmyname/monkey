@@ -1,3 +1,5 @@
+/* global analytics */
+
 'use strict';
 
 /**
@@ -20,6 +22,29 @@ module.exports = function ($events, options) {
     data.turnToPage = this.monkeys[data.monkeyType].init(data, $events, options);
 
     data.monkeyContainer.addClass('ready');
+
+    // Track errors on image load
+    var $images = data.monkeyContainer.find('[class*="page"] img');
+    $images.on('error', function () {
+      if (window.analytics) {
+        analytics.track('Broken image in monkey', {
+          src: this.src,
+          pageID: this.getAttribute('data-id')
+        });
+      }
+    });
+
+    var remaining = $images.filter(function () {
+      return !this.complete;
+    }).length;
+
+    $images.on('load', function () {
+      remaining--;
+
+      if (!remaining && window.analytics && options.platformAPI) {
+        analytics.track('Monkey images all loaded');
+      }
+    });
 
     return data;
   }.bind(this);

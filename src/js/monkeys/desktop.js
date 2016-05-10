@@ -45,6 +45,8 @@ desktop.generateHtml = function (data, lang) {
       .addClass('page-' + data.letters[i].type + ' Page-' + i)
       .append($img)
       .appendTo($monkey);
+
+    $img.attr('data-id', data.letters[i].id);
   });
   $monkey.appendTo($monkeyWrapper);
 
