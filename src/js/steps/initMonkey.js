@@ -21,6 +21,14 @@ module.exports = function ($events, options) {
 
     data.monkeyContainer.addClass('ready');
 
+    // Track errors on image load
+    var $images = data.monkeyContainer.find('[class*="page"] img');
+    $images.on('error', function () {
+      if (window.analytics) {
+        analytics.track('Broken image in monkey', { src: this.src });
+      }
+    });
+
     return data;
   }.bind(this);
 };
