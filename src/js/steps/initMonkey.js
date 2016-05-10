@@ -1,3 +1,5 @@
+/* global analytics */
+
 'use strict';
 
 /**
@@ -26,6 +28,18 @@ module.exports = function ($events, options) {
     $images.on('error', function () {
       if (window.analytics) {
         analytics.track('Broken image in monkey', { src: this.src });
+      }
+    });
+
+    var remaining = $images.filter(function () {
+      return !this.complete;
+    }).length;
+
+    $images.on('load', function () {
+      remaining--;
+
+      if (!remaining && window.analytics && options.platformAPI) {
+        analytics.track('Monkey images all loaded');
       }
     });
 
