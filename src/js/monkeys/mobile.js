@@ -20,8 +20,7 @@ mobile.calculateSize = function () {
  * @return {HTMLElement}      The monkey wrapper.
  */
 mobile.generateHtml = function (data, lang) {
-  var $monkey = $('<div />').addClass('monkey-wrapper mobile');
-  var $images = $('<div />').appendTo($monkey)
+  var $images = $('<div />').appendTo(data.$monkeyWrapper)
     .addClass('landscape-images');
   var $inner = $('<div />').appendTo($images)
     .addClass('landscape-images-inner');
@@ -45,7 +44,7 @@ mobile.generateHtml = function (data, lang) {
     }).appendTo($page);
   });
 
-  return $monkey;
+  return data.$monkeyWrapper;
 };
 /*eslint-disable no-unused-vars */
 mobile.generateBaseElement = function (data) {
