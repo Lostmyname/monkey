@@ -19,8 +19,9 @@ desktop.calculateSize = function () {
  * @return {HTMLElement}      The monkey wrapper.
  */
 desktop.generateHtml = function (data, lang) {
-  var $monkeyWrapper = $('<div />')
-    .addClass('pos-relative positioned-relative monkey-wrapper desktop');
+  console.log(data);
+  // var $monkeyWrapper = $('<div />')
+  //   .addClass('pos-relative positioned-relative monkey-wrapper desktop');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute positioned-absolute');
 
   if (data.spreads === 'double') {
@@ -32,7 +33,7 @@ desktop.generateHtml = function (data, lang) {
     className: 'for-screen-reader'
   })
     .text('Skip book preview')
-    .appendTo($monkeyWrapper);
+    .appendTo(data.$monkeyWrapper);
 
   $.each(data.urls, function (i, url) {
     var $img = $('<img />', {
@@ -48,11 +49,11 @@ desktop.generateHtml = function (data, lang) {
 
     $img.attr('data-id', data.letters[i].id);
   });
-  $monkey.appendTo($monkeyWrapper);
+  $monkey.appendTo(data.$monkeyWrapper);
 
-  $('<span />', { id: 'skip-preview' }).appendTo($monkeyWrapper);
+  $('<span />', { id: 'skip-preview' }).appendTo(data.$monkeyWrapper);
 
-  return $monkeyWrapper;
+  return data.$monkeyWrapper;
 };
 
 // @todo document this.
