@@ -19,9 +19,6 @@ desktop.calculateSize = function () {
  * @return {HTMLElement}      The monkey wrapper.
  */
 desktop.generateHtml = function (data, lang) {
-  console.log(data);
-  // var $monkeyWrapper = $('<div />')
-  //   .addClass('pos-relative positioned-relative monkey-wrapper desktop');
   var $monkey = $('<div />').addClass('Heidelberg-Book with-Spreads pos-absolute positioned-absolute');
 
   if (data.spreads === 'double') {

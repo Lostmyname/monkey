@@ -9,13 +9,11 @@ var $ = require('jquery');
  */
 module.exports = function ($monkeyContainer) {
   return function (data) {
-    if (data.monkeyType === 'mobile') {
-      data.$monkeyWrapper = $('<div />').addClass('monkey-wrapper mobile');
-    } else {
-      data.$monkeyWrapper = $('<div />')
-        .addClass('pos-relative positioned-relative monkey-wrapper desktop');
-    }
+    var classes = data.monkeyType === 'mobile' ?
+                  'monkey-wrapper mobile' :
+                  'positioned-relative pos-relative monkey-wrapper desktop';
 
+    data.$monkeyWrapper = $('<div />').addClass(classes);
     data.$monkeyWrapper.appendTo($monkeyContainer);
 
     return data;
