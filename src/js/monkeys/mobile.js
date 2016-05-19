@@ -20,23 +20,27 @@ mobile.calculateSize = function () {
  * @return {HTMLElement}      The monkey wrapper.
  */
 mobile.generateHtml = function (data, lang) {
-  var $monkey = $('<div />').addClass('monkey-wrapper mobile');
-  var $images = $('<div />').appendTo($monkey)
+  var $images = $('<div />')
+    .appendTo(data.$monkeyWrapper)
     .addClass('landscape-images');
-  var $inner = $('<div />').appendTo($images)
+  var $inner = $('<div />')
+    .appendTo($images)
     .addClass('landscape-images-inner');
 
   // For each image URL we get passed, create the image and add it to the page.
   $.each(data.urls, function (i, url) {
-    var $page = $('<div />').appendTo($inner)
+    var $page = $('<div />')
+      .appendTo($inner)
       .addClass('page page-' + data.letters[i].type + ' Page-' + i);
 
     if (i === 0) {
-      $page.addClass('page-first page-halfwidth');
+      $page
+        .addClass('page-first page-halfwidth');
     }
 
     if (i === data.urls.length - 1) {
-      $page.addClass('page-halfwidth');
+      $page
+        .addClass('page-halfwidth');
     }
 
     $('<img />', {
@@ -45,11 +49,12 @@ mobile.generateHtml = function (data, lang) {
     }).appendTo($page);
   });
 
-  return $monkey;
+  return data.$monkeyWrapper;
 };
 /*eslint-disable no-unused-vars */
 mobile.generateBaseElement = function (data) {
-  return $('<div />').addClass('monkey mobile');
+  return $('<div />')
+    .addClass('monkey mobile');
 };
 /*eslint-enable no-unused-vars */
 

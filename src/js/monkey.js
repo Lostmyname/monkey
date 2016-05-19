@@ -70,7 +70,8 @@
     if (options.letters) {
       promise = promise
         .then(Monkey._generateBaseElement($monkeyContainer, options))
-        .then(Monkey.letters._generateHtml(options));
+        .then(Monkey.letters._generateHtml(options))
+        .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
 
       if (options.showCharPicker) {
         promise = promise
@@ -131,6 +132,7 @@
 
   Monkey._getData = require('./steps/getData');
   Monkey._generateBaseElement = require('./steps/generateBaseElement');
+  Monkey._generateBaseWrapperElement = require('./steps/generateBaseWrapperElement');
   Monkey._calculateMonkey = require('./steps/calculateMonkey');
   Monkey._generateUrls = require('./steps/generateUrls');
   Monkey._generatePlatformUrls = require('./steps/generatePlatformUrls');
