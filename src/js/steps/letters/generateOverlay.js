@@ -39,7 +39,7 @@ module.exports = function (options, $events) {
       // it's nonsensical to have a label to 'Tap to Preview' when you, at that
       // stage, can't.
       $monkeyContainer
-        .next()
+        .next('.italic')
         .hide();
 
       var $overlayContent = $('<div />')
@@ -138,7 +138,7 @@ module.exports = function (options, $events) {
           data.updateCharSelection();
         }
         $monkeyContainer
-          .next()
+          .next('.italic')
           .removeAttr('style');
         $('.letter').removeClass('changed');
         $('.letter-spans').animate({
