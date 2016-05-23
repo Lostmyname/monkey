@@ -448,6 +448,8 @@ module.exports = function ($events, options, $monkeyContainer) {
       $events.trigger('charactersChanged', { characters: charactersArray });
     };
 
+    data.updateCharSelection();
+
     /**
      * Wrapper function for other functions which all contribute to changing the
      * character within a letter. It changes the thumbnail, changes the button
