@@ -81,8 +81,13 @@
           )
         );
       }
-
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
+    }
+
+    if (this.options.platformAPI) {
+      promise = promise
+        .then(Monkey._generateBaseElement($monkeyContainer, options))
+        .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
     }
 
     var generateUrls = (this.options.platformAPI)
@@ -93,10 +98,7 @@
       .then(generateUrls)
       .then(Monkey._generateHtml(options.lang));
 
-    if (this.options.platformAPI) {
-      promise = promise
-        .then(Monkey._generateBaseElement($monkeyContainer, options));
-    }
+
 
     if (options.slider) {
       promise = promise
