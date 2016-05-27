@@ -67,11 +67,17 @@
         return data;
       });
 
+    if (options.letters || this.options.platformAPI) {
+      promise = promise
+        .then(Monkey._generateBaseElement($monkeyContainer, options));
+    }
+
+    promise = promise
+      .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
+
     if (options.letters) {
       promise = promise
-        .then(Monkey._generateBaseElement($monkeyContainer, options))
-        .then(Monkey.letters._generateHtml(options))
-        .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
+        .then(Monkey.letters._generateHtml(options));
 
       if (options.showCharPicker) {
         promise = promise
@@ -82,12 +88,6 @@
         );
       }
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
-    }
-
-    if (this.options.platformAPI) {
-      promise = promise
-        .then(Monkey._generateBaseElement($monkeyContainer, options))
-        .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
     }
 
     var generateUrls = (this.options.platformAPI)
