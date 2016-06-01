@@ -10,7 +10,7 @@ var $ = require('jquery');
 module.exports = function ($monkeyContainer) {
   return function (data) {
     var classes = data.monkeyType === 'mobile' ?
-                  'monkey-wrapper mobile' :
+                  'monkey-wrapper mobile spreads-' + data.spreads :
                   'positioned-relative pos-relative monkey-wrapper desktop';
 
     data.$monkeyWrapper = $('<div />').addClass(classes);

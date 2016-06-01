@@ -51,12 +51,6 @@ mobile.generateHtml = function (data, lang) {
 
   return data.$monkeyWrapper;
 };
-/*eslint-disable no-unused-vars */
-mobile.generateBaseElement = function (data) {
-  return $('<div />')
-    .addClass('monkey mobile');
-};
-/*eslint-enable no-unused-vars */
 
 // @todo document this
 mobile.init = function (data, $events) {
@@ -72,20 +66,23 @@ mobile.init = function (data, $events) {
 
   function setWidths() {
     var widthModifier = 1.5;
-    var width = $window.width() * widthModifier;
+    var widthInitial = data.spreads === 'single' ? $window.width() / 2 : $window.width();
+    var width = widthInitial * widthModifier;
     var height = Math.ceil(width / RATIO);
     var $page = $('.page');
-
-    $('.landscape-images-inner').width(width * ($page.length + 1));
+    var pageModifier = data.spreads === 'single' ? 2 : 1;
+    $('.landscape-images-inner').width(width * ($page.length + pageModifier));
 
     $page.children('img').css({
       height: height,
       width: Math.ceil(width)
     });
 
-    $('.page-halfwidth')
-      .css('width', Math.ceil(width / 2))
-      .find('img').css('height', height);
+    if (data.spreads !== 'single') {
+      $('.page-halfwidth')
+        .css('width', Math.ceil(width / 2))
+        .find('img').css('height', height);
+    }
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
