@@ -28,6 +28,10 @@ describe('Using monkey on mobile', function () {
     $container.children().length.should.equal(2);
   });
 
+  it('should have the spreads-double class applied to it', function () {
+    $monkey.hasClass('spreads-double').should.equal(true);
+  });
+
   it('should scroll', function () {
     $monkey.scrollLeft(100);
     $monkey.scrollLeft().should.equal(100);
