@@ -9,8 +9,10 @@ var $ = require('jquery');
  */
 module.exports = function ($monkeyContainer) {
   return function (data) {
+    var singleSpreadClass = data.spreads === 'single' ? 'single-spreads' : '';
+
     var classes = data.monkeyType === 'mobile' ?
-                  'monkey-wrapper mobile' :
+                  'monkey-wrapper mobile ' + singleSpreadClass :
                   'positioned-relative pos-relative monkey-wrapper desktop';
 
     data.$monkeyWrapper = $('<div />').addClass(classes);

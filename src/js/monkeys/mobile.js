@@ -27,10 +27,6 @@ mobile.generateHtml = function (data, lang) {
     .appendTo($images)
     .addClass('landscape-images-inner');
 
-  if (data.spreads === 'single') {
-    $monkey.addClass('single-spreads');
-  }
-
   // For each image URL we get passed, create the image and add it to the page.
   $.each(data.urls, function (i, url) {
     var $page = $('<div />')
@@ -53,12 +49,6 @@ mobile.generateHtml = function (data, lang) {
 
   return data.$monkeyWrapper;
 };
-/*eslint-disable no-unused-vars */
-mobile.generateBaseElement = function (data) {
-  return $('<div />')
-    .addClass('monkey mobile');
-};
-/*eslint-enable no-unused-vars */
 
 // @todo document this
 mobile.init = function (data, $events) {
