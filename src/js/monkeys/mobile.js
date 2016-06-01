@@ -33,14 +33,12 @@ mobile.generateHtml = function (data, lang) {
       .appendTo($inner)
       .addClass('page page-' + data.letters[i].type + ' Page-' + i);
 
-    if (i === 0) {
-      $page
-        .addClass('page-first page-halfwidth');
-    }
-
-    if (i === data.urls.length - 1) {
-      $page
-        .addClass('page-halfwidth');
+    if (data.spreads === 'single') {
+      $page.addClass('page-halfwidth');
+    } else if (i === 0) {
+      $page.addClass('page-first page-halfwidth');
+    } else if (i === data.urls.length - 1) {
+      $page.addClass('page-halfwidth');
     }
 
     $('<img />', {
@@ -51,12 +49,6 @@ mobile.generateHtml = function (data, lang) {
 
   return data.$monkeyWrapper;
 };
-/*eslint-disable no-unused-vars */
-mobile.generateBaseElement = function (data) {
-  return $('<div />')
-    .addClass('monkey mobile');
-};
-/*eslint-enable no-unused-vars */
 
 // @todo document this
 mobile.init = function (data, $events) {
@@ -86,6 +78,10 @@ mobile.init = function (data, $events) {
     $('.page-halfwidth')
       .css('width', Math.ceil(width / 2))
       .find('img').css('height', height);
+
+    if (data.spreads === 'single') {
+      $('.page-halfwidth img').css('width', width / 2);
+    }
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
