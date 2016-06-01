@@ -74,9 +74,16 @@
 .page {
   position: relative;
   float: left;
-  min-width: 490px;
   padding-right: 10px;
   overflow: hidden;
+
+  .spreads-double & {
+    min-width: 490px;
+  }
+
+  .spreads-single & {
+    min-width: 290px;
+  }
 
   .landscape & {
     background: #333333;
@@ -89,12 +96,18 @@
 
   img {
     position: relative;
-    left: -100%;
+
+    .spreads-double & {
+      left: -100%;
+    }
   }
 }
 
 .page-halfwidth {
-  min-width: 0;
+  .spreads-single &,
+  .spreads-double & {
+    min-width: 0;
+  }
 }
 
 #letters-container {
