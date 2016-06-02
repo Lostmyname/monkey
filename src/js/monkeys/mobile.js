@@ -4,6 +4,7 @@ var $ = require('jquery');
 
 var mobile = module.exports = {};
 var $window = $(window);
+var numberOfMonkeys = 0;
 
 mobile.calculateSize = function () {
   var height = Math.min($window.width(), $window.height());
@@ -54,10 +55,14 @@ mobile.generateHtml = function (data, lang) {
 mobile.init = function (data, $events) {
   var windowLeft = 0;
   var maxProgress = 0;
+  ++numberOfMonkeys;
 
   var $monkey = data.html;
   $monkey.parents('#monkey').addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
+  // console.log($('#monkey'));
+  // If it's the TJH book, we want to enable animating when using the turnToPage function
+  data.animateToPage = $('#monkey').attr('data-key') === 'tjh-book';
 
   $window.on('orientationchange resize', setWidths);
   setTimeout(setWidths);
@@ -87,6 +92,7 @@ mobile.init = function (data, $events) {
   }
 
   $monkey.on('scroll', function () {
+
     var scrollLeft = $monkey.scrollLeft();
     var index = scrollLeft / $monkey.find('.landscape-images-inner').width();
     if (index > maxProgress) {
@@ -114,7 +120,11 @@ mobile.init = function (data, $events) {
     page2El.attr({ src: character.url2 + data.queryString });
   };
 
-  this.harass(data);
+  // If we're animating the pageTurn (TJH), we don't want the harassment to execute
+  // on any rendering of the book after the first.
+  if ((data.animateToPage && numberOfMonkeys < 2) || !data.animateToPage) {
+    this.harass(data);
+  }
 
   return this.letterHandler(data, $events);
 };
@@ -177,9 +187,16 @@ mobile.letterHandler = function (data, $events) {
   // index is the letter index
   return function turnToPage(index) {
     var $pages = data.html.find('.page');
-    var $page = $pages.eq(index * 2 + 1);
+    var factor = data.spreads === 'single' ? index : (index * 2 - 1);
+    var $page = $pages.eq(factor);
     var offset = $page.offset().left - $page.parent().offset().left;
-
-    $monkey.scrollLeft(offset);
+    var INITIAL_SPEED = 500;
+    if (data.animateToPage) {
+      $monkey.animate({
+        scrollLeft: offset
+      }, INITIAL_SPEED * Math.sqrt(factor), 'easeInOutQuad');
+    } else {
+      $monkey.scrollLeft(offset);
+    }
   };
 };

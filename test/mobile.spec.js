@@ -46,7 +46,6 @@ describe('Using monkey on mobile', function () {
 
   it('should fire event when scrolled', function (cb) {
     this.timeout(500); // If it isn't fired in this time, it won't be
-
     monkey.$events.on('halfway', function () {
       cb();
     });
@@ -55,5 +54,59 @@ describe('Using monkey on mobile', function () {
 
   after(function () {
     $container.remove();
+  });
+});
+
+describe('Using TJH monkey on mobile', function () {
+  var $monkey, monkey, monkeyData;
+  var $container = $('<div />')
+    .attr('id', 'monkey')
+    .attr('data-key', 'tjh-book')
+    .attr('data-server', 'https://prod1-platform.lostmy.name/');
+
+  before(function () {
+    monkey = new Monkey($container, {
+      monkeyType: 'mobile',
+      platformAPI: true,
+      letters: false,
+      server: 'https://prod1-platform.lostmy.name/',
+      book: {
+        name: 'Tal',
+        gender: 'boy',
+        locale: 'en-gb',
+        inscription: 'test',
+        country_code: 'gb', // eslint-disable-line camelcase
+        address: '',
+        door_number: '10', // eslint-disable-line camelcase
+        lat: '51.171223',
+        lng: '-1.789289',
+        phototype: 'type-ii'
+      }
+    });
+
+    return monkey.promise.then(function (data) {
+      data.animateToPage = true;
+      data.html.trigger('touchstart');
+      monkeyData = data;
+      $monkey = $container.find('.monkey-wrapper');
+      $container.appendTo('body');
+    });
+  });
+
+  it('should be initiated', function () {
+    $container.children().length.should.equal(1);
+  });
+
+  it('should have the animateToPage value set to true', function () {
+    monkeyData.animateToPage.should.equal(true);
+  });
+
+  it('should change the page with the turnToPage function', function (done) {
+    monkey.turnToPage(5);
+    setTimeout(function () {
+      if ($monkey.scrollLeft() > 0) {
+        done();
+      }
+    }, 500);
   });
 });
