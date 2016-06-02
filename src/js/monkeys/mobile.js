@@ -58,10 +58,11 @@ mobile.init = function (data, $events) {
   ++numberOfMonkeys;
 
   var $monkey = data.html;
-  $monkey.parents('#monkey').addClass('mobile');
+  var $monkeyParent = $monkey.parents('#monkey');
+  $monkeyParent.addClass('mobile');
   var RATIO = this.Monkey.IMAGE_RATIO;
   // If it's the TJH book, we want to enable animating when using the turnToPage function
-  data.animateToPage = $('#monkey').attr('data-key') === 'tjh-book';
+  data.animateToPage = $monkeyParent.attr('data-key') === 'tjh-book';
 
   $window.on('orientationchange resize', setWidths);
   setTimeout(setWidths);
