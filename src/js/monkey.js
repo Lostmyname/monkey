@@ -75,6 +75,14 @@
     promise = promise
       .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
 
+    var generateUrls = (this.options.platformAPI)
+      ? Monkey._generatePlatformUrls(options)
+      : Monkey._generateUrls(options);
+
+    promise = promise
+      .then(generateUrls)
+      .then(Monkey._generateHtml(options.lang));
+
     if (options.letters) {
       promise = promise
         .then(Monkey.letters._generateHtml(options));
@@ -89,14 +97,6 @@
       }
       promise = promise.then(Monkey.letters._init(this.$events, options, $monkeyContainer));
     }
-
-    var generateUrls = (this.options.platformAPI)
-      ? Monkey._generatePlatformUrls(options)
-      : Monkey._generateUrls(options);
-
-    promise = promise
-      .then(generateUrls)
-      .then(Monkey._generateHtml(options.lang));
 
 
 
