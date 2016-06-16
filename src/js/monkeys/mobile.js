@@ -5,13 +5,11 @@ var $ = require('jquery');
 var mobile = module.exports = {};
 var $window = $(window);
 var numberOfMonkeys = 0;
+var widthModifier = 1.5;
 
 mobile.calculateSize = function () {
-  var height = Math.min($window.width(), $window.height());
-
-  // Max height = iPad three
-  var MAX_HEIGHT = 768;
-  return 'h=' + Math.min(MAX_HEIGHT, Math.ceil(height));
+  var width = $window.width() * widthModifier;
+  return Math.round(width / (window.devicePixelRatio || 1));
 };
 
 /**
@@ -68,7 +66,6 @@ mobile.init = function (data, $events) {
   setTimeout(setWidths);
 
   function setWidths() {
-    var widthModifier = 1.5;
     var width = $window.width() * widthModifier;
     var height = Math.ceil(width / RATIO);
     var $page = $('.page');
