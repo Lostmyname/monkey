@@ -14,7 +14,7 @@ module.exports = function (options) {
 
   var quality = {
     desktop: 60,
-    mobile: 20
+    mobile: 60
   };
 
   /**
