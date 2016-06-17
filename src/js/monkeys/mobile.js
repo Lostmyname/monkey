@@ -9,7 +9,7 @@ var widthModifier = 1.5;
 
 mobile.calculateSize = function () {
   var width = $window.width() * widthModifier;
-  return Math.round(width / (window.devicePixelRatio || 1));
+  return Math.round(width);
 };
 
 /**
