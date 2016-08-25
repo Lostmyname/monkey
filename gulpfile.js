@@ -4,11 +4,6 @@ var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var getLmnTask = require('lmn-gulp-tasks');
 
-gulp.task('html', getLmnTask('html', {
-  langBase: 'component.monkey',
-  imagePath: '../../src/imgs/'
-}));
-
 var jsOpts = {
   src: './src/js/monkey.js',
   dest: './demo/build/bundle.js'
@@ -28,7 +23,7 @@ gulp.task('scss', getLmnTask('scss', {
   minify: false
 }));
 
-gulp.task('build', ['html', 'js', 'scss']);
+gulp.task('build', ['js', 'scss']);
 gulp.task('default', ['build', 'js-watch'], function () {
   var config = {
     server: {
