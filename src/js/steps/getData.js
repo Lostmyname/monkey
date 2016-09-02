@@ -24,7 +24,7 @@ module.exports = function (options) {
   } else {
     returnPromise = $.ajax({
       dataType: 'JSON',
-      url: options.server + 'product-builder/tjh/images',
+      url: options.server,
       data: options.book
     })
       .then(function (data) {
