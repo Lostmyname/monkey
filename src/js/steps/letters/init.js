@@ -426,11 +426,10 @@ module.exports = function ($events, options, $monkeyContainer) {
      * @return {null}
      */
     data.updateCharSelection = function (event) {
-      var $spans = $spans ||
-                data
-                  .lettersElement
-                  .find('#letters')
-                  .find('.letter:not(.special-char)');
+      var $spans = data
+        .lettersElement
+        .find('#letters')
+        .find('.letter:not(.special-char)');
       var charactersArray = $.map($spans, function (el) {
         var $letter = $(el);
         if ($letter.attr('data-letter')) {
