@@ -11,6 +11,10 @@ var $ = require('jquery');
  */
 module.exports = function (options) {
   var returnPromise;
+  var url = options.serverPath
+    ? trimTrailingSlash(options.server) + '/' + trimLeadingSlash(options.serverPath)
+    : options.server;
+
   if (!options.platformAPI) {
     returnPromise = $.getJSON(options.server, { book: options.book })
       .then(function (data) {
@@ -24,7 +28,7 @@ module.exports = function (options) {
   } else {
     returnPromise = $.ajax({
       dataType: 'JSON',
-      url: options.server,
+      url,
       data: options.book
     })
       .then(function (data) {
@@ -81,4 +85,12 @@ function generatePlatformURLs(data) {
   ];
 
   return [].concat(frontPages, dynamicPages, backPages);
+}
+
+function trimTrailingSlash(str) {
+  return str.replace(/\/+$/, '');
+}
+
+function trimLeadingSlash(str) {
+  return str.replace(/^\//, '');
 }
