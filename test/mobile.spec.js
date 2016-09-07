@@ -61,15 +61,15 @@ describe('Using TJH monkey on mobile', function () {
   var $monkey, monkey, monkeyData;
   var $container = $('<div />')
     .attr('id', 'monkey')
-    .attr('data-key', 'tjh-book')
-    .attr('data-server', 'https://prod1-platform.lostmy.name/product-builder/tjh/images');
+    .attr('data-key', 'tjh-book');
 
   before(function () {
     monkey = new Monkey($container, {
       monkeyType: 'mobile',
-      platformAPI: true,
       letters: false,
-      server: 'https://prod1-platform.lostmy.name/product-builder/tjh/images',
+      platformAPI: true,
+      server: 'https://prod1-platform.lostmy.name',
+      serverPath: 'product-builder/tjh/images',
       book: {
         name: 'Tal',
         gender: 'boy',
