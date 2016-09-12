@@ -18,7 +18,12 @@ module.exports = function (options) {
   if (!options.platformAPI) {
     returnPromise = $.getJSON(options.server, { book: options.book })
       .then(function (data) {
-        // For backwards compatibility
+        if (!data) {
+          data = {};
+        }
+        if (!data.book) {
+          data.book = {};
+        }
         if (!data.book.spreads) {
           data.book.spreads = 'double';
         }
