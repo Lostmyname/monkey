@@ -1,6 +1,6 @@
 {
   "name": "lmn-monkey",
-  "version": "7.4.1",
+  "version": "8.0.2",
   "description": "",
   "main": "src/js/monkey.js",
   "dependencies": {
@@ -17,7 +17,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.12",
     "gulp": "^3.8.8",
-    "lmn-gulp-tasks": "^6.2.1",
+    "lmn-gulp-tasks": "^7.0.0",
     "lmn.jester.theme.default": "^1.0.0",
     "mocha": "^2.1.0",
     "phantomjs": "^1.9.16",

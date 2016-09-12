@@ -425,12 +425,11 @@ module.exports = function ($events, options, $monkeyContainer) {
      * characters so the new selection can be brought through to the database.
      * @return {null}
      */
-    data.updateCharSelection = function () {
-      var $spans = $spans ||
-                data
-                  .lettersElement
-                  .find('#letters')
-                  .find('.letter:not(.special-char)');
+    data.updateCharSelection = function (event) {
+      var $spans = data
+        .lettersElement
+        .find('#letters')
+        .find('.letter:not(.special-char)');
       var charactersArray = $.map($spans, function (el) {
         var $letter = $(el);
         if ($letter.attr('data-letter')) {
@@ -445,10 +444,13 @@ module.exports = function ($events, options, $monkeyContainer) {
         }
       });
       currentCharacterSelection = charactersArray;
-      $events.trigger('charactersChanged', { characters: charactersArray });
+      $events.trigger(
+        'charactersChanged',
+        Object.assign({}, event, { characters: charactersArray })
+      );
     };
 
-    data.updateCharSelection();
+    data.updateCharSelection({ initial: true });
 
     /**
      * Wrapper function for other functions which all contribute to changing the
