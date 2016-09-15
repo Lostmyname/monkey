@@ -40,7 +40,7 @@ module.exports = function (options) {
         var transformedData = {
           book: {
             spreads: 'single',
-            letters: generatePlatformURLs(data)
+            letters: generatePlatformURLs(data, options)
           }
         };
         return transformedData.book;
@@ -49,7 +49,7 @@ module.exports = function (options) {
   return returnPromise;
 };
 
-function generatePlatformURLs(data) {
+function generatePlatformURLs(data, options) {
   var dynamicPages = data.images.map(function (image) {
     return {
       url: image.url,
@@ -58,38 +58,7 @@ function generatePlatformURLs(data) {
     };
   });
 
-  var frontPages = [
-    {
-      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_FrontCover_RGB.jpg',
-      id: 'front-cover',
-      type: 'static'
-    },
-    {
-      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_Cover_RGB_FrontInsideCover_RGB.jpg',
-      id: 'front-cover-inside',
-      type: 'static'
-    }
-  ];
-
-  var backPages = [
-    {
-      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BarcodePage_RGB.jpg',
-      id: 'back-cover',
-      type: 'static'
-    },
-    {
-      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BackInsideCover_RGB.jpg',
-      id: 'back-cover',
-      type: 'static'
-    },
-    {
-      url: 'https://tjh-preview-images.imgix.net/TheJourneyHome_BackCover_RGB.jpg',
-      id: 'back-cover',
-      type: 'static'
-    }
-  ];
-
-  return [].concat(frontPages, dynamicPages, backPages);
+  return [].concat(options.frontPages || [], dynamicPages, options.backPages || []);
 }
 
 function trimTrailingSlash(str) {
