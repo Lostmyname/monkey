@@ -5,6 +5,34 @@ var $ = require('jquery');
 var Heidelberg = require('heidelberg');
 var nums = require('nums');
 
+(function () {
+  var lastTime = 0;
+  var vendors = ['ms', 'moz', 'webkit', 'o'];
+  for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+      || window[vendors[x]+'CancelRequestAnimationFrame'];
+  }
+
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = function (callback) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+      var id = window.setTimeout(function () {
+        callback(currTime + timeToCall);
+      }, timeToCall);
+      lastTime = currTime + timeToCall;
+      return id;
+    };
+  }
+
+  if (!window.cancelAnimationFrame) {
+    window.cancelAnimationFrame = function (id) {
+      clearTimeout(id);
+    };
+  }
+})();
+
 var desktop = module.exports = {};
 
 desktop.calculateSize = function () {
@@ -65,6 +93,8 @@ desktop.init = function (data, $events, options) {
     bookNavType = 'original';
   }
 
+  data.drawPage;
+
   data.heidelberg = new Heidelberg(data.html.find('.Heidelberg-Book'), {
     arrowKeys: false,
     hasSpreads: (data.spreads === 'double'),
@@ -99,8 +129,6 @@ desktop.init = function (data, $events, options) {
 
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, $el, els) {
     var index = els.pages.index(els.pagesTarget);
-    $events.trigger('pageTurn', index);
-
     var bookProgress = index / els.pages.length;
     if (bookProgress > maxBookProgress) {
       maxBookProgress = bookProgress;
@@ -108,6 +136,10 @@ desktop.init = function (data, $events, options) {
         progress: maxBookProgress,
         bookNavType: bookNavType });
     }
+    $events.trigger('pageTurn', {
+      monkeyType: data.container.parent().attr('data-book'),
+      index: (index + 1) / 2
+    });
 
     $el.toggleClass('at-front-cover', !index);
     $el.toggleClass('at-rear-cover', index === els.pages.length - (options.perPage / 2));
@@ -129,11 +161,15 @@ desktop.letterHandler = function (data, $events, options) {
   var lastIndex = 0;
 
   $(data.heidelberg).on('pageTurn.heidelberg', function (e, el, els) {
+    var newLastIndex = (els.pagesTarget.index() - 3) / 4;
+    if (options.perPage === 2) {
+      newLastIndex = (els.pagesTarget.index() + 1) / 2;
+    }
     if (fireEvent) {
       // buddy ignore:start
       var index = (els.pagesTarget.index() - 1) / 2;
       $events.trigger('letterChange', index);
-      lastIndex = (els.pagesTarget.index() - 3) / 4;
+      lastIndex = newLastIndex;
       // buddy ignore:end
     }
   });
@@ -145,7 +181,6 @@ desktop.letterHandler = function (data, $events, options) {
 
   return function turnToPage(index) {
     fireEvent = false;
-
     // If already on the page, flip to the other page in the pair
     if (index === lastIndex) {
       index += index % 1 ? -0.5 : 0.5;
@@ -154,7 +189,6 @@ desktop.letterHandler = function (data, $events, options) {
     var PER_PAGE = options.perPage;
     var indexes = nums((lastIndex + 1) * PER_PAGE, (index + 1) * PER_PAGE);
     var doubleSpeed = (indexes.length > 10);
-
     index = Math.round(index);
 
     // If index ends .5, doubleSpeed doesn't work. Tbh I'm not sure why.
@@ -166,20 +200,53 @@ desktop.letterHandler = function (data, $events, options) {
     var DEFAULT_TIME = 30;
     var time = DEFAULT_TIME / (doubleSpeed ? 2 : 1);
 
-    // This ensures that the event is only fired for the last page turn
-    setTimeout(function () {
-      fireEvent = true;
-    }, (indexes.length - 1) * time);
-
+    var currentTime = Date.now();
+    var indexObject = [];
+    /*
+     * Loop through the indexes array to create a new array containing objects of the page index to turn to,
+     * the time from the start when the pageTurn should occur, and a flag to determine whether the event has fired.
+     */
     $.each(indexes, function (i, index) {
       // Happen only every 2 or 4 times
       if (!options.slider && index % (PER_PAGE / (doubleSpeed ? 2 : 1))) {
         return;
       }
-
-      setTimeout(function () {
-        data.heidelberg.turnPage(Math.round(index) - 1);
-      }, i * time);
+      indexObject.push({
+        pageIndex: Math.round(index) -1,
+        time: i * time,
+        hasFired: false
+      });
     });
+
+    /**
+     * A rAF animation to turn the pages of the book, as the setTimeout method wasn't being very performant
+     * @param  {object} manifest The object of indexes & times for when to fire the pages
+     * @return {null}
+     */
+    function turnPages(manifest) {
+      var newTime = Date.now();
+      var canRun = true;
+      $.each(manifest, function (i, obj) {
+        if (newTime - currentTime > obj.time && !obj.hasFired) {
+          data.heidelberg.turnPage(obj.pageIndex);
+          // This ensures that the event is only fired for the last page turn
+          if (i === manifest.length - 2) {
+            fireEvent = true;
+          }
+          // If we're on the final page, we want to cancel the animation frame so it's not running constantly,
+          // which could cause issues when trying to run this function again if you turn pages more than once.
+          if (i === manifest.length - 1) {
+            canRun = false;
+            cancelAnimationFrame(data.drawPage);
+          }
+          obj.hasFired = true;
+        }
+      });
+      if (canRun) {
+        data.drawPage = requestAnimationFrame(turnPages.bind(this, manifest));
+      }
+    }
+
+    turnPages(indexObject);
   };
 };

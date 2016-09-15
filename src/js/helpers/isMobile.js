@@ -17,5 +17,5 @@ module.exports = function () {
     return false;
   }
 
-  return window.matchMedia('(max-width: 800px)').matches;
+  return window.matchMedia('(max-width: 777px)').matches;
 };
