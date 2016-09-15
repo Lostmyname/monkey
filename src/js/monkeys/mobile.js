@@ -61,8 +61,7 @@ mobile.init = function (data, $events) {
   $monkeyParent.addClass('mobile');
   var hasSingleSpreads = data.spreads === 'single';
   var RATIO = this.Monkey.IMAGE_RATIO;
-  // If it's the TJH book, we want to enable animating when using the turnToPage function
-  data.animateToPage = $monkeyParent.attr('data-key') === 'tjh-book';
+  data.animateToPage = false;
 
   $window.on('orientationchange resize', setWidths);
   var $page = $('.page');
@@ -201,6 +200,9 @@ mobile.letterHandler = function (data, $events) {
 
   // index is the letter index
   return function turnToPage(index) {
+    if (index !== 0) {
+      data.html.stop();
+    }
     var $pages = data.html.find('.page');
     var factor = data.spreads === 'single' ? index : (index * 2 + 1);
     var $page = $pages.eq(factor);
