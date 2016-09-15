@@ -53,24 +53,27 @@ mobile.generateHtml = function (data, lang) {
 mobile.init = function (data, $events) {
   var windowLeft = 0;
   var maxProgress = 0;
+  var currentIndex = 0;
   ++numberOfMonkeys;
 
   var $monkey = data.html;
   var $monkeyParent = $monkey.parents('#monkey');
   $monkeyParent.addClass('mobile');
+  var hasSingleSpreads = data.spreads === 'single';
   var RATIO = this.Monkey.IMAGE_RATIO;
   // If it's the TJH book, we want to enable animating when using the turnToPage function
   data.animateToPage = $monkeyParent.attr('data-key') === 'tjh-book';
 
   $window.on('orientationchange resize', setWidths);
+  var $page = $('.page');
+  var numOfPages = $page.length;
+
   setTimeout(setWidths);
 
   function setWidths() {
     var width = $window.width() * widthModifier;
     var height = Math.ceil(width / RATIO);
-    var $page = $('.page');
-
-    $('.landscape-images-inner').width(width * ($page.length + 1));
+    $('.landscape-images-inner').width(width * (numOfPages + 1));
 
     $page.children('img').css({
       height: height,
@@ -82,19 +85,34 @@ mobile.init = function (data, $events) {
       .find('img').css('height', height);
 
     if (data.spreads === 'single') {
-      $('.page-halfwidth img').css('width', width / 2);
+      $('.page-halfwidth img').css('width', Math.ceil(width / 2));
     }
 
     $monkey.scrollLeft($monkey.find('img').width() * windowLeft);
   }
 
   $monkey.on('scroll', function () {
-
+    var width = $window.width() * widthModifier;
+    if (hasSingleSpreads) {
+      width = (width / 2) + 6;
+    }
     var scrollLeft = $monkey.scrollLeft();
-    var index = scrollLeft / $monkey.find('.landscape-images-inner').width();
-    if (index > maxProgress) {
-      maxProgress = index;
-      $events.trigger('bookprogress', { progress: index });
+    var progress = scrollLeft / $monkey.find('.landscape-images-inner').width();
+    var index = (Math.floor(scrollLeft / width) * width) / (width * numOfPages) * numOfPages;
+
+    if (progress > maxProgress) {
+      maxProgress = progress;
+      $events.trigger('bookprogress', {
+        progress: progress
+      });
+    }
+
+    if (currentIndex !== index) {
+      $events.trigger('pageTurn', {
+        monkeyType: $monkeyParent.parent().attr('data-book'),
+        index: index
+      });
+      currentIndex = index;
     }
 
     windowLeft = scrollLeft / $monkey.find('img').width();
