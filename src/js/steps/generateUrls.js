@@ -22,8 +22,8 @@ module.exports = function (options) {
    */
   return function (data) {
     var width;
-    var size = options.imageWidth || monkeys[data.monkeyType].calculateSize(data);
-    var dpr = window.devicePixelRatio || 1;
+    var size = monkeys[data.monkeyType].calculateSize(data);
+    var dpr = window.devicePixelRatio > 1 ? 2 : 1;
 
     if (data.spreads === 'single') {
       size /= 2;

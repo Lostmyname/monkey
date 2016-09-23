@@ -67,19 +67,20 @@
         return data;
       });
 
-    var generateUrls = (this.options.platformAPI)
-      ? Monkey._generatePlatformUrls(options)
-      : Monkey._generateUrls(options);
-
-    promise = promise.then(generateUrls);
-
     if (options.letters || this.options.platformAPI) {
       promise = promise
         .then(Monkey._generateBaseElement($monkeyContainer, options));
     }
 
     promise = promise
-      .then(Monkey._generateBaseWrapperElement($monkeyContainer, options))
+      .then(Monkey._generateBaseWrapperElement($monkeyContainer, options));
+
+    var generateUrls = (this.options.platformAPI)
+      ? Monkey._generatePlatformUrls(options)
+      : Monkey._generateUrls(options);
+
+    promise = promise
+      .then(generateUrls)
       .then(Monkey._generateHtml(options.lang));
 
     if (options.letters) {
