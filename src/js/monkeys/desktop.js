@@ -35,9 +35,8 @@ var nums = require('nums');
 
 var desktop = module.exports = {};
 
-desktop.calculateSize = function () {
-  var MAX_WIDTH = 1280;
-  return Math.min($(window).width(), MAX_WIDTH);
+desktop.calculateSize = function (data) {
+  return Math.round(data.$monkeyWrapper.width());
 };
 
 /**
