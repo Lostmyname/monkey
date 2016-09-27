@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var blankLetterCheck = require('../../helpers/blankLetterCheck');
 // var isMobile = require('../../helpers/isMobile')();
 
 // The minimum length for a name is 4 not including a space or -
@@ -54,7 +55,7 @@ module.exports = function (options) {
 
     // If name short, add blank letter for extra story
     var paddedLetters = $.map(letters, function (el) {
-      if (el !== '' && el !== '-' && el !== ' ') {
+      if (!blankLetterCheck.test(el)) {
         return el;
       }
     });
@@ -86,8 +87,7 @@ module.exports = function (options) {
     var loadLetterCards = function () {
       $(combinedLetters).each(function (i, letter) {
         var $letterDiv = $('<div />');
-
-        if (letter.letter === ' ' || letter.letter === '-') {
+        if (blankLetterCheck.test(letter.letter)) {
           $letterDiv.addClass('special-char nonclickable');
         }
 
@@ -186,7 +186,7 @@ function combineLetters(splitLetters, dataLetters) {
     dataLetters[idx].changed =
       dataLetters[idx].selected !== dataLetters[idx].default_character;
 
-    if (val === '-' || val === ' ') {
+    if (blankLetterCheck.test(val)) {
       offset++;
       return { letter: val };
     }
