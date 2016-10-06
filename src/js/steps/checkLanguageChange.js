@@ -17,7 +17,7 @@ module.exports = function ($monkeyContainer, options) {
     delete options.book.characterSelection;
     $monkeyContainer.data('character-selection', null);
     options.clearSelection = true;
-    if (options.showCharPicker && $monkeyContainer.data('changedChars')) {
+    if (!options.showCharPicker && $monkeyContainer.data('changedChars')) {
       options.showLanguageOverlay = true;
     }
     $monkeyContainer.data('locale', options.book.locale);
