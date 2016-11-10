@@ -45,7 +45,11 @@ module.exports = function (options) {
       .attr('id', 'letters');
 
     // This checks for Eszett character and replaces it with double S's
-    var letters = data.name.replace(/ß/g, 'SS').split('');
+    // Removes apostrophes
+    var letters = data.name
+      .replace(/ß/g, 'SS')
+      .replace(/\'/g, '')
+      .split('');
 
     // Get the total letters, by finding just the first part of each letter
     var dataLetters = $(data.letters).filter(function (i, letter) {
