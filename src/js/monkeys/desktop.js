@@ -54,7 +54,7 @@ desktop.generateHtml = function (data, lang) {
 
   $('<a />', {
     href: '#skip-preview',
-    className: 'for-screen-reader'
+    class: 'for-screen-reader'
   })
     .text('Skip book preview')
     .appendTo(data.$monkeyWrapper);
